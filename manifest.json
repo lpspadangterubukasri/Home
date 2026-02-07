@@ -1,0 +1,15 @@
+{
+  "name": "LPS PADANG TERUBUK ASRI",
+  "short_name": "LPS-PA",
+  "start_url": "/Home/",
+  "display": "standalone",
+  "background_color": "#0a1e33",
+  "theme_color": "#0a1e33",
+  "icons": [
+    {
+      "src": "data/foto/logoaplikasi.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}

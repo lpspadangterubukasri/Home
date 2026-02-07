@@ -45,8 +45,13 @@
             --dark: #0a2d3e;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
-            --card-bg: linear-gradient(145deg, #ffffff, #f0f8fa);
-            --card-shadow: 0 15px 35px rgba(26, 95, 122, 0.08);
+            --card-bg: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+            --card-shadow: 0 15px 35px rgba(21, 152, 149, 0.12);
+            --green-light: #e8f5e9;
+            --green-medium: #c8e6c9;
+            --green-dark: #388e3c;
+            --blue-light: #e3f2fd;
+            --blue-medium: #bbdefb;
         }
         
         * {
@@ -78,17 +83,18 @@
             padding: 0 20px;
         }
         
-        /* Header Styles - REVISI MOBILE FIX */
+        /* Header Styles */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.98);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 245, 233, 0.95));
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             transition: var(--transition);
+            border-bottom: 1px solid rgba(200, 230, 201, 0.5);
         }
         
         .header-content {
@@ -178,7 +184,7 @@
             left: 0;
             width: 0;
             height: 3px;
-            background-color: var(--primary);
+            background: linear-gradient(to right, var(--accent), var(--secondary));
             transition: var(--transition);
         }
         
@@ -206,6 +212,7 @@
             transition: var(--transition);
             z-index: 100;
             padding: 15px 0;
+            border: 1px solid rgba(200, 230, 201, 0.3);
         }
         
         .dropdown:hover .dropdown-content {
@@ -224,37 +231,73 @@
         }
         
         .dropdown-content a:hover {
-            background-color: rgba(26, 95, 122, 0.08);
+            background: linear-gradient(90deg, rgba(232, 245, 233, 0.5), rgba(200, 230, 201, 0.3));
             color: var(--primary);
             padding-left: 25px;
         }
         
-        /* Mobile Navigation - REVISI FIX */
+        /* Mobile Navigation - REVISI PREMIUM */
         .mobile-nav-toggle {
             display: none;
             background: none;
             border: none;
             cursor: pointer;
-            width: 32px;
-            height: 32px;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 0;
+            width: 40px;
+            height: 40px;
+            position: relative;
             z-index: 1002;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(87, 197, 182, 0.2);
+            transition: var(--transition);
+        }
+        
+        .mobile-nav-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(87, 197, 182, 0.3);
         }
         
         .mobile-nav-toggle span {
             display: block;
-            width: 100%;
-            height: 3px;
-            background-color: var(--primary);
-            border-radius: 3px;
+            width: 24px;
+            height: 2px;
+            background-color: white;
+            border-radius: 2px;
             transition: var(--transition);
+            position: absolute;
+            left: 8px;
+        }
+        
+        .mobile-nav-toggle span:nth-child(1) {
+            top: 12px;
+        }
+        
+        .mobile-nav-toggle span:nth-child(2) {
+            top: 19px;
+        }
+        
+        .mobile-nav-toggle span:nth-child(3) {
+            top: 26px;
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 19px;
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 19px;
         }
         
         @media (max-width: 1100px) {
             .mobile-nav-toggle {
-                display: flex;
+                display: block;
             }
         }
         
@@ -265,13 +308,14 @@
             width: 85%;
             max-width: 320px;
             height: 100vh;
-            background-color: var(--white);
+            background: linear-gradient(135deg, #ffffff, #f1f8e9);
             box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
             z-index: 1001;
             transition: var(--transition);
-            padding: 80px 25px 25px;
+            padding: 90px 25px 25px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            border-left: 1px solid rgba(200, 230, 201, 0.5);
         }
         
         .mobile-nav.active {
@@ -280,18 +324,24 @@
         
         .mobile-nav a {
             display: block;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
+            padding: 18px 20px;
+            border-radius: 10px;
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
             transition: var(--transition);
-            font-size: 1rem;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         }
         
         .mobile-nav a:hover {
             color: var(--primary);
-            padding-left: 10px;
+            background: linear-gradient(90deg, rgba(232, 245, 233, 0.7), rgba(200, 230, 201, 0.5));
+            transform: translateX(-5px);
+            border-color: rgba(87, 197, 182, 0.3);
         }
         
         .mobile-dropdown-content {
@@ -314,10 +364,12 @@
         .mobile-dropdown-toggle i {
             transition: var(--transition);
             font-size: 0.9rem;
+            color: var(--accent);
         }
         
         .mobile-dropdown-toggle.active i {
             transform: rotate(180deg);
+            color: var(--primary);
         }
         
         .overlay {
@@ -331,6 +383,7 @@
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
+            backdrop-filter: blur(3px);
         }
         
         .overlay.active {
@@ -338,7 +391,7 @@
             visibility: visible;
         }
         
-        /* Hero Section - REVISI MOBILE */
+        /* Hero Section - REVISI ANIMASI PREMIUM */
         .hero {
             position: relative;
             height: 100vh;
@@ -383,7 +436,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(10, 45, 62, 0.7), rgba(26, 95, 122, 0.8));
+            background: linear-gradient(135deg, rgba(26, 95, 122, 0.85), rgba(21, 152, 149, 0.9));
             z-index: -1;
         }
         
@@ -394,27 +447,44 @@
         }
         
         .hero h2 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            font-weight: 800;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             line-height: 1.2;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ffffff, #a5d6a7, #80deea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGlow 3s ease-in-out infinite alternate;
         }
         
-        @media (min-width: 768px) {
-            .hero h2 {
-                font-size: 3rem;
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 20px rgba(165, 214, 167, 0.5), 0 0 40px rgba(128, 222, 234, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 30px rgba(165, 214, 167, 0.8), 0 0 50px rgba(128, 222, 234, 0.5), 0 0 60px rgba(128, 222, 234, 0.3);
             }
         }
         
-        @media (min-width: 992px) {
+        @media (min-width: 768px) {
             .hero h2 {
                 font-size: 3.5rem;
             }
         }
         
+        @media (min-width: 992px) {
+            .hero h2 {
+                font-size: 4rem;
+                letter-spacing: 3px;
+            }
+        }
+        
         .hero p {
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin-bottom: 40px;
             max-width: 700px;
             margin-left: auto;
@@ -422,11 +492,23 @@
             text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
             line-height: 1.6;
             padding: 0 10px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         @media (min-width: 768px) {
             .hero p {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
         }
         
@@ -435,6 +517,7 @@
             gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.8s both;
         }
         
         .btn {
@@ -448,6 +531,23 @@
             cursor: pointer;
             border: none;
             min-width: 160px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
         }
         
         @media (min-width: 768px) {
@@ -458,32 +558,35 @@
         }
         
         .btn-primary {
-            background-color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
             color: var(--white);
-            box-shadow: 0 5px 15px rgba(87, 197, 182, 0.3);
-        }
-        
-        .btn-primary:hover {
-            background-color: #45b0a1;
-            transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(87, 197, 182, 0.4);
         }
         
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #45b0a1, #128b87);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(87, 197, 182, 0.6);
+        }
+        
         .btn-secondary {
-            background-color: transparent;
+            background: transparent;
             color: var(--white);
             border: 2px solid var(--white);
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.1);
         }
         
         .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.05);
+            border-color: rgba(255, 255, 255, 0.8);
         }
         
-        /* Stats Section - REVISI MOBILE */
+        /* Stats Section - REVISI WARNA HIJAU */
         .stats-section {
             padding: 60px 0;
-            background-color: var(--white);
+            background: linear-gradient(135deg, var(--light), #e8f5e9);
             width: 100%;
             overflow: hidden;
         }
@@ -497,6 +600,7 @@
         .stats-container {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 30px;
             margin-top: 30px;
         }
@@ -504,6 +608,7 @@
         @media (min-width: 768px) {
             .stats-container {
                 flex-direction: row;
+                justify-content: center;
                 gap: 40px;
                 margin-top: 50px;
             }
@@ -511,31 +616,32 @@
         
         .stats-box {
             width: 100%;
+            max-width: 500px;
             background: var(--card-bg);
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 30px 20px;
             box-shadow: var(--card-shadow);
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(200, 230, 201, 0.8);
             transition: var(--transition);
         }
         
         @media (min-width: 768px) {
             .stats-box {
                 padding: 50px 40px;
-                border-radius: 20px;
+                border-radius: 25px;
             }
         }
         
         .stats-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(26, 95, 122, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
         }
         
         .stats-box h3 {
             font-size: 1.4rem;
             margin-bottom: 25px;
-            color: var(--primary);
+            color: var(--green-dark);
             position: relative;
             padding-bottom: 15px;
         }
@@ -555,15 +661,15 @@
             left: 50%;
             transform: translateX(-50%);
             width: 80px;
-            height: 3px;
-            background: linear-gradient(to right, var(--accent), var(--secondary));
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--green-dark));
             border-radius: 3px;
         }
         
         @media (min-width: 768px) {
             .stats-box h3::after {
                 width: 100px;
-                height: 4px;
+                height: 5px;
             }
         }
         
@@ -581,30 +687,34 @@
         
         .stat-item {
             padding: 15px 10px;
-            background: linear-gradient(145deg, #ffffff, #f8fcfd);
-            border-radius: 10px;
+            background: linear-gradient(145deg, #ffffff, #f1f8e9);
+            border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
             transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         
         @media (min-width: 768px) {
             .stat-item {
                 padding: 25px 20px;
-                border-radius: 15px;
+                border-radius: 20px;
             }
         }
         
         .stat-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.08);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
             background: linear-gradient(145deg, #ffffff, #ffffff);
         }
         
         .stat-number {
             font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
+            font-weight: 800;
+            color: var(--green-dark);
             margin-bottom: 5px;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
@@ -621,6 +731,7 @@
             color: #555;
             font-weight: 500;
             line-height: 1.3;
+            text-align: center;
         }
         
         @media (min-width: 768px) {
@@ -629,10 +740,10 @@
             }
         }
         
-        /* Map Section - REVISI MOBILE FIX */
+        /* Map Section - REVISI DRAG & LEGENDA MINIMIZE */
         .map-section {
             padding: 60px 0;
-            background-color: #f9fdfe;
+            background: linear-gradient(135deg, #f1f8e9, #e8f5e9);
             width: 100%;
             overflow: hidden;
         }
@@ -646,7 +757,7 @@
         .section-title {
             text-align: center;
             margin-bottom: 40px;
-            color: var(--primary);
+            color: var(--green-dark);
             position: relative;
             padding-bottom: 15px;
             font-size: 1.8rem;
@@ -670,7 +781,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(to right, var(--accent), var(--secondary));
+            background: linear-gradient(to right, var(--accent), var(--green-dark));
             border-radius: 3px;
         }
         
@@ -685,24 +796,40 @@
             position: relative;
             width: 100%;
             height: 500px;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg);
         }
         
         @media (min-width: 768px) {
             .map-container {
                 height: 800px;
-                border-radius: 20px;
+                border-radius: 25px;
             }
         }
         
-        .map-image {
+        .map-wrapper {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            overflow: auto;
+            cursor: grab;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .map-wrapper:active {
+            cursor: grabbing;
+        }
+        
+        .map-image {
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            min-width: 100%;
+            min-height: 100%;
+            display: block;
             transition: transform 0.5s ease;
-            cursor: pointer;
         }
         
         .map-overlay {
@@ -712,13 +839,14 @@
             left: 20px;
             background: var(--card-bg);
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 15px;
             box-shadow: var(--card-shadow);
             max-width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(200, 230, 201, 0.8);
             max-height: 400px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            z-index: 10;
         }
         
         @media (min-width: 768px) {
@@ -728,27 +856,68 @@
                 right: 40px;
                 left: auto;
                 max-width: 350px;
-                max-height: none;
-                overflow-y: visible;
-                padding: 30px;
-                border-radius: 15px;
+                max-height: 500px;
+                overflow-y: auto;
+                padding: 25px;
+                border-radius: 20px;
             }
         }
         
-        .map-overlay h4 {
-            margin-bottom: 20px;
-            color: var(--primary);
+        .legend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .legend-header h4 {
+            margin: 0;
+            color: var(--green-dark);
             font-size: 1.2rem;
             border-bottom: 2px solid var(--accent);
             padding-bottom: 8px;
         }
         
         @media (min-width: 768px) {
-            .map-overlay h4 {
+            .legend-header h4 {
                 font-size: 1.4rem;
-                margin-bottom: 25px;
                 padding-bottom: 10px;
             }
+        }
+        
+        .toggle-legend {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .toggle-legend:hover {
+            background: rgba(87, 197, 182, 0.1);
+        }
+        
+        .legend-content {
+            transition: var(--transition);
+            overflow: hidden;
+        }
+        
+        .legend-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+        
+        .legend-content.expanded {
+            max-height: 1000px;
+            opacity: 1;
         }
         
         .legend-item {
@@ -855,10 +1024,10 @@
             }
         }
         
-        /* About Section - REVISI MOBILE */
+        /* About Section - REVISI WARNA HIJAU */
         .about-section {
             padding: 60px 0;
-            background-color: var(--white);
+            background: linear-gradient(135deg, var(--light), #e8f5e9);
             width: 100%;
             overflow: hidden;
         }
@@ -879,31 +1048,35 @@
         @media (min-width: 768px) {
             .about-container {
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-                gap: 50px;
+                gap: 40px;
                 margin-top: 50px;
             }
         }
         
         .about-box {
             background: var(--card-bg);
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 30px 20px;
             box-shadow: var(--card-shadow);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(200, 230, 201, 0.8);
             transition: var(--transition);
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
         }
         
         @media (min-width: 768px) {
             .about-box {
-                padding: 50px 40px;
-                border-radius: 20px;
+                padding: 40px 30px;
+                border-radius: 25px;
             }
         }
         
         .about-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(26, 95, 122, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
         }
         
         .about-header {
@@ -922,9 +1095,10 @@
             width: 50px;
             height: 50px;
             margin-right: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             flex-shrink: 0;
+            border: 2px solid rgba(200, 230, 201, 0.5);
         }
         
         @media (min-width: 768px) {
@@ -937,7 +1111,7 @@
         
         .about-title h4 {
             font-size: 1.3rem;
-            color: var(--primary);
+            color: var(--green-dark);
             margin-bottom: 5px;
         }
         
@@ -950,7 +1124,7 @@
         
         .about-title p {
             font-size: 0.9rem;
-            color: #777;
+            color: #666;
         }
         
         @media (min-width: 768px) {
@@ -961,11 +1135,12 @@
         
         .contact-info {
             margin-top: 20px;
+            flex-grow: 1;
         }
         
         @media (min-width: 768px) {
             .contact-info {
-                margin-top: 30px;
+                margin-top: 25px;
             }
         }
         
@@ -974,20 +1149,22 @@
             align-items: flex-start;
             margin-bottom: 15px;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             transition: var(--transition);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(200, 230, 201, 0.5);
         }
         
         @media (min-width: 768px) {
             .contact-item {
-                margin-bottom: 25px;
+                margin-bottom: 20px;
                 padding: 15px;
-                border-radius: 10px;
             }
         }
         
         .contact-item:hover {
-            background-color: rgba(87, 197, 182, 0.05);
+            background: linear-gradient(90deg, rgba(232, 245, 233, 0.8), rgba(200, 230, 201, 0.6));
+            transform: translateX(5px);
         }
         
         .contact-item i {
@@ -1011,6 +1188,7 @@
         .contact-item div {
             flex: 1;
             font-size: 0.9rem;
+            line-height: 1.5;
         }
         
         @media (min-width: 768px) {
@@ -1022,23 +1200,24 @@
         .map-frame {
             width: 100%;
             height: 250px;
-            border-radius: 10px;
+            border-radius: 15px;
             border: none;
             margin-top: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(200, 230, 201, 0.5);
         }
         
         @media (min-width: 768px) {
             .map-frame {
-                height: 350px;
-                border-radius: 15px;
+                height: 300px;
+                border-radius: 20px;
                 margin-top: 25px;
             }
         }
         
-        /* Footer - REVISI MOBILE */
+        /* Footer - REVISI */
         footer {
-            background: linear-gradient(145deg, var(--dark), #0c384f);
+            background: linear-gradient(135deg, var(--dark), #0c384f);
             color: var(--white);
             padding: 40px 0 20px;
             text-align: center;
@@ -1113,13 +1292,13 @@
             }
         }
         
-        /* Install App Banner - REVISI MOBILE */
+        /* Install App Banner - REVISI */
         .install-banner {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(145deg, var(--primary), #1a5f7a);
+            background: linear-gradient(135deg, var(--primary), #1a5f7a);
             color: white;
             padding: 15px 20px;
             display: flex;
@@ -1130,6 +1309,7 @@
             transform: translateY(100%);
             transition: transform 0.5s ease;
             box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            border-top: 2px solid var(--accent);
         }
         
         @media (min-width: 768px) {
@@ -1163,16 +1343,17 @@
         .install-icon {
             width: 40px;
             height: 40px;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             flex-shrink: 0;
+            border: 2px solid var(--accent);
         }
         
         @media (min-width: 768px) {
             .install-icon {
                 width: 50px;
                 height: 50px;
-                border-radius: 10px;
+                border-radius: 12px;
             }
         }
         
@@ -1228,13 +1409,15 @@
         .install-btn {
             padding: 10px 20px;
             border-radius: 50px;
-            background-color: var(--accent);
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
             color: white;
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
             transition: var(--transition);
             white-space: nowrap;
+            border: none;
+            cursor: pointer;
         }
         
         @media (min-width: 768px) {
@@ -1245,7 +1428,8 @@
         }
         
         .install-btn:hover {
-            background-color: #45b0a1;
+            background: linear-gradient(135deg, #45b0a1, #128b87);
+            transform: translateY(-3px);
         }
         
         .close-banner {
@@ -1261,6 +1445,7 @@
             align-items: center;
             justify-content: center;
             transition: var(--transition);
+            border-radius: 50%;
         }
         
         @media (min-width: 768px) {
@@ -1273,7 +1458,6 @@
         
         .close-banner:hover {
             background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
         }
         
         /* Utility Classes */
@@ -1292,7 +1476,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header - REVISI MOBILE FIX -->
+    <!-- Header -->
     <header>
         <div class="header-content">
             <div class="logo-container">
@@ -1320,7 +1504,7 @@
                 <a href="#kontak">Kontak</a>
             </nav>
             
-            <!-- Mobile Navigation Toggle -->
+            <!-- Mobile Navigation Toggle - REVISI PREMIUM -->
             <button class="mobile-nav-toggle" id="mobileToggle">
                 <span></span>
                 <span></span>
@@ -1362,7 +1546,7 @@
         </div>
         
         <div class="container hero-content">
-            <h2>LPS Padang Terubuk Asri</h2>
+            <h2>LPS PADANG TERUBUK ASRI</h2>
             <p>Lembaga Pengelola Sampah resmi Kelurahan Padang Terubuk yang berkomitmen menciptakan lingkungan bersih, sehat, dan asri melalui pengelolaan sampah terpadu.</p>
             <div class="hero-buttons">
                 <a href="#kontak" class="btn btn-primary">Buka Pelayanan</a>
@@ -1428,60 +1612,69 @@
         <div class="container">
             <h2 class="section-title">Peta Wilayah Kerja LPS</h2>
             <div class="map-container">
-                <img src="data/foto/peta-wilayah.png" alt="Peta Wilayah Kerja LPS Padang Terubuk Asri" class="map-image" id="mapImage">
+                <div class="map-wrapper" id="mapWrapper">
+                    <img src="data/foto/peta-wilayah.png" alt="Peta Wilayah Kerja LPS Padang Terubuk Asri" class="map-image" id="mapImage">
+                </div>
                 <div class="map-overlay">
-                    <h4>Legenda Peta Wilayah</h4>
-                    <div class="legend-item">
-                        <div class="legend-color color-1"></div>
-                        <div class="legend-text">Batas Wilayah Kelurahan</div>
+                    <div class="legend-header">
+                        <h4>Legenda Peta Wilayah</h4>
+                        <button class="toggle-legend" id="toggleLegend">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-color color-2"></div>
-                        <div class="legend-text">Jalur Bentor 1</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color color-3"></div>
-                        <div class="legend-text">Jalur Bentor 2</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color color-4"></div>
-                        <div class="legend-text">Wilayah Perumahan/Komplek</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color color-5"></div>
-                        <div class="legend-text">RW. 001</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color color-6"></div>
-                        <div class="legend-text">RW. 002</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color color-7"></div>
-                        <div class="legend-text">RW. 003</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color color-8"></div>
-                        <div class="legend-text">RW. 004</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color color-9"></div>
-                        <div class="legend-text">RW. 005</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color color-10"></div>
-                        <div class="legend-text">RW. 006</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-icon" style="color: #ff1493;">
-                            <i class="fas fa-building"></i>
+                    <div class="legend-content expanded" id="legendContent">
+                        <div class="legend-item">
+                            <div class="legend-color color-1"></div>
+                            <div class="legend-text">Batas Wilayah Kelurahan</div>
                         </div>
-                        <div class="legend-text">Kantor Sekretariat LPS</div>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-icon" style="color: #32cd32;">
-                            <i class="fas fa-recycle"></i>
+                        <div class="legend-item">
+                            <div class="legend-color color-2"></div>
+                            <div class="legend-text">Jalur Bentor 1</div>
                         </div>
-                        <div class="legend-text">Bank Sampah LPS</div>
+                        <div class="legend-item">
+                            <div class="legend-color color-3"></div>
+                            <div class="legend-text">Jalur Bentor 2</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-4"></div>
+                            <div class="legend-text">Wilayah Perumahan/Komplek</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-5"></div>
+                            <div class="legend-text">RW. 001</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-6"></div>
+                            <div class="legend-text">RW. 002</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-7"></div>
+                            <div class="legend-text">RW. 003</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-8"></div>
+                            <div class="legend-text">RW. 004</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-9"></div>
+                            <div class="legend-text">RW. 005</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-10"></div>
+                            <div class="legend-text">RW. 006</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-icon" style="color: #ff1493;">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="legend-text">Kantor Sekretariat LPS</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-icon" style="color: #32cd32;">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="legend-text">Bank Sampah LPS</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1537,21 +1730,21 @@
                 </div>
                 
                 <div class="about-box">
-                    <h3 style="color: var(--primary); margin-bottom: 20px;">Informasi LPS</h3>
+                    <h3 style="color: var(--green-dark); margin-bottom: 20px;">Informasi LPS</h3>
                     <ul style="list-style-type: none;">
-                        <li style="padding: 12px 0; border-bottom: 1px solid #eee;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);">
                             <a href="#sejarah" style="text-decoration: none; color: #333; display: flex; align-items: center;">
                                 <i class="fas fa-book" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
                                 Sejarah LPS
                             </a>
                         </li>
-                        <li style="padding: 12px 0; border-bottom: 1px solid #eee;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);">
                             <a href="#struktur" style="text-decoration: none; color: #333; display: flex; align-items: center;">
                                 <i class="fas fa-sitemap" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
                                 Struktur LPS
                             </a>
                         </li>
-                        <li style="padding: 12px 0; border-bottom: 1px solid #eee;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);">
                             <a href="#angkutan" style="text-decoration: none; color: #333; display: flex; align-items: center;">
                                 <i class="fas fa-truck" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
                                 Data Angkutan
@@ -1567,7 +1760,7 @@
                 </div>
                 
                 <div class="about-box">
-                    <h3 style="color: var(--primary); margin-bottom: 20px;">Lokasi Kantor</h3>
+                    <h3 style="color: var(--green-dark); margin-bottom: 20px;">Lokasi Kantor</h3>
                     <p>Kantor LPS Padang Terubuk Asri terletak di Jalan Melur No. 4, Kelurahan Padang Terubuk. Silakan kunjungi kami selama jam kerja atau hubungi terlebih dahulu untuk janji temu.</p>
                     
                     <iframe 
@@ -1621,12 +1814,14 @@
         const mobileDropdownContent = document.getElementById('mobileDropdownContent');
         
         mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
             mobileNav.classList.toggle('active');
             overlay.classList.toggle('active');
             document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
         });
         
         overlay.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
             mobileNav.classList.remove('active');
             overlay.classList.remove('active');
             document.body.style.overflow = 'auto';
@@ -1750,15 +1945,87 @@
             observer.observe(statsSection);
         }
         
-        // Map zoom functionality
+        // Map drag functionality
+        const mapWrapper = document.getElementById('mapWrapper');
         const mapImage = document.getElementById('mapImage');
-        if (mapImage) {
-            let scale = 1;
+        
+        if (mapWrapper && mapImage) {
+            let isDragging = false;
+            let startX, startY, scrollLeft, scrollTop;
             
-            mapImage.addEventListener('click', () => {
-                scale = scale === 1 ? 1.5 : 1;
-                mapImage.style.transform = `scale(${scale})`;
-                mapImage.style.cursor = scale === 1.5 ? 'zoom-out' : 'zoom-in';
+            mapWrapper.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                mapWrapper.style.cursor = 'grabbing';
+                startX = e.pageX - mapWrapper.offsetLeft;
+                startY = e.pageY - mapWrapper.offsetTop;
+                scrollLeft = mapWrapper.scrollLeft;
+                scrollTop = mapWrapper.scrollTop;
+            });
+            
+            mapWrapper.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.pageX - mapWrapper.offsetLeft;
+                const y = e.pageY - mapWrapper.offsetTop;
+                const walkX = (x - startX) * 2;
+                const walkY = (y - startY) * 2;
+                mapWrapper.scrollLeft = scrollLeft - walkX;
+                mapWrapper.scrollTop = scrollTop - walkY;
+            });
+            
+            mapWrapper.addEventListener('mouseup', () => {
+                isDragging = false;
+                mapWrapper.style.cursor = 'grab';
+            });
+            
+            mapWrapper.addEventListener('mouseleave', () => {
+                isDragging = false;
+                mapWrapper.style.cursor = 'grab';
+            });
+            
+            // Touch events for mobile
+            mapWrapper.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                const touch = e.touches[0];
+                startX = touch.pageX - mapWrapper.offsetLeft;
+                startY = touch.pageY - mapWrapper.offsetTop;
+                scrollLeft = mapWrapper.scrollLeft;
+                scrollTop = mapWrapper.scrollTop;
+            });
+            
+            mapWrapper.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const touch = e.touches[0];
+                const x = touch.pageX - mapWrapper.offsetLeft;
+                const y = touch.pageY - mapWrapper.offsetTop;
+                const walkX = (x - startX) * 2;
+                const walkY = (y - startY) * 2;
+                mapWrapper.scrollLeft = scrollLeft - walkX;
+                mapWrapper.scrollTop = scrollTop - walkY;
+            });
+            
+            mapWrapper.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+        }
+        
+        // Legend toggle functionality
+        const toggleLegend = document.getElementById('toggleLegend');
+        const legendContent = document.getElementById('legendContent');
+        const legendIcon = toggleLegend.querySelector('i');
+        
+        if (toggleLegend && legendContent) {
+            toggleLegend.addEventListener('click', () => {
+                legendContent.classList.toggle('collapsed');
+                legendContent.classList.toggle('expanded');
+                if (legendContent.classList.contains('collapsed')) {
+                    legendIcon.classList.remove('fa-chevron-up');
+                    legendIcon.classList.add('fa-chevron-down');
+                } else {
+                    legendIcon.classList.remove('fa-chevron-down');
+                    legendIcon.classList.add('fa-chevron-up');
+                }
             });
         }
         
@@ -1786,6 +2053,7 @@
                 }
                 
                 // Close mobile menu if open
+                mobileToggle.classList.remove('active');
                 mobileNav.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -1797,10 +2065,10 @@
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
                 header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(232, 245, 233, 0.95))';
             } else {
                 header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 245, 233, 0.95))';
             }
         });
         
@@ -1818,6 +2086,30 @@
         setVH();
         window.addEventListener('resize', setVH);
         window.addEventListener('orientationchange', setVH);
+        
+        // Add animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.stats-box, .about-box');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        }
+        
+        // Initialize animations on load
+        window.addEventListener('load', animateOnScroll);
     </script>
 </body>
 </html>

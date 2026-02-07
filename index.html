@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Website resmi Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
     <title>LPS Padang Terubuk Asri - Pengelola Sampah Terpadu</title>
 
@@ -57,6 +57,8 @@
         
         html {
             scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
         }
         
         body {
@@ -65,16 +67,18 @@
             color: #333;
             overflow-x: hidden;
             background-color: var(--light);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .container {
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 20px;
         }
         
-        /* Header Styles - REVISI FULL WIDTH */
+        /* Header Styles - REVISI MOBILE FIX */
         header {
             position: fixed;
             top: 0;
@@ -93,45 +97,54 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 40px;
+            padding: 12px 20px;
             width: 100%;
         }
         
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             flex-shrink: 0;
+            max-width: 70%;
         }
         
         .logo {
-            height: 55px;
+            height: 45px;
             width: auto;
+            flex-shrink: 0;
         }
         
         .logo-text {
             display: flex;
             flex-direction: column;
             line-height: 1.2;
+            overflow: hidden;
         }
         
         .logo-text h1 {
-            font-size: 1.6rem;
+            font-size: 1.1rem;
             color: var(--primary);
             font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .logo-text span {
-            font-size: 0.9rem;
+            font-size: 0.7rem;
             color: var(--secondary);
             font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
-        /* Navigation Styles - REVISI FULL WIDTH */
+        /* Navigation Styles */
         .nav-desktop {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 25px;
             flex-shrink: 0;
         }
         
@@ -145,12 +158,13 @@
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
-            padding: 10px 0;
+            padding: 8px 0;
             position: relative;
             transition: var(--transition);
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
+            white-space: nowrap;
         }
         
         .nav-desktop a:hover {
@@ -183,7 +197,7 @@
             top: 100%;
             left: -20px;
             background-color: var(--white);
-            min-width: 220px;
+            min-width: 200px;
             box-shadow: var(--shadow);
             border-radius: 10px;
             opacity: 0;
@@ -202,30 +216,31 @@
         
         .dropdown-content a {
             display: block;
-            padding: 12px 25px;
+            padding: 10px 20px;
             color: var(--dark);
             transition: var(--transition);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border-bottom: none;
         }
         
         .dropdown-content a:hover {
             background-color: rgba(26, 95, 122, 0.08);
             color: var(--primary);
-            padding-left: 30px;
+            padding-left: 25px;
         }
         
-        /* Mobile Navigation */
+        /* Mobile Navigation - REVISI FIX */
         .mobile-nav-toggle {
             display: none;
             background: none;
             border: none;
             cursor: pointer;
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
             flex-direction: column;
             justify-content: space-between;
             padding: 0;
+            z-index: 1002;
         }
         
         .mobile-nav-toggle span {
@@ -248,14 +263,15 @@
             top: 0;
             right: -100%;
             width: 85%;
-            max-width: 450px;
+            max-width: 320px;
             height: 100vh;
             background-color: var(--white);
             box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
             z-index: 1001;
             transition: var(--transition);
-            padding: 100px 40px 40px;
+            padding: 80px 25px 25px;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .mobile-nav.active {
@@ -264,29 +280,29 @@
         
         .mobile-nav a {
             display: block;
-            padding: 18px 0;
+            padding: 15px 0;
             border-bottom: 1px solid #eee;
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
             transition: var(--transition);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         
         .mobile-nav a:hover {
             color: var(--primary);
-            padding-left: 15px;
+            padding-left: 10px;
         }
         
         .mobile-dropdown-content {
-            padding-left: 25px;
+            padding-left: 15px;
             max-height: 0;
             overflow: hidden;
             transition: var(--transition);
         }
         
         .mobile-dropdown-content.active {
-            max-height: 600px;
+            max-height: 500px;
         }
         
         .mobile-dropdown-toggle {
@@ -297,6 +313,7 @@
         
         .mobile-dropdown-toggle i {
             transition: var(--transition);
+            font-size: 0.9rem;
         }
         
         .mobile-dropdown-toggle.active i {
@@ -321,16 +338,18 @@
             visibility: visible;
         }
         
-        /* Hero Section - REVISI */
+        /* Hero Section - REVISI MOBILE */
         .hero {
             position: relative;
             height: 100vh;
+            min-height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--white);
             text-align: center;
             overflow: hidden;
+            padding-top: 70px;
         }
         
         .background-container {
@@ -370,51 +389,72 @@
         
         .hero-content {
             max-width: 900px;
-            padding: 0 40px;
+            padding: 0 20px;
             z-index: 1;
         }
         
         .hero h2 {
-            font-size: 3.5rem;
-            margin-bottom: 25px;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
             font-weight: 700;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             line-height: 1.2;
         }
         
-        @media (max-width: 768px) {
+        @media (min-width: 768px) {
             .hero h2 {
-                font-size: 2.5rem;
+                font-size: 3rem;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .hero h2 {
+                font-size: 3.5rem;
             }
         }
         
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 50px;
+            font-size: 1rem;
+            margin-bottom: 40px;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
             text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
             line-height: 1.6;
+            padding: 0 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .hero p {
+                font-size: 1.2rem;
+            }
         }
         
         .hero-buttons {
             display: flex;
-            gap: 25px;
+            gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
         }
         
         .btn {
-            padding: 18px 45px;
+            padding: 14px 30px;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-decoration: none;
             transition: var(--transition);
             display: inline-block;
             cursor: pointer;
             border: none;
+            min-width: 160px;
+        }
+        
+        @media (min-width: 768px) {
+            .btn {
+                padding: 18px 45px;
+                font-size: 1.1rem;
+            }
         }
         
         .btn-primary {
@@ -440,31 +480,51 @@
             transform: translateY(-3px);
         }
         
-        /* Stats Section - REVISI (WARNA BOX ELEGAN) */
+        /* Stats Section - REVISI MOBILE */
         .stats-section {
-            padding: 100px 0;
+            padding: 60px 0;
             background-color: var(--white);
             width: 100%;
             overflow: hidden;
         }
         
+        @media (min-width: 768px) {
+            .stats-section {
+                padding: 100px 0;
+            }
+        }
+        
         .stats-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-top: 50px;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-container {
+                flex-direction: row;
+                gap: 40px;
+                margin-top: 50px;
+            }
         }
         
         .stats-box {
-            flex: 1;
-            min-width: 300px;
+            width: 100%;
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 50px 40px;
+            border-radius: 15px;
+            padding: 30px 20px;
             box-shadow: var(--card-shadow);
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.8);
             transition: var(--transition);
+        }
+        
+        @media (min-width: 768px) {
+            .stats-box {
+                padding: 50px 40px;
+                border-radius: 20px;
+            }
         }
         
         .stats-box:hover {
@@ -473,11 +533,19 @@
         }
         
         .stats-box h3 {
-            font-size: 1.8rem;
-            margin-bottom: 40px;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
             color: var(--primary);
             position: relative;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-box h3 {
+                font-size: 1.8rem;
+                margin-bottom: 40px;
+                padding-bottom: 20px;
+            }
         }
         
         .stats-box h3::after {
@@ -486,62 +554,112 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
+            width: 80px;
+            height: 3px;
             background: linear-gradient(to right, var(--accent), var(--secondary));
             border-radius: 3px;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-box h3::after {
+                width: 100px;
+                height: 4px;
+            }
         }
         
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+            gap: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-grid {
+                gap: 30px;
+            }
         }
         
         .stat-item {
-            padding: 25px 20px;
+            padding: 15px 10px;
             background: linear-gradient(145deg, #ffffff, #f8fcfd);
-            border-radius: 15px;
+            border-radius: 10px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
             transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.9);
         }
         
+        @media (min-width: 768px) {
+            .stat-item {
+                padding: 25px 20px;
+                border-radius: 15px;
+            }
+        }
+        
         .stat-item:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.08);
             background: linear-gradient(145deg, #ffffff, #ffffff);
         }
         
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
-        .stat-label {
-            font-size: 1rem;
-            color: #555;
-            font-weight: 500;
+        @media (min-width: 768px) {
+            .stat-number {
+                font-size: 2.5rem;
+                margin-bottom: 8px;
+            }
         }
         
-        /* Map Section - REVISI (FULL WIDTH) */
+        .stat-label {
+            font-size: 0.85rem;
+            color: #555;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        
+        @media (min-width: 768px) {
+            .stat-label {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Map Section - REVISI MOBILE FIX */
         .map-section {
-            padding: 100px 0;
+            padding: 60px 0;
             background-color: #f9fdfe;
             width: 100%;
             overflow: hidden;
         }
         
+        @media (min-width: 768px) {
+            .map-section {
+                padding: 100px 0;
+            }
+        }
+        
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
             color: var(--primary);
             position: relative;
-            padding-bottom: 20px;
-            font-size: 2.5rem;
+            padding-bottom: 15px;
+            font-size: 1.8rem;
+            padding: 0 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+                margin-bottom: 60px;
+                padding-bottom: 20px;
+                padding: 0;
+            }
         }
         
         .section-title::after {
@@ -550,19 +668,33 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
-            height: 5px;
+            width: 80px;
+            height: 4px;
             background: linear-gradient(to right, var(--accent), var(--secondary));
             border-radius: 3px;
+        }
+        
+        @media (min-width: 768px) {
+            .section-title::after {
+                width: 120px;
+                height: 5px;
+            }
         }
         
         .map-container {
             position: relative;
             width: 100%;
-            height: 800px;
-            border-radius: 20px;
+            height: 500px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (min-width: 768px) {
+            .map-container {
+                height: 800px;
+                border-radius: 20px;
+            }
         }
         
         .map-image {
@@ -575,39 +707,82 @@
         
         .map-overlay {
             position: absolute;
-            top: 40px;
-            right: 40px;
+            top: 20px;
+            right: 20px;
+            left: 20px;
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
+            padding: 20px;
+            border-radius: 10px;
             box-shadow: var(--card-shadow);
-            max-width: 350px;
+            max-width: 100%;
             border: 1px solid rgba(255, 255, 255, 0.8);
+            max-height: 400px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        @media (min-width: 768px) {
+            .map-overlay {
+                position: absolute;
+                top: 40px;
+                right: 40px;
+                left: auto;
+                max-width: 350px;
+                max-height: none;
+                overflow-y: visible;
+                padding: 30px;
+                border-radius: 15px;
+            }
         }
         
         .map-overlay h4 {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             color: var(--primary);
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             border-bottom: 2px solid var(--accent);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
+        }
+        
+        @media (min-width: 768px) {
+            .map-overlay h4 {
+                font-size: 1.4rem;
+                margin-bottom: 25px;
+                padding-bottom: 10px;
+            }
         }
         
         .legend-item {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+        }
+        
+        @media (min-width: 768px) {
+            .legend-item {
+                margin-bottom: 15px;
+                font-size: 1rem;
+            }
         }
         
         .legend-color {
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
             border-radius: 4px;
-            margin-right: 15px;
+            margin-right: 10px;
             border: 1px solid rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
         }
         
-        /* Warna Legenda Peta sesuai permintaan */
+        @media (min-width: 768px) {
+            .legend-color {
+                width: 25px;
+                height: 25px;
+                margin-right: 15px;
+            }
+        }
+        
+        /* Warna Legenda Peta */
         .color-1 {
             background-color: transparent;
             border: 2px solid #000000;
@@ -661,37 +836,69 @@
         }
         
         .legend-icon {
-            width: 25px;
-            height: 25px;
-            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            flex-shrink: 0;
         }
         
-        /* About Section - REVISI (WARNA BOX ELEGAN) */
+        @media (min-width: 768px) {
+            .legend-icon {
+                width: 25px;
+                height: 25px;
+                margin-right: 15px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* About Section - REVISI MOBILE */
         .about-section {
-            padding: 100px 0;
+            padding: 60px 0;
             background-color: var(--white);
             width: 100%;
             overflow: hidden;
         }
         
+        @media (min-width: 768px) {
+            .about-section {
+                padding: 100px 0;
+            }
+        }
+        
         .about-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 50px;
-            margin-top: 50px;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        @media (min-width: 768px) {
+            .about-container {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 50px;
+                margin-top: 50px;
+            }
         }
         
         .about-box {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 50px 40px;
+            border-radius: 15px;
+            padding: 30px 20px;
             box-shadow: var(--card-shadow);
             border: 1px solid rgba(255, 255, 255, 0.8);
             transition: var(--transition);
+            width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .about-box {
+                padding: 50px 40px;
+                border-radius: 20px;
+            }
         }
         
         .about-box:hover {
@@ -702,39 +909,81 @@
         .about-header {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .about-header {
+                margin-bottom: 30px;
+            }
         }
         
         .about-icon {
-            width: 60px;
-            height: 60px;
-            margin-right: 20px;
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            flex-shrink: 0;
+        }
+        
+        @media (min-width: 768px) {
+            .about-icon {
+                width: 60px;
+                height: 60px;
+                margin-right: 20px;
+            }
         }
         
         .about-title h4 {
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             color: var(--primary);
-            margin-bottom: 8px;
+            margin-bottom: 5px;
+        }
+        
+        @media (min-width: 768px) {
+            .about-title h4 {
+                font-size: 1.6rem;
+                margin-bottom: 8px;
+            }
         }
         
         .about-title p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #777;
         }
         
+        @media (min-width: 768px) {
+            .about-title p {
+                font-size: 1rem;
+            }
+        }
+        
         .contact-info {
-            margin-top: 30px;
+            margin-top: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .contact-info {
+                margin-top: 30px;
+            }
         }
         
         .contact-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 25px;
-            padding: 15px;
-            border-radius: 10px;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
             transition: var(--transition);
+        }
+        
+        @media (min-width: 768px) {
+            .contact-item {
+                margin-bottom: 25px;
+                padding: 15px;
+                border-radius: 10px;
+            }
         }
         
         .contact-item:hover {
@@ -743,60 +992,128 @@
         
         .contact-item i {
             color: var(--accent);
-            margin-right: 20px;
-            font-size: 1.3rem;
-            width: 25px;
-            margin-top: 5px;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            width: 20px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        @media (min-width: 768px) {
+            .contact-item i {
+                font-size: 1.3rem;
+                width: 25px;
+                margin-right: 20px;
+                margin-top: 5px;
+            }
+        }
+        
+        .contact-item div {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        @media (min-width: 768px) {
+            .contact-item div {
+                font-size: 1rem;
+            }
         }
         
         .map-frame {
             width: 100%;
-            height: 350px;
-            border-radius: 15px;
+            height: 250px;
+            border-radius: 10px;
             border: none;
-            margin-top: 25px;
+            margin-top: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
         
-        /* Footer - REVISI */
+        @media (min-width: 768px) {
+            .map-frame {
+                height: 350px;
+                border-radius: 15px;
+                margin-top: 25px;
+            }
+        }
+        
+        /* Footer - REVISI MOBILE */
         footer {
             background: linear-gradient(145deg, var(--dark), #0c384f);
             color: var(--white);
-            padding: 50px 0 25px;
+            padding: 40px 0 20px;
             text-align: center;
             width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            footer {
+                padding: 50px 0 25px;
+            }
         }
         
         .footer-content {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-content {
+                padding: 0 40px;
+            }
         }
         
         .footer-logo {
-            height: 70px;
-            margin-bottom: 25px;
+            height: 50px;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-logo {
+                height: 70px;
+                margin-bottom: 25px;
+            }
         }
         
         .footer-text {
-            margin-bottom: 30px;
-            font-size: 1.2rem;
-            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.6;
             opacity: 0.9;
-            max-width: 900px;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-text {
+                font-size: 1.2rem;
+                line-height: 1.8;
+                max-width: 900px;
+                padding: 0;
+            }
         }
         
         .copyright {
-            margin-top: 40px;
-            padding-top: 25px;
+            margin-top: 30px;
+            padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 1rem;
+            font-size: 0.85rem;
             opacity: 0.8;
+            padding: 0 10px;
         }
         
-        /* Install App Banner */
+        @media (min-width: 768px) {
+            .copyright {
+                margin-top: 40px;
+                padding-top: 25px;
+                font-size: 1rem;
+                padding: 0;
+            }
+        }
+        
+        /* Install App Banner - REVISI MOBILE */
         .install-banner {
             position: fixed;
             bottom: 0;
@@ -804,14 +1121,24 @@
             width: 100%;
             background: linear-gradient(145deg, var(--primary), #1a5f7a);
             color: white;
-            padding: 20px 40px;
+            padding: 15px 20px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 15px;
             align-items: center;
             z-index: 999;
             transform: translateY(100%);
             transition: transform 0.5s ease;
             box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (min-width: 768px) {
+            .install-banner {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 20px 40px;
+                gap: 0;
+            }
         }
         
         .install-banner.active {
@@ -821,40 +1148,100 @@
         .install-content {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .install-content {
+                width: auto;
+                justify-content: flex-start;
+            }
         }
         
         .install-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+        
+        @media (min-width: 768px) {
+            .install-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+            }
+        }
+        
+        .install-text {
+            text-align: center;
+            flex: 1;
+        }
+        
+        @media (min-width: 768px) {
+            .install-text {
+                text-align: left;
+                flex: none;
+            }
         }
         
         .install-text h4 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        @media (min-width: 768px) {
+            .install-text h4 {
+                font-size: 1.2rem;
+                margin-bottom: 8px;
+            }
         }
         
         .install-text p {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             opacity: 0.9;
+        }
+        
+        @media (min-width: 768px) {
+            .install-text p {
+                font-size: 0.95rem;
+            }
         }
         
         .install-buttons {
             display: flex;
-            gap: 15px;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .install-buttons {
+                width: auto;
+                justify-content: flex-end;
+            }
         }
         
         .install-btn {
-            padding: 12px 30px;
+            padding: 10px 20px;
             border-radius: 50px;
             background-color: var(--accent);
             color: white;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 500;
             transition: var(--transition);
+            white-space: nowrap;
+        }
+        
+        @media (min-width: 768px) {
+            .install-btn {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
         }
         
         .install-btn:hover {
@@ -865,15 +1252,23 @@
             background: none;
             border: none;
             color: white;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
             padding: 0;
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
+        }
+        
+        @media (min-width: 768px) {
+            .close-banner {
+                font-size: 1.8rem;
+                width: 35px;
+                height: 35px;
+            }
         }
         
         .close-banner:hover {
@@ -883,143 +1278,12 @@
         
         /* Utility Classes */
         .section {
-            padding: 100px 0;
+            padding: 60px 0;
         }
         
-        @media (max-width: 1200px) {
-            .container, .header-content {
-                padding: 0 30px;
-            }
-            
-            .nav-desktop {
-                gap: 30px;
-            }
-        }
-        
-        @media (max-width: 1100px) {
-            .nav-desktop {
-                display: none;
-            }
-            
-            .container, .header-content {
-                padding: 0 25px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .container, .header-content {
-                padding: 0 20px;
-            }
-            
-            .header-content {
-                padding: 12px 20px;
-            }
-            
+        @media (min-width: 768px) {
             .section {
-                padding: 70px 0;
-            }
-            
-            .stats-container {
-                flex-direction: column;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 300px;
-                text-align: center;
-            }
-            
-            .map-overlay {
-                position: relative;
-                top: 0;
-                right: 0;
-                max-width: 100%;
-                margin-top: 20px;
-            }
-            
-            .install-banner {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-                padding: 20px 25px;
-            }
-            
-            .install-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .hero h2 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-                padding: 0 10px;
-            }
-            
-            .about-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                padding: 0 20px;
-            }
-            
-            .footer-text {
-                font-size: 1.1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container, .header-content {
-                padding: 0 15px;
-            }
-            
-            .header-content {
-                padding: 10px 15px;
-            }
-            
-            .logo-text h1 {
-                font-size: 1.3rem;
-            }
-            
-            .logo-text span {
-                font-size: 0.8rem;
-            }
-            
-            .hero h2 {
-                font-size: 1.8rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .btn {
-                padding: 15px 30px;
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 1.7rem;
-            }
-            
-            .stats-box {
-                padding: 30px 20px;
-            }
-            
-            .stat-number {
-                font-size: 2rem;
+                padding: 100px 0;
             }
         }
     </style>
@@ -1028,7 +1292,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header - REVISI FULL WIDTH -->
+    <!-- Header - REVISI MOBILE FIX -->
     <header>
         <div class="header-content">
             <div class="logo-container">
@@ -1039,11 +1303,11 @@
                 </div>
             </div>
             
-            <!-- Desktop Navigation - FULL WIDTH -->
+            <!-- Desktop Navigation -->
             <nav class="nav-desktop">
                 <a href="#home">Beranda</a>
                 <div class="dropdown">
-                    <a href="#info">Informasi <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                    <a href="#info">Informasi <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-content">
                         <a href="#profil">Profil</a>
                         <a href="#petugas">Petugas</a>
@@ -1449,7 +1713,7 @@
         
         // Initialize counters when section is in view
         const observerOptions = {
-            threshold: 0.5
+            threshold: 0.3
         };
         
         const observer = new IntersectionObserver((entries) => {
@@ -1539,6 +1803,21 @@
                 header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
             }
         });
+        
+        // Prevent horizontal scroll on mobile
+        window.addEventListener('load', function() {
+            document.body.style.overflowX = 'hidden';
+        });
+        
+        // Fix for iOS viewport height issue
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setVH();
+        window.addEventListener('resize', setVH);
+        window.addEventListener('orientationchange', setVH);
     </script>
 </body>
 </html>

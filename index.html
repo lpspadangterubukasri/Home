@@ -1,1 +1,1278 @@
-a
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Website resmi Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
+    <title>LPS Padang Terubuk Asri - Pengelola Sampah Terpadu</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data/foto/favicon.png" type="image/png">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a5f7a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="data/foto/logoaplikasi.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .logo-text span {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+        /* Navigation Styles */
+        .nav-desktop {
+            display: flex;
+            gap: 30px;
+        }
+        
+        @media (max-width: 992px) {
+            .nav-desktop {
+                display: none;
+            }
+        }
+        
+        .nav-desktop a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-desktop a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-desktop a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-desktop a:hover::after {
+            width: 100%;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 100;
+            padding: 10px 0;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        
+        .dropdown-content a:hover {
+            background-color: rgba(26, 95, 122, 0.05);
+            color: var(--primary);
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0;
+        }
+        
+        .mobile-nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        
+        @media (max-width: 992px) {
+            .mobile-nav-toggle {
+                display: flex;
+            }
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background-color: var(--white);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: var(--transition);
+            padding: 80px 30px 30px;
+            overflow-y: auto;
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav a {
+            display: block;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--primary);
+            padding-left: 10px;
+        }
+        
+        .mobile-dropdown-content {
+            padding-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .mobile-dropdown-content.active {
+            max-height: 500px;
+        }
+        
+        .mobile-dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mobile-dropdown-toggle i {
+            transition: var(--transition);
+        }
+        
+        .mobile-dropdown-toggle.active i {
+            transform: rotate(180deg);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .background-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .background-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10, 45, 62, 0.7), rgba(26, 95, 122, 0.8));
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--white);
+            box-shadow: 0 5px 15px rgba(87, 197, 182, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: #45b0a1;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(87, 197, 182, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stats-box {
+            flex: 1;
+            min-width: 300px;
+            background: linear-gradient(135deg, var(--light), #e8f4f8);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .stats-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .stats-box h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 3px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        
+        .stat-item {
+            padding: 20px 15px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        /* Map Section */
+        .map-section {
+            padding: 80px 0;
+            background-color: #f9fdfe;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .map-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            max-width: 300px;
+        }
+        
+        .map-overlay h4 {
+            margin-bottom: 15px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        
+        .color-1 {
+            background-color: #1a5f7a;
+        }
+        
+        .color-2 {
+            background-color: #159895;
+        }
+        
+        .color-3 {
+            background-color: #57c5b6;
+        }
+        
+        .color-4 {
+            background-color: #ff9a3c;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .about-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .about-box {
+            background-color: var(--light);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .about-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .about-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .about-title h4 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .about-title p {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .contact-info {
+            margin-top: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .contact-item i {
+            color: var(--accent);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+        }
+        
+        .map-frame {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-text {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Install App Banner */
+        .install-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(26, 95, 122, 0.95);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .install-banner.active {
+            transform: translateY(0);
+        }
+        
+        .install-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .install-icon {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .install-text h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .install-text p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .install-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .install-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .install-btn:hover {
+            background-color: #45b0a1;
+        }
+        
+        .close-banner {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Utility Classes */
+        .section {
+            padding: 80px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .section {
+                padding: 60px 0;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                text-align: center;
+            }
+            
+            .map-overlay {
+                position: relative;
+                top: 0;
+                right: 0;
+                max-width: 100%;
+                margin-top: 20px;
+            }
+            
+            .install-banner {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .install-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo-container">
+                <img src="data/foto/logolps.png" alt="LPS Padang Terubuk Asri" class="logo">
+                <div class="logo-text">
+                    <h1>LPS PADANG TERUBUK ASRI</h1>
+                    <span>Lembaga Pengelola Sampah Kelurahan Padang Terubuk</span>
+                </div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop">
+                <a href="#home">Beranda</a>
+                <div class="dropdown">
+                    <a href="#info">Informasi <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#profil">Profil</a>
+                        <a href="#petugas">Petugas</a>
+                        <a href="#peta">Peta Wilayah</a>
+                        <a href="#angkutan">Data Angkutan</a>
+                        <a href="#peserta">Data Peserta LPS</a>
+                    </div>
+                </div>
+                <a href="#program">Program</a>
+                <a href="#kontak">Kontak</a>
+            </nav>
+            
+            <!-- Mobile Navigation Toggle -->
+            <button class="mobile-nav-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#home">Beranda</a>
+            <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggle">
+                Informasi
+                <i class="fas fa-chevron-down"></i>
+            </a>
+            <div class="mobile-dropdown-content" id="mobileDropdownContent">
+                <a href="#profil">Profil</a>
+                <a href="#petugas">Petugas</a>
+                <a href="#peta">Peta Wilayah</a>
+                <a href="#angkutan">Data Angkutan</a>
+                <a href="#peserta">Data Peserta LPS</a>
+            </div>
+            <a href="#program">Program</a>
+            <a href="#kontak">Kontak</a>
+        </div>
+        
+        <!-- Overlay for mobile menu -->
+        <div class="overlay" id="overlay"></div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="background-container">
+            <video class="background-video" autoplay muted loop playsinline id="bgVideo">
+                <source src="data/video/videoutama.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <img class="background-fallback" src="data/foto/backgroundutama.png" alt="Background" id="bgImage">
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="container hero-content">
+            <h2>LPS Padang Terubuk Asri</h2>
+            <p>Lembaga Pengelola Sampah resmi Kelurahan Padang Terubuk yang berkomitmen menciptakan lingkungan bersih, sehat, dan asri melalui pengelolaan sampah terpadu.</p>
+            <div class="hero-buttons">
+                <a href="#kontak" class="btn btn-primary">Buka Pelayanan</a>
+                <a href="#about" class="btn btn-secondary">Kenali Kami</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+        <div class="container">
+            <h2 class="section-title">Data Peserta LPS</h2>
+            <div class="stats-container">
+                <div class="stats-box">
+                    <h3>Data Peserta LPS</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaLps">1,245</div>
+                            <div class="stat-label">Jumlah Peserta LPS</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="subsidiSilang">89</div>
+                            <div class="stat-label">Peserta Subsidi Silang</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaDLHK">42</div>
+                            <div class="stat-label">Peserta DLHK</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="belumPeserta">312</div>
+                            <div class="stat-label">Belum Jadi Peserta</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-box">
+                    <h3>Data Kelurahan</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="penduduk">4,850</div>
+                            <div class="stat-label">Jumlah Penduduk</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="kk">1,210</div>
+                            <div class="stat-label">Kepala Keluarga</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="rt">15</div>
+                            <div class="stat-label">Rukun Tetangga</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="rw">5</div>
+                            <div class="stat-label">Rukun Warga</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <section class="map-section" id="peta">
+        <div class="container">
+            <h2 class="section-title">Peta Wilayah Kerja LPS</h2>
+            <div class="map-container">
+                <img src="data/foto/peta-wilayah.png" alt="Peta Wilayah Kerja LPS Padang Terubuk Asri" class="map-image" id="mapImage">
+                <div class="map-overlay">
+                    <h4>Legenda Wilayah</h4>
+                    <div class="legend-item">
+                        <div class="legend-color color-1"></div>
+                        <div class="legend-text">Wilayanan Pelayanan Utama</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-2"></div>
+                        <div class="legend-text">Rute Pengangkutan Sampah</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-3"></div>
+                        <div class="legend-text">TPS dan Bank Sampah</div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color color-4"></div>
+                        <div class="legend-text">Wilayah Perluasan Layanan</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">Informasi & Kontak</h2>
+            <div class="about-container">
+                <div class="about-box">
+                    <div class="about-header">
+                        <img src="data/foto/logolps.png" alt="LPS Logo" class="about-icon">
+                        <div class="about-title">
+                            <h4>LPS Padang Terubuk Asri</h4>
+                            <p>Lembaga Pengelola Sampah</p>
+                        </div>
+                    </div>
+                    <p>Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri merupakan lembaga resmi yang diakui Pemerintah Kota Pekanbaru untuk pengelolaan sampah terpadu di Kelurahan Padang Terubuk.</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Alamat Sekretariat:</strong><br>
+                                Jalan Melur No. 4 RT. 004 RW. 005<br>
+                                Kelurahan Padang Terubuk
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>No. Telp:</strong><br>
+                                +62 813-6556-5011
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email:</strong><br>
+                                lpspadangterubukasri@gmail.com
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <strong>WhatsApp:</strong><br>
+                                +62 813-6556-5011
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-box">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Informasi LPS</h3>
+                    <ul style="list-style-type: none;">
+                        <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                            <a href="#sejarah" style="text-decoration: none; color: #333; display: flex; align-items: center;">
+                                <i class="fas fa-book" style="margin-right: 10px; color: var(--accent);"></i>
+                                Sejarah LPS
+                            </a>
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                            <a href="#struktur" style="text-decoration: none; color: #333; display: flex; align-items: center;">
+                                <i class="fas fa-sitemap" style="margin-right: 10px; color: var(--accent);"></i>
+                                Struktur LPS
+                            </a>
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                            <a href="#angkutan" style="text-decoration: none; color: #333; display: flex; align-items: center;">
+                                <i class="fas fa-truck" style="margin-right: 10px; color: var(--accent);"></i>
+                                Data Angkutan
+                            </a>
+                        </li>
+                        <li style="padding: 10px 0;">
+                            <a href="#visi-misi" style="text-decoration: none; color: #333; display: flex; align-items: center;">
+                                <i class="fas fa-bullseye" style="margin-right: 10px; color: var(--accent);"></i>
+                                Visi dan Misi
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="about-box">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Lokasi Kantor</h3>
+                    <p>Kantor LPS Padang Terubuk Asri terletak di Jalan Melur No. 4, Kelurahan Padang Terubuk. Silakan kunjungi kami selama jam kerja atau hubungi terlebih dahulu untuk janji temu.</p>
+                    
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1146.763265661322!2d101.43406919999998!3d0.5336778000000109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMzInMDEuMiJOIDEwMcKwMjYnMDIuNyJF!5e1!3m2!1sen!2sid!4v1770468608348!5m2!1sen!2sid" 
+                        class="map-frame" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="data/foto/logolps.png" alt="LPS Logo" class="footer-logo">
+                <p class="footer-text">Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri adalah lembaga resmi yang diakui Pemerintah Kota Pekanbaru untuk pengelolaan sampah terpadu di Kelurahan Padang Terubuk.</p>
+                <div class="copyright">
+                    &copy; 2026 Lembaga Pengelola Sampah Padang Terubuk Asri.<br>
+                    Lembaga Resmi yang diakui Pemerintah Kota Pekanbaru
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Install App Banner -->
+    <div class="install-banner" id="installBanner">
+        <div class="install-content">
+            <img src="data/foto/logoaplikasi.png" alt="LPS App" class="install-icon">
+            <div class="install-text">
+                <h4>Pasang Aplikasi LPS</h4>
+                <p>Akses lebih mudah dengan memasang aplikasi LPS di perangkat Anda</p>
+            </div>
+        </div>
+        <div class="install-buttons">
+            <a href="#" class="install-btn" id="installBtn">Pasang Aplikasi</a>
+            <button class="close-banner" id="closeBanner">&times;</button>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('overlay');
+        const mobileDropdownToggle = document.getElementById('mobileDropdownToggle');
+        const mobileDropdownContent = document.getElementById('mobileDropdownContent');
+        
+        mobileToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        mobileDropdownToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            mobileDropdownToggle.classList.toggle('active');
+            mobileDropdownContent.classList.toggle('active');
+        });
+        
+        // Background Video/Image Handling
+        const bgVideo = document.getElementById('bgVideo');
+        const bgImage = document.getElementById('bgImage');
+        
+        // Check if video exists and can play
+        if (bgVideo) {
+            bgVideo.addEventListener('error', function() {
+                // If video fails to load, show image
+                bgVideo.style.display = 'none';
+                bgImage.style.display = 'block';
+            });
+            
+            // Fallback if video source doesn't exist
+            bgVideo.addEventListener('loadeddata', function() {
+                // Video loaded successfully
+                bgImage.style.display = 'none';
+            }, false);
+            
+            bgVideo.addEventListener('error', function() {
+                // Video failed to load
+                bgVideo.style.display = 'none';
+                bgImage.style.display = 'block';
+            }, false);
+        }
+        
+        // If no video element or source, show image
+        window.addEventListener('load', function() {
+            if (!bgVideo || !bgVideo.src) {
+                bgImage.style.display = 'block';
+            }
+        });
+        
+        // Install Banner
+        const installBanner = document.getElementById('installBanner');
+        const closeBanner = document.getElementById('closeBanner');
+        const installBtn = document.getElementById('installBtn');
+        
+        // Show install banner after 3 seconds
+        setTimeout(() => {
+            // Check if already installed or banner dismissed
+            if (!localStorage.getItem('lpsBannerDismissed')) {
+                installBanner.classList.add('active');
+            }
+        }, 3000);
+        
+        closeBanner.addEventListener('click', () => {
+            installBanner.classList.remove('active');
+            localStorage.setItem('lpsBannerDismissed', 'true');
+        });
+        
+        installBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // In a real PWA, this would trigger the install prompt
+            alert('Aplikasi LPS akan dipasang di perangkat Anda. Pastikan Anda terhubung ke internet.');
+            installBanner.classList.remove('active');
+            localStorage.setItem('lpsBannerDismissed', 'true');
+        });
+        
+        // Animate stats counters
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 20);
+        }
+        
+        // Initialize counters when section is in view
+        const observerOptions = {
+            threshold: 0.5
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate all stat counters
+                    const counters = {
+                        pesertaLps: 1245,
+                        subsidiSilang: 89,
+                        pesertaDLHK: 42,
+                        belumPeserta: 312,
+                        penduduk: 4850,
+                        kk: 1210,
+                        rt: 15,
+                        rw: 5
+                    };
+                    
+                    for (const [id, value] of Object.entries(counters)) {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            animateCounter(element, value);
+                        }
+                    }
+                    
+                    // Stop observing after animation
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe the stats section
+        const statsSection = document.getElementById('stats');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+        
+        // Map zoom functionality
+        const mapImage = document.getElementById('mapImage');
+        if (mapImage) {
+            let scale = 1;
+            
+            mapImage.addEventListener('click', () => {
+                scale = scale === 1 ? 1.5 : 1;
+                mapImage.style.transform = `scale(${scale})`;
+                mapImage.style.cursor = scale === 1.5 ? 'zoom-out' : 'zoom-in';
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                
+                // Close mobile menu if open
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>

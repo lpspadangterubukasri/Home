@@ -560,262 +560,285 @@
     </div>
     
     <script>
-        // Google Sheets Configuration
-        const SPREADSHEET_ID = '1RNLvI_ZRakyGsnEEWEoJ7Fb2GrZ-UMGih1Ceh49CFXw';
-        const SHEET_NAME = 'BAGAN_LPS';
-        const API_KEY = 'AIzaSyAS_iK5OTOGaMGFytbEJi8GydePK7H52wo';
-        
-        // Column mapping sesuai spreadsheet Anda
-        const COLUMNS = {
-            KETUA: {
-                NAME: 0,        // A
-                POSITION: 1,    // B
-                PHOTO: 2        // C
-            },
-            SEKRETARIS: {
-                NAME: 3,        // D
-                POSITION: 4,    // E
-                PHOTO: 5        // F
-            },
-            BENDAHARA: {
-                NAME: 6,        // G
-                POSITION: 7,    // H
-                PHOTO: 8        // I
-            },
-            ANGKUTAN: {
-                NAME: 9,        // J
-                POSITION: 10,   // K
-                PHOTO: 11       // L
-            },
-            PENGOLAHAN: {
-                NAME: 12,       // M
-                POSITION: 13,   // N
-                PHOTO: 14       // O
-            },
-            IURAN: {
-                NAME: 15,       // P
-                POSITION: 16,   // Q
-                PHOTO: 17       // R
-            }
-        };
-        
-        // DOM Elements
-        const loadingElement = document.getElementById('loading');
-        const orgChartElement = document.getElementById('orgChart');
-        const errorStateElement = document.getElementById('errorState');
-        const refreshButton = document.getElementById('refreshBtn');
-        
-        // Staff card elements
-        const staffElements = {
-            ketua: {
-                name: document.getElementById('ketua-name'),
-                position: document.getElementById('ketua-position'),
-                photo: document.getElementById('ketua-photo'),
-                card: document.getElementById('ketua-card')
-            },
-            sekretaris: {
-                name: document.getElementById('sekretaris-name'),
-                position: document.getElementById('sekretaris-position'),
-                photo: document.getElementById('sekretaris-photo'),
-                card: document.getElementById('sekretaris-card')
-            },
-            bendahara: {
-                name: document.getElementById('bendahara-name'),
-                position: document.getElementById('bendahara-position'),
-                photo: document.getElementById('bendahara-photo'),
-                card: document.getElementById('bendahara-card')
-            },
-            angkutan: {
-                name: document.getElementById('angkutan-name'),
-                position: document.getElementById('angkutan-position'),
-                photo: document.getElementById('angkutan-photo'),
-                card: document.getElementById('angkutan-card')
-            },
-            pengolahan: {
-                name: document.getElementById('pengolahan-name'),
-                position: document.getElementById('pengolahan-position'),
-                photo: document.getElementById('pengolahan-photo'),
-                card: document.getElementById('pengolahan-card')
-            },
-            iuran: {
-                name: document.getElementById('iuran-name'),
-                position: document.getElementById('iuran-position'),
-                photo: document.getElementById('iuran-photo'),
-                card: document.getElementById('iuran-card')
-            }
-        };
-        
-        // Default fallback photo
-        const DEFAULT_PHOTO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0iI0U4RjVFOSIvPjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41Njg1IDEzMCA4MEMxMzAgNjMuNDMxNSAxMTYuNTY5IDUwIDEwMCA1MEM4My40MzE0IDUwIDcwIDYzLjQzMTUgNzAgODBDNzAgOTYuNTY4NSA4My40MzE0IDExMCAxMDAgMTEwWiIgZmlsbD0iIzU3QzVCNiIvPjxwYXRoIGQ9Ik0xMzAgMTIwSDEwMEM3MC40MzE0IDEyMCA0Ni42NjQyIDE0My40MDggNTAuNTE5NiAxNzIuNTJDNTIuMzMzNSAxODYuNTg1IDY0LjY5NzYgMTk3LjUgODAgMTk3LjVIMTUwQzE2NS4zMDIgMTk3LjUgMTc3LjY2NiAxODYuNTg1IDE3OS40OCAxNzIuNTJDMTgzLjMzNiAxNDMuNDA4IDE1OS41NjkgMTIwIDEzMCAxMjBaIiBmaWxsPSIjNTdDNUI2Ii8+PC9zdmc+';
-        
-        // Fetch data from Google Sheets
-        async function fetchData() {
-            try {
-                showLoading();
-                
-                // Construct the API URL
-                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
-                
-                const response = await fetch(url);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                if (!data.values || data.values.length === 0) {
-                    throw new Error('Spreadsheet is empty');
-                }
-                
-                // Get the first row (assuming header is in first row)
-                const row = data.values[0];
-                
-                // Update staff information
-                updateStaffInfo(staffElements.ketua, row, COLUMNS.KETUA);
-                updateStaffInfo(staffElements.sekretaris, row, COLUMNS.SEKRETARIS);
-                updateStaffInfo(staffElements.bendahara, row, COLUMNS.BENDAHARA);
-                updateStaffInfo(staffElements.angkutan, row, COLUMNS.ANGKUTAN);
-                updateStaffInfo(staffElements.pengolahan, row, COLUMNS.PENGOLAHAN);
-                updateStaffInfo(staffElements.iuran, row, COLUMNS.IURAN);
-                
-                // Add hover effects after data is loaded
-                addHoverEffects();
-                
-                // Show the org chart
-                showOrgChart();
-                
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                showError();
-            }
+    // ========== KONFIGURASI YANG AMAN ==========
+    
+    const SPREADSHEET_ID = '1RNLvI_ZRakyGsnEEWEoJ7Fb2GrZ-UMGih1Ceh49CFXw';
+    const SHEET_NAME = 'BAGAN_LPS';
+    const API_KEY = 'AIzaSyAS_iK5OTOGaMGFytbEJi8GydePK7H52wo';
+    
+    // URL yang benar untuk Sheets API
+    const API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
+    
+    // DOM Elements
+    const loadingElement = document.getElementById('loading');
+    const orgChartElement = document.getElementById('orgChart');
+    const errorStateElement = document.getElementById('errorState');
+    const refreshButton = document.getElementById('refreshBtn');
+    
+    // Staff card elements
+    const staffElements = {
+        ketua: {
+            name: document.getElementById('ketua-name'),
+            position: document.getElementById('ketua-position'),
+            photo: document.getElementById('ketua-photo'),
+            card: document.getElementById('ketua-card')
+        },
+        sekretaris: {
+            name: document.getElementById('sekretaris-name'),
+            position: document.getElementById('sekretaris-position'),
+            photo: document.getElementById('sekretaris-photo'),
+            card: document.getElementById('sekretaris-card')
+        },
+        bendahara: {
+            name: document.getElementById('bendahara-name'),
+            position: document.getElementById('bendahara-position'),
+            photo: document.getElementById('bendahara-photo'),
+            card: document.getElementById('bendahara-card')
+        },
+        angkutan: {
+            name: document.getElementById('angkutan-name'),
+            position: document.getElementById('angkutan-position'),
+            photo: document.getElementById('angkutan-photo'),
+            card: document.getElementById('angkutan-card')
+        },
+        pengolahan: {
+            name: document.getElementById('pengolahan-name'),
+            position: document.getElementById('pengolahan-position'),
+            photo: document.getElementById('pengolahan-photo'),
+            card: document.getElementById('pengolahan-card')
+        },
+        iuran: {
+            name: document.getElementById('iuran-name'),
+            position: document.getElementById('iuran-position'),
+            photo: document.getElementById('iuran-photo'),
+            card: document.getElementById('iuran-card')
         }
-        
-        // Update staff information
-        function updateStaffInfo(staffElement, row, columns) {
-            const name = row[columns.NAME] || 'Data tidak tersedia';
-            const position = row[columns.POSITION] || 'Jabatan';
-            const photoUrl = row[columns.PHOTO] || DEFAULT_PHOTO;
+    };
+    
+    // Default fallback photo
+    const DEFAULT_PHOTO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0iI0U4RjVFOSIvPjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41Njg1IDEzMCA4MEMxMzAgNjMuNDMxNSAxMTYuNTY5IDUwIDEwMCA1MEM4My40MzE0IDUwIDcwIDYzLjQzMTUgNzAgODBDNzAgOTYuNTY4NSA4My40MzE0IDExMCAxMDAgMTEwWiIgZmlsbD0iIzU3QzVCNiIvPjxwYXRoIGQ9Ik0xMzAgMTIwSDEwMEM3MC40MzE0IDEyMCA0Ni42NjQyIDE0My40MDggNTAuNTE5NiAxNzIuNTJDNTIuMzMzNSAxODYuNTg1IDY0LjY5NzYgMTk3LjUgODAgMTk3LjVIMTUwQzE2NS4zMDIgMTk3LjUgMTc3LjY2NiAxODYuNTg1IDE3OS40OCAxNzIuNTJDMTgzLjMzNiAxNDMuNDA4IDE1OS41NjkgMTIwIDEzMCAxMjBaIiBmaWxsPSIjNTdDNUI2Ii8+PC9zdmc+';
+    
+    // Mapping kolom spreadsheet
+    const COLUMNS = {
+        KETUA: { NAME: 0, POSITION: 1, PHOTO: 2 },
+        SEKRETARIS: { NAME: 3, POSITION: 4, PHOTO: 5 },
+        BENDAHARA: { NAME: 6, POSITION: 7, PHOTO: 8 },
+        ANGKUTAN: { NAME: 9, POSITION: 10, PHOTO: 11 },
+        PENGOLAHAN: { NAME: 12, POSITION: 13, PHOTO: 14 },
+        IURAN: { NAME: 15, POSITION: 16, PHOTO: 17 }
+    };
+    
+    // ========== FUNGSI UTAMA ==========
+    
+    async function fetchData() {
+        try {
+            console.log('Memulai pengambilan data...');
+            showLoading();
             
-            staffElement.name.textContent = name;
-            staffElement.position.textContent = position;
+            // Coba metode Sheets API dulu
+            let data = await fetchWithSheetsAPI();
             
-            // Handle photo URL
-            if (photoUrl.trim() && photoUrl !== DEFAULT_PHOTO) {
-                // Check if URL is valid
-                if (isValidUrl(photoUrl)) {
-                    staffElement.photo.src = photoUrl;
-                    staffElement.photo.onerror = function() {
-                        this.src = DEFAULT_PHOTO;
-                    };
-                } else {
-                    staffElement.photo.src = DEFAULT_PHOTO;
-                }
-            } else {
-                staffElement.photo.src = DEFAULT_PHOTO;
+            if (!data || data.length === 0) {
+                console.log('Data kosong, coba metode CSV...');
+                data = await fetchWithCSV();
             }
-        }
-        
-        // Check if string is a valid URL
-        function isValidUrl(string) {
-            try {
-                new URL(string);
-                return true;
-            } catch (_) {
-                return false;
-            }
-        }
-        
-        // Add hover effects to cards
-        function addHoverEffects() {
-            const cards = document.querySelectorAll('.staff-card');
             
-            cards.forEach(card => {
-                // Add click effect
-                card.addEventListener('click', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 300);
-                });
-                
-                // Add keyboard navigation
-                card.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        this.click();
+            if (!data || data.length === 0) {
+                throw new Error('Tidak ada data yang ditemukan');
+            }
+            
+            console.log('Data berhasil diambil:', data[0]);
+            processData(data);
+            showOrgChart();
+            addHoverEffects();
+            
+        } catch (error) {
+            console.error('Error utama:', error);
+            showError();
+        }
+    }
+    
+    // Metode 1: Google Sheets API
+    async function fetchWithSheetsAPI() {
+        try {
+            console.log('Menggunakan Sheets API...');
+            const response = await fetch(API_URL);
+            
+            console.log('Response status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error(`Sheets API error: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            console.log('Sheets API result:', result);
+            
+            return result.values || [];
+            
+        } catch (error) {
+            console.warn('Sheets API gagal:', error.message);
+            return null;
+        }
+    }
+    
+    // Metode 2: CSV Export (backup)
+    async function fetchWithCSV() {
+        try {
+            console.log('Menggunakan metode CSV...');
+            
+            // Coba beberapa format URL CSV
+            const csvUrls = [
+                `https://docs.google.com/spreadsheets/d/e/2PACX-1vT5P0tUqP_y_GOaAfDEO0N_0HSHImJR09qTq7k2Iuj-2pNpB8rRPGut0N-WGxFCGvLrV3WjES_elvY/pub?output=csv`,
+                `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`,
+                `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&id=${SPREADSHEET_ID}&sheet=${SHEET_NAME}`
+            ];
+            
+            for (const url of csvUrls) {
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const csvText = await response.text();
+                        console.log('CSV berhasil:', csvText.substring(0, 200));
+                        return parseCSV(csvText);
                     }
-                });
-                
-                // Make cards focusable
-                card.setAttribute('tabindex', '0');
-            });
-        }
-        
-        // Show loading state
-        function showLoading() {
-            loadingElement.style.display = 'block';
-            orgChartElement.style.display = 'none';
-            errorStateElement.style.display = 'none';
-        }
-        
-        // Show org chart
-        function showOrgChart() {
-            loadingElement.style.display = 'none';
-            orgChartElement.style.display = 'block';
-            errorStateElement.style.display = 'none';
-        }
-        
-        // Show error state
-        function showError() {
-            loadingElement.style.display = 'none';
-            orgChartElement.style.display = 'none';
-            errorStateElement.style.display = 'block';
-        }
-        
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', fetchData);
-        
-        // Refresh button event
-        refreshButton.addEventListener('click', fetchData);
-        
-        // Add some interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animate cards on load
-            setTimeout(() => {
-                const cards = document.querySelectorAll('.staff-card');
-                cards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.style.opacity = '0';
-                        card.style.transform = 'translateY(30px)';
-                        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                        
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'translateY(0)';
-                        }, 100);
-                    }, index * 100);
-                });
-            }, 500);
+                } catch (e) {
+                    console.log('URL gagal:', url);
+                }
+            }
             
-            // Add parallax effect on scroll
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const cards = document.querySelectorAll('.staff-card');
-                
-                cards.forEach((card, index) => {
-                    const speed = 0.03 + (index * 0.01);
-                    const yPos = -(scrolled * speed);
-                    card.style.transform = `translateY(${yPos}px)`;
-                });
-            });
+            return null;
+            
+        } catch (error) {
+            console.warn('CSV method gagal:', error);
+            return null;
+        }
+    }
+    
+    // Parse CSV menjadi array
+    function parseCSV(csvText) {
+        const rows = [];
+        const lines = csvText.split('\n');
+        
+        lines.forEach(line => {
+            if (line.trim()) {
+                // Simple CSV parsing
+                const row = line.split(',').map(cell => 
+                    cell.trim().replace(/^"|"$/g, '')
+                );
+                rows.push(row);
+            }
         });
         
-        // Handle image loading errors
-        document.addEventListener('error', function(e) {
-            if (e.target.tagName === 'IMG' && e.target.classList.contains('staff-photo')) {
-                e.target.src = DEFAULT_PHOTO;
-            }
-        }, true);
-    </script>
+        return rows;
+    }
+    
+    // Proses data dan update UI
+    function processData(data) {
+        const row = data[0] || [];
+        
+        console.log('Processing row:', row);
+        
+        // Update setiap staff member
+        updateStaffMember(staffElements.ketua, row, COLUMNS.KETUA);
+        updateStaffMember(staffElements.sekretaris, row, COLUMNS.SEKRETARIS);
+        updateStaffMember(staffElements.bendahara, row, COLUMNS.BENDAHARA);
+        updateStaffMember(staffElements.angkutan, row, COLUMNS.ANGKUTAN);
+        updateStaffMember(staffElements.pengolahan, row, COLUMNS.PENGOLAHAN);
+        updateStaffMember(staffElements.iuran, row, COLUMNS.IURAN);
+    }
+    
+    function updateStaffMember(element, row, columns) {
+        const name = row[columns.NAME] || 'Nama tidak tersedia';
+        const position = row[columns.POSITION] || 'Jabatan';
+        const photoUrl = row[columns.PHOTO] || '';
+        
+        console.log(`Updating: ${name}, ${position}, ${photoUrl.substring(0, 50)}...`);
+        
+        element.name.textContent = name;
+        element.position.textContent = position;
+        
+        if (photoUrl && isValidUrl(photoUrl)) {
+            element.photo.src = photoUrl;
+            element.photo.onerror = () => {
+                element.photo.src = DEFAULT_PHOTO;
+            };
+        } else {
+            element.photo.src = DEFAULT_PHOTO;
+        }
+    }
+    
+    // Validasi URL
+    function isValidUrl(string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    }
+    
+    // ========== HELPER FUNCTIONS ==========
+    
+    function showLoading() {
+        loadingElement.style.display = 'block';
+        orgChartElement.style.display = 'none';
+        errorStateElement.style.display = 'none';
+    }
+    
+    function showOrgChart() {
+        loadingElement.style.display = 'none';
+        orgChartElement.style.display = 'block';
+        errorStateElement.style.display = 'none';
+    }
+    
+    function showError() {
+        loadingElement.style.display = 'none';
+        orgChartElement.style.display = 'none';
+        errorStateElement.style.display = 'block';
+    }
+    
+    function addHoverEffects() {
+        document.querySelectorAll('.staff-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.setAttribute('tabindex', '0');
+            
+            card.addEventListener('click', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 300);
+            });
+        });
+    }
+    
+    // ========== INITIALIZE ==========
+    
+    document.addEventListener('DOMContentLoaded', fetchData);
+    
+    if (refreshButton) {
+        refreshButton.addEventListener('click', fetchData);
+    }
+    
+    // Animasi cards
+    setTimeout(() => {
+        document.querySelectorAll('.staff-card').forEach((card, index) => {
+            setTimeout(() => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100);
+            }, index * 100);
+        });
+    }, 500);
+    
+    // Debug: Test URL langsung
+    console.log('API URL:', API_URL);
+    console.log('Spreadsheet ID:', SPREADSHEET_ID);
+    
+</script>
 </body>
 </html>

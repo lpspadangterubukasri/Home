@@ -1,0 +1,2461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Website resmi Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
+    <title>LPS Padang Terubuk Asri - Pengelola Sampah Terpadu</title>
+
+    <!-- Open Graph utama -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/">
+    <meta property="og:title" content="Website resmi Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
+    <meta property="og:description" content="Lembaga Pengelola Sampah yang berkomitmen mewujudkan lingkungan bersih, sehat, dan berkelanjutan">
+    <meta property="og:site_name" content="LPS PADANG TERUBUK ASRI">
+
+    <!-- Gambar preview -->
+    <meta property="og:image" content="https://lpspadangterubukasri.github.io/Home/data/foto/thumbnail.png">
+    <meta property="og:image:secure_url" content="https://lpspadangterubukasri.github.io/Home/data/foto/thumbnail.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data/foto/favicon.png" type="image/png">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a5f7a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="data/foto/logoaplikasi.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --card-bg: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+            --card-shadow: 0 15px 35px rgba(21, 152, 149, 0.12);
+            --green-light: #e8f5e9;
+            --green-medium: #c8e6c9;
+            --green-dark: #388e3c;
+            --blue-light: #e3f2fd;
+            --blue-medium: #bbdefb;
+            --gold: #ffd700;
+            --bronze: #cd7f32;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background-color: var(--light);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 245, 233, 0.95));
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(200, 230, 201, 0.5);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            width: 100%;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            max-width: 70%;
+        }
+        
+        .logo {
+            height: 45px;
+            width: auto;
+            flex-shrink: 0;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            overflow: hidden;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .logo-text span {
+            font-size: 0.7rem;
+            color: var(--secondary);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Navigation Styles */
+        .nav-desktop {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-shrink: 0;
+        }
+        
+        @media (max-width: 1100px) {
+            .nav-desktop {
+                display: none;
+            }
+        }
+        
+        .nav-desktop a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .nav-desktop a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-desktop a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            transition: var(--transition);
+        }
+        
+        .nav-desktop a:hover::after {
+            width: 100%;
+        }
+        
+        .dropdown {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: -20px;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: var(--transition);
+            z-index: 100;
+            padding: 15px 0;
+            border: 1px solid rgba(200, 230, 201, 0.3);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-content a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--dark);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            border-bottom: none;
+        }
+        
+        .dropdown-content a:hover {
+            background: linear-gradient(90deg, rgba(232, 245, 233, 0.5), rgba(200, 230, 201, 0.3));
+            color: var(--primary);
+            padding-left: 25px;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            z-index: 1002;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(87, 197, 182, 0.2);
+            transition: var(--transition);
+        }
+        
+        .mobile-nav-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(87, 197, 182, 0.3);
+        }
+        
+        .mobile-nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: white;
+            border-radius: 2px;
+            transition: var(--transition);
+            position: absolute;
+            left: 8px;
+        }
+        
+        .mobile-nav-toggle span:nth-child(1) {
+            top: 12px;
+        }
+        
+        .mobile-nav-toggle span:nth-child(2) {
+            top: 19px;
+        }
+        
+        .mobile-nav-toggle span:nth-child(3) {
+            top: 26px;
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 19px;
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 19px;
+        }
+        
+        @media (max-width: 1100px) {
+            .mobile-nav-toggle {
+                display: block;
+            }
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffffff, #f1f8e9);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: var(--transition);
+            padding: 90px 25px 25px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            border-left: 1px solid rgba(200, 230, 201, 0.5);
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav a {
+            display: block;
+            padding: 18px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--primary);
+            background: linear-gradient(90deg, rgba(232, 245, 233, 0.7), rgba(200, 230, 201, 0.5));
+            transform: translateX(-5px);
+            border-color: rgba(87, 197, 182, 0.3);
+        }
+        
+        .mobile-dropdown-content {
+            padding-left: 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .mobile-dropdown-content.active {
+            max-height: 500px;
+        }
+        
+        .mobile-dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mobile-dropdown-toggle i {
+            transition: var(--transition);
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+        
+        .mobile-dropdown-toggle.active i {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(3px);
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            overflow: hidden;
+            padding-top: 70px;
+        }
+        
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .background-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .background-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 95, 122, 0.85), rgba(21, 152, 149, 0.9));
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            padding: 0 20px;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            font-weight: 800;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            line-height: 1.2;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ffffff, #a5d6a7, #80deea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 20px rgba(165, 214, 167, 0.5), 0 0 40px rgba(128, 222, 234, 0.3);
+            }
+            100% {
+                text-shadow: 0 0 30px rgba(165, 214, 167, 0.8), 0 0 50px rgba(128, 222, 234, 0.5), 0 0 60px rgba(128, 222, 234, 0.3);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .hero h2 {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .hero h2 {
+                font-size: 4rem;
+                letter-spacing: 3px;
+            }
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+            line-height: 1.6;
+            padding: 0 10px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .hero p {
+                font-size: 1.3rem;
+            }
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            min-width: 160px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .btn {
+                padding: 18px 45px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: var(--white);
+            box-shadow: 0 8px 20px rgba(87, 197, 182, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #45b0a1, #128b87);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(87, 197, 182, 0.6);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.05);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Stats Section - REVISI DENGAN PENAMBAHAN KONTEN BARU */
+        .stats-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--light), #e8f5e9);
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary), var(--green-dark));
+        }
+        
+        @media (min-width: 768px) {
+            .stats-section {
+                padding: 100px 0;
+            }
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--green-dark);
+            position: relative;
+            padding-bottom: 15px;
+            font-size: 1.8rem;
+            padding: 0 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+                padding-bottom: 20px;
+                padding: 0;
+            }
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--green-dark));
+            border-radius: 3px;
+        }
+        
+        @media (min-width: 768px) {
+            .section-title::after {
+                width: 120px;
+                height: 5px;
+            }
+        }
+        
+        .section-subtitle {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+        
+        @media (min-width: 768px) {
+            .section-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 40px;
+            }
+        }
+        
+        /* Innovation Banner - TAMBAHAN BARU */
+        .innovation-banner {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(205, 127, 50, 0.1));
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto 40px;
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(205, 127, 50, 0.15);
+            transition: var(--transition);
+        }
+        
+        .innovation-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(205, 127, 50, 0.2);
+        }
+        
+        .innovation-banner::before {
+            content: '★';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+            color: var(--gold);
+            animation: sparkle 2s infinite alternate;
+        }
+        
+        .innovation-banner::after {
+            content: '★';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: var(--bronze);
+            animation: sparkle 2s infinite alternate-reverse;
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .innovation-title {
+            color: var(--bronze);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .innovation-title {
+                font-size: 1.6rem;
+            }
+        }
+        
+        .innovation-title i {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        .innovation-text {
+            color: #5a4a42;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .innovation-text {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+            }
+        }
+        
+        .innovation-author {
+            color: var(--primary);
+            font-weight: 600;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--bronze);
+        }
+        
+        .innovation-author i {
+            color: var(--green-dark);
+        }
+        
+        /* Kelurahan Website Box - TAMBAHAN BARU */
+        .kelurahan-box {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(26, 95, 122, 0.15);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .kelurahan-box:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(26, 95, 122, 0.25);
+        }
+        
+        .kelurahan-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .kelurahan-box:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .kelurahan-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), #0c384f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 20px rgba(26, 95, 122, 0.3);
+        }
+        
+        .kelurahan-title {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        @media (min-width: 768px) {
+            .kelurahan-title {
+                font-size: 1.6rem;
+            }
+        }
+        
+        .kelurahan-description {
+            color: #333;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .kelurahan-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary), #0c384f);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(26, 95, 122, 0.3);
+        }
+        
+        .kelurahan-btn:hover {
+            background: linear-gradient(135deg, #0c384f, var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 95, 122, 0.4);
+        }
+        
+        .kelurahan-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .kelurahan-btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Stats Container */
+        .stats-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-container {
+                flex-direction: row;
+                justify-content: center;
+                gap: 40px;
+                margin-top: 50px;
+            }
+        }
+        
+        .stats-box {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            transition: var(--transition);
+        }
+        
+        @media (min-width: 768px) {
+            .stats-box {
+                padding: 50px 40px;
+                border-radius: 25px;
+            }
+        }
+        
+        .stats-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
+        }
+        
+        .stats-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            color: var(--green-dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-box h3 {
+                font-size: 1.8rem;
+                margin-bottom: 40px;
+                padding-bottom: 20px;
+            }
+        }
+        
+        .stats-box h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--green-dark));
+            border-radius: 3px;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-box h3::after {
+                width: 100px;
+                height: 5px;
+            }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-grid {
+                gap: 30px;
+            }
+        }
+        
+        .stat-item {
+            padding: 15px 10px;
+            background: linear-gradient(145deg, #ffffff, #f1f8e9);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .stat-item {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            background: linear-gradient(145deg, #ffffff, #ffffff);
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--green-dark);
+            margin-bottom: 5px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (min-width: 768px) {
+            .stat-number {
+                font-size: 2.5rem;
+                margin-bottom: 8px;
+            }
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: #555;
+            font-weight: 500;
+            line-height: 1.3;
+            text-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .stat-label {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Map Section */
+        .map-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #f1f8e9, #e8f5e9);
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) {
+            .map-section {
+                padding: 100px 0;
+            }
+        }
+        
+        .map-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg);
+        }
+        
+        @media (min-width: 768px) {
+            .map-container {
+                height: 800px;
+                border-radius: 25px;
+            }
+        }
+        
+        .map-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            cursor: grab;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .map-wrapper:active {
+            cursor: grabbing;
+        }
+        
+        .map-image {
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            min-width: 100%;
+            min-height: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            max-width: 100%;
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            max-height: 400px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            z-index: 10;
+        }
+        
+        @media (min-width: 768px) {
+            .map-overlay {
+                position: absolute;
+                top: 40px;
+                right: 40px;
+                left: auto;
+                max-width: 350px;
+                max-height: 500px;
+                overflow-y: auto;
+                padding: 25px;
+                border-radius: 20px;
+            }
+        }
+        
+        .legend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .legend-header h4 {
+            margin: 0;
+            color: var(--green-dark);
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 8px;
+        }
+        
+        @media (min-width: 768px) {
+            .legend-header h4 {
+                font-size: 1.4rem;
+                padding-bottom: 10px;
+            }
+        }
+        
+        .toggle-legend {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .toggle-legend:hover {
+            background: rgba(87, 197, 182, 0.1);
+        }
+        
+        .legend-content {
+            transition: var(--transition);
+            overflow: hidden;
+        }
+        
+        .legend-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+        
+        .legend-content.expanded {
+            max-height: 1000px;
+            opacity: 1;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+        }
+        
+        @media (min-width: 768px) {
+            .legend-item {
+                margin-bottom: 15px;
+                font-size: 1rem;
+            }
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        
+        @media (min-width: 768px) {
+            .legend-color {
+                width: 25px;
+                height: 25px;
+                margin-right: 15px;
+            }
+        }
+        
+        /* Warna Legenda Peta */
+        .color-1 {
+            background-color: transparent;
+            border: 2px solid #000000;
+        }
+        
+        .color-2 {
+            background-color: transparent;
+            border: 2px dashed #ff0000;
+        }
+        
+        .color-3 {
+            background-color: transparent;
+            border: 2px dashed #0066ff;
+        }
+        
+        .color-4 {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+        }
+        
+        .color-5 {
+            background-color: #00aa00;
+        }
+        
+        .color-6 {
+            background-color: #800080;
+        }
+        
+        .color-7 {
+            background-color: #ff6600;
+        }
+        
+        .color-8 {
+            background-color: #8b4513;
+        }
+        
+        .color-9 {
+            background-color: #ffff00;
+        }
+        
+        .color-10 {
+            background-color: #00ffff;
+        }
+        
+        .color-11 {
+            background-color: #ff1493;
+        }
+        
+        .color-12 {
+            background-color: #32cd32;
+        }
+        
+        .legend-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        
+        @media (min-width: 768px) {
+            .legend-icon {
+                width: 25px;
+                height: 25px;
+                margin-right: 15px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--light), #e8f5e9);
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) {
+            .about-section {
+                padding: 100px 0;
+            }
+        }
+        
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        @media (min-width: 768px) {
+            .about-container {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 40px;
+                margin-top: 50px;
+            }
+        }
+        
+        .about-box {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            transition: var(--transition);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+        }
+        
+        @media (min-width: 768px) {
+            .about-box {
+                padding: 40px 30px;
+                border-radius: 25px;
+            }
+        }
+        
+        .about-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
+        }
+        
+        .about-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .about-header {
+                margin-bottom: 30px;
+            }
+        }
+        
+        .about-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            flex-shrink: 0;
+            border: 2px solid rgba(200, 230, 201, 0.5);
+        }
+        
+        @media (min-width: 768px) {
+            .about-icon {
+                width: 60px;
+                height: 60px;
+                margin-right: 20px;
+            }
+        }
+        
+        .about-title h4 {
+            font-size: 1.3rem;
+            color: var(--green-dark);
+            margin-bottom: 5px;
+        }
+        
+        @media (min-width: 768px) {
+            .about-title h4 {
+                font-size: 1.6rem;
+                margin-bottom: 8px;
+            }
+        }
+        
+        .about-title p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        @media (min-width: 768px) {
+            .about-title p {
+                font-size: 1rem;
+            }
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            flex-grow: 1;
+        }
+        
+        @media (min-width: 768px) {
+            .contact-info {
+                margin-top: 25px;
+            }
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(200, 230, 201, 0.5);
+        }
+        
+        @media (min-width: 768px) {
+            .contact-item {
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+        }
+        
+        .contact-item:hover {
+            background: linear-gradient(90deg, rgba(232, 245, 233, 0.8), rgba(200, 230, 201, 0.6));
+            transform: translateX(5px);
+        }
+        
+        .contact-item i {
+            color: var(--accent);
+            margin-right: 15px;
+            font-size: 1.1rem;
+            width: 20px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        @media (min-width: 768px) {
+            .contact-item i {
+                font-size: 1.3rem;
+                width: 25px;
+                margin-right: 20px;
+                margin-top: 5px;
+            }
+        }
+        
+        .contact-item div {
+            flex: 1;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        @media (min-width: 768px) {
+            .contact-item div {
+                font-size: 1rem;
+            }
+        }
+        
+        .map-frame {
+            width: 100%;
+            height: 250px;
+            border-radius: 15px;
+            border: none;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(200, 230, 201, 0.5);
+        }
+        
+        @media (min-width: 768px) {
+            .map-frame {
+                height: 300px;
+                border-radius: 20px;
+                margin-top: 25px;
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark), #0c384f);
+            color: var(--white);
+            padding: 40px 0 20px;
+            text-align: center;
+            width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            footer {
+                padding: 50px 0 25px;
+            }
+        }
+        
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-content {
+                padding: 0 40px;
+            }
+        }
+        
+        .footer-logo {
+            height: 50px;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-logo {
+                height: 70px;
+                margin-bottom: 25px;
+            }
+        }
+        
+        .footer-text {
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-text {
+                font-size: 1.2rem;
+                line-height: 1.8;
+                max-width: 900px;
+                padding: 0;
+            }
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.85rem;
+            opacity: 0.8;
+            padding: 0 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .copyright {
+                margin-top: 40px;
+                padding-top: 25px;
+                font-size: 1rem;
+                padding: 0;
+            }
+        }
+        
+        /* Install App Banner */
+        .install-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), #1a5f7a);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            z-index: 999;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            border-top: 2px solid var(--accent);
+        }
+        
+        @media (min-width: 768px) {
+            .install-banner {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 20px 40px;
+                gap: 0;
+            }
+        }
+        
+        .install-banner.active {
+            transform: translateY(0);
+        }
+        
+        .install-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .install-content {
+                width: auto;
+                justify-content: flex-start;
+            }
+        }
+        
+        .install-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+            border: 2px solid var(--accent);
+        }
+        
+        @media (min-width: 768px) {
+            .install-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 12px;
+            }
+        }
+        
+        .install-text {
+            text-align: center;
+            flex: 1;
+        }
+        
+        @media (min-width: 768px) {
+            .install-text {
+                text-align: left;
+                flex: none;
+            }
+        }
+        
+        .install-text h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        @media (min-width: 768px) {
+            .install-text h4 {
+                font-size: 1.2rem;
+                margin-bottom: 8px;
+            }
+        }
+        
+        .install-text p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        @media (min-width: 768px) {
+            .install-text p {
+                font-size: 0.95rem;
+            }
+        }
+        
+        .install-buttons {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        @media (min-width: 768px) {
+            .install-buttons {
+                width: auto;
+                justify-content: flex-end;
+            }
+        }
+        
+        .install-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            white-space: nowrap;
+            border: none;
+            cursor: pointer;
+        }
+        
+        @media (min-width: 768px) {
+            .install-btn {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
+        }
+        
+        .install-btn:hover {
+            background: linear-gradient(135deg, #45b0a1, #128b87);
+            transform: translateY(-3px);
+        }
+        
+        .close-banner {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+        
+        @media (min-width: 768px) {
+            .close-banner {
+                font-size: 1.8rem;
+                width: 35px;
+                height: 35px;
+            }
+        }
+        
+        .close-banner:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Utility Classes */
+        .section {
+            padding: 60px 0;
+        }
+        
+        @media (min-width: 768px) {
+            .section {
+                padding: 100px 0;
+            }
+        }
+    </style>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="data/foto/logolps.png" alt="LPS Padang Terubuk Asri" class="logo">
+                <div class="logo-text">
+                    <h1>LPS PADANG TERUBUK ASRI</h1>
+                    <span>Lembaga Pengelola Sampah Kelurahan Padang Terubuk</span>
+                </div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop">
+                <a href="#home">Beranda</a>
+                <div class="dropdown">
+                    <a href="#info">Informasi <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="maintenance.html">Profil</a>
+                        <a href="maintenance.html">Petugas</a>
+                        <a href="#peta">Peta Wilayah</a>
+                        <a href="https://lpspadangterubukasri.github.io/Home/dataangkutan.html">Data Angkutan</a>
+                        <a href="#stats">Data Peserta LPS</a>
+                    </div>
+                </div>
+                <a href="maintenance.html">Program</a>
+                <a href="#about">Kontak</a>
+            </nav>
+            
+            <!-- Mobile Navigation Toggle -->
+            <button class="mobile-nav-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#home">Beranda</a>
+            <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggle">
+                Informasi
+                <i class="fas fa-chevron-down"></i>
+            </a>
+            <div class="mobile-dropdown-content" id="mobileDropdownContent">
+                <a href="maintenance.html">Profil</a>
+                <a href="maintenance.html">Petugas</a>
+                <a href="#peta">Peta Wilayah</a>
+                <a href="https://lpspadangterubukasri.github.io/Home/dataangkutan.html">Data Angkutan</a>
+                <a href="#stats">Data Peserta LPS</a>
+            </div>
+            <a href="maintenance.html">Program</a>
+            <a href="#about">Kontak</a>
+        </div>
+        
+        <!-- Overlay for mobile menu -->
+        <div class="overlay" id="overlay"></div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="background-container">
+            <video class="background-video" autoplay muted loop playsinline id="bgVideo">
+                <source src="data/video/videoutama.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <img class="background-fallback" src="data/foto/backgroundutama.png" alt="Background" id="bgImage">
+            <div class="hero-overlay"></div>
+        </div>
+         
+        <div class="container hero-content">
+            <h2>LPS PADANG TERUBUK ASRI</h2>
+            <p>Lembaga Pengelola Sampah resmi Kelurahan Padang Terubuk yang berkomitmen menciptakan lingkungan bersih, sehat, dan asri melalui pengelolaan sampah terpadu.</p>
+            <div class="hero-buttons">
+                <a href="maintenance.html" class="btn btn-primary">Buka Pelayanan</a>
+                <a href="#about" class="btn btn-secondary">Kenali Kami</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Data Peserta LPS</h2>
+                <p class="section-subtitle">Pendataan Masih Berlangsung</p>
+            </div>
+            
+            <!-- Innovation Banner -->
+            <div class="innovation-banner">
+                <div class="innovation-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Inovasi Unggulan Lurah Padang Terubuk
+                </div>
+                <div class="innovation-text">
+                    Pendataan peserta LPS ini diadopsi dari inovasi "Pendataan Digital Warga" yang digagas oleh Bapak Lurah Padang Terubuk, yang memberikan dukungan penuh terhadap upaya LPS Padang Terubuk Asri dalam mengelola sistem persampahan yang terintegrasi di wilayah Kelurahan Padang Terubuk.
+                </div>
+                <div class="innovation-author">
+                    <i class="fas fa-user-tie"></i>
+                    Bapak JUNI HARDI, S.STP - Lurah Padang Terubuk
+                </div>
+            </div>
+            
+            <!-- Kelurahan Website Box -->
+            <div class="kelurahan-box" id="kelurahanBox">
+                <div class="kelurahan-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="kelurahan-title">Website Kelurahan Padang Terubuk</div>
+                <div class="kelurahan-description">
+                    Kunjungi website resmi Kelurahan Padang Terubuk untuk informasi terkini tentang pelayanan, program, dan aktivitas kelurahan
+                </div>
+                <a href="https://senapelan.github.io/Home/kelurahanpadangterubuk.html" target="_blank" class="kelurahan-btn">
+                    Kunjungi Website <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stats-box">
+                    <h3>Data Peserta LPS</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaRT">111</div>
+                            <div class="stat-label">Peserta Rumah Tangga (RT)</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="subsidiSilang">6</div>
+                            <div class="stat-label">Peserta Subsidi Silang</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaUMKM">15</div>
+                            <div class="stat-label">Peserta UMKM</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaBadanUsaha">5</div>
+                            <div class="stat-label">Peserta Badan Usaha</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaDLHK">7</div>
+                            <div class="stat-label">Peserta DLHK</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="belumPeserta">1118</div>
+                            <div class="stat-label">Belum Jadi Peserta</div>
+                        </div>
+                        <div class="stat-item" style="grid-column: span 2; background: linear-gradient(145deg, #e3f2fd, #bbdefb);">
+                            <div class="stat-number" id="totalPeserta">131</div>
+                            <div class="stat-label" style="color: var(--primary); font-weight: 600;">Total Peserta LPS</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-box">
+                    <h3>Data Kelurahan</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="penduduk">4192</div>
+                            <div class="stat-label">Jumlah Penduduk</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="kk">1255</div>
+                            <div class="stat-label">Kepala Keluarga</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="rt">26</div>
+                            <div class="stat-label">Rukun Tetangga</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="rw">6</div>
+                            <div class="stat-label">Rukun Warga</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Map Section -->
+    <section class="map-section" id="peta">
+        <div class="container">
+            <h2 class="section-title">Peta Wilayah Kerja LPS</h2>
+            <div class="map-container">
+                <div class="map-wrapper" id="mapWrapper">
+                    <img src="data/foto/peta-wilayah.png" alt="Peta Wilayah Kerja LPS Padang Terubuk Asri" class="map-image" id="mapImage">
+                </div>
+                <div class="map-overlay">
+                    <div class="legend-header">
+                        <h4>Legenda Peta Wilayah</h4>
+                        <button class="toggle-legend" id="toggleLegend">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="legend-content expanded" id="legendContent">
+                        <div class="legend-item">
+                            <div class="legend-color color-1"></div>
+                            <div class="legend-text">Batas Wilayah Kelurahan</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-2"></div>
+                            <div class="legend-text">Jalur Bentor 1</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-3"></div>
+                            <div class="legend-text">Jalur Bentor 2</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-4"></div>
+                            <div class="legend-text">Wilayah Perumahan/Komplek</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-5"></div>
+                            <div class="legend-text">RW. 001</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-6"></div>
+                            <div class="legend-text">RW. 002</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-7"></div>
+                            <div class="legend-text">RW. 003</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-8"></div>
+                            <div class="legend-text">RW. 004</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-9"></div>
+                            <div class="legend-text">RW. 005</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color color-10"></div>
+                            <div class="legend-text">RW. 006</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-icon" style="color: #ff1493;">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="legend-text">Kantor Sekretariat LPS</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-icon" style="color: #32cd32;">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="legend-text">Bank Sampah LPS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">Informasi & Kontak</h2>
+            <div class="about-container">
+                <div class="about-box">
+                    <div class="about-header">
+                        <img src="data/foto/logolps.png" alt="LPS Logo" class="about-icon">
+                        <div class="about-title">
+                            <h4>LPS PTA</h4>
+                            <p>Lembaga Pengelola Sampah<br>Padang Terubuk Asri</p>
+                        </div>
+                    </div>
+                    <p>Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri Kelurahan Padang Terubuk.</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Alamat Sekretariat:</strong><br>
+                                Jalan Melur No. 4 RT. 004 RW. 005<br>
+                                Kelurahan Padang Terubuk
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>No. Telp:</strong><br>
+                                +62 813-6556-5011
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email:</strong><br>
+                                lpspadangterubukasri@gmail.com
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <strong>WhatsApp:</strong><br>
+                                +62 813-6556-5011
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-box">
+                    <h3 style="color: var(--green-dark); margin-bottom: 20px;">Informasi LPS</h3>
+                    <ul style="list-style-type: none;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);">
+                            <a href="maintenance.html" style="text-decoration: none; color: #333; display: flex; align-items: center;">
+                                <i class="fas fa-book" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
+                                Sejarah LPS
+                            </a>
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);">
+                            <a href="https://lpspadangterubukasri.github.io/Home/struktur.html" style="text-decoration: none; color: #333; display: flex; align-items: center;">
+                                <i class="fas fa-sitemap" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
+                                Struktur LPS
+                            </a>
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);">
+                            <a href="https://lpspadangterubukasri.github.io/Home/dataangkutan.html" style="text-decoration: none; color: #333; display: flex; align-items: center;">
+                                <i class="fas fa-truck" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
+                                Data Angkutan
+                            </a>
+                        </li>
+                        <li style="padding: 12px 0;">
+                            <a href="https://lpspadangterubukasri.github.io/Home/visidanmisi.html" style="text-decoration: none; color: #333; display: flex; align-items: center;">
+                                <i class="fas fa-bullseye" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
+                                Visi dan Misi
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="about-box">
+                    <h3 style="color: var(--green-dark); margin-bottom: 20px;">Lokasi Kantor</h3>
+                    <p>Kantor LPS Padang Terubuk Asri terletak di Jalan Melur No. 4, Kelurahan Padang Terubuk. Silakan kunjungi kami selama jam kerja atau hubungi terlebih dahulu untuk janji temu.</p>
+                    
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1146.763265661322!2d101.43406919999998!3d0.5336778000000109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMzInMDEuMiJOIDEwMcKwMjYnMDIuNyJF!5e1!3m2!1sen!2sid!4v1770468608348!5m2!1sen!2sid" 
+                        class="map-frame" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="data/foto/logolps.png" alt="LPS Logo" class="footer-logo">
+                <p class="footer-text">Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri adalah lembaga resmi yang diakui Pemerintah Kota Pekanbaru untuk pengelolaan sampah terpadu di Kelurahan Padang Terubuk. Kami berkomitmen untuk menciptakan lingkungan yang bersih, sehat, dan asri melalui sistem pengelolaan sampah yang terintegrasi dan berkelanjutan.</p>
+                <div class="copyright">
+                    &copy; 2026 Lembaga Pengelola Sampah Padang Terubuk Asri. | Hak Cipta Dilindungi
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Install App Banner -->
+    <div class="install-banner" id="installBanner">
+        <div class="install-content">
+            <img src="data/foto/logoaplikasi.png" alt="LPS App" class="install-icon">
+            <div class="install-text">
+                <h4>Pasang Aplikasi LPS</h4>
+                <p>Akses lebih mudah dengan memasang aplikasi LPS di perangkat Anda</p>
+            </div>
+        </div>
+        <div class="install-buttons">
+            <a href="#" class="install-btn" id="installBtn">Pasang Aplikasi</a>
+            <button class="close-banner" id="closeBanner">&times;</button>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('overlay');
+        const mobileDropdownToggle = document.getElementById('mobileDropdownToggle');
+        const mobileDropdownContent = document.getElementById('mobileDropdownContent');
+        
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        mobileDropdownToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            mobileDropdownToggle.classList.toggle('active');
+            mobileDropdownContent.classList.toggle('active');
+        });
+        
+        // Background Video/Image Handling
+        const bgVideo = document.getElementById('bgVideo');
+        const bgImage = document.getElementById('bgImage');
+        
+        if (bgVideo) {
+            bgVideo.addEventListener('error', function() {
+                bgVideo.style.display = 'none';
+                bgImage.style.display = 'block';
+            });
+            
+            bgVideo.addEventListener('loadeddata', function() {
+                bgImage.style.display = 'none';
+            }, false);
+            
+            bgVideo.addEventListener('error', function() {
+                bgVideo.style.display = 'none';
+                bgImage.style.display = 'block';
+            }, false);
+        }
+        
+        window.addEventListener('load', function() {
+            if (!bgVideo || !bgVideo.src) {
+                bgImage.style.display = 'block';
+            }
+        });
+        
+        // Install Banner
+        const installBanner = document.getElementById('installBanner');
+        const closeBanner = document.getElementById('closeBanner');
+        const installBtn = document.getElementById('installBtn');
+        
+        setTimeout(() => {
+            if (!localStorage.getItem('lpsBannerDismissed')) {
+                installBanner.classList.add('active');
+            }
+        }, 3000);
+        
+        closeBanner.addEventListener('click', () => {
+            installBanner.classList.remove('active');
+            localStorage.setItem('lpsBannerDismissed', 'true');
+        });
+        
+        installBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Aplikasi LPS akan dipasang di perangkat Anda. Pastikan Anda terhubung ke internet.');
+            installBanner.classList.remove('active');
+            localStorage.setItem('lpsBannerDismissed', 'true');
+        });
+        
+        // Animate stats counters
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 20);
+        }
+        
+        // Initialize counters when section is in view
+        const observerOptions = {
+            threshold: 0.3
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = {
+                        pesertaRT: 111,
+                        subsidiSilang: 6,
+                        pesertaUMKM: 15,
+                        pesertaBadanUsaha: 5,
+                        pesertaDLHK: 7,
+                        belumPeserta: 1118,
+                        totalPeserta: 131,
+                        penduduk: 4192,
+                        kk: 1255,
+                        rt: 26,
+                        rw: 6
+                    };
+                    
+                    for (const [id, value] of Object.entries(counters)) {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            animateCounter(element, value);
+                        }
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        const statsSection = document.getElementById('stats');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+        
+        // Map drag functionality
+        const mapWrapper = document.getElementById('mapWrapper');
+        const mapImage = document.getElementById('mapImage');
+        
+        if (mapWrapper && mapImage) {
+            let isDragging = false;
+            let startX, startY, scrollLeft, scrollTop;
+            
+            mapWrapper.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                mapWrapper.style.cursor = 'grabbing';
+                startX = e.pageX - mapWrapper.offsetLeft;
+                startY = e.pageY - mapWrapper.offsetTop;
+                scrollLeft = mapWrapper.scrollLeft;
+                scrollTop = mapWrapper.scrollTop;
+            });
+            
+            mapWrapper.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.pageX - mapWrapper.offsetLeft;
+                const y = e.pageY - mapWrapper.offsetTop;
+                const walkX = (x - startX) * 2;
+                const walkY = (y - startY) * 2;
+                mapWrapper.scrollLeft = scrollLeft - walkX;
+                mapWrapper.scrollTop = scrollTop - walkY;
+            });
+            
+            mapWrapper.addEventListener('mouseup', () => {
+                isDragging = false;
+                mapWrapper.style.cursor = 'grab';
+            });
+            
+            mapWrapper.addEventListener('mouseleave', () => {
+                isDragging = false;
+                mapWrapper.style.cursor = 'grab';
+            });
+            
+            mapWrapper.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                const touch = e.touches[0];
+                startX = touch.pageX - mapWrapper.offsetLeft;
+                startY = touch.pageY - mapWrapper.offsetTop;
+                scrollLeft = mapWrapper.scrollLeft;
+                scrollTop = mapWrapper.scrollTop;
+            });
+            
+            mapWrapper.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const touch = e.touches[0];
+                const x = touch.pageX - mapWrapper.offsetLeft;
+                const y = touch.pageY - mapWrapper.offsetTop;
+                const walkX = (x - startX) * 2;
+                const walkY = (y - startY) * 2;
+                mapWrapper.scrollLeft = scrollLeft - walkX;
+                mapWrapper.scrollTop = scrollTop - walkY;
+            });
+            
+            mapWrapper.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+        }
+        
+        // Legend toggle functionality
+        const toggleLegend = document.getElementById('toggleLegend');
+        const legendContent = document.getElementById('legendContent');
+        const legendIcon = toggleLegend.querySelector('i');
+        
+        if (toggleLegend && legendContent) {
+            toggleLegend.addEventListener('click', () => {
+                legendContent.classList.toggle('collapsed');
+                legendContent.classList.toggle('expanded');
+                if (legendContent.classList.contains('collapsed')) {
+                    legendIcon.classList.remove('fa-chevron-up');
+                    legendIcon.classList.add('fa-chevron-down');
+                } else {
+                    legendIcon.classList.remove('fa-chevron-down');
+                    legendIcon.classList.add('fa-chevron-up');
+                }
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                
+                mobileToggle.classList.remove('active');
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(232, 245, 233, 0.95))';
+            } else {
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
+                header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 245, 233, 0.95))';
+            }
+        });
+        
+        // Prevent horizontal scroll on mobile
+        window.addEventListener('load', function() {
+            document.body.style.overflowX = 'hidden';
+        });
+        
+        // Fix for iOS viewport height issue
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setVH();
+        window.addEventListener('resize', setVH);
+        window.addEventListener('orientationchange', setVH);
+        
+        // Add animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.stats-box, .about-box, .innovation-banner, .kelurahan-box');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+        }
+        
+        // Initialize animations on load
+        window.addEventListener('load', animateOnScroll);
+        
+        // Click effect for Kelurahan Box
+        const kelurahanBox = document.getElementById('kelurahanBox');
+        if (kelurahanBox) {
+            kelurahanBox.addEventListener('click', function() {
+                this.style.transform = 'translateY(-8px) scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                }, 150);
+            });
+        }
+        
+        // Confetti effect for innovation banner
+        function createConfetti() {
+            const innovationBanner = document.querySelector('.innovation-banner');
+            if (!innovationBanner) return;
+            
+            for (let i = 0; i < 15; i++) {
+                const confetti = document.createElement('div');
+                confetti.innerHTML = '★';
+                confetti.style.position = 'absolute';
+                confetti.style.color = Math.random() > 0.5 ? 'var(--gold)' : 'var(--bronze)';
+                confetti.style.fontSize = Math.random() * 10 + 8 + 'px';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 100 + '%';
+                confetti.style.opacity = '0';
+                confetti.style.transition = 'opacity 0.5s, transform 2s';
+                confetti.style.zIndex = '1';
+                confetti.style.pointerEvents = 'none';
+                
+                innovationBanner.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.style.opacity = '0.7';
+                    confetti.style.transform = `translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
+                }, 100);
+                
+                setTimeout(() => {
+                    confetti.style.opacity = '0';
+                    setTimeout(() => {
+                        if (confetti.parentNode) {
+                            confetti.parentNode.removeChild(confetti);
+                        }
+                    }, 500);
+                }, 2000);
+            }
+        }
+        
+        // Trigger confetti when innovation banner is in view
+        const innovationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(createConfetti, 500);
+                    innovationObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        const innovationBanner = document.querySelector('.innovation-banner');
+        if (innovationBanner) {
+            innovationObserver.observe(innovationBanner);
+        }
+        
+        // Add pulse animation to kelurahan box
+        setInterval(() => {
+            const kelurahanBox = document.getElementById('kelurahanBox');
+            if (kelurahanBox && isElementInViewport(kelurahanBox)) {
+                kelurahanBox.style.boxShadow = '0 15px 40px rgba(26, 95, 122, 0.3)';
+                setTimeout(() => {
+                    kelurahanBox.style.boxShadow = '0 10px 30px rgba(26, 95, 122, 0.15)';
+                }, 1000);
+            }
+        }, 3000);
+        
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+    </script>
+</body>
+</html>

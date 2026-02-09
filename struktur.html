@@ -1,1 +1,821 @@
-
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struktur Organisasi - LPS Padang Terubuk Asri</title>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --green-light: #e8f5e9;
+            --green-medium: #c8e6c9;
+            --green-dark: #388e3c;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--light), #e8f5e9);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 40px;
+        }
+        
+        .header h1 {
+            color: var(--green-dark);
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--green-dark));
+            border-radius: 2px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 30px auto;
+            line-height: 1.6;
+        }
+        
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(87, 197, 182, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Organizational Chart */
+        .org-chart {
+            position: relative;
+            min-height: 800px;
+            padding: 40px 20px;
+        }
+        
+        /* Level 1 - Ketua */
+        .level-1 {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 100px;
+            position: relative;
+        }
+        
+        /* Level 2 - Sekretaris & Bendahara */
+        .level-2 {
+            display: flex;
+            justify-content: center;
+            gap: 300px;
+            margin-bottom: 100px;
+            position: relative;
+        }
+        
+        /* Level 3 - Bidang-bidang */
+        .level-3 {
+            display: flex;
+            justify-content: center;
+            gap: 150px;
+            position: relative;
+        }
+        
+        /* Connection Lines */
+        .connector {
+            position: absolute;
+            background: linear-gradient(to bottom, var(--accent), var(--secondary));
+            z-index: -1;
+        }
+        
+        .connector-vertical {
+            width: 4px;
+            height: 100px;
+            top: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .connector-horizontal {
+            height: 4px;
+            width: 300px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .connector-diagonal-left {
+            width: 4px;
+            height: 100px;
+            transform: rotate(-30deg);
+            transform-origin: top center;
+            top: 160px;
+            left: calc(50% - 150px);
+        }
+        
+        .connector-diagonal-right {
+            width: 4px;
+            height: 100px;
+            transform: rotate(30deg);
+            transform-origin: top center;
+            top: 160px;
+            left: calc(50% + 150px);
+        }
+        
+        /* Staff Card - PREMIUM DESIGN */
+        .staff-card {
+            background: linear-gradient(145deg, #ffffff, #f1f8e9);
+            border-radius: 20px;
+            padding: 25px;
+            width: 280px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            z-index: 1;
+        }
+        
+        .staff-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+        }
+        
+        .staff-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
+        }
+        
+        .staff-card.level-1-card {
+            width: 320px;
+            background: linear-gradient(145deg, #ffffff, #e3f2fd);
+            border: 2px solid rgba(87, 197, 182, 0.3);
+        }
+        
+        .staff-card.level-1-card::before {
+            height: 8px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+        }
+        
+        .staff-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 20px;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .staff-card:hover .staff-photo {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+        
+        .staff-info {
+            text-align: center;
+        }
+        
+        .staff-name {
+            font-size: 1.4rem;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .staff-position {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 8px 15px;
+            background: rgba(87, 197, 182, 0.1);
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid rgba(87, 197, 182, 0.3);
+        }
+        
+        .staff-card.level-1-card .staff-position {
+            background: linear-gradient(135deg, rgba(87, 197, 182, 0.15), rgba(26, 95, 122, 0.1));
+            font-size: 1.2rem;
+            padding: 10px 20px;
+        }
+        
+        .staff-division {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-style: italic;
+            padding: 5px 10px;
+            background: rgba(200, 230, 201, 0.3);
+            border-radius: 8px;
+        }
+        
+        /* Error State */
+        .error-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .error-state i {
+            font-size: 4rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        
+        .error-state h2 {
+            color: var(--green-dark);
+            margin-bottom: 15px;
+        }
+        
+        .refresh-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .refresh-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(87, 197, 182, 0.3);
+        }
+        
+        /* Back Button */
+        .back-container {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary), #0c384f);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(26, 95, 122, 0.2);
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(26, 95, 122, 0.3);
+            gap: 15px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .level-2 {
+                gap: 200px;
+            }
+            
+            .level-3 {
+                gap: 100px;
+            }
+            
+            .staff-card {
+                width: 250px;
+            }
+            
+            .staff-card.level-1-card {
+                width: 280px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .org-chart {
+                min-height: auto;
+            }
+            
+            .level-1,
+            .level-2,
+            .level-3 {
+                flex-direction: column;
+                align-items: center;
+                gap: 60px;
+            }
+            
+            .level-2 {
+                gap: 60px;
+            }
+            
+            .level-3 {
+                gap: 60px;
+            }
+            
+            .connector {
+                display: none;
+            }
+            
+            .staff-card {
+                width: 320px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .staff-card {
+                width: 280px;
+                padding: 20px;
+            }
+            
+            .staff-card.level-1-card {
+                width: 280px;
+            }
+            
+            .staff-photo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .staff-name {
+                font-size: 1.2rem;
+            }
+            
+            .staff-position {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .color-leadership {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+        }
+        
+        .color-staff {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+        }
+    </style>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>STRUKTUR ORGANISASI</h1>
+            <p>Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri<br>Kelurahan Padang Terubuk, Kota Pekanbaru</p>
+        </div>
+        
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <h3>Memuat data struktur organisasi...</h3>
+            <p>Mengambil data dari spreadsheet Google Sheets</p>
+        </div>
+        
+        <div id="orgChart" class="org-chart" style="display: none;">
+            <!-- Level 1 - Ketua -->
+            <div class="level-1">
+                <div class="staff-card level-1-card" id="ketua-card">
+                    <img src="" alt="Ketua" class="staff-photo" id="ketua-photo">
+                    <div class="staff-info">
+                        <h3 class="staff-name" id="ketua-name">Nama Ketua</h3>
+                        <div class="staff-position" id="ketua-position">KETUA</div>
+                    </div>
+                </div>
+                <div class="connector connector-vertical"></div>
+            </div>
+            
+            <!-- Level 2 - Sekretaris & Bendahara -->
+            <div class="level-2">
+                <div class="connector connector-horizontal"></div>
+                <div class="staff-card" id="sekretaris-card">
+                    <img src="" alt="Sekretaris" class="staff-photo" id="sekretaris-photo">
+                    <div class="staff-info">
+                        <h3 class="staff-name" id="sekretaris-name">Nama Sekretaris</h3>
+                        <div class="staff-position" id="sekretaris-position">SEKRETARIS</div>
+                    </div>
+                </div>
+                
+                <div class="staff-card" id="bendahara-card">
+                    <img src="" alt="Bendahara" class="staff-photo" id="bendahara-photo">
+                    <div class="staff-info">
+                        <h3 class="staff-name" id="bendahara-name">Nama Bendahara</h3>
+                        <div class="staff-position" id="bendahara-position">BENDAHARA</div>
+                    </div>
+                </div>
+                <div class="connector connector-diagonal-left"></div>
+                <div class="connector connector-diagonal-right"></div>
+            </div>
+            
+            <!-- Level 3 - Bidang-bidang -->
+            <div class="level-3">
+                <div class="staff-card" id="angkutan-card">
+                    <img src="" alt="Bidang Angkutan" class="staff-photo" id="angkutan-photo">
+                    <div class="staff-info">
+                        <h3 class="staff-name" id="angkutan-name">Nama Koordinator</h3>
+                        <div class="staff-position" id="angkutan-position">KOORDINATOR</div>
+                        <div class="staff-division">Bidang Angkutan Sampah</div>
+                    </div>
+                </div>
+                
+                <div class="staff-card" id="pengolahan-card">
+                    <img src="" alt="Bidang Pengolahan" class="staff-photo" id="pengolahan-photo">
+                    <div class="staff-info">
+                        <h3 class="staff-name" id="pengolahan-name">Nama Koordinator</h3>
+                        <div class="staff-position" id="pengolahan-position">KOORDINATOR</div>
+                        <div class="staff-division">Bidang Pengolahan Sampah dan Edukasi</div>
+                    </div>
+                </div>
+                
+                <div class="staff-card" id="iuran-card">
+                    <img src="" alt="Bidang Iuran" class="staff-photo" id="iuran-photo">
+                    <div class="staff-info">
+                        <h3 class="staff-name" id="iuran-name">Nama Koordinator</h3>
+                        <div class="staff-position" id="iuran-position">KOORDINATOR</div>
+                        <div class="staff-division">Bidang Pemungutan Iuran</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color color-leadership"></div>
+                    <span>Pimpinan</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color color-staff"></div>
+                    <span>Staff & Koordinator</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="errorState" class="error-state" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Gagal Memuat Data</h2>
+            <p>Terjadi kesalahan saat mengambil data dari spreadsheet. Pastikan:</p>
+            <ul style="text-align: left; max-width: 400px; margin: 20px auto;">
+                <li>Spreadsheet sudah dipublikasikan</li>
+                <li>Koneksi internet stabil</li>
+                <li>Format data sesuai template</li>
+            </ul>
+            <button class="refresh-btn" id="refreshBtn">
+                <i class="fas fa-sync-alt"></i> Coba Lagi
+            </button>
+        </div>
+        
+        <div class="back-container">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Google Sheets Configuration
+        const SPREADSHEET_ID = '1RNLvI_ZRakyGsnEEWEoJ7Fb2GrZ-UMGih1Ceh49CFXw';
+        const SHEET_NAME = 'BAGAN_LPS';
+        const API_KEY = 'AIzaSyBpJxYk-GXhwsxrqX5nnWVKKB8K4gf4aw0';
+        
+        // Column mapping sesuai spreadsheet Anda
+        const COLUMNS = {
+            KETUA: {
+                NAME: 0,        // A
+                POSITION: 1,    // B
+                PHOTO: 2        // C
+            },
+            SEKRETARIS: {
+                NAME: 3,        // D
+                POSITION: 4,    // E
+                PHOTO: 5        // F
+            },
+            BENDAHARA: {
+                NAME: 6,        // G
+                POSITION: 7,    // H
+                PHOTO: 8        // I
+            },
+            ANGKUTAN: {
+                NAME: 9,        // J
+                POSITION: 10,   // K
+                PHOTO: 11       // L
+            },
+            PENGOLAHAN: {
+                NAME: 12,       // M
+                POSITION: 13,   // N
+                PHOTO: 14       // O
+            },
+            IURAN: {
+                NAME: 15,       // P
+                POSITION: 16,   // Q
+                PHOTO: 17       // R
+            }
+        };
+        
+        // DOM Elements
+        const loadingElement = document.getElementById('loading');
+        const orgChartElement = document.getElementById('orgChart');
+        const errorStateElement = document.getElementById('errorState');
+        const refreshButton = document.getElementById('refreshBtn');
+        
+        // Staff card elements
+        const staffElements = {
+            ketua: {
+                name: document.getElementById('ketua-name'),
+                position: document.getElementById('ketua-position'),
+                photo: document.getElementById('ketua-photo'),
+                card: document.getElementById('ketua-card')
+            },
+            sekretaris: {
+                name: document.getElementById('sekretaris-name'),
+                position: document.getElementById('sekretaris-position'),
+                photo: document.getElementById('sekretaris-photo'),
+                card: document.getElementById('sekretaris-card')
+            },
+            bendahara: {
+                name: document.getElementById('bendahara-name'),
+                position: document.getElementById('bendahara-position'),
+                photo: document.getElementById('bendahara-photo'),
+                card: document.getElementById('bendahara-card')
+            },
+            angkutan: {
+                name: document.getElementById('angkutan-name'),
+                position: document.getElementById('angkutan-position'),
+                photo: document.getElementById('angkutan-photo'),
+                card: document.getElementById('angkutan-card')
+            },
+            pengolahan: {
+                name: document.getElementById('pengolahan-name'),
+                position: document.getElementById('pengolahan-position'),
+                photo: document.getElementById('pengolahan-photo'),
+                card: document.getElementById('pengolahan-card')
+            },
+            iuran: {
+                name: document.getElementById('iuran-name'),
+                position: document.getElementById('iuran-position'),
+                photo: document.getElementById('iuran-photo'),
+                card: document.getElementById('iuran-card')
+            }
+        };
+        
+        // Default fallback photo
+        const DEFAULT_PHOTO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0iI0U4RjVFOSIvPjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41Njg1IDEzMCA4MEMxMzAgNjMuNDMxNSAxMTYuNTY5IDUwIDEwMCA1MEM4My40MzE0IDUwIDcwIDYzLjQzMTUgNzAgODBDNzAgOTYuNTY4NSA4My40MzE0IDExMCAxMDAgMTEwWiIgZmlsbD0iIzU3QzVCNiIvPjxwYXRoIGQ9Ik0xMzAgMTIwSDEwMEM3MC40MzE0IDEyMCA0Ni42NjQyIDE0My40MDggNTAuNTE5NiAxNzIuNTJDNTIuMzMzNSAxODYuNTg1IDY0LjY5NzYgMTk3LjUgODAgMTk3LjVIMTUwQzE2NS4zMDIgMTk3LjUgMTc3LjY2NiAxODYuNTg1IDE3OS40OCAxNzIuNTJDMTgzLjMzNiAxNDMuNDA4IDE1OS41NjkgMTIwIDEzMCAxMjBaIiBmaWxsPSIjNTdDNUI2Ii8+PC9zdmc+';
+        
+        // Fetch data from Google Sheets
+        async function fetchData() {
+            try {
+                showLoading();
+                
+                // Construct the API URL
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
+                
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (!data.values || data.values.length === 0) {
+                    throw new Error('Spreadsheet is empty');
+                }
+                
+                // Get the first row (assuming header is in first row)
+                const row = data.values[0];
+                
+                // Update staff information
+                updateStaffInfo(staffElements.ketua, row, COLUMNS.KETUA);
+                updateStaffInfo(staffElements.sekretaris, row, COLUMNS.SEKRETARIS);
+                updateStaffInfo(staffElements.bendahara, row, COLUMNS.BENDAHARA);
+                updateStaffInfo(staffElements.angkutan, row, COLUMNS.ANGKUTAN);
+                updateStaffInfo(staffElements.pengolahan, row, COLUMNS.PENGOLAHAN);
+                updateStaffInfo(staffElements.iuran, row, COLUMNS.IURAN);
+                
+                // Add hover effects after data is loaded
+                addHoverEffects();
+                
+                // Show the org chart
+                showOrgChart();
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                showError();
+            }
+        }
+        
+        // Update staff information
+        function updateStaffInfo(staffElement, row, columns) {
+            const name = row[columns.NAME] || 'Data tidak tersedia';
+            const position = row[columns.POSITION] || 'Jabatan';
+            const photoUrl = row[columns.PHOTO] || DEFAULT_PHOTO;
+            
+            staffElement.name.textContent = name;
+            staffElement.position.textContent = position;
+            
+            // Handle photo URL
+            if (photoUrl.trim() && photoUrl !== DEFAULT_PHOTO) {
+                // Check if URL is valid
+                if (isValidUrl(photoUrl)) {
+                    staffElement.photo.src = photoUrl;
+                    staffElement.photo.onerror = function() {
+                        this.src = DEFAULT_PHOTO;
+                    };
+                } else {
+                    staffElement.photo.src = DEFAULT_PHOTO;
+                }
+            } else {
+                staffElement.photo.src = DEFAULT_PHOTO;
+            }
+        }
+        
+        // Check if string is a valid URL
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+        
+        // Add hover effects to cards
+        function addHoverEffects() {
+            const cards = document.querySelectorAll('.staff-card');
+            
+            cards.forEach(card => {
+                // Add click effect
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 300);
+                });
+                
+                // Add keyboard navigation
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        this.click();
+                    }
+                });
+                
+                // Make cards focusable
+                card.setAttribute('tabindex', '0');
+            });
+        }
+        
+        // Show loading state
+        function showLoading() {
+            loadingElement.style.display = 'block';
+            orgChartElement.style.display = 'none';
+            errorStateElement.style.display = 'none';
+        }
+        
+        // Show org chart
+        function showOrgChart() {
+            loadingElement.style.display = 'none';
+            orgChartElement.style.display = 'block';
+            errorStateElement.style.display = 'none';
+        }
+        
+        // Show error state
+        function showError() {
+            loadingElement.style.display = 'none';
+            orgChartElement.style.display = 'none';
+            errorStateElement.style.display = 'block';
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', fetchData);
+        
+        // Refresh button event
+        refreshButton.addEventListener('click', fetchData);
+        
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on load
+            setTimeout(() => {
+                const cards = document.querySelectorAll('.staff-card');
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(30px)';
+                        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100);
+                    }, index * 100);
+                });
+            }, 500);
+            
+            // Add parallax effect on scroll
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const cards = document.querySelectorAll('.staff-card');
+                
+                cards.forEach((card, index) => {
+                    const speed = 0.03 + (index * 0.01);
+                    const yPos = -(scrolled * speed);
+                    card.style.transform = `translateY(${yPos}px)`;
+                });
+            });
+        });
+        
+        // Handle image loading errors
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG' && e.target.classList.contains('staff-photo')) {
+                e.target.src = DEFAULT_PHOTO;
+            }
+        }, true);
+    </script>
+</body>
+</html>

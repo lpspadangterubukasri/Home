@@ -560,13 +560,13 @@
     </div>
     
     <script>
-    // ========== KONFIGURASI ==========
+    // ========== KONFIGURASI YANG AMAN ==========
     
     const SPREADSHEET_ID = '1RNLvI_ZRakyGsnEEWEoJ7Fb2GrZ-UMGih1Ceh49CFXw';
     const SHEET_NAME = 'BAGAN_LPS';
     const API_KEY = 'AIzaSyAS_iK5OTOGaMGFytbEJi8GydePK7H52wo';
     
-    // URL Google Sheets API
+    // URL yang benar untuk Sheets API
     const API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
     
     // DOM Elements
@@ -618,7 +618,7 @@
     // Default fallback photo
     const DEFAULT_PHOTO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0iI0U4RjVFOSIvPjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41Njg1IDEzMCA4MEMxMzAgNjMuNDMxNSAxMTYuNTY5IDUwIDEwMCA1MEM4My40MzE0IDUwIDcwIDYzLjQzMTUgNzAgODBDNzAgOTYuNTY4NSA4My40MzE0IDExMCAxMDAgMTEwWiIgZmlsbD0iIzU3QzVCNiIvPjxwYXRoIGQ9Ik0xMzAgMTIwSDEwMEM3MC40MzE0IDEyMCA0Ni42NjQyIDE0My40MDggNTAuNTE5NiAxNzIuNTJDNTIuMzMzNSAxODYuNTg1IDY0LjY5NzYgMTk3LjUgODAgMTk3LjVIMTUwQzE2NS4zMDIgMTk3LjUgMTc3LjY2NiAxODYuNTg1IDE3OS40OCAxNzIuNTJDMTgzLjMzNiAxNDMuNDA4IDE1OS41NjkgMTIwIDEzMCAxMjBaIiBmaWxsPSIjNTdDNUI2Ii8+PC9zdmc+';
     
-    // Mapping kolom spreadsheet (0-based index)
+    // Mapping kolom spreadsheet
     const COLUMNS = {
         KETUA: { NAME: 0, POSITION: 1, PHOTO: 2 },
         SEKRETARIS: { NAME: 3, POSITION: 4, PHOTO: 5 },
@@ -632,116 +632,152 @@
     
     async function fetchData() {
         try {
-            console.log('🚀 Memulai pengambilan data...');
+            console.log('Memulai pengambilan data...');
             showLoading();
             
-            // Ambil data dari Google Sheets API
-            const response = await fetch(API_URL);
+            // Coba metode Sheets API dulu
+            let data = await fetchWithSheetsAPI();
             
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+            if (!data || data.length === 0) {
+                console.log('Data kosong, coba metode CSV...');
+                data = await fetchWithCSV();
             }
             
-            const result = await response.json();
-            
-            if (!result.values || result.values.length === 0) {
-                throw new Error('Spreadsheet kosong');
+            if (!data || data.length === 0) {
+                throw new Error('Tidak ada data yang ditemukan');
             }
             
-            console.log(`📊 Total baris: ${result.values.length}`);
-            console.log('📋 Data lengkap:', result.values);
-            
-            // Proses data
-            processData(result.values);
+            console.log('Data berhasil diambil:', data[0]);
+            processData(data);
             showOrgChart();
             addHoverEffects();
             
-            console.log('✅ Data berhasil dimuat!');
+        } catch (error) {
+            console.error('Error utama:', error);
+            showError();
+        }
+    }
+    
+    // Metode 1: Google Sheets API
+    async function fetchWithSheetsAPI() {
+        try {
+            console.log('Menggunakan Sheets API...');
+            const response = await fetch(API_URL);
+            
+            console.log('Response status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error(`Sheets API error: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            console.log('Sheets API result:', result);
+            
+            return result.values || [];
             
         } catch (error) {
-            console.error('❌ Error:', error);
-            showError(error.message);
+            console.warn('Sheets API gagal:', error.message);
+            return null;
         }
     }
     
-    function processData(allData) {
-        console.log('🔄 Memproses data...');
-        
-        // DATA STRUCTURE:
-        // Baris 1 (index 0): HEADER - "NAMA", "JABATAN KETUA", "LINK FOTO", dll
-        // Baris 2 (index 1): DATA AKTUAL - "RAMA HADI WIAJAYA", "KETUA LPS", "", dll
-        
-        if (allData.length < 2) {
-            throw new Error('Hanya ada header, tidak ada data');
+    // Metode 2: CSV Export (backup)
+    async function fetchWithCSV() {
+        try {
+            console.log('Menggunakan metode CSV...');
+            
+            // Coba beberapa format URL CSV
+            const csvUrls = [
+                `https://docs.google.com/spreadsheets/d/e/2PACX-1vT5P0tUqP_y_GOaAfDEO0N_0HSHImJR09qTq7k2Iuj-2pNpB8rRPGut0N-WGxFCGvLrV3WjES_elvY/pub?output=csv`,
+                `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`,
+                `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&id=${SPREADSHEET_ID}&sheet=${SHEET_NAME}`
+            ];
+            
+            for (const url of csvUrls) {
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const csvText = await response.text();
+                        console.log('CSV berhasil:', csvText.substring(0, 200));
+                        return parseCSV(csvText);
+                    }
+                } catch (e) {
+                    console.log('URL gagal:', url);
+                }
+            }
+            
+            return null;
+            
+        } catch (error) {
+            console.warn('CSV method gagal:', error);
+            return null;
         }
-        
-        const header = allData[0];
-        const dataRow = allData[1]; // INI BARIS DATA AKTUAL!
-        
-        console.log('📌 Header:', header);
-        console.log('📝 Data aktual (baris 2):', dataRow);
-        
-        // Debug: Tampilkan semua kolom
-        console.log('🔍 Detail semua kolom data aktual:');
-        for (let i = 0; i < Math.min(dataRow.length, 18); i++) {
-            const columnLetter = String.fromCharCode(65 + i);
-            const value = dataRow[i] || '(kosong)';
-            console.log(`  ${columnLetter} (${i}): "${value}"`);
-        }
-        
-        // UPDATE DATA DARI BARIS KEDUA (index 1)
-        updateStaff('Ketua', staffElements.ketua, dataRow, COLUMNS.KETUA);
-        updateStaff('Sekretaris', staffElements.sekretaris, dataRow, COLUMNS.SEKRETARIS);
-        updateStaff('Bendahara', staffElements.bendahara, dataRow, COLUMNS.BENDAHARA);
-        updateStaff('Angkutan', staffElements.angkutan, dataRow, COLUMNS.ANGKUTAN);
-        updateStaff('Pengolahan', staffElements.pengolahan, dataRow, COLUMNS.PENGOLAHAN);
-        updateStaff('Iuran', staffElements.iuran, dataRow, COLUMNS.IURAN);
     }
     
-    function updateStaff(role, element, dataRow, columns) {
-        const name = dataRow[columns.NAME] || '';
-        const position = dataRow[columns.POSITION] || '';
-        const photoUrl = dataRow[columns.PHOTO] || '';
+    // Parse CSV menjadi array
+    function parseCSV(csvText) {
+        const rows = [];
+        const lines = csvText.split('\n');
         
-        console.log(`👤 [${role}] Data: Nama="${name}", Jabatan="${position}", Foto="${photoUrl}"`);
+        lines.forEach(line => {
+            if (line.trim()) {
+                // Simple CSV parsing
+                const row = line.split(',').map(cell => 
+                    cell.trim().replace(/^"|"$/g, '')
+                );
+                rows.push(row);
+            }
+        });
         
-        // Clean data
-        const cleanName = name.toString().trim();
-        const cleanPosition = position.toString().trim();
-        const cleanPhotoUrl = photoUrl.toString().trim();
+        return rows;
+    }
+    
+    // Proses data dan update UI
+    function processData(data) {
+        const row = data[0] || [];
         
-        // Set default jika kosong
-        const finalName = cleanName || `Belum diisi (${role})`;
-        const finalPosition = cleanPosition || 'Jabatan';
+        console.log('Processing row:', row);
         
-        console.log(`✅ [${role}] Final: "${finalName}" - "${finalPosition}"`);
+        // Update setiap staff member
+        updateStaffMember(staffElements.ketua, row, COLUMNS.KETUA);
+        updateStaffMember(staffElements.sekretaris, row, COLUMNS.SEKRETARIS);
+        updateStaffMember(staffElements.bendahara, row, COLUMNS.BENDAHARA);
+        updateStaffMember(staffElements.angkutan, row, COLUMNS.ANGKUTAN);
+        updateStaffMember(staffElements.pengolahan, row, COLUMNS.PENGOLAHAN);
+        updateStaffMember(staffElements.iuran, row, COLUMNS.IURAN);
+    }
+    
+    function updateStaffMember(element, row, columns) {
+        const name = row[columns.NAME] || 'Nama tidak tersedia';
+        const position = row[columns.POSITION] || 'Jabatan';
+        const photoUrl = row[columns.PHOTO] || '';
         
-        // Update UI
-        element.name.textContent = finalName;
-        element.position.textContent = finalPosition;
+        console.log(`Updating: ${name}, ${position}, ${photoUrl.substring(0, 50)}...`);
         
-        // Handle foto
-        if (cleanPhotoUrl && isValidUrl(cleanPhotoUrl)) {
-            console.log(`🖼️ [${role}] Loading foto: ${cleanPhotoUrl.substring(0, 50)}...`);
-            element.photo.src = cleanPhotoUrl;
+        element.name.textContent = name;
+        element.position.textContent = position;
+        
+        if (photoUrl && isValidUrl(photoUrl)) {
+            element.photo.src = photoUrl;
             element.photo.onerror = () => {
-                console.warn(`❌ [${role}] Foto gagal load, gunakan default`);
                 element.photo.src = DEFAULT_PHOTO;
             };
         } else {
-            console.log(`📸 [${role}] Tidak ada foto, gunakan default`);
             element.photo.src = DEFAULT_PHOTO;
         }
     }
     
+    // Validasi URL
     function isValidUrl(string) {
         try {
-            const url = new URL(string);
-            return url.protocol === 'http:' || url.protocol === 'https:';
+            new URL(string);
+            return true;
         } catch (_) {
             return false;
         }
     }
+    
+    // ========== HELPER FUNCTIONS ==========
     
     function showLoading() {
         loadingElement.style.display = 'block';
@@ -755,46 +791,10 @@
         errorStateElement.style.display = 'none';
     }
     
-    function showError(message) {
+    function showError() {
         loadingElement.style.display = 'none';
         orgChartElement.style.display = 'none';
         errorStateElement.style.display = 'block';
-        
-        // Tambahkan pesan error detail
-        const errorDetail = document.createElement('div');
-        errorDetail.style.cssText = `
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8d7da;
-            border: 1px solid #f5c6cb;
-            border-radius: 5px;
-            color: #721c24;
-            font-family: monospace;
-            font-size: 0.9rem;
-            text-align: left;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        `;
-        errorDetail.innerHTML = `
-            <strong>Detail Error:</strong><br>
-            ${message || 'Tidak ada detail error'}
-            <br><br>
-            <strong>Tips:</strong>
-            <ul style="margin: 10px 0 0 20px;">
-                <li>Pastikan spreadsheet dipublikasikan</li>
-                <li>API Key sudah di-restrict</li>
-                <li>Data ada di baris ke-2 spreadsheet</li>
-                <li>Buka Console (F12) untuk debug detail</li>
-            </ul>
-        `;
-        
-        // Hapus error detail sebelumnya jika ada
-        const oldDetail = errorStateElement.querySelector('.error-detail');
-        if (oldDetail) oldDetail.remove();
-        
-        errorDetail.className = 'error-detail';
-        errorStateElement.appendChild(errorDetail);
     }
     
     function addHoverEffects() {
@@ -835,12 +835,9 @@
         });
     }, 500);
     
-    // Debug info
-    console.log('🔧 Konfigurasi:');
-    console.log('- Spreadsheet ID:', SPREADSHEET_ID);
-    console.log('- Sheet Name:', SHEET_NAME);
-    console.log('- API Key (3 karakter pertama):', API_KEY.substring(0, 3) + '...');
-    console.log('- Target URL:', API_URL);
+    // Debug: Test URL langsung
+    console.log('API URL:', API_URL);
+    console.log('Spreadsheet ID:', SPREADSHEET_ID);
     
 </script>
 </body>

@@ -52,6 +52,8 @@
             --green-dark: #388e3c;
             --blue-light: #e3f2fd;
             --blue-medium: #bbdefb;
+            --gold: #ffd700;
+            --bronze: #cd7f32;
         }
         
         * {
@@ -236,7 +238,7 @@
             padding-left: 25px;
         }
         
-        /* Mobile Navigation - REVISI PREMIUM */
+        /* Mobile Navigation */
         .mobile-nav-toggle {
             display: none;
             background: none;
@@ -391,7 +393,7 @@
             visibility: visible;
         }
         
-        /* Hero Section - REVISI ANIMASI PREMIUM */
+        /* Hero Section */
         .hero {
             position: relative;
             height: 100vh;
@@ -583,12 +585,23 @@
             border-color: rgba(255, 255, 255, 0.8);
         }
         
-        /* Stats Section - REVISI WARNA HIJAU */
+        /* Stats Section - REVISI DENGAN PENAMBAHAN KONTEN BARU */
         .stats-section {
             padding: 60px 0;
             background: linear-gradient(135deg, var(--light), #e8f5e9);
             width: 100%;
             overflow: hidden;
+            position: relative;
+        }
+        
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary), var(--green-dark));
         }
         
         @media (min-width: 768px) {
@@ -597,6 +610,261 @@
             }
         }
         
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--green-dark);
+            position: relative;
+            padding-bottom: 15px;
+            font-size: 1.8rem;
+            padding: 0 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+                padding-bottom: 20px;
+                padding: 0;
+            }
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--green-dark));
+            border-radius: 3px;
+        }
+        
+        @media (min-width: 768px) {
+            .section-title::after {
+                width: 120px;
+                height: 5px;
+            }
+        }
+        
+        .section-subtitle {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+        
+        @media (min-width: 768px) {
+            .section-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 40px;
+            }
+        }
+        
+        /* Innovation Banner - TAMBAHAN BARU */
+        .innovation-banner {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(205, 127, 50, 0.1));
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto 40px;
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(205, 127, 50, 0.15);
+            transition: var(--transition);
+        }
+        
+        .innovation-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(205, 127, 50, 0.2);
+        }
+        
+        .innovation-banner::before {
+            content: '★';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+            color: var(--gold);
+            animation: sparkle 2s infinite alternate;
+        }
+        
+        .innovation-banner::after {
+            content: '★';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            color: var(--bronze);
+            animation: sparkle 2s infinite alternate-reverse;
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .innovation-title {
+            color: var(--bronze);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .innovation-title {
+                font-size: 1.6rem;
+            }
+        }
+        
+        .innovation-title i {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        .innovation-text {
+            color: #5a4a42;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .innovation-text {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+            }
+        }
+        
+        .innovation-author {
+            color: var(--primary);
+            font-weight: 600;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--bronze);
+        }
+        
+        .innovation-author i {
+            color: var(--green-dark);
+        }
+        
+        /* Kelurahan Website Box - TAMBAHAN BARU */
+        .kelurahan-box {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(26, 95, 122, 0.15);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .kelurahan-box:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(26, 95, 122, 0.25);
+        }
+        
+        .kelurahan-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .kelurahan-box:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .kelurahan-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), #0c384f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 20px rgba(26, 95, 122, 0.3);
+        }
+        
+        .kelurahan-title {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        @media (min-width: 768px) {
+            .kelurahan-title {
+                font-size: 1.6rem;
+            }
+        }
+        
+        .kelurahan-description {
+            color: #333;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .kelurahan-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary), #0c384f);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(26, 95, 122, 0.3);
+        }
+        
+        .kelurahan-btn:hover {
+            background: linear-gradient(135deg, #0c384f, var(--primary));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 95, 122, 0.4);
+        }
+        
+        .kelurahan-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .kelurahan-btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Stats Container */
         .stats-container {
             display: flex;
             flex-direction: column;
@@ -740,7 +1008,7 @@
             }
         }
         
-        /* Map Section - REVISI DRAG & LEGENDA MINIMIZE */
+        /* Map Section */
         .map-section {
             padding: 60px 0;
             background: linear-gradient(135deg, #f1f8e9, #e8f5e9);
@@ -751,44 +1019,6 @@
         @media (min-width: 768px) {
             .map-section {
                 padding: 100px 0;
-            }
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--green-dark);
-            position: relative;
-            padding-bottom: 15px;
-            font-size: 1.8rem;
-            padding: 0 15px;
-        }
-        
-        @media (min-width: 768px) {
-            .section-title {
-                font-size: 2.5rem;
-                margin-bottom: 60px;
-                padding-bottom: 20px;
-                padding: 0;
-            }
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, var(--accent), var(--green-dark));
-            border-radius: 3px;
-        }
-        
-        @media (min-width: 768px) {
-            .section-title::after {
-                width: 120px;
-                height: 5px;
             }
         }
         
@@ -1024,7 +1254,7 @@
             }
         }
         
-        /* About Section - REVISI WARNA HIJAU */
+        /* About Section */
         .about-section {
             padding: 60px 0;
             background: linear-gradient(135deg, var(--light), #e8f5e9);
@@ -1215,7 +1445,7 @@
             }
         }
         
-        /* Footer - REVISI */
+        /* Footer */
         footer {
             background: linear-gradient(135deg, var(--dark), #0c384f);
             color: var(--white);
@@ -1292,7 +1522,7 @@
             }
         }
         
-        /* Install App Banner - REVISI */
+        /* Install App Banner */
         .install-banner {
             position: fixed;
             bottom: 0;
@@ -1504,7 +1734,7 @@
                 <a href="#about">Kontak</a>
             </nav>
             
-            <!-- Mobile Navigation Toggle - REVISI PREMIUM -->
+            <!-- Mobile Navigation Toggle -->
             <button class="mobile-nav-toggle" id="mobileToggle">
                 <span></span>
                 <span></span>
@@ -1556,69 +1786,101 @@
     </section>
     
     <!-- Stats Section -->
-    <!-- Stats Section -->
-<section class="stats-section" id="stats">
-    <div class="container">
-        <h2 class="section-title">Data Peserta LPS<br>Pendataan Masih Berlangsung</h2>
-        <div class="stats-container">
-            <div class="stats-box">
-                <h3>Data Peserta LPS</h3>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number" id="pesertaRT">111</div>
-                        <div class="stat-label">Peserta Rumah Tangga (RT)</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="subsidiSilang">6</div>
-                        <div class="stat-label">Peserta Subsidi Silang</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="pesertaUMKM">15</div>
-                        <div class="stat-label">Peserta UMKM</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="pesertaBadanUsaha">5</div>
-                        <div class="stat-label">Peserta Badan Usaha</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="pesertaDLHK">7</div>
-                        <div class="stat-label">Peserta DLHK</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="belumPeserta">1118</div>
-                        <div class="stat-label">Belum Jadi Peserta</div>
-                    </div>
-                    <div class="stat-item" style="grid-column: span 2; background: linear-gradient(145deg, #e3f2fd, #bbdefb);">
-                        <div class="stat-number" id="totalPeserta">131</div>
-                        <div class="stat-label" style="color: var(--primary); font-weight: 600;">Total Peserta LPS</div>
-                    </div>
+    <section class="stats-section" id="stats">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Data Peserta LPS</h2>
+                <p class="section-subtitle">Pendataan Masih Berlangsung</p>
+            </div>
+            
+            <!-- Innovation Banner -->
+            <div class="innovation-banner">
+                <div class="innovation-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Inovasi Unggulan Lurah Padang Terubuk
+                </div>
+                <div class="innovation-text">
+                    Pendataan peserta LPS ini diadopsi dari inovasi "Pendataan Digital Warga" yang digagas oleh Bapak Lurah Padang Terubuk, yang memberikan dukungan penuh terhadap upaya LPS Padang Terubuk Asri dalam mengelola sistem persampahan yang terintegrasi di wilayah Kelurahan Padang Terubuk.
+                </div>
+                <div class="innovation-author">
+                    <i class="fas fa-user-tie"></i>
+                    Bapak JUNI HARDI, S.STP - Lurah Padang Terubuk
                 </div>
             </div>
             
-            <div class="stats-box">
-                <h3>Data Kelurahan</h3>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number" id="penduduk">4192</div>
-                        <div class="stat-label">Jumlah Penduduk</div>
+            <!-- Kelurahan Website Box -->
+            <div class="kelurahan-box" id="kelurahanBox">
+                <div class="kelurahan-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="kelurahan-title">Website Kelurahan Padang Terubuk</div>
+                <div class="kelurahan-description">
+                    Kunjungi website resmi Kelurahan Padang Terubuk untuk informasi terkini tentang pelayanan, program, dan aktivitas kelurahan
+                </div>
+                <a href="https://senapelan.github.io/Home/kelurahanpadangterubuk.html" target="_blank" class="kelurahan-btn">
+                    Kunjungi Website <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stats-box">
+                    <h3>Data Peserta LPS</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaRT">111</div>
+                            <div class="stat-label">Peserta Rumah Tangga (RT)</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="subsidiSilang">6</div>
+                            <div class="stat-label">Peserta Subsidi Silang</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaUMKM">15</div>
+                            <div class="stat-label">Peserta UMKM</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaBadanUsaha">5</div>
+                            <div class="stat-label">Peserta Badan Usaha</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="pesertaDLHK">7</div>
+                            <div class="stat-label">Peserta DLHK</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="belumPeserta">1118</div>
+                            <div class="stat-label">Belum Jadi Peserta</div>
+                        </div>
+                        <div class="stat-item" style="grid-column: span 2; background: linear-gradient(145deg, #e3f2fd, #bbdefb);">
+                            <div class="stat-number" id="totalPeserta">131</div>
+                            <div class="stat-label" style="color: var(--primary); font-weight: 600;">Total Peserta LPS</div>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="kk">1255</div>
-                        <div class="stat-label">Kepala Keluarga</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="rt">26</div>
-                        <div class="stat-label">Rukun Tetangga</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="rw">6</div>
-                        <div class="stat-label">Rukun Warga</div>
+                </div>
+                
+                <div class="stats-box">
+                    <h3>Data Kelurahan</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" id="penduduk">4192</div>
+                            <div class="stat-label">Jumlah Penduduk</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="kk">1255</div>
+                            <div class="stat-label">Kepala Keluarga</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="rt">26</div>
+                            <div class="stat-label">Rukun Tetangga</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="rw">6</div>
+                            <div class="stat-label">Rukun Warga</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
     
     <!-- Map Section -->
     <section class="map-section" id="peta">
@@ -1849,28 +2111,22 @@
         const bgVideo = document.getElementById('bgVideo');
         const bgImage = document.getElementById('bgImage');
         
-        // Check if video exists and can play
         if (bgVideo) {
             bgVideo.addEventListener('error', function() {
-                // If video fails to load, show image
                 bgVideo.style.display = 'none';
                 bgImage.style.display = 'block';
             });
             
-            // Fallback if video source doesn't exist
             bgVideo.addEventListener('loadeddata', function() {
-                // Video loaded successfully
                 bgImage.style.display = 'none';
             }, false);
             
             bgVideo.addEventListener('error', function() {
-                // Video failed to load
                 bgVideo.style.display = 'none';
                 bgImage.style.display = 'block';
             }, false);
         }
         
-        // If no video element or source, show image
         window.addEventListener('load', function() {
             if (!bgVideo || !bgVideo.src) {
                 bgImage.style.display = 'block';
@@ -1882,9 +2138,7 @@
         const closeBanner = document.getElementById('closeBanner');
         const installBtn = document.getElementById('installBtn');
         
-        // Show install banner after 3 seconds
         setTimeout(() => {
-            // Check if already installed or banner dismissed
             if (!localStorage.getItem('lpsBannerDismissed')) {
                 installBanner.classList.add('active');
             }
@@ -1897,64 +2151,60 @@
         
         installBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // In a real PWA, this would trigger the install prompt
             alert('Aplikasi LPS akan dipasang di perangkat Anda. Pastikan Anda terhubung ke internet.');
             installBanner.classList.remove('active');
             localStorage.setItem('lpsBannerDismissed', 'true');
         });
         
         // Animate stats counters
-function animateCounter(element, target) {
-    let current = 0;
-    const increment = target / 100;
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target.toLocaleString();
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(current).toLocaleString();
-        }
-    }, 20);
-}
-
-// Initialize counters when section is in view
-const observerOptions = {
-    threshold: 0.3
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // Animate all stat counters
-            const counters = {
-                pesertaRT: 111,
-                subsidiSilang: 6,
-                pesertaUMKM: 15,
-                pesertaBadanUsaha: 5,
-                pesertaDLHK: 7,
-                belumPeserta: 1118,
-                totalPeserta: 131, // Total dari semua peserta
-                penduduk: 4192,
-                kk: 1255,
-                rt: 26,
-                rw: 6
-            };
-            
-            for (const [id, value] of Object.entries(counters)) {
-                const element = document.getElementById(id);
-                if (element) {
-                    animateCounter(element, value);
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
                 }
-            }
-            
-            // Stop observing after animation
-            observer.unobserve(entry.target);
+            }, 20);
         }
-    });
-}, observerOptions);
         
-        // Observe the stats section
+        // Initialize counters when section is in view
+        const observerOptions = {
+            threshold: 0.3
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = {
+                        pesertaRT: 111,
+                        subsidiSilang: 6,
+                        pesertaUMKM: 15,
+                        pesertaBadanUsaha: 5,
+                        pesertaDLHK: 7,
+                        belumPeserta: 1118,
+                        totalPeserta: 131,
+                        penduduk: 4192,
+                        kk: 1255,
+                        rt: 26,
+                        rw: 6
+                    };
+                    
+                    for (const [id, value] of Object.entries(counters)) {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            animateCounter(element, value);
+                        }
+                    }
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
         const statsSection = document.getElementById('stats');
         if (statsSection) {
             observer.observe(statsSection);
@@ -1998,7 +2248,6 @@ const observer = new IntersectionObserver((entries) => {
                 mapWrapper.style.cursor = 'grab';
             });
             
-            // Touch events for mobile
             mapWrapper.addEventListener('touchstart', (e) => {
                 isDragging = true;
                 const touch = e.touches[0];
@@ -2067,13 +2316,12 @@ const observer = new IntersectionObserver((entries) => {
                     }
                 }
                 
-                // Close mobile menu if open
                 mobileToggle.classList.remove('active');
                 mobileNav.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.style.overflow = 'auto';
             });
-        }); 
+        });
         
         // Header scroll effect
         window.addEventListener('scroll', () => {
@@ -2104,7 +2352,7 @@ const observer = new IntersectionObserver((entries) => {
         
         // Add animation on scroll
         function animateOnScroll() {
-            const elements = document.querySelectorAll('.stats-box, .about-box');
+            const elements = document.querySelectorAll('.stats-box, .about-box, .innovation-banner, .kelurahan-box');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -2125,6 +2373,89 @@ const observer = new IntersectionObserver((entries) => {
         
         // Initialize animations on load
         window.addEventListener('load', animateOnScroll);
+        
+        // Click effect for Kelurahan Box
+        const kelurahanBox = document.getElementById('kelurahanBox');
+        if (kelurahanBox) {
+            kelurahanBox.addEventListener('click', function() {
+                this.style.transform = 'translateY(-8px) scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                }, 150);
+            });
+        }
+        
+        // Confetti effect for innovation banner
+        function createConfetti() {
+            const innovationBanner = document.querySelector('.innovation-banner');
+            if (!innovationBanner) return;
+            
+            for (let i = 0; i < 15; i++) {
+                const confetti = document.createElement('div');
+                confetti.innerHTML = '★';
+                confetti.style.position = 'absolute';
+                confetti.style.color = Math.random() > 0.5 ? 'var(--gold)' : 'var(--bronze)';
+                confetti.style.fontSize = Math.random() * 10 + 8 + 'px';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 100 + '%';
+                confetti.style.opacity = '0';
+                confetti.style.transition = 'opacity 0.5s, transform 2s';
+                confetti.style.zIndex = '1';
+                confetti.style.pointerEvents = 'none';
+                
+                innovationBanner.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.style.opacity = '0.7';
+                    confetti.style.transform = `translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
+                }, 100);
+                
+                setTimeout(() => {
+                    confetti.style.opacity = '0';
+                    setTimeout(() => {
+                        if (confetti.parentNode) {
+                            confetti.parentNode.removeChild(confetti);
+                        }
+                    }, 500);
+                }, 2000);
+            }
+        }
+        
+        // Trigger confetti when innovation banner is in view
+        const innovationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(createConfetti, 500);
+                    innovationObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        const innovationBanner = document.querySelector('.innovation-banner');
+        if (innovationBanner) {
+            innovationObserver.observe(innovationBanner);
+        }
+        
+        // Add pulse animation to kelurahan box
+        setInterval(() => {
+            const kelurahanBox = document.getElementById('kelurahanBox');
+            if (kelurahanBox && isElementInViewport(kelurahanBox)) {
+                kelurahanBox.style.boxShadow = '0 15px 40px rgba(26, 95, 122, 0.3)';
+                setTimeout(() => {
+                    kelurahanBox.style.boxShadow = '0 10px 30px rgba(26, 95, 122, 0.15)';
+                }, 1000);
+            }
+        }, 3000);
+        
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
     </script>
 </body>
 </html>

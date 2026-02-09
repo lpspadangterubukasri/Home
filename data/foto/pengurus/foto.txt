@@ -1,1 +1,6 @@
-
+data/foto/pengurus/ketua.png
+data/foto/pengurus/sekretaris.png
+data/foto/pengurus/bendahara.png
+data/foto/pengurus/bidangkutan.png
+data/foto/pengurus/bidsampah.png
+data/foto/pengurus/bidiuran.png

@@ -560,7 +560,7 @@
     </div>
     
     <script>
-    // ========== KONFIGURASI ==========
+    // ========== KONFIGURASI YANG AMAN ==========
     
     const SPREADSHEET_ID = '1RNLvI_ZRakyGsnEEWEoJ7Fb2GrZ-UMGih1Ceh49CFXw';
     const SHEET_NAME = 'BAGAN_LPS';
@@ -618,7 +618,7 @@
     // Default fallback photo
     const DEFAULT_PHOTO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0iI0U4RjVFOSIvPjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41Njg1IDEzMCA4MEMxMzAgNjMuNDMxNSAxMTYuNTY5IDUwIDEwMCA1MEM4My40MzE0IDUwIDcwIDYzLjQzMTUgNzAgODBDNzAgOTYuNTY4NSA4My40MzE0IDExMCAxMDAgMTEwWiIgZmlsbD0iIzU3QzVCNiIvPjxwYXRoIGQ9Ik0xMzAgMTIwSDEwMEM3MC40MzE0IDEyMCA0Ni42NjQyIDE0My40MDggNTAuNTE5NiAxNzIuNTJDNTIuMzMzNSAxODYuNTg1IDY0LjY5NzYgMTk3LjUgODAgMTk3LjVIMTUwQzE2NS4zMDIgMTk3LjUgMTc3LjY2NiAxODYuNTg1IDE3OS40OCAxNzIuNTJDMTgzLjMzNiAxNDMuNDA4IDE1OS41NjkgMTIwIDEzMCAxMjBaIiBmaWxsPSIjNTdDNUI2Ii8+PC9zdmc+';
     
-    // Mapping kolom spreadsheet - PERBAIKI INI!
+    // Mapping kolom spreadsheet
     const COLUMNS = {
         KETUA: { NAME: 0, POSITION: 1, PHOTO: 2 },
         SEKRETARIS: { NAME: 3, POSITION: 4, PHOTO: 5 },
@@ -632,143 +632,146 @@
     
     async function fetchData() {
         try {
-            console.log('🔍 Memulai pengambilan data...');
+            console.log('Memulai pengambilan data...');
             showLoading();
             
-            // Ambil semua data dari sheet (bukan hanya baris pertama)
-            const allData = await fetchAllData();
+            // Coba metode Sheets API dulu
+            let data = await fetchWithSheetsAPI();
             
-            if (!allData || allData.length === 0) {
-                throw new Error('Spreadsheet kosong atau tidak ada data');
+            if (!data || data.length === 0) {
+                console.log('Data kosong, coba metode CSV...');
+                data = await fetchWithCSV();
             }
             
-            console.log(`📊 Total baris data: ${allData.length}`);
+            if (!data || data.length === 0) {
+                throw new Error('Tidak ada data yang ditemukan');
+            }
             
-            // Proses data
-            processData(allData);
+            console.log('Data berhasil diambil:', data[0]);
+            processData(data);
             showOrgChart();
             addHoverEffects();
             
-            console.log('✅ Data berhasil dimuat!');
-            
         } catch (error) {
-            console.error('❌ Error utama:', error);
-            showError(error.message);
+            console.error('Error utama:', error);
+            showError();
         }
     }
     
-    async function fetchAllData() {
+    // Metode 1: Google Sheets API
+    async function fetchWithSheetsAPI() {
         try {
-            console.log('📡 Mengambil data dari Google Sheets...');
-            
+            console.log('Menggunakan Sheets API...');
             const response = await fetch(API_URL);
             
+            console.log('Response status:', response.status);
+            
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`Sheets API error: ${response.status}`);
             }
             
             const result = await response.json();
+            console.log('Sheets API result:', result);
             
-            if (!result.values) {
-                throw new Error('Format data tidak valid');
-            }
-            
-            console.log('📋 Data mentah:', result.values);
-            return result.values;
+            return result.values || [];
             
         } catch (error) {
-            console.error('❌ Gagal mengambil data:', error);
-            throw error;
+            console.warn('Sheets API gagal:', error.message);
+            return null;
         }
     }
     
-    // PROSES DATA YANG BENAR
-    function processData(allData) {
-        console.log('🔄 Memproses data...');
-        
-        // Baris 1 (index 0): Header (NAMA, JABATAN KETUA, LINK FOTO, dll)
-        // Baris 2 (index 1): Data aktual
-        // Baris 3+ (index 2+): Data tambahan (jika ada)
-        
-        if (allData.length < 2) {
-            throw new Error('Hanya ada header, tidak ada data');
+    // Metode 2: CSV Export (backup)
+    async function fetchWithCSV() {
+        try {
+            console.log('Menggunakan metode CSV...');
+            
+            // Coba beberapa format URL CSV
+            const csvUrls = [
+                `https://docs.google.com/spreadsheets/d/e/2PACX-1vT5P0tUqP_y_GOaAfDEO0N_0HSHImJR09qTq7k2Iuj-2pNpB8rRPGut0N-WGxFCGvLrV3WjES_elvY/pub?output=csv`,
+                `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`,
+                `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&id=${SPREADSHEET_ID}&sheet=${SHEET_NAME}`
+            ];
+            
+            for (const url of csvUrls) {
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const csvText = await response.text();
+                        console.log('CSV berhasil:', csvText.substring(0, 200));
+                        return parseCSV(csvText);
+                    }
+                } catch (e) {
+                    console.log('URL gagal:', url);
+                }
+            }
+            
+            return null;
+            
+        } catch (error) {
+            console.warn('CSV method gagal:', error);
+            return null;
         }
-        
-        // Ambil data dari baris ke-2 (index 1)
-        const dataRow = allData[1];
-        console.log('📝 Data baris ke-2:', dataRow);
-        
-        // Tampilkan debug info untuk setiap kolom
-        console.log('🔍 Debug kolom:');
-        for (let i = 0; i < Math.min(dataRow.length, 18); i++) {
-            console.log(`  Kolom ${String.fromCharCode(65 + i)} (${i}): "${dataRow[i] || '(kosong)'}"`);
-        }
-        
-        // Update data untuk setiap posisi
-        updateStaff(staffElements.ketua, 
-                   dataRow[COLUMNS.KETUA.NAME], 
-                   dataRow[COLUMNS.KETUA.POSITION], 
-                   dataRow[COLUMNS.KETUA.PHOTO]);
-        
-        updateStaff(staffElements.sekretaris, 
-                   dataRow[COLUMNS.SEKRETARIS.NAME], 
-                   dataRow[COLUMNS.SEKRETARIS.POSITION], 
-                   dataRow[COLUMNS.SEKRETARIS.PHOTO]);
-        
-        updateStaff(staffElements.bendahara, 
-                   dataRow[COLUMNS.BENDAHARA.NAME], 
-                   dataRow[COLUMNS.BENDAHARA.POSITION], 
-                   dataRow[COLUMNS.BENDAHARA.PHOTO]);
-        
-        updateStaff(staffElements.angkutan, 
-                   dataRow[COLUMNS.ANGKUTAN.NAME], 
-                   dataRow[COLUMNS.ANGKUTAN.POSITION], 
-                   dataRow[COLUMNS.ANGKUTAN.PHOTO]);
-        
-        updateStaff(staffElements.pengolahan, 
-                   dataRow[COLUMNS.PENGOLAHAN.NAME], 
-                   dataRow[COLUMNS.PENGOLAHAN.POSITION], 
-                   dataRow[COLUMNS.PENGOLAHAN.PHOTO]);
-        
-        updateStaff(staffElements.iuran, 
-                   dataRow[COLUMNS.IURAN.NAME], 
-                   dataRow[COLUMNS.IURAN.POSITION], 
-                   dataRow[COLUMNS.IURAN.PHOTO]);
     }
     
-    function updateStaff(element, name = '', position = '', photoUrl = '') {
-        console.log(`👤 Update staff: ${name}, ${position}`);
+    // Parse CSV menjadi array
+    function parseCSV(csvText) {
+        const rows = [];
+        const lines = csvText.split('\n');
         
-        // Clean data
-        name = (name || '').trim();
-        position = (position || '').trim();
-        photoUrl = (photoUrl || '').trim();
+        lines.forEach(line => {
+            if (line.trim()) {
+                // Simple CSV parsing
+                const row = line.split(',').map(cell => 
+                    cell.trim().replace(/^"|"$/g, '')
+                );
+                rows.push(row);
+            }
+        });
         
-        // Gunakan default jika kosong
-        if (!name) name = 'Data belum diisi';
-        if (!position) position = 'Jabatan';
+        return rows;
+    }
+    
+    // Proses data dan update UI
+    function processData(data) {
+        const row = data[0] || [];
+        
+        console.log('Processing row:', row);
+        
+        // Update setiap staff member
+        updateStaffMember(staffElements.ketua, row, COLUMNS.KETUA);
+        updateStaffMember(staffElements.sekretaris, row, COLUMNS.SEKRETARIS);
+        updateStaffMember(staffElements.bendahara, row, COLUMNS.BENDAHARA);
+        updateStaffMember(staffElements.angkutan, row, COLUMNS.ANGKUTAN);
+        updateStaffMember(staffElements.pengolahan, row, COLUMNS.PENGOLAHAN);
+        updateStaffMember(staffElements.iuran, row, COLUMNS.IURAN);
+    }
+    
+    function updateStaffMember(element, row, columns) {
+        const name = row[columns.NAME] || 'Nama tidak tersedia';
+        const position = row[columns.POSITION] || 'Jabatan';
+        const photoUrl = row[columns.PHOTO] || '';
+        
+        console.log(`Updating: ${name}, ${position}, ${photoUrl.substring(0, 50)}...`);
         
         element.name.textContent = name;
         element.position.textContent = position;
         
-        // Handle foto
         if (photoUrl && isValidUrl(photoUrl)) {
-            console.log(`🖼️ Loading foto: ${photoUrl.substring(0, 50)}...`);
             element.photo.src = photoUrl;
             element.photo.onerror = () => {
-                console.warn(`❌ Gagal load foto: ${photoUrl}`);
                 element.photo.src = DEFAULT_PHOTO;
             };
         } else {
-            console.log(`⚠️ Tidak ada foto valid untuk: ${name}`);
             element.photo.src = DEFAULT_PHOTO;
         }
     }
     
+    // Validasi URL
     function isValidUrl(string) {
         try {
-            const url = new URL(string);
-            return url.protocol === 'http:' || url.protocol === 'https:';
+            new URL(string);
+            return true;
         } catch (_) {
             return false;
         }
@@ -788,26 +791,10 @@
         errorStateElement.style.display = 'none';
     }
     
-    function showError(message = '') {
+    function showError() {
         loadingElement.style.display = 'none';
         orgChartElement.style.display = 'none';
         errorStateElement.style.display = 'block';
-        
-        // Update error message
-        if (message) {
-            const errorMessage = document.createElement('p');
-            errorMessage.style.color = '#dc3545';
-            errorMessage.style.marginTop = '15px';
-            errorMessage.style.fontFamily = 'monospace';
-            errorMessage.textContent = `Error: ${message}`;
-            
-            // Hapus error message sebelumnya jika ada
-            const oldError = errorStateElement.querySelector('.error-detail');
-            if (oldError) oldError.remove();
-            
-            errorMessage.className = 'error-detail';
-            errorStateElement.querySelector('ul').after(errorMessage);
-        }
     }
     
     function addHoverEffects() {
@@ -848,11 +835,9 @@
         });
     }, 500);
     
-    // Debug info
-    console.log('🔧 Konfigurasi:');
-    console.log('- Spreadsheet ID:', SPREADSHEET_ID);
-    console.log('- Sheet Name:', SHEET_NAME);
-    console.log('- API URL:', API_URL.substring(0, 80) + '...');
+    // Debug: Test URL langsung
+    console.log('API URL:', API_URL);
+    console.log('Spreadsheet ID:', SPREADSHEET_ID);
     
 </script>
 </body>

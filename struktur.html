@@ -35,6 +35,8 @@
             --gold: #ffd700;
             --silver: #c0c0c0;
             --bronze: #cd7f32;
+            --blue-light: #e3f2fd;
+            --blue-medium: #bbdefb;
         }
         
         * {
@@ -131,27 +133,28 @@
             text-overflow: ellipsis;
         }
         
-        /* Back Button */
+        /* Back Button - Revisi hanya tanda panah */
         .back-btn {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, var(--accent), var(--secondary));
             color: white;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 50%;
             font-weight: 600;
             transition: var(--transition);
             box-shadow: 0 4px 12px rgba(87, 197, 182, 0.2);
             border: none;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
         }
         
         .back-btn:hover {
             background: linear-gradient(135deg, #45b0a1, #128b87);
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.1);
             box-shadow: 0 6px 20px rgba(87, 197, 182, 0.4);
         }
         
@@ -224,31 +227,14 @@
             flex-direction: column;
             align-items: center;
             margin: 40px 0 80px;
+            position: relative;
         }
         
-        /* Structure Lines - Desktop */
-        .structure-lines {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        
-        .line {
-            position: absolute;
-            background: linear-gradient(90deg, var(--accent), var(--secondary));
-            border-radius: 2px;
-            opacity: 0.4;
-        }
-        
-        /* Structure Grid */
+        /* Structure Grid - REVISI LAYOUT DESKTOP */
         .structure-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: auto auto;
             gap: 40px;
             width: 100%;
             max-width: 1200px;
@@ -256,101 +242,38 @@
             z-index: 1;
         }
         
-        @media (max-width: 1100px) {
-            .structure-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-            }
-        }
-        
-        /* Structure Row */
-        .structure-row {
-            display: contents;
-        }
-        
-        /* Card Styles */
-        .structure-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px 25px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(200, 230, 201, 0.8);
-            transition: var(--transition);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
-            cursor: pointer;
-        }
-        
-        .structure-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.2);
-        }
-        
-        .structure-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s;
-        }
-        
-        .structure-card:hover::before {
-            transform: translateX(100%);
-        }
-        
-        /* Card Positioning */
+        /* Layout Desktop yang Benar */
+        /* Baris 1: Ketua di tengah (kolom 3) */
         .card-level-1 {
-            grid-column: 2;
+            grid-column: 3;
             grid-row: 1;
-            margin-bottom: 40px;
-            border: 3px solid var(--gold);
-            background: linear-gradient(145deg, #fff9e6, #ffecb3);
         }
         
-        .card-level-2 {
-            margin-top: 40px;
-        }
-        
-        .card-level-2:nth-child(1) {
-            grid-column: 1;
-            grid-row: 2;
-            border: 2px solid var(--silver);
-            background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
-        }
-        
-        .card-level-2:nth-child(2) {
-            grid-column: 3;
-            grid-row: 2;
-            border: 2px solid var(--silver);
-            background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
-        }
-        
-        .card-level-3 {
-            margin-top: 40px;
-        }
-        
-        .card-level-3:nth-child(1) {
-            grid-column: 1;
-            grid-row: 3;
-            border: 2px solid var(--bronze);
-        }
-        
-        .card-level-3:nth-child(2) {
+        /* Baris 2: Sekretaris (kiri) dan Bendahara (kanan) */
+        .card-level-2.sekretaris {
             grid-column: 2;
-            grid-row: 3;
-            border: 2px solid var(--bronze);
+            grid-row: 2;
         }
         
-        .card-level-3:nth-child(3) {
+        .card-level-2.bendahara {
+            grid-column: 4;
+            grid-row: 2;
+        }
+        
+        /* Baris 3: Tiga bidang di tengah */
+        .card-level-3.angkutan {
+            grid-column: 1;
+            grid-row: 3;
+        }
+        
+        .card-level-3.pengolahan {
             grid-column: 3;
             grid-row: 3;
-            border: 2px solid var(--bronze);
+        }
+        
+        .card-level-3.iuran {
+            grid-column: 5;
+            grid-row: 3;
         }
         
         /* Mobile Layout */
@@ -360,6 +283,7 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 30px;
+                grid-template-columns: 1fr;
             }
             
             .structure-card {
@@ -368,19 +292,39 @@
                 margin-bottom: 30px;
             }
             
+            /* Reset semua posisi untuk mobile */
+            .card-level-1,
+            .card-level-2,
+            .card-level-3 {
+                grid-column: 1 !important;
+                grid-row: auto !important;
+                position: relative !important;
+                left: auto !important;
+                top: auto !important;
+            }
+            
             .card-level-1 {
                 order: 1;
-                margin-bottom: 0;
             }
             
-            .card-level-2 {
+            .card-level-2.sekretaris {
                 order: 2;
-                margin-top: 0;
             }
             
-            .card-level-3 {
+            .card-level-2.bendahara {
                 order: 3;
-                margin-top: 0;
+            }
+            
+            .card-level-3.angkutan {
+                order: 4;
+            }
+            
+            .card-level-3.pengolahan {
+                order: 5;
+            }
+            
+            .card-level-3.iuran {
+                order: 6;
             }
             
             /* Mobile Lines */
@@ -422,6 +366,81 @@
             }
         }
         
+        /* Structure Lines - Desktop */
+        .structure-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .line {
+            position: absolute;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            border-radius: 2px;
+            opacity: 0.4;
+        }
+        
+        /* Card Styles */
+        .structure-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+            cursor: pointer;
+        }
+        
+        .structure-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.2);
+        }
+        
+        .structure-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .structure-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        /* Warna Khusus untuk Sekretaris - REVISI */
+        .card-level-2.sekretaris {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb) !important;
+            border: 2px solid var(--primary) !important;
+        }
+        
+        /* Warna untuk Level Lain */
+        .card-level-1 {
+            border: 3px solid var(--gold) !important;
+            background: linear-gradient(145deg, #fff9e6, #ffecb3) !important;
+        }
+        
+        .card-level-2.bendahara {
+            border: 2px solid var(--silver) !important;
+            background: linear-gradient(145deg, #f5f5f5, #e0e0e0) !important;
+        }
+        
+        .card-level-3 {
+            border: 2px solid var(--bronze) !important;
+        }
+        
         /* Card Content */
         .card-badge {
             position: absolute;
@@ -448,6 +467,10 @@
         
         .badge-bronze {
             background: linear-gradient(135deg, var(--bronze), #8b5a2b);
+        }
+        
+        .badge-blue {
+            background: linear-gradient(135deg, #42a5f5, #0d47a1);
         }
         
         .card-image {
@@ -630,9 +653,9 @@
                 </div>
             </div>
             
-            <a href="index.html" class="back-btn">
+            <!-- Back Button hanya tanda panah -->
+            <a href="index.html" class="back-btn" title="Kembali ke Beranda">
                 <i class="fas fa-arrow-left"></i>
-                Kembali ke Beranda
             </a>
         </div>
     </header>
@@ -653,9 +676,9 @@
             <!-- Mobile Lines -->
             <div class="structure-lines-mobile" id="mobileLines"></div>
             
-            <!-- Structure Grid -->
+            <!-- Structure Grid dengan Layout yang Benar -->
             <div class="structure-grid">
-                <!-- Level 1: Ketua (Center) -->
+                <!-- Level 1: Ketua (Tengah Baris 1) -->
                 <div class="structure-card card-level-1 fade-in">
                     <div class="card-badge badge-gold">
                         <i class="fas fa-crown"></i>
@@ -669,9 +692,9 @@
                     </a>
                 </div>
                 
-                <!-- Level 2: Sekretaris & Bendahara (Left & Right) -->
-                <div class="structure-card card-level-2 fade-in delay-1">
-                    <div class="card-badge badge-silver">
+                <!-- Level 2: Sekretaris (Kiri Baris 2) - REVISI POSISI -->
+                <div class="structure-card card-level-2 sekretaris fade-in delay-1">
+                    <div class="card-badge badge-blue">
                         <i class="fas fa-pen"></i>
                     </div>
                     <img src="data/foto/pengurus/sekretaris.png" alt="Sekretaris LPS" class="card-image">
@@ -683,7 +706,8 @@
                     </a>
                 </div>
                 
-                <div class="structure-card card-level-2 fade-in delay-1">
+                <!-- Level 2: Bendahara (Kanan Baris 2) - REVISI POSISI -->
+                <div class="structure-card card-level-2 bendahara fade-in delay-1">
                     <div class="card-badge badge-silver">
                         <i class="fas fa-coins"></i>
                     </div>
@@ -696,8 +720,8 @@
                     </a>
                 </div>
                 
-                <!-- Level 3: Bidang-bidang (Three columns) -->
-                <div class="structure-card card-level-3 fade-in delay-2">
+                <!-- Level 3: Bidang Angkutan Sampah (Kiri Baris 3) -->
+                <div class="structure-card card-level-3 angkutan fade-in delay-2">
                     <div class="card-badge badge-bronze">
                         <i class="fas fa-truck"></i>
                     </div>
@@ -710,11 +734,11 @@
                     </a>
                 </div>
                 
-                <div class="structure-card card-level-3 fade-in delay-3">
+                <!-- Level 3: Bidang Pengolahan & Edukasi (Tengah Baris 3) -->
+                <div class="structure-card card-level-3 pengolahan fade-in delay-3">
                     <div class="card-badge badge-bronze">
                         <i class="fas fa-recycle"></i>
                     </div>
-                    <img src="data/foto/pengurus/bidsampah.png" alt="Bidang Pengolahan" class="card-image">
                     <img src="data/foto/pengurus/bidsampah.png" alt="Bidang Pengolahan" class="card-image">
                     <h3 class="card-name">ELVA SARI</h3>
                     <div class="card-position">BIDANG PENGOLAHAN & EDUKASI</div>
@@ -724,7 +748,8 @@
                     </a>
                 </div>
                 
-                <div class="structure-card card-level-3 fade-in delay-4">
+                <!-- Level 3: Bidang Pemungutan Iuran (Kanan Baris 3) -->
+                <div class="structure-card card-level-3 iuran fade-in delay-4">
                     <div class="card-badge badge-bronze">
                         <i class="fas fa-file-invoice-dollar"></i>
                     </div>
@@ -761,64 +786,86 @@
             if (!desktopLines) return;
             
             // Only create lines for desktop view
-            if (window.innerWidth <= 1100) return;
+            if (window.innerWidth <= 1100) {
+                desktopLines.innerHTML = '';
+                return;
+            }
             
             // Clear existing lines
             desktopLines.innerHTML = '';
             
-            // Define line positions
-            const lines = [
+            // Get card positions
+            const cards = {
+                ketua: document.querySelector('.card-level-1'),
+                sekretaris: document.querySelector('.card-level-2.sekretaris'),
+                bendahara: document.querySelector('.card-level-2.bendahara'),
+                angkutan: document.querySelector('.card-level-3.angkutan'),
+                pengolahan: document.querySelector('.card-level-3.pengolahan'),
+                iuran: document.querySelector('.card-level-3.iuran')
+            };
+            
+            // Only create lines if all cards exist
+            if (!cards.ketua || !cards.sekretaris || !cards.bendahara || 
+                !cards.angkutan || !cards.pengolahan || !cards.iuran) return;
+            
+            // Get positions relative to container
+            const container = document.querySelector('.structure-grid');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Helper function to get center of card
+            function getCardCenter(card) {
+                const rect = card.getBoundingClientRect();
+                return {
+                    x: rect.left + rect.width/2 - containerRect.left,
+                    y: rect.top + rect.height/2 - containerRect.top
+                };
+            }
+            
+            // Define connections
+            const connections = [
                 // From Ketua to Sekretaris
                 {
-                    x1: '50%', y1: '120px',
-                    x2: '16.5%', y2: '220px',
-                    width: '3px'
+                    from: getCardCenter(cards.ketua),
+                    to: getCardCenter(cards.sekretaris)
                 },
                 // From Ketua to Bendahara
                 {
-                    x1: '50%', y1: '120px',
-                    x2: '83.5%', y2: '220px',
-                    width: '3px'
+                    from: getCardCenter(cards.ketua),
+                    to: getCardCenter(cards.bendahara)
                 },
                 // From Sekretaris to Bidang Angkutan
                 {
-                    x1: '16.5%', y1: '260px',
-                    x2: '16.5%', y2: '360px',
-                    width: '3px'
+                    from: getCardCenter(cards.sekretaris),
+                    to: getCardCenter(cards.angkutan)
                 },
                 // From Bendahara to Bidang Iuran
                 {
-                    x1: '83.5%', y1: '260px',
-                    x2: '83.5%', y2: '360px',
-                    width: '3px'
+                    from: getCardCenter(cards.bendahara),
+                    to: getCardCenter(cards.iuran)
                 },
                 // From Ketua to Bidang Pengolahan (middle)
                 {
-                    x1: '50%', y1: '150px',
-                    x2: '50%', y2: '360px',
-                    width: '3px'
+                    from: getCardCenter(cards.ketua),
+                    to: getCardCenter(cards.pengolahan)
                 }
             ];
             
             // Create line elements
-            lines.forEach(line => {
+            connections.forEach(conn => {
                 const lineEl = document.createElement('div');
                 lineEl.className = 'line';
                 
                 // Calculate line length and angle
-                const x1 = parseFloat(line.x1) / 100 * desktopLines.offsetWidth;
-                const y1 = parseFloat(line.y1);
-                const x2 = parseFloat(line.x2) / 100 * desktopLines.offsetWidth;
-                const y2 = parseFloat(line.y2);
-                
-                const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                const dx = conn.to.x - conn.from.x;
+                const dy = conn.to.y - conn.from.y;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const angle = Math.atan2(dy, dx) * 180 / Math.PI;
                 
                 // Set line styles
                 lineEl.style.width = `${length}px`;
-                lineEl.style.height = line.width;
-                lineEl.style.left = `${x1}px`;
-                lineEl.style.top = `${y1}px`;
+                lineEl.style.height = '3px';
+                lineEl.style.left = `${conn.from.x}px`;
+                lineEl.style.top = `${conn.from.y}px`;
                 lineEl.style.transform = `rotate(${angle}deg)`;
                 lineEl.style.transformOrigin = '0 0';
                 
@@ -838,12 +885,30 @@
             }
             
             mobileLines.style.display = 'block';
+            
+            // Adjust line height based on content
+            const container = document.querySelector('.structure-container');
+            const cards = document.querySelectorAll('.structure-card');
+            
+            if (cards.length > 0 && container) {
+                const lastCard = cards[cards.length - 1];
+                const lastCardRect = lastCard.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                
+                const height = lastCardRect.bottom - containerRect.top + 50;
+                mobileLines.style.height = `${height}px`;
+            }
         }
         
         // Initialize lines on load and resize
         window.addEventListener('load', () => {
             createDesktopLines();
             createMobileLines();
+            
+            // Add animation delay to cards
+            document.querySelectorAll('.fade-in').forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.1}s`;
+            });
         });
         
         window.addEventListener('resize', () => {
@@ -882,11 +947,6 @@
             });
         });
         
-        // Add animation delay to cards
-        document.querySelectorAll('.fade-in').forEach((element, index) => {
-            element.style.animationDelay = `${index * 0.1}s`;
-        });
-        
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.header');
@@ -904,7 +964,8 @@
             document.querySelectorAll('.card-image').forEach(img => {
                 img.addEventListener('error', function() {
                     // Set a default placeholder based on position
-                    const position = this.closest('.structure-card').querySelector('.card-position').textContent;
+                    const card = this.closest('.structure-card');
+                    const position = card.querySelector('.card-position').textContent;
                     
                     let iconClass = 'fas fa-user';
                     if (position.includes('KETUA')) iconClass = 'fas fa-crown';
@@ -937,6 +998,8 @@
         // Add visual feedback for WhatsApp links
         document.querySelectorAll('.card-contact').forEach(link => {
             link.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent card click from firing
+                
                 // Add click animation
                 this.style.transform = 'scale(0.95)';
                 setTimeout(() => {
@@ -982,6 +1045,18 @@
                 }, 2000);
             });
         });
+        
+        // Animation for back button
+        const backBtn = document.querySelector('.back-btn');
+        if (backBtn) {
+            backBtn.addEventListener('mouseenter', function() {
+                this.querySelector('i').style.transform = 'translateX(-5px)';
+            });
+            
+            backBtn.addEventListener('mouseleave', function() {
+                this.querySelector('i').style.transform = 'translateX(0)';
+            });
+        }
     </script>
 </body>
 </html>

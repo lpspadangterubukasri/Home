@@ -2,19 +2,39 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Struktur Organisasi Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
     <title>Struktur Organisasi - LPS Padang Terubuk Asri</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data/foto/favicon.png" type="image/png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --primary: #1a5f7a;
             --secondary: #159895;
             --accent: #57c5b6;
             --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --card-bg: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+            --card-shadow: 0 15px 35px rgba(21, 152, 149, 0.12);
             --green-light: #e8f5e9;
             --green-medium: #c8e6c9;
             --green-dark: #388e3c;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
         }
         
         * {
@@ -23,822 +43,945 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--light), #e8f5e9);
+            line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f9fa, #e8f5e9);
             min-height: 100vh;
-            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: 80px;
         }
         
         .container {
+            width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
         
+        /* Header Styles */
         .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 245, 233, 0.95));
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(200, 230, 201, 0.5);
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            width: 100%;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            max-width: 70%;
+        }
+        
+        .logo {
+            height: 45px;
+            width: auto;
+            flex-shrink: 0;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            overflow: hidden;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .logo-text span {
+            font-size: 0.7rem;
+            color: var(--secondary);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Back Button */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(87, 197, 182, 0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, #45b0a1, #128b87);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(87, 197, 182, 0.4);
+        }
+        
+        .back-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .back-btn:hover i {
+            transform: translateX(-3px);
+        }
+        
+        /* Page Title */
+        .page-title {
             text-align: center;
-            margin-bottom: 50px;
-            padding-top: 40px;
-        }
-        
-        .header h1 {
-            color: var(--green-dark);
-            font-size: 2.8rem;
-            margin-bottom: 15px;
+            margin: 30px 0 40px;
             position: relative;
-            display: inline-block;
         }
         
-        .header h1::after {
+        .page-title h1 {
+            font-size: 2.2rem;
+            color: var(--green-dark);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        @media (min-width: 768px) {
+            .page-title h1 {
+                font-size: 2.8rem;
+                margin-bottom: 15px;
+            }
+        }
+        
+        .page-title p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .page-title p {
+                font-size: 1.2rem;
+            }
+        }
+        
+        .page-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
+            width: 100px;
             height: 4px;
             background: linear-gradient(to right, var(--accent), var(--green-dark));
-            border-radius: 2px;
+            border-radius: 3px;
         }
         
-        .header p {
-            color: #666;
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 30px auto;
-            line-height: 1.6;
+        @media (min-width: 768px) {
+            .page-title::after {
+                width: 150px;
+                height: 5px;
+                bottom: -20px;
+            }
         }
         
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(87, 197, 182, 0.2);
-            border-radius: 50%;
-            border-top-color: var(--accent);
-            animation: spin 1s linear infinite;
-            margin: 0 auto 30px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Organizational Chart */
-        .org-chart {
-            position: relative;
-            min-height: 800px;
-            padding: 40px 20px;
-        }
-        
-        /* Level 1 - Ketua */
-        .level-1 {
+        /* Structure Container */
+        .structure-container {
+            width: 100%;
             display: flex;
-            justify-content: center;
-            margin-bottom: 100px;
-            position: relative;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0 80px;
         }
         
-        /* Level 2 - Sekretaris & Bendahara */
-        .level-2 {
-            display: flex;
-            justify-content: center;
-            gap: 300px;
-            margin-bottom: 100px;
-            position: relative;
-        }
-        
-        /* Level 3 - Bidang-bidang */
-        .level-3 {
-            display: flex;
-            justify-content: center;
-            gap: 150px;
-            position: relative;
-        }
-        
-        /* Connection Lines */
-        .connector {
+        /* Structure Lines - Desktop */
+        .structure-lines {
             position: absolute;
-            background: linear-gradient(to bottom, var(--accent), var(--secondary));
-            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
         
-        .connector-vertical {
-            width: 4px;
-            height: 100px;
-            top: 160px;
-            left: 50%;
-            transform: translateX(-50%);
+        .line {
+            position: absolute;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            border-radius: 2px;
+            opacity: 0.4;
         }
         
-        .connector-horizontal {
-            height: 4px;
-            width: 300px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .connector-diagonal-left {
-            width: 4px;
-            height: 100px;
-            transform: rotate(-30deg);
-            transform-origin: top center;
-            top: 160px;
-            left: calc(50% - 150px);
-        }
-        
-        .connector-diagonal-right {
-            width: 4px;
-            height: 100px;
-            transform: rotate(30deg);
-            transform-origin: top center;
-            top: 160px;
-            left: calc(50% + 150px);
-        }
-        
-        /* Staff Card - PREMIUM DESIGN */
-        .staff-card {
-            background: linear-gradient(145deg, #ffffff, #f1f8e9);
-            border-radius: 20px;
-            padding: 25px;
-            width: 280px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+        /* Structure Grid */
+        .structure-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(200, 230, 201, 0.8);
             z-index: 1;
         }
         
-        .staff-card::before {
+        @media (max-width: 1100px) {
+            .structure-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+        
+        /* Structure Row */
+        .structure-row {
+            display: contents;
+        }
+        
+        /* Card Styles */
+        .structure-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+            cursor: pointer;
+        }
+        
+        .structure-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.2);
+        }
+        
+        .structure-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--accent), var(--secondary));
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
         }
         
-        .staff-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
+        .structure-card:hover::before {
+            transform: translateX(100%);
         }
         
-        .staff-card.level-1-card {
-            width: 320px;
-            background: linear-gradient(145deg, #ffffff, #e3f2fd);
-            border: 2px solid rgba(87, 197, 182, 0.3);
+        /* Card Positioning */
+        .card-level-1 {
+            grid-column: 2;
+            grid-row: 1;
+            margin-bottom: 40px;
+            border: 3px solid var(--gold);
+            background: linear-gradient(145deg, #fff9e6, #ffecb3);
         }
         
-        .staff-card.level-1-card::before {
-            height: 8px;
-            background: linear-gradient(to right, var(--accent), var(--primary));
+        .card-level-2 {
+            margin-top: 40px;
         }
         
-        .staff-photo {
-            width: 150px;
-            height: 150px;
+        .card-level-2:nth-child(1) {
+            grid-column: 1;
+            grid-row: 2;
+            border: 2px solid var(--silver);
+            background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+        }
+        
+        .card-level-2:nth-child(2) {
+            grid-column: 3;
+            grid-row: 2;
+            border: 2px solid var(--silver);
+            background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+        }
+        
+        .card-level-3 {
+            margin-top: 40px;
+        }
+        
+        .card-level-3:nth-child(1) {
+            grid-column: 1;
+            grid-row: 3;
+            border: 2px solid var(--bronze);
+        }
+        
+        .card-level-3:nth-child(2) {
+            grid-column: 2;
+            grid-row: 3;
+            border: 2px solid var(--bronze);
+        }
+        
+        .card-level-3:nth-child(3) {
+            grid-column: 3;
+            grid-row: 3;
+            border: 2px solid var(--bronze);
+        }
+        
+        /* Mobile Layout */
+        @media (max-width: 1100px) {
+            .structure-grid {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            
+            .structure-card {
+                width: 100%;
+                max-width: 400px;
+                margin-bottom: 30px;
+            }
+            
+            .card-level-1 {
+                order: 1;
+                margin-bottom: 0;
+            }
+            
+            .card-level-2 {
+                order: 2;
+                margin-top: 0;
+            }
+            
+            .card-level-3 {
+                order: 3;
+                margin-top: 0;
+            }
+            
+            /* Mobile Lines */
+            .structure-lines-mobile {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 4px;
+                height: 100%;
+                background: linear-gradient(180deg, var(--accent), var(--secondary));
+                opacity: 0.3;
+                z-index: 0;
+                border-radius: 2px;
+            }
+            
+            .structure-lines-mobile::before {
+                content: '';
+                position: absolute;
+                top: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 200px;
+                height: 2px;
+                background: linear-gradient(90deg, var(--accent), var(--secondary));
+                opacity: 0.3;
+            }
+            
+            .structure-lines-mobile::after {
+                content: '';
+                position: absolute;
+                top: 300px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 200px;
+                height: 2px;
+                background: linear-gradient(90deg, var(--accent), var(--secondary));
+                opacity: 0.3;
+            }
+        }
+        
+        /* Card Content */
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .badge-gold {
+            background: linear-gradient(135deg, var(--gold), #ffaa00);
+        }
+        
+        .badge-silver {
+            background: linear-gradient(135deg, var(--silver), #a0a0a0);
+        }
+        
+        .badge-bronze {
+            background: linear-gradient(135deg, var(--bronze), #8b5a2b);
+        }
+        
+        .card-image {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid white;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 4px solid white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             margin: 0 auto 20px;
-            display: block;
             transition: var(--transition);
         }
         
-        .staff-card:hover .staff-photo {
+        .structure-card:hover .card-image {
             transform: scale(1.05);
             border-color: var(--accent);
         }
         
-        .staff-info {
-            text-align: center;
-        }
-        
-        .staff-name {
-            font-size: 1.4rem;
-            color: var(--green-dark);
-            margin-bottom: 8px;
-            font-weight: 600;
+        .card-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
             line-height: 1.3;
         }
         
-        .staff-position {
+        @media (min-width: 768px) {
+            .card-name {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .card-position {
             color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
             font-size: 1.1rem;
-            font-weight: 500;
-            padding: 8px 15px;
-            background: rgba(87, 197, 182, 0.1);
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 15px;
-            border: 1px solid rgba(87, 197, 182, 0.3);
+            padding-bottom: 15px;
+            border-bottom: 2px dashed rgba(87, 197, 182, 0.3);
         }
         
-        .staff-card.level-1-card .staff-position {
-            background: linear-gradient(135deg, rgba(87, 197, 182, 0.15), rgba(26, 95, 122, 0.1));
-            font-size: 1.2rem;
+        @media (min-width: 768px) {
+            .card-position {
+                font-size: 1.2rem;
+            }
+        }
+        
+        .card-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             padding: 10px 20px;
-        }
-        
-        .staff-division {
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            font-style: italic;
-            padding: 5px 10px;
-            background: rgba(200, 230, 201, 0.3);
-            border-radius: 8px;
-        }
-        
-        /* Error State */
-        .error-state {
-            text-align: center;
-            padding: 80px 20px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .error-state i {
-            font-size: 4rem;
-            color: #ff6b6b;
-            margin-bottom: 20px;
-        }
-        
-        .error-state h2 {
-            color: var(--green-dark);
-            margin-bottom: 15px;
-        }
-        
-        .refresh-btn {
-            padding: 12px 30px;
             background: linear-gradient(135deg, var(--accent), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .refresh-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(87, 197, 182, 0.3);
-        }
-        
-        /* Back Button */
-        .back-container {
-            text-align: center;
-            margin-top: 60px;
-            margin-bottom: 40px;
-        }
-        
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, var(--primary), #0c384f);
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 500;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(26, 95, 122, 0.2);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(87, 197, 182, 0.3);
         }
         
-        .back-btn:hover {
+        .card-contact:hover {
+            background: linear-gradient(135deg, #45b0a1, #128b87);
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(26, 95, 122, 0.3);
-            gap: 15px;
+            box-shadow: 0 6px 15px rgba(87, 197, 182, 0.5);
         }
         
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            .level-2 {
-                gap: 200px;
-            }
-            
-            .level-3 {
-                gap: 100px;
-            }
-            
-            .staff-card {
-                width: 250px;
-            }
-            
-            .staff-card.level-1-card {
-                width: 280px;
-            }
+        .card-contact i {
+            font-size: 1.1rem;
         }
         
-        @media (max-width: 992px) {
-            .org-chart {
-                min-height: auto;
-            }
-            
-            .level-1,
-            .level-2,
-            .level-3 {
-                flex-direction: column;
-                align-items: center;
-                gap: 60px;
-            }
-            
-            .level-2 {
-                gap: 60px;
-            }
-            
-            .level-3 {
-                gap: 60px;
-            }
-            
-            .connector {
-                display: none;
-            }
-            
-            .staff-card {
-                width: 320px;
-            }
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark), #0c384f);
+            color: var(--white);
+            padding: 30px 0 15px;
+            text-align: center;
+            width: 100%;
+            margin-top: 60px;
         }
         
-        @media (max-width: 576px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .staff-card {
-                width: 280px;
-                padding: 20px;
-            }
-            
-            .staff-card.level-1-card {
-                width: 280px;
-            }
-            
-            .staff-photo {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .staff-name {
-                font-size: 1.2rem;
-            }
-            
-            .staff-position {
-                font-size: 1rem;
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-logo {
+            height: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-text {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 10px;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.85rem;
+            opacity: 0.8;
+            padding: 0 10px;
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
         
-        /* Legend */
-        .legend {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 50px;
-            flex-wrap: wrap;
+        .delay-1 {
+            animation-delay: 0.2s;
         }
         
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        .delay-2 {
+            animation-delay: 0.4s;
         }
         
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
+        .delay-3 {
+            animation-delay: 0.6s;
         }
         
-        .color-leadership {
-            background: linear-gradient(135deg, var(--accent), var(--primary));
+        .delay-4 {
+            animation-delay: 0.8s;
         }
         
-        .color-staff {
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
+        .delay-5 {
+            animation-delay: 1s;
+        }
+        
+        .delay-6 {
+            animation-delay: 1.2s;
+        }
+        
+        /* WhatsApp Pulse Animation */
+        .whatsapp-pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
         }
     </style>
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>STRUKTUR ORGANISASI</h1>
-            <p>Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri<br>Kelurahan Padang Terubuk, Kota Pekanbaru</p>
-        </div>
-        
-        <div id="loading" class="loading">
-            <div class="spinner"></div>
-            <h3>Memuat data struktur organisasi...</h3>
-            <p>Mengambil data dari spreadsheet Google Sheets</p>
-        </div>
-        
-        <div id="orgChart" class="org-chart" style="display: none;">
-            <!-- Level 1 - Ketua -->
-            <div class="level-1">
-                <div class="staff-card level-1-card" id="ketua-card">
-                    <img src="" alt="Ketua" class="staff-photo" id="ketua-photo">
-                    <div class="staff-info">
-                        <h3 class="staff-name" id="ketua-name">Nama Ketua</h3>
-                        <div class="staff-position" id="ketua-position">KETUA</div>
-                    </div>
-                </div>
-                <div class="connector connector-vertical"></div>
-            </div>
-            
-            <!-- Level 2 - Sekretaris & Bendahara -->
-            <div class="level-2">
-                <div class="connector connector-horizontal"></div>
-                <div class="staff-card" id="sekretaris-card">
-                    <img src="" alt="Sekretaris" class="staff-photo" id="sekretaris-photo">
-                    <div class="staff-info">
-                        <h3 class="staff-name" id="sekretaris-name">Nama Sekretaris</h3>
-                        <div class="staff-position" id="sekretaris-position">SEKRETARIS</div>
-                    </div>
-                </div>
-                
-                <div class="staff-card" id="bendahara-card">
-                    <img src="" alt="Bendahara" class="staff-photo" id="bendahara-photo">
-                    <div class="staff-info">
-                        <h3 class="staff-name" id="bendahara-name">Nama Bendahara</h3>
-                        <div class="staff-position" id="bendahara-position">BENDAHARA</div>
-                    </div>
-                </div>
-                <div class="connector connector-diagonal-left"></div>
-                <div class="connector connector-diagonal-right"></div>
-            </div>
-            
-            <!-- Level 3 - Bidang-bidang -->
-            <div class="level-3">
-                <div class="staff-card" id="angkutan-card">
-                    <img src="" alt="Bidang Angkutan" class="staff-photo" id="angkutan-photo">
-                    <div class="staff-info">
-                        <h3 class="staff-name" id="angkutan-name">Nama Koordinator</h3>
-                        <div class="staff-position" id="angkutan-position">KOORDINATOR</div>
-                        <div class="staff-division">Bidang Angkutan Sampah</div>
-                    </div>
-                </div>
-                
-                <div class="staff-card" id="pengolahan-card">
-                    <img src="" alt="Bidang Pengolahan" class="staff-photo" id="pengolahan-photo">
-                    <div class="staff-info">
-                        <h3 class="staff-name" id="pengolahan-name">Nama Koordinator</h3>
-                        <div class="staff-position" id="pengolahan-position">KOORDINATOR</div>
-                        <div class="staff-division">Bidang Pengolahan Sampah dan Edukasi</div>
-                    </div>
-                </div>
-                
-                <div class="staff-card" id="iuran-card">
-                    <img src="" alt="Bidang Iuran" class="staff-photo" id="iuran-photo">
-                    <div class="staff-info">
-                        <h3 class="staff-name" id="iuran-name">Nama Koordinator</h3>
-                        <div class="staff-position" id="iuran-position">KOORDINATOR</div>
-                        <div class="staff-division">Bidang Pemungutan Iuran</div>
-                    </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="data/foto/logolps.png" alt="LPS Padang Terubuk Asri" class="logo">
+                <div class="logo-text">
+                    <h1>LPS PADANG TERUBUK ASRI</h1>
+                    <span>Struktur Organisasi</span>
                 </div>
             </div>
             
-            <!-- Legend -->
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-color color-leadership"></div>
-                    <span>Pimpinan</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color color-staff"></div>
-                    <span>Staff & Koordinator</span>
-                </div>
-            </div>
-        </div>
-        
-        <div id="errorState" class="error-state" style="display: none;">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h2>Gagal Memuat Data</h2>
-            <p>Terjadi kesalahan saat mengambil data dari spreadsheet. Pastikan:</p>
-            <ul style="text-align: left; max-width: 400px; margin: 20px auto;">
-                <li>Spreadsheet sudah dipublikasikan</li>
-                <li>Koneksi internet stabil</li>
-                <li>Format data sesuai template</li>
-            </ul>
-            <button class="refresh-btn" id="refreshBtn">
-                <i class="fas fa-sync-alt"></i> Coba Lagi
-            </button>
-        </div>
-        
-        <div class="back-container">
             <a href="index.html" class="back-btn">
-                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                <i class="fas fa-arrow-left"></i>
+                Kembali ke Beranda
             </a>
         </div>
-    </div>
+    </header>
     
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Title -->
+        <div class="page-title fade-in">
+            <h1>Struktur Organisasi LPS</h1>
+            <p>Struktur kepengurusan Lembaga Pengelola Sampah Padang Terubuk Asri</p>
+        </div>
+        
+        <!-- Structure Container -->
+        <div class="structure-container">
+            <!-- Desktop Lines -->
+            <div class="structure-lines" id="desktopLines"></div>
+            
+            <!-- Mobile Lines -->
+            <div class="structure-lines-mobile" id="mobileLines"></div>
+            
+            <!-- Structure Grid -->
+            <div class="structure-grid">
+                <!-- Level 1: Ketua (Center) -->
+                <div class="structure-card card-level-1 fade-in">
+                    <div class="card-badge badge-gold">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <img src="data/foto/pengurus/ketua.png" alt="Ketua LPS" class="card-image">
+                    <h3 class="card-name">RAMA HADI WIJAYA, SE</h3>
+                    <div class="card-position">KETUA LPS</div>
+                    <a href="https://wa.me/6281365565011" target="_blank" class="card-contact whatsapp-pulse">
+                        <i class="fab fa-whatsapp"></i>
+                        Hubungi Sekarang
+                    </a>
+                </div>
+                
+                <!-- Level 2: Sekretaris & Bendahara (Left & Right) -->
+                <div class="structure-card card-level-2 fade-in delay-1">
+                    <div class="card-badge badge-silver">
+                        <i class="fas fa-pen"></i>
+                    </div>
+                    <img src="data/foto/pengurus/sekretaris.png" alt="Sekretaris LPS" class="card-image">
+                    <h3 class="card-name">TRY HOLLY</h3>
+                    <div class="card-position">SEKRETARIS</div>
+                    <a href="https://wa.me/6282170089590" target="_blank" class="card-contact whatsapp-pulse">
+                        <i class="fab fa-whatsapp"></i>
+                        Hubungi Sekarang
+                    </a>
+                </div>
+                
+                <div class="structure-card card-level-2 fade-in delay-1">
+                    <div class="card-badge badge-silver">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <img src="data/foto/pengurus/bendahara.png" alt="Bendahara LPS" class="card-image">
+                    <h3 class="card-name">BUKKULAN, SE</h3>
+                    <div class="card-position">BENDAHARA</div>
+                    <a href="https://wa.me/628127667868" target="_blank" class="card-contact whatsapp-pulse">
+                        <i class="fab fa-whatsapp"></i>
+                        Hubungi Sekarang
+                    </a>
+                </div>
+                
+                <!-- Level 3: Bidang-bidang (Three columns) -->
+                <div class="structure-card card-level-3 fade-in delay-2">
+                    <div class="card-badge badge-bronze">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <img src="data/foto/pengurus/bidangkutan.png" alt="Bidang Angkutan" class="card-image">
+                    <h3 class="card-name">HAFID MUHAIMIN H</h3>
+                    <div class="card-position">BIDANG ANGKUTAN SAMPAH</div>
+                    <a href="https://wa.me/6285264714121" target="_blank" class="card-contact whatsapp-pulse">
+                        <i class="fab fa-whatsapp"></i>
+                        Hubungi Sekarang
+                    </a>
+                </div>
+                
+                <div class="structure-card card-level-3 fade-in delay-3">
+                    <div class="card-badge badge-bronze">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <img src="data/foto/pengurus/bidsampah.png" alt="Bidang Pengolahan" class="card-image">
+                    <img src="data/foto/pengurus/bidsampah.png" alt="Bidang Pengolahan" class="card-image">
+                    <h3 class="card-name">ELVA SARI</h3>
+                    <div class="card-position">BIDANG PENGOLAHAN & EDUKASI</div>
+                    <a href="https://wa.me/628127664492" target="_blank" class="card-contact whatsapp-pulse">
+                        <i class="fab fa-whatsapp"></i>
+                        Hubungi Sekarang
+                    </a>
+                </div>
+                
+                <div class="structure-card card-level-3 fade-in delay-4">
+                    <div class="card-badge badge-bronze">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <img src="data/foto/pengurus/bidiuran.png" alt="Bidang Iuran" class="card-image">
+                    <h3 class="card-name">MARDIANI, SE</h3>
+                    <div class="card-position">BIDANG PEMUNGUTAN IURAN</div>
+                    <a href="https://wa.me/6285265045674" target="_blank" class="card-contact whatsapp-pulse">
+                        <i class="fab fa-whatsapp"></i>
+                        Hubungi Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="data/foto/logolps.png" alt="LPS Logo" class="footer-logo">
+            <p class="footer-text">
+                Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri adalah lembaga resmi yang diakui Pemerintah Kota Pekanbaru untuk pengelolaan sampah terpadu di Kelurahan Padang Terubuk.
+            </p>
+            <div class="copyright">
+                &copy; 2026 Lembaga Pengelola Sampah Padang Terubuk Asri. | Hak Cipta Dilindungi
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
     <script>
-    // ========== KONFIGURASI YANG AMAN ==========
-    
-    const SPREADSHEET_ID = '1RNLvI_ZRakyGsnEEWEoJ7Fb2GrZ-UMGih1Ceh49CFXw';
-    const SHEET_NAME = 'BAGAN_LPS';
-    const API_KEY = 'AIzaSyAS_iK5OTOGaMGFytbEJi8GydePK7H52wo';
-    
-    // URL yang benar untuk Sheets API
-    const API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
-    
-    // DOM Elements
-    const loadingElement = document.getElementById('loading');
-    const orgChartElement = document.getElementById('orgChart');
-    const errorStateElement = document.getElementById('errorState');
-    const refreshButton = document.getElementById('refreshBtn');
-    
-    // Staff card elements
-    const staffElements = {
-        ketua: {
-            name: document.getElementById('ketua-name'),
-            position: document.getElementById('ketua-position'),
-            photo: document.getElementById('ketua-photo'),
-            card: document.getElementById('ketua-card')
-        },
-        sekretaris: {
-            name: document.getElementById('sekretaris-name'),
-            position: document.getElementById('sekretaris-position'),
-            photo: document.getElementById('sekretaris-photo'),
-            card: document.getElementById('sekretaris-card')
-        },
-        bendahara: {
-            name: document.getElementById('bendahara-name'),
-            position: document.getElementById('bendahara-position'),
-            photo: document.getElementById('bendahara-photo'),
-            card: document.getElementById('bendahara-card')
-        },
-        angkutan: {
-            name: document.getElementById('angkutan-name'),
-            position: document.getElementById('angkutan-position'),
-            photo: document.getElementById('angkutan-photo'),
-            card: document.getElementById('angkutan-card')
-        },
-        pengolahan: {
-            name: document.getElementById('pengolahan-name'),
-            position: document.getElementById('pengolahan-position'),
-            photo: document.getElementById('pengolahan-photo'),
-            card: document.getElementById('pengolahan-card')
-        },
-        iuran: {
-            name: document.getElementById('iuran-name'),
-            position: document.getElementById('iuran-position'),
-            photo: document.getElementById('iuran-photo'),
-            card: document.getElementById('iuran-card')
-        }
-    };
-    
-    // Default fallback photo
-    const DEFAULT_PHOTO = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0iI0U4RjVFOSIvPjxwYXRoIGQ9Ik0xMDAgMTEwQzExNi41NjkgMTEwIDEzMCA5Ni41Njg1IDEzMCA4MEMxMzAgNjMuNDMxNSAxMTYuNTY5IDUwIDEwMCA1MEM4My40MzE0IDUwIDcwIDYzLjQzMTUgNzAgODBDNzAgOTYuNTY4NSA4My40MzE0IDExMCAxMDAgMTEwWiIgZmlsbD0iIzU3QzVCNiIvPjxwYXRoIGQ9Ik0xMzAgMTIwSDEwMEM3MC40MzE0IDEyMCA0Ni42NjQyIDE0My40MDggNTAuNTE5NiAxNzIuNTJDNTIuMzMzNSAxODYuNTg1IDY0LjY5NzYgMTk3LjUgODAgMTk3LjVIMTUwQzE2NS4zMDIgMTk3LjUgMTc3LjY2NiAxODYuNTg1IDE3OS40OCAxNzIuNTJDMTgzLjMzNiAxNDMuNDA4IDE1OS41NjkgMTIwIDEzMCAxMjBaIiBmaWxsPSIjNTdDNUI2Ii8+PC9zdmc+';
-    
-    // Mapping kolom spreadsheet
-    const COLUMNS = {
-        KETUA: { NAME: 0, POSITION: 1, PHOTO: 2 },
-        SEKRETARIS: { NAME: 3, POSITION: 4, PHOTO: 5 },
-        BENDAHARA: { NAME: 6, POSITION: 7, PHOTO: 8 },
-        ANGKUTAN: { NAME: 9, POSITION: 10, PHOTO: 11 },
-        PENGOLAHAN: { NAME: 12, POSITION: 13, PHOTO: 14 },
-        IURAN: { NAME: 15, POSITION: 16, PHOTO: 17 }
-    };
-    
-    // ========== FUNGSI UTAMA ==========
-    
-    async function fetchData() {
-        try {
-            console.log('Memulai pengambilan data...');
-            showLoading();
+        // Function to create connecting lines for desktop
+        function createDesktopLines() {
+            const desktopLines = document.getElementById('desktopLines');
+            if (!desktopLines) return;
             
-            // Coba metode Sheets API dulu
-            let data = await fetchWithSheetsAPI();
+            // Only create lines for desktop view
+            if (window.innerWidth <= 1100) return;
             
-            if (!data || data.length === 0) {
-                console.log('Data kosong, coba metode CSV...');
-                data = await fetchWithCSV();
-            }
+            // Clear existing lines
+            desktopLines.innerHTML = '';
             
-            if (!data || data.length === 0) {
-                throw new Error('Tidak ada data yang ditemukan');
-            }
-            
-            console.log('Data berhasil diambil:', data[0]);
-            processData(data);
-            showOrgChart();
-            addHoverEffects();
-            
-        } catch (error) {
-            console.error('Error utama:', error);
-            showError();
-        }
-    }
-    
-    // Metode 1: Google Sheets API
-    async function fetchWithSheetsAPI() {
-        try {
-            console.log('Menggunakan Sheets API...');
-            const response = await fetch(API_URL);
-            
-            console.log('Response status:', response.status);
-            
-            if (!response.ok) {
-                throw new Error(`Sheets API error: ${response.status}`);
-            }
-            
-            const result = await response.json();
-            console.log('Sheets API result:', result);
-            
-            return result.values || [];
-            
-        } catch (error) {
-            console.warn('Sheets API gagal:', error.message);
-            return null;
-        }
-    }
-    
-    // Metode 2: CSV Export (backup)
-    async function fetchWithCSV() {
-        try {
-            console.log('Menggunakan metode CSV...');
-            
-            // Coba beberapa format URL CSV
-            const csvUrls = [
-                `https://docs.google.com/spreadsheets/d/e/2PACX-1vT5P0tUqP_y_GOaAfDEO0N_0HSHImJR09qTq7k2Iuj-2pNpB8rRPGut0N-WGxFCGvLrV3WjES_elvY/pub?output=csv`,
-                `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`,
-                `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/export?format=csv&id=${SPREADSHEET_ID}&sheet=${SHEET_NAME}`
+            // Define line positions
+            const lines = [
+                // From Ketua to Sekretaris
+                {
+                    x1: '50%', y1: '120px',
+                    x2: '16.5%', y2: '220px',
+                    width: '3px'
+                },
+                // From Ketua to Bendahara
+                {
+                    x1: '50%', y1: '120px',
+                    x2: '83.5%', y2: '220px',
+                    width: '3px'
+                },
+                // From Sekretaris to Bidang Angkutan
+                {
+                    x1: '16.5%', y1: '260px',
+                    x2: '16.5%', y2: '360px',
+                    width: '3px'
+                },
+                // From Bendahara to Bidang Iuran
+                {
+                    x1: '83.5%', y1: '260px',
+                    x2: '83.5%', y2: '360px',
+                    width: '3px'
+                },
+                // From Ketua to Bidang Pengolahan (middle)
+                {
+                    x1: '50%', y1: '150px',
+                    x2: '50%', y2: '360px',
+                    width: '3px'
+                }
             ];
             
-            for (const url of csvUrls) {
-                try {
-                    const response = await fetch(url);
-                    if (response.ok) {
-                        const csvText = await response.text();
-                        console.log('CSV berhasil:', csvText.substring(0, 200));
-                        return parseCSV(csvText);
-                    }
-                } catch (e) {
-                    console.log('URL gagal:', url);
-                }
-            }
-            
-            return null;
-            
-        } catch (error) {
-            console.warn('CSV method gagal:', error);
-            return null;
+            // Create line elements
+            lines.forEach(line => {
+                const lineEl = document.createElement('div');
+                lineEl.className = 'line';
+                
+                // Calculate line length and angle
+                const x1 = parseFloat(line.x1) / 100 * desktopLines.offsetWidth;
+                const y1 = parseFloat(line.y1);
+                const x2 = parseFloat(line.x2) / 100 * desktopLines.offsetWidth;
+                const y2 = parseFloat(line.y2);
+                
+                const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+                
+                // Set line styles
+                lineEl.style.width = `${length}px`;
+                lineEl.style.height = line.width;
+                lineEl.style.left = `${x1}px`;
+                lineEl.style.top = `${y1}px`;
+                lineEl.style.transform = `rotate(${angle}deg)`;
+                lineEl.style.transformOrigin = '0 0';
+                
+                desktopLines.appendChild(lineEl);
+            });
         }
-    }
-    
-    // Parse CSV menjadi array
-    function parseCSV(csvText) {
-        const rows = [];
-        const lines = csvText.split('\n');
         
-        lines.forEach(line => {
-            if (line.trim()) {
-                // Simple CSV parsing
-                const row = line.split(',').map(cell => 
-                    cell.trim().replace(/^"|"$/g, '')
-                );
-                rows.push(row);
+        // Function to create mobile lines
+        function createMobileLines() {
+            const mobileLines = document.getElementById('mobileLines');
+            if (!mobileLines) return;
+            
+            // Only create lines for mobile view
+            if (window.innerWidth > 1100) {
+                mobileLines.style.display = 'none';
+                return;
             }
+            
+            mobileLines.style.display = 'block';
+        }
+        
+        // Initialize lines on load and resize
+        window.addEventListener('load', () => {
+            createDesktopLines();
+            createMobileLines();
         });
         
-        return rows;
-    }
-    
-    // Proses data dan update UI
-    function processData(data) {
-        const row = data[0] || [];
+        window.addEventListener('resize', () => {
+            createDesktopLines();
+            createMobileLines();
+        });
         
-        console.log('Processing row:', row);
-        
-        // Update setiap staff member
-        updateStaffMember(staffElements.ketua, row, COLUMNS.KETUA);
-        updateStaffMember(staffElements.sekretaris, row, COLUMNS.SEKRETARIS);
-        updateStaffMember(staffElements.bendahara, row, COLUMNS.BENDAHARA);
-        updateStaffMember(staffElements.angkutan, row, COLUMNS.ANGKUTAN);
-        updateStaffMember(staffElements.pengolahan, row, COLUMNS.PENGOLAHAN);
-        updateStaffMember(staffElements.iuran, row, COLUMNS.IURAN);
-    }
-    
-    function updateStaffMember(element, row, columns) {
-        const name = row[columns.NAME] || 'Nama tidak tersedia';
-        const position = row[columns.POSITION] || 'Jabatan';
-        const photoUrl = row[columns.PHOTO] || '';
-        
-        console.log(`Updating: ${name}, ${position}, ${photoUrl.substring(0, 50)}...`);
-        
-        element.name.textContent = name;
-        element.position.textContent = position;
-        
-        if (photoUrl && isValidUrl(photoUrl)) {
-            element.photo.src = photoUrl;
-            element.photo.onerror = () => {
-                element.photo.src = DEFAULT_PHOTO;
-            };
-        } else {
-            element.photo.src = DEFAULT_PHOTO;
-        }
-    }
-    
-    // Validasi URL
-    function isValidUrl(string) {
-        try {
-            new URL(string);
-            return true;
-        } catch (_) {
-            return false;
-        }
-    }
-    
-    // ========== HELPER FUNCTIONS ==========
-    
-    function showLoading() {
-        loadingElement.style.display = 'block';
-        orgChartElement.style.display = 'none';
-        errorStateElement.style.display = 'none';
-    }
-    
-    function showOrgChart() {
-        loadingElement.style.display = 'none';
-        orgChartElement.style.display = 'block';
-        errorStateElement.style.display = 'none';
-    }
-    
-    function showError() {
-        loadingElement.style.display = 'none';
-        orgChartElement.style.display = 'none';
-        errorStateElement.style.display = 'block';
-    }
-    
-    function addHoverEffects() {
-        document.querySelectorAll('.staff-card').forEach(card => {
-            card.style.cursor = 'pointer';
-            card.setAttribute('tabindex', '0');
-            
-            card.addEventListener('click', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
+        // Add click animation to cards
+        document.querySelectorAll('.structure-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't trigger if clicking on WhatsApp link
+                if (e.target.closest('.card-contact')) return;
+                
+                this.style.transform = 'translateY(-5px) scale(0.98)';
                 setTimeout(() => {
-                    this.style.transform = '';
-                }, 300);
+                    this.style.transform = 'translateY(-10px)';
+                }, 150);
+                
+                // Find and click the WhatsApp link
+                const whatsappLink = this.querySelector('.card-contact');
+                if (whatsappLink) {
+                    // Open in new tab
+                    window.open(whatsappLink.href, '_blank');
+                }
             });
         });
-    }
-    
-    // ========== INITIALIZE ==========
-    
-    document.addEventListener('DOMContentLoaded', fetchData);
-    
-    if (refreshButton) {
-        refreshButton.addEventListener('click', fetchData);
-    }
-    
-    // Animasi cards
-    setTimeout(() => {
-        document.querySelectorAll('.staff-card').forEach((card, index) => {
-            setTimeout(() => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100);
-            }, index * 100);
+        
+        // Add hover effect for cards
+        document.querySelectorAll('.structure-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '2';
+            });
         });
-    }, 500);
-    
-    // Debug: Test URL langsung
-    console.log('API URL:', API_URL);
-    console.log('Spreadsheet ID:', SPREADSHEET_ID);
-    
-</script>
+        
+        // Add animation delay to cards
+        document.querySelectorAll('.fade-in').forEach((element, index) => {
+            element.style.animationDelay = `${index * 0.1}s`;
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(232, 245, 233, 0.95))';
+            } else {
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
+                header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 245, 233, 0.95))';
+            }
+        });
+        
+        // Check for missing images and show placeholder
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.card-image').forEach(img => {
+                img.addEventListener('error', function() {
+                    // Set a default placeholder based on position
+                    const position = this.closest('.structure-card').querySelector('.card-position').textContent;
+                    
+                    let iconClass = 'fas fa-user';
+                    if (position.includes('KETUA')) iconClass = 'fas fa-crown';
+                    else if (position.includes('SEKRETARIS')) iconClass = 'fas fa-pen';
+                    else if (position.includes('BENDAHARA')) iconClass = 'fas fa-coins';
+                    else if (position.includes('ANGKUTAN')) iconClass = 'fas fa-truck';
+                    else if (position.includes('PENGOLAHAN')) iconClass = 'fas fa-recycle';
+                    else if (position.includes('IURAN')) iconClass = 'fas fa-file-invoice-dollar';
+                    
+                    this.style.display = 'none';
+                    
+                    const iconContainer = document.createElement('div');
+                    iconContainer.className = 'card-image';
+                    iconContainer.style.display = 'flex';
+                    iconContainer.style.alignItems = 'center';
+                    iconContainer.style.justifyContent = 'center';
+                    iconContainer.style.backgroundColor = '#f0f0f0';
+                    iconContainer.style.color = '#aaa';
+                    iconContainer.style.fontSize = '3rem';
+                    
+                    const icon = document.createElement('i');
+                    icon.className = iconClass;
+                    iconContainer.appendChild(icon);
+                    
+                    this.parentNode.insertBefore(iconContainer, this.nextSibling);
+                });
+            });
+        });
+        
+        // Add visual feedback for WhatsApp links
+        document.querySelectorAll('.card-contact').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Add click animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+                
+                // Add success message
+                const card = this.closest('.structure-card');
+                const name = card.querySelector('.card-name').textContent;
+                
+                // Show a subtle notification
+                const notification = document.createElement('div');
+                notification.textContent = `Membuka WhatsApp ${name}...`;
+                notification.style.position = 'fixed';
+                notification.style.bottom = '20px';
+                notification.style.left = '50%';
+                notification.style.transform = 'translateX(-50%)';
+                notification.style.background = 'linear-gradient(135deg, var(--accent), var(--secondary))';
+                notification.style.color = 'white';
+                notification.style.padding = '10px 20px';
+                notification.style.borderRadius = '50px';
+                notification.style.zIndex = '1000';
+                notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                notification.style.fontWeight = '500';
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.3s';
+                
+                document.body.appendChild(notification);
+                
+                // Fade in
+                setTimeout(() => {
+                    notification.style.opacity = '1';
+                }, 10);
+                
+                // Fade out and remove
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 2000);
+            });
+        });
+    </script>
 </body>
 </html>

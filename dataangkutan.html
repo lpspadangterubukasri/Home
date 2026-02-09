@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Data Angkutan - LPS Padang Terubuk Asri</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Data Angkutan - LPS Padang Terubuk Asri">
+    <meta property="og:description" content="Informasi lengkap petugas dan armada angkutan sampah LPS">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data/foto/favicon.png" type="image/png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --green-light: #e8f5e9;
+            --green-medium: #c8e6c9;
+            --green-dark: #388e3c;
+            --dark: #0a2d3e;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--light), #e8f5e9);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Header */
+        .main-header {
+            max-width: 1400px;
+            margin: 0 auto 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 245, 233, 0.95));
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            height: 50px;
+            width: auto;
+            border-radius: 10px;
+            border: 3px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .logo-text span {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+        .page-title {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .page-title h2 {
+            font-size: 2rem;
+            color: var(--green-dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .page-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--green-dark));
+            border-radius: 2px;
+        }
+        
+        /* Back Button */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, var(--primary), #0c384f);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(26, 95, 122, 0.2);
+            white-space: nowrap;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(26, 95, 122, 0.3);
+            gap: 15px;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Info Banner */
+        .info-banner {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(87, 197, 182, 0.3);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(87, 197, 182, 0.3);
+        }
+        
+        .info-content h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .info-content p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* Transportation Grid */
+        .transportation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .transportation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Transportation Card */
+        .transport-card {
+            background: linear-gradient(145deg, #ffffff, #f1f8e9);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .transport-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
+        }
+        
+        .transport-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+        }
+        
+        .transport-header {
+            padding: 25px 25px 15px;
+            text-align: center;
+            border-bottom: 2px dashed rgba(200, 230, 201, 0.8);
+        }
+        
+        .transport-header h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .transport-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, rgba(87, 197, 182, 0.15), rgba(26, 95, 122, 0.1));
+            border-radius: 50px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid rgba(87, 197, 182, 0.3);
+        }
+        
+        /* Card Content */
+        .card-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        
+        @media (max-width: 650px) {
+            .card-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Person Card */
+        .person-card {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-right: 2px dashed rgba(200, 230, 201, 0.8);
+        }
+        
+        .card-content .person-card:last-child {
+            border-right: none;
+        }
+        
+        @media (max-width: 650px) {
+            .person-card {
+                border-right: none;
+                border-bottom: 2px dashed rgba(200, 230, 201, 0.8);
+                padding: 25px;
+            }
+            
+            .person-card:last-child {
+                border-bottom: none;
+            }
+        }
+        
+        .person-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(87, 197, 182, 0.3);
+        }
+        
+        .person-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        
+        .person-card:hover .person-avatar {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+        
+        .person-name {
+            font-size: 1.5rem;
+            color: var(--green-dark);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .person-role {
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            background: rgba(87, 197, 182, 0.1);
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(87, 197, 182, 0.3);
+        }
+        
+        .person-details {
+            width: 100%;
+            text-align: left;
+        }
+        
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(200, 230, 201, 0.5);
+            transition: var(--transition);
+        }
+        
+        .detail-item:hover {
+            background: linear-gradient(90deg, rgba(232, 245, 233, 0.8), rgba(200, 230, 201, 0.6));
+            transform: translateX(5px);
+        }
+        
+        .detail-icon {
+            color: var(--accent);
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 25px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+        
+        .detail-content {
+            flex: 1;
+        }
+        
+        .detail-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            gap: 15px;
+        }
+        
+        .whatsapp-btn i {
+            font-size: 1.2rem;
+        }
+        
+        /* Legend */
+        .legend-container {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .legend-title {
+            font-size: 1.4rem;
+            color: var(--green-dark);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .legend-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), var(--green-dark));
+        }
+        
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(232, 245, 233, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(200, 230, 201, 0.5);
+        }
+        
+        .legend-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .legend-text h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .legend-text p {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Footer */
+        .main-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(200, 230, 201, 0.8);
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animated-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        
+        /* Map Button */
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4285F4, #0d47a1);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .map-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(66, 133, 244, 0.4);
+        }
+        
+        /* Responsive Header */
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 20px 15px;
+            }
+            
+            .logo-container {
+                justify-content: center;
+            }
+            
+            .page-title h2 {
+                font-size: 1.6rem;
+            }
+            
+            .back-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Fallback for missing images */
+        .avatar-fallback {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 5px solid white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(87, 197, 182, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header animated-card">
+        <div class="logo-container">
+            <img src="data/foto/logolps.png" alt="LPS Logo" class="logo">
+            <div class="logo-text">
+                <h1>LPS PADANG TERUBUK ASRI</h1>
+                <span>Data Angkutan Sampah</span>
+            </div>
+        </div>
+        
+        <div class="page-title">
+            <h2>DATA ANGKUTAN SAMPAH</h2>
+        </div>
+        
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+    </header>
+    
+    <div class="container">
+        <!-- Info Banner -->
+        <div class="info-banner animated-card delay-1">
+            <div class="info-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="info-content">
+                <h3>Informasi Angkutan Sampah</h3>
+                <p>LPS Padang Terubuk Asri memiliki 2 armada angkutan sampah (Bentor) yang melayani seluruh wilayah Kelurahan Padang Terubuk. Setiap armada memiliki petugas khusus yang bertanggung jawab pada wilayah tertentu.</p>
+            </div>
+        </div>
+        
+        <!-- Transportation Grid -->
+        <div class="transportation-grid">
+            <!-- Bentor 1 -->
+            <div class="transport-card animated-card delay-2">
+                <div class="transport-header">
+                    <h3>ANGGOTA 1</h3>
+                    <div class="transport-badge">BENTOR 1</div>
+                </div>
+                
+                <div class="card-content">
+                    <!-- Petugas 1 -->
+                    <div class="person-card">
+                        <div class="person-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        
+                        <img src="data/foto/dataangkutan/petugas1.png" 
+                             alt="Petugas 1" 
+                             class="person-avatar"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNTUiIGZpbGw9InVybCgjYykiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImMiIHgxPSI2MCIgeTE9IjUiIHgyPSI2MCIgeTI9IjExNSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiM1N0M1QjYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxQTlGQTQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48dGV4dCB4PSI2MCIgeT0iNjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNGRkZGRkYiPlI8L3RleHQ+PC9zdmc+'">
+                        
+                        <h3 class="person-name">RAHMAT</h3>
+                        <div class="person-role">PETUGAS ANGKUTAN</div>
+                        
+                        <div class="person-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">No. Telepon</div>
+                                    <div class="detail-value">+62 812-6650-5499</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Wilayah Tugas</div>
+                                    <div class="detail-value">RW. 001, RW. 002, RW. 003</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Jadwal Operasi</div>
+                                    <div class="detail-value">Senin - Sabtu, 08:00 - 16:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="https://wa.me/6281266505499?text=Halo%20Pak%20Rahmat%2C%20saya%20ingin%20berkonsultasi%20tentang%20angkutan%20sampah%20LPS" 
+                           class="whatsapp-btn" 
+                           target="_blank">
+                            <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+                        </a>
+                    </div>
+                    
+                    <!-- Angkutan 1 -->
+                    <div class="person-card">
+                        <div class="person-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        
+                        <img src="data/foto/dataangkutan/angkutan1.png" 
+                             alt="Bentor 1" 
+                             class="person-avatar"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNTUiIGZpbGw9InVybCgjZCkiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImQiIHgxPSI2MCIgeTE9IjUiIHgyPSI2MCIgeTI9IjExNSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiM4QjQ1MTMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1NzVDNTYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBkPSJNMzAgNzBWMzVIMTBMNDAgMjBINzBWNzBIMzBaIiBmaWxsPSIjRkZGRkZGIi8+PHJlY3QgeD0iMzAiIHk9IjcwIiB3aWR0aD0iNjAiIGhlaWdodD0iMTUiIGZpbGw9IiNGRkZGRkYiLz48Y2lyY2xlIGN4PSI0MCIgY3k9Ijg1IiByPSIxMCIgZmlsbD0iI0ZGRkZGRiIvPjxjaXJjbGUgY3g9IjgwIiBjeT0iODUiIHI9IjEwIiBmaWxsPSIjRkZGRkZGIi8+PC9zdmc+';">
+                        
+                        <h3 class="person-name">BENTOR 1</h3>
+                        <div class="person-role">ARMADA ANGKUTAN</div>
+                        
+                        <div class="person-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Nomor Kendaraan</div>
+                                    <div class="detail-value">BM 1234 ABC</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-gas-pump"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Kapasitas Angkut</div>
+                                    <div class="detail-value">500 kg / trip</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-route"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Rute Angkutan</div>
+                                    <div class="detail-value">Jalur 1 - Wilayah Barat</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="peta.html#jalur1" class="map-btn">
+                            <i class="fas fa-map"></i> Lihat Rute Peta
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bentor 2 -->
+            <div class="transport-card animated-card delay-3">
+                <div class="transport-header">
+                    <h3>ANGGOTA 2</h3>
+                    <div class="transport-badge">BENTOR 2</div>
+                </div>
+                
+                <div class="card-content">
+                    <!-- Petugas 2 -->
+                    <div class="person-card">
+                        <div class="person-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        
+                        <img src="data/foto/dataangkutan/petugas2.png" 
+                             alt="Petugas 2" 
+                             class="person-avatar"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNTUiIGZpbGw9InVybCgjZSkiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImUiIHgxPSI2MCIgeTE9IjUiIHgyPSI2MCIgeTI9IjExNSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiM1N0M1QjYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxQTlGQTQiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48dGV4dCB4PSI2MCIgeT0iNjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNGRkZGRkYiPlI8L3RleHQ+PC9zdmc+';">
+                        
+                        <h3 class="person-name">REGAR D RAMOT</h3>
+                        <div class="person-role">PETUGAS ANGKUTAN</div>
+                        
+                        <div class="person-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">No. Telepon</div>
+                                    <div class="detail-value">+62 813-6542-4634</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Wilayah Tugas</div>
+                                    <div class="detail-value">RW. 004, RW. 005, RW. 006</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Jadwal Operasi</div>
+                                    <div class="detail-value">Senin - Sabtu, 08:00 - 16:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="https://wa.me/6281365424634?text=Halo%20Pak%20Regar%2C%20saya%20ingin%20berkonsultasi%20tentang%20angkutan%20sampah%20LPS" 
+                           class="whatsapp-btn" 
+                           target="_blank">
+                            <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+                        </a>
+                    </div>
+                    
+                    <!-- Angkutan 2 -->
+                    <div class="person-card">
+                        <div class="person-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        
+                        <img src="data/foto/dataangkutan/angkutan2.png" 
+                             alt="Bentor 2" 
+                             class="person-avatar"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgdmlld0JveD0iMCAwIDEyMCAxMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iNTUiIGZpbGw9InVybCgjZikiLz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImYiIHgxPSI2MCIgeTE9IjUiIHgyPSI2MCIgeTI9IjExNSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIHN0b3AtY29sb3I9IiM4QjQ1MTMiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM1NzVDNTYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBkPSJNMzAgNzBWMzVIMTBMNDAgMjBINzBWNzBIMzBaIiBmaWxsPSIjRkZGRkZGIi8+PHJlY3QgeD0iMzAiIHk9IjcwIiB3aWR0aD0iNjAiIGhlaWdodD0iMTUiIGZpbGw9IiNGRkZGRkYiLz48Y2lyY2xlIGN4PSI0MCIgY3k9Ijg1IiByPSIxMCIgZmlsbD0iI0ZGRkZGRiIvPjxjaXJjbGUgY3g9IjgwIiBjeT0iODUiIHI9IjEwIiBmaWxsPSIjRkZGRkZGIi8+PC9zdmc+';">
+                        
+                        <h3 class="person-name">BENTOR 2</h3>
+                        <div class="person-role">ARMADA ANGKUTAN</div>
+                        
+                        <div class="person-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Nomor Kendaraan</div>
+                                    <div class="detail-value">BM 5678 XYZ</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-gas-pump"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Kapasitas Angkut</div>
+                                    <div class="detail-value">500 kg / trip</div>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-route"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <div class="detail-label">Rute Angkutan</div>
+                                    <div class="detail-value">Jalur 2 - Wilayah Timur</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="peta.html#jalur2" class="map-btn">
+                            <i class="fas fa-map"></i> Lihat Rute Peta
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend-container animated-card delay-4">
+            <h3 class="legend-title">Informasi Layanan</h3>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="legend-text">
+                        <h4>Jam Operasional</h4>
+                        <p>Senin - Sabtu: 08:00 - 16:00 WIB</p>
+                    </div>
+                </div>
+                
+                <div class="legend-item">
+                    <div class="legend-icon">
+                        <i class="fas fa-phone-volume"></i>
+                    </div>
+                    <div class="legend-text">
+                        <h4>Layanan Pengaduan</h4>
+                        <p>Telepon: +62 813-6556-5011</p>
+                    </div>
+                </div>
+                
+                <div class="legend-item">
+                    <div class="legend-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="legend-text">
+                        <h4>Jadwal Tetap</h4>
+                        <p>Pengangkutan sesuai jadwal RW</p>
+                    </div>
+                </div>
+                
+                <div class="legend-item">
+                    <div class="legend-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="legend-text">
+                        <h4>Darurat</h4>
+                        <p>Hubungi petugas terdekat</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="main-footer animated-card delay-4">
+            <img src="data/foto/logolps.png" alt="LPS Logo" class="footer-logo">
+            <p>Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri<br>Kelurahan Padang Terubuk, Kota Pekanbaru</p>
+            <div class="copyright">
+                &copy; 2024 LPS Padang Terubuk Asri. Hak Cipta Dilindungi.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Image fallback handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add error handling for all images
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    if (this.classList.contains('person-avatar')) {
+                        if (this.alt.includes('Petugas')) {
+                            // For person avatars
+                            const name = this.alt.split(' ')[1];
+                            const initial = name ? name.charAt(0) : '?';
+                            this.outerHTML = `
+                                <div class="avatar-fallback">
+                                    ${initial}
+                                </div>
+                            `;
+                        } else if (this.alt.includes('Bentor')) {
+                            // For vehicle avatars
+                            const number = this.alt.includes('1') ? '1' : '2';
+                            this.outerHTML = `
+                                <div class="avatar-fallback" style="background: linear-gradient(135deg, #8b4513, #57C5B6);">
+                                    B${number}
+                                </div>
+                            `;
+                        }
+                    }
+                });
+            });
+            
+            // Add click animation to cards
+            const cards = document.querySelectorAll('.transport-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('a')) {
+                        this.style.transform = 'translateY(-5px) scale(1.01)';
+                        setTimeout(() => {
+                            this.style.transform = 'translateY(-10px)';
+                        }, 150);
+                    }
+                });
+            });
+            
+            // WhatsApp button animation
+            const waButtons = document.querySelectorAll('.whatsapp-btn');
+            waButtons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.querySelector('i').style.transform = 'scale(1.2)';
+                    this.querySelector('i').style.transition = 'transform 0.3s ease';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.querySelector('i').style.transform = 'scale(1)';
+                });
+            });
+            
+            // Add animation delays for cards
+            const animatedCards = document.querySelectorAll('.animated-card');
+            animatedCards.forEach((card, index) => {
+                card.style.animationDelay = `${(index + 1) * 0.1}s`;
+            });
+            
+            // Print functionality
+            const printBtn = document.createElement('button');
+            printBtn.innerHTML = '<i class="fas fa-print"></i> Cetak Data';
+            printBtn.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 25px;
+                background: linear-gradient(135deg, var(--primary), var(--dark));
+                color: white;
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            `;
+            
+            printBtn.addEventListener('mouseenter', () => {
+                printBtn.style.transform = 'translateY(-3px)';
+                printBtn.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+            });
+            
+            printBtn.addEventListener('mouseleave', () => {
+                printBtn.style.transform = 'translateY(0)';
+                printBtn.style.boxShadow = '0 5px 20px rgba(0,0,0,0.2)';
+            });
+            
+            printBtn.addEventListener('click', () => {
+                window.print();
+            });
+            
+            document.body.appendChild(printBtn);
+            
+            // Add keyboard shortcut for back button (B key)
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'b' || e.key === 'B') {
+                    if (e.altKey) {
+                        window.location.href = 'index.html';
+                    }
+                }
+            });
+            
+            // Console message
+            console.log('%c🚛 Data Angkutan LPS', 'color: #1a5f7a; font-size: 16px; font-weight: bold;');
+            console.log('%cSistem informasi petugas dan armada angkutan sampah', 'color: #666;');
+        });
+        
+        // WhatsApp click tracking
+        function trackWAClick(name) {
+            console.log(`WhatsApp clicked for: ${name}`);
+            // You can add analytics here
+        }
+    </script>
+</body>
+</html>

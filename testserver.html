@@ -1426,6 +1426,142 @@
                 font-size: 1rem;
             }
         }
+
+        /* Barcode Card Styles */
+.barcode-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 25px 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(200, 230, 201, 0.8);
+    transition: var(--transition);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.barcode-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
+}
+
+.barcode-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.barcode-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    box-shadow: 0 5px 15px rgba(87, 197, 182, 0.3);
+}
+
+.barcode-title {
+    font-size: 1.4rem;
+    color: var(--green-dark);
+    font-weight: 600;
+}
+
+.barcode-image {
+    width: 200px;
+    height: 200px;
+    margin: 15px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid var(--accent);
+    padding: 10px;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.barcode-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.barcode-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.scan-text {
+    color: var(--primary);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.scan-text i {
+    color: var(--accent);
+}
+
+.join-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 35px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.join-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.join-btn:hover::before {
+    left: 100%;
+}
+
+.join-btn:hover {
+    background: linear-gradient(135deg, #128C7E, #075E54);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+.join-btn i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.join-btn:hover i {
+    transform: translateX(5px);
+}
         
         .map-frame {
             width: 100%;
@@ -1723,7 +1859,7 @@
                 <div class="dropdown">
                     <a href="#info">Informasi <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-content">
-                        <a href="maintenance.html">Profil</a>
+                        <a href="https://lpspadangterubukasri.github.io/Home/struktur.html">Profil</a>
                         <a href="maintenance.html">Petugas</a>
                         <a href="#peta">Peta Wilayah</a>
                         <a href="https://lpspadangterubukasri.github.io/Home/dataangkutan.html">Data Angkutan</a>
@@ -1750,7 +1886,7 @@
                 <i class="fas fa-chevron-down"></i>
             </a>
             <div class="mobile-dropdown-content" id="mobileDropdownContent">
-                <a href="maintenance.html">Profil</a>
+                <a href="https://lpspadangterubukasri.github.io/Home/struktur.html">Profil</a>
                 <a href="maintenance.html">Petugas</a>
                 <a href="#peta">Peta Wilayah</a>
                 <a href="https://lpspadangterubukasri.github.io/Home/dataangkutan.html">Data Angkutan</a>
@@ -1827,7 +1963,7 @@
                     <h3>Data Peserta LPS</h3>
                     <div class="stats-grid">
                         <div class="stat-item">
-                            <div class="stat-number" id="pesertaRT">111</div>
+                            <div class="stat-number" id="pesertaRT">113</div>
                             <div class="stat-label">Peserta Rumah Tangga (RT)</div>
                         </div>
                         <div class="stat-item">
@@ -1843,15 +1979,15 @@
                             <div class="stat-label">Peserta Badan Usaha</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="pesertaDLHK">7</div>
+                            <div class="stat-number" id="pesertaDLHK">20</div>
                             <div class="stat-label">Peserta DLHK</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number" id="belumPeserta">1118</div>
+                            <div class="stat-number" id="belumPeserta">1116</div>
                             <div class="stat-label">Belum Jadi Peserta</div>
                         </div>
                         <div class="stat-item" style="grid-column: span 2; background: linear-gradient(145deg, #e3f2fd, #bbdefb);">
-                            <div class="stat-number" id="totalPeserta">131</div>
+                            <div class="stat-number" id="totalPeserta">133</div>
                             <div class="stat-label" style="color: var(--primary); font-weight: 600;">Total Peserta LPS</div>
                         </div>
                     </div>
@@ -2047,6 +2183,31 @@
                     </iframe>
                 </div>
             </div>
+
+            <!-- Barcode Card untuk Join WhatsApp -->
+<div class="about-box barcode-card">
+    <div class="barcode-header">
+        <div class="barcode-icon">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+        <div class="barcode-title">Join Komunitas WA Kami</div>
+    </div>
+    
+    <div class="barcode-image">
+        <img src="data/foto/barcodekomunitas.jpg" alt="QR Code WhatsApp Community LPS Padang Terubuk Asri" loading="lazy">
+    </div>
+    
+    <div class="scan-text">
+        <i class="fas fa-qrcode"></i>
+        Scan Barcode di atas
+    </div>
+    
+    <a href="https://chat.whatsapp.com/KL6d0GzYAIT5FZFzwU8lsQ" target="_blank" class="join-btn">
+        <i class="fab fa-whatsapp"></i>
+        Join Sekarang !!
+    </a>
+</div>
+            
         </div>
     </section>
     
@@ -2180,13 +2341,13 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const counters = {
-                        pesertaRT: 111,
+                        pesertaRT: 113,
                         subsidiSilang: 6,
                         pesertaUMKM: 15,
                         pesertaBadanUsaha: 5,
-                        pesertaDLHK: 7,
-                        belumPeserta: 1118,
-                        totalPeserta: 131,
+                        pesertaDLHK: 20,
+                        belumPeserta: 1116,
+                        totalPeserta: 133,
                         penduduk: 4192,
                         kk: 1255,
                         rt: 26,

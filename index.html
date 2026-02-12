@@ -2265,27 +2265,228 @@
     
     <!-- JavaScript -->
     <script>
-           // Mobile Navigation Toggle
+    // ===========================================
+    // KONFIGURASI API - GOOGLE APPS SCRIPT
+    // ===========================================
+    const LPS_API_URL = 'https://script.google.com/macros/s/AKfycbyBfMwJOa9Cy9y8n_Lki-fu8g8JhKPddeh_GIdvsf-8eTI7JQfJ7DBubyPdTSKcZv4/exec';
+    
+    // ===========================================
+    // FETCH DATA DARI SPREADSHEET
+    // ===========================================
+    async function fetchLPSData() {
+        try {
+            // Tampilkan loading state
+            showLoadingState();
+            
+            const response = await fetch(LPS_API_URL, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Update data peserta LPS
+                updateStatNumbers(result.data);
+                
+                // Simpan ke localStorage untuk caching
+                localStorage.setItem('lpsData', JSON.stringify({
+                    data: result.data,
+                    timestamp: result.timestamp
+                }));
+                localStorage.setItem('lpsDataLastFetch', new Date().toISOString());
+                
+                console.log('✅ Data berhasil diupdate:', result.timestamp);
+                return result.data;
+            } else {
+                console.error('❌ API Error:', result.error);
+                useFallbackData();
+            }
+        } catch (error) {
+            console.error('❌ Gagal mengambil data:', error);
+            useFallbackData();
+        }
+    }
+    
+    // ===========================================
+    // UPDATE ANGKA STATISTIK
+    // ===========================================
+    function updateStatNumbers(data) {
+        // Data Peserta LPS
+        const pesertaRT = document.getElementById('pesertaRT');
+        const subsidiSilang = document.getElementById('subsidiSilang');
+        const pesertaUMKM = document.getElementById('pesertaUMKM');
+        const pesertaBadanUsaha = document.getElementById('pesertaBadanUsaha');
+        const pesertaDLHK = document.getElementById('pesertaDLHK');
+        const belumPeserta = document.getElementById('belumPeserta');
+        const totalPeserta = document.getElementById('totalPeserta');
+        
+        if (pesertaRT) pesertaRT.textContent = formatNumber(data.pesertaRT);
+        if (subsidiSilang) subsidiSilang.textContent = formatNumber(data.subsidiSilang);
+        if (pesertaUMKM) pesertaUMKM.textContent = formatNumber(data.pesertaUMKM);
+        if (pesertaBadanUsaha) pesertaBadanUsaha.textContent = formatNumber(data.pesertaBadanUsaha);
+        if (pesertaDLHK) pesertaDLHK.textContent = formatNumber(data.pesertaDLHK);
+        if (belumPeserta) belumPeserta.textContent = formatNumber(data.belumPeserta);
+        if (totalPeserta) totalPeserta.textContent = formatNumber(data.totalPeserta);
+        
+        // Data Kelurahan
+        const penduduk = document.getElementById('penduduk');
+        const kk = document.getElementById('kk');
+        const rt = document.getElementById('rt');
+        const rw = document.getElementById('rw');
+        
+        if (penduduk) penduduk.textContent = formatNumber(data.penduduk);
+        if (kk) kk.textContent = formatNumber(data.kk);
+        if (rt) rt.textContent = formatNumber(data.rt);
+        if (rw) rw.textContent = formatNumber(data.rw);
+    }
+    
+    // ===========================================
+    // FORMAT ANGKA (PEMISAH RIBUAN)
+    // ===========================================
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    
+    // ===========================================
+    // TAMPILKAN LOADING STATE
+    // ===========================================
+    function showLoadingState() {
+        const statElements = [
+            'pesertaRT', 'subsidiSilang', 'pesertaUMKM', 
+            'pesertaBadanUsaha', 'pesertaDLHK', 'belumPeserta', 'totalPeserta'
+        ];
+        
+        statElements.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && (el.textContent === '0' || el.textContent === '113' || el.textContent === '6' || el.textContent === '15' || el.textContent === '5' || el.textContent === '20' || el.textContent === '1116' || el.textContent === '133')) {
+                el.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            }
+        });
+    }
+    
+    // ===========================================
+    // FALLBACK DATA (CACHE ATAU DEFAULT)
+    // ===========================================
+    function useFallbackData() {
+        const cached = localStorage.getItem('lpsData');
+        
+        if (cached) {
+            try {
+                const { data } = JSON.parse(cached);
+                updateStatNumbers(data);
+                console.log('📦 Menggunakan data cached:', new Date().toLocaleTimeString());
+            } catch (e) {
+                console.error('Error parsing cached data:', e);
+                useDefaultData();
+            }
+        } else {
+            useDefaultData();
+        }
+    }
+    
+    function useDefaultData() {
+        const defaultData = {
+            pesertaRT: 113,
+            subsidiSilang: 6,
+            pesertaUMKM: 15,
+            pesertaBadanUsaha: 5,
+            pesertaDLHK: 20,
+            belumPeserta: 1116,
+            totalPeserta: 133,
+            penduduk: 4192,
+            kk: 1255,
+            rt: 26,
+            rw: 6
+        };
+        updateStatNumbers(defaultData);
+        console.log('📊 Menggunakan data default');
+    }
+    
+    // ===========================================
+    // ANIMASI COUNTER (MODIFIKASI)
+    // ===========================================
+    function animateCounter(element, target) {
+        // Jika element berisi icon loading, hapus dulu
+        if (element && element.innerHTML.includes('fa-spinner')) {
+            element.innerHTML = '0';
+        }
+        
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = formatNumber(target);
+                clearInterval(timer);
+            } else {
+                element.textContent = formatNumber(Math.floor(current));
+            }
+        }, 15);
+    }
+    
+    // Override fungsi animateCounter yang lama
+    window.animateCounter = animateCounter;
+    
+    // ===========================================
+    // INISIALISASI SAAT HALAMAN DIMUAT
+    // ===========================================
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch data dari API
+        fetchLPSData();
+        
+        // Refresh data setiap 5 menit
+        setInterval(fetchLPSData, 5 * 60 * 1000);
+    });
+    
+    // ===========================================
+    // FETCH SAAT SECTION STATS TERLIHAT
+    // ===========================================
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                fetchLPSData();
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    // Cek apakah elemen stats ada
+    const statsSection = document.getElementById('stats');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+    
+    // ===========================================
+    // MOBILE NAVIGATION TOGGLE
+    // ===========================================
     const mobileToggle = document.getElementById('mobileToggle');
     const mobileNav = document.getElementById('mobileNav');
     const overlay = document.getElementById('overlay');
     
-    mobileToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        mobileToggle.classList.toggle('active');
-        mobileNav.classList.toggle('active');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
-    });
+    if (mobileToggle && mobileNav && overlay) {
+        mobileToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    }
     
-    overlay.addEventListener('click', () => {
-        mobileToggle.classList.remove('active');
-        mobileNav.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    });
-    
-    // DROPDOWN INFORMASI MOBILE - FIXED
+    // ===========================================
+    // DROPDOWN INFORMASI MOBILE
+    // ===========================================
     const mobileDropdownToggleInformasi = document.getElementById('mobileDropdownToggleInformasi');
     const mobileDropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
     
@@ -2298,7 +2499,9 @@
         });
     }
     
-    // DROPDOWN DOKUMENTASI MOBILE - FIXED
+    // ===========================================
+    // DROPDOWN DOKUMENTASI MOBILE
+    // ===========================================
     const mobileDropdownToggleDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
     const mobileDropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
     
@@ -2311,22 +2514,20 @@
         });
     }
     
-    // PERBAIKAN: Jangan tutup mobile nav saat klik dropdown atau link internal
-    // Hanya tutup jika link adalah link eksternal atau link section yang valid
+    // ===========================================
+    // TUTUP MOBILE NAV SAAT KLIK LINK
+    // ===========================================
     document.querySelectorAll('.mobile-nav a').forEach(link => {
         link.addEventListener('click', function(e) {
-            // Jangan tutup nav jika ini adalah dropdown toggle
             if (this.classList.contains('mobile-dropdown-toggle')) {
                 e.preventDefault();
                 return;
             }
             
-            // Cek apakah link mengarah ke anchor (#)
             const href = this.getAttribute('href');
             if (href && href.startsWith('#') && href !== '#') {
                 e.preventDefault();
                 
-                // Scroll ke target
                 const targetId = href;
                 if (targetId === '#home') {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2335,36 +2536,25 @@
                     if (targetElement) {
                         const headerHeight = document.querySelector('header').offsetHeight;
                         const targetPosition = targetElement.offsetTop - headerHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                     }
                 }
                 
-                // Tutup mobile nav setelah scroll
                 setTimeout(() => {
                     mobileToggle.classList.remove('active');
                     mobileNav.classList.remove('active');
                     overlay.classList.remove('active');
                     document.body.style.overflow = 'auto';
                 }, 100);
-            } else if (href && !href.startsWith('#')) {
-                // Link eksternal - biarkan navigasi default
-                // Tapi tutup nav dulu
-                mobileToggle.classList.remove('active');
-                mobileNav.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
             }
         });
     });
     
-    // PERBAIKAN: Smooth scrolling untuk semua anchor links - JANGAN TUTUP NAV DI SINI
+    // ===========================================
+    // SMOOTH SCROLLING UNTUK SEMUA ANCHOR
+    // ===========================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            // Skip jika ini dropdown toggle mobile
             if (this.classList.contains('mobile-dropdown-toggle')) {
                 return;
             }
@@ -2382,16 +2572,11 @@
                 if (targetElement) {
                     const headerHeight = document.querySelector('header').offsetHeight;
                     const targetPosition = targetElement.offsetTop - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                 }
             }
             
-            // Hanya tutup mobile nav jika ini link di mobile nav dan bukan dropdown toggle
-            if (mobileNav.contains(this) && !this.classList.contains('mobile-dropdown-toggle')) {
+            if (mobileNav && mobileNav.contains(this) && !this.classList.contains('mobile-dropdown-toggle')) {
                 setTimeout(() => {
                     mobileToggle.classList.remove('active');
                     mobileNav.classList.remove('active');
@@ -2401,38 +2586,38 @@
             }
         });
     });
-        
-        // Background Video/Image Handling
-        const bgVideo = document.getElementById('bgVideo');
-        const bgImage = document.getElementById('bgImage');
-        
-        if (bgVideo) {
-            bgVideo.addEventListener('error', function() {
-                bgVideo.style.display = 'none';
-                bgImage.style.display = 'block';
-            });
-            
-            bgVideo.addEventListener('loadeddata', function() {
-                bgImage.style.display = 'none';
-            }, false);
-            
-            bgVideo.addEventListener('error', function() {
-                bgVideo.style.display = 'none';
-                bgImage.style.display = 'block';
-            }, false);
-        }
-        
-        window.addEventListener('load', function() {
-            if (!bgVideo || !bgVideo.src) {
-                bgImage.style.display = 'block';
-            }
+    
+    // ===========================================
+    // BACKGROUND VIDEO HANDLING
+    // ===========================================
+    const bgVideo = document.getElementById('bgVideo');
+    const bgImage = document.getElementById('bgImage');
+    
+    if (bgVideo) {
+        bgVideo.addEventListener('error', function() {
+            bgVideo.style.display = 'none';
+            if (bgImage) bgImage.style.display = 'block';
         });
         
-        // Install Banner
-        const installBanner = document.getElementById('installBanner');
-        const closeBanner = document.getElementById('closeBanner');
-        const installBtn = document.getElementById('installBtn');
-        
+        bgVideo.addEventListener('loadeddata', function() {
+            if (bgImage) bgImage.style.display = 'none';
+        }, false);
+    }
+    
+    window.addEventListener('load', function() {
+        if (!bgVideo || !bgVideo.src) {
+            if (bgImage) bgImage.style.display = 'block';
+        }
+    });
+    
+    // ===========================================
+    // INSTALL BANNER
+    // ===========================================
+    const installBanner = document.getElementById('installBanner');
+    const closeBanner = document.getElementById('closeBanner');
+    const installBtn = document.getElementById('installBtn');
+    
+    if (installBanner && closeBanner && installBtn) {
         setTimeout(() => {
             if (!localStorage.getItem('lpsBannerDismissed')) {
                 installBanner.classList.add('active');
@@ -2450,180 +2635,102 @@
             installBanner.classList.remove('active');
             localStorage.setItem('lpsBannerDismissed', 'true');
         });
+    }
+    
+    // ===========================================
+    // MAP DRAG FUNCTIONALITY
+    // ===========================================
+    const mapWrapper = document.getElementById('mapWrapper');
+    const mapImage = document.getElementById('mapImage');
+    
+    if (mapWrapper && mapImage) {
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
         
-        // Animate stats counters
-        function animateCounter(element, target) {
-            let current = 0;
-            const increment = target / 100;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    element.textContent = target.toLocaleString();
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current).toLocaleString();
-                }
-            }, 20);
-        }
-        
-        // Initialize counters when section is in view
-        const observerOptions = {
-            threshold: 0.3
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counters = {
-                        pesertaRT: 113,
-                        subsidiSilang: 6,
-                        pesertaUMKM: 15,
-                        pesertaBadanUsaha: 5,
-                        pesertaDLHK: 20,
-                        belumPeserta: 1116,
-                        totalPeserta: 133,
-                        penduduk: 4192,
-                        kk: 1255,
-                        rt: 26,
-                        rw: 6
-                    };
-                    
-                    for (const [id, value] of Object.entries(counters)) {
-                        const element = document.getElementById(id);
-                        if (element) {
-                            animateCounter(element, value);
-                        }
-                    }
-                    
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        const statsSection = document.getElementById('stats');
-        if (statsSection) {
-            observer.observe(statsSection);
-        }
-        
-        // Map drag functionality
-        const mapWrapper = document.getElementById('mapWrapper');
-        const mapImage = document.getElementById('mapImage');
-        
-        if (mapWrapper && mapImage) {
-            let isDragging = false;
-            let startX, startY, scrollLeft, scrollTop;
-            
-            mapWrapper.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                mapWrapper.style.cursor = 'grabbing';
-                startX = e.pageX - mapWrapper.offsetLeft;
-                startY = e.pageY - mapWrapper.offsetTop;
-                scrollLeft = mapWrapper.scrollLeft;
-                scrollTop = mapWrapper.scrollTop;
-            });
-            
-            mapWrapper.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-                const x = e.pageX - mapWrapper.offsetLeft;
-                const y = e.pageY - mapWrapper.offsetTop;
-                const walkX = (x - startX) * 2;
-                const walkY = (y - startY) * 2;
-                mapWrapper.scrollLeft = scrollLeft - walkX;
-                mapWrapper.scrollTop = scrollTop - walkY;
-            });
-            
-            mapWrapper.addEventListener('mouseup', () => {
-                isDragging = false;
-                mapWrapper.style.cursor = 'grab';
-            });
-            
-            mapWrapper.addEventListener('mouseleave', () => {
-                isDragging = false;
-                mapWrapper.style.cursor = 'grab';
-            });
-            
-            mapWrapper.addEventListener('touchstart', (e) => {
-                isDragging = true;
-                const touch = e.touches[0];
-                startX = touch.pageX - mapWrapper.offsetLeft;
-                startY = touch.pageY - mapWrapper.offsetTop;
-                scrollLeft = mapWrapper.scrollLeft;
-                scrollTop = mapWrapper.scrollTop;
-            });
-            
-            mapWrapper.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-                const touch = e.touches[0];
-                const x = touch.pageX - mapWrapper.offsetLeft;
-                const y = touch.pageY - mapWrapper.offsetTop;
-                const walkX = (x - startX) * 2;
-                const walkY = (y - startY) * 2;
-                mapWrapper.scrollLeft = scrollLeft - walkX;
-                mapWrapper.scrollTop = scrollTop - walkY;
-            });
-            
-            mapWrapper.addEventListener('touchend', () => {
-                isDragging = false;
-            });
-        }
-        
-        // Legend toggle functionality
-        const toggleLegend = document.getElementById('toggleLegend');
-        const legendContent = document.getElementById('legendContent');
-        const legendIcon = toggleLegend.querySelector('i');
-        
-        if (toggleLegend && legendContent) {
-            toggleLegend.addEventListener('click', () => {
-                legendContent.classList.toggle('collapsed');
-                legendContent.classList.toggle('expanded');
-                if (legendContent.classList.contains('collapsed')) {
-                    legendIcon.classList.remove('fa-chevron-up');
-                    legendIcon.classList.add('fa-chevron-down');
-                } else {
-                    legendIcon.classList.remove('fa-chevron-down');
-                    legendIcon.classList.add('fa-chevron-up');
-                }
-            });
-        }
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href') === '#') return;
-                
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#home') {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const headerHeight = document.querySelector('header').offsetHeight;
-                        const targetPosition = targetElement.offsetTop - headerHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-                
-                // Tutup mobile nav jika link diklik
-                if (mobileNav.classList.contains('active')) {
-                    mobileToggle.classList.remove('active');
-                    mobileNav.classList.remove('active');
-                    overlay.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
+        mapWrapper.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            mapWrapper.style.cursor = 'grabbing';
+            startX = e.pageX - mapWrapper.offsetLeft;
+            startY = e.pageY - mapWrapper.offsetTop;
+            scrollLeft = mapWrapper.scrollLeft;
+            scrollTop = mapWrapper.scrollTop;
         });
         
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
+        mapWrapper.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - mapWrapper.offsetLeft;
+            const y = e.pageY - mapWrapper.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            mapWrapper.scrollLeft = scrollLeft - walkX;
+            mapWrapper.scrollTop = scrollTop - walkY;
+        });
+        
+        mapWrapper.addEventListener('mouseup', () => {
+            isDragging = false;
+            mapWrapper.style.cursor = 'grab';
+        });
+        
+        mapWrapper.addEventListener('mouseleave', () => {
+            isDragging = false;
+            mapWrapper.style.cursor = 'grab';
+        });
+        
+        mapWrapper.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            const touch = e.touches[0];
+            startX = touch.pageX - mapWrapper.offsetLeft;
+            startY = touch.pageY - mapWrapper.offsetTop;
+            scrollLeft = mapWrapper.scrollLeft;
+            scrollTop = mapWrapper.scrollTop;
+        });
+        
+        mapWrapper.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const touch = e.touches[0];
+            const x = touch.pageX - mapWrapper.offsetLeft;
+            const y = touch.pageY - mapWrapper.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            mapWrapper.scrollLeft = scrollLeft - walkX;
+            mapWrapper.scrollTop = scrollTop - walkY;
+        });
+        
+        mapWrapper.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+    }
+    
+    // ===========================================
+    // LEGEND TOGGLE
+    // ===========================================
+    const toggleLegend = document.getElementById('toggleLegend');
+    const legendContent = document.getElementById('legendContent');
+    
+    if (toggleLegend && legendContent) {
+        const legendIcon = toggleLegend.querySelector('i');
+        
+        toggleLegend.addEventListener('click', () => {
+            legendContent.classList.toggle('collapsed');
+            legendContent.classList.toggle('expanded');
+            if (legendContent.classList.contains('collapsed')) {
+                legendIcon.classList.remove('fa-chevron-up');
+                legendIcon.classList.add('fa-chevron-down');
+            } else {
+                legendIcon.classList.remove('fa-chevron-down');
+                legendIcon.classList.add('fa-chevron-up');
+            }
+        });
+    }
+    
+    // ===========================================
+    // HEADER SCROLL EFFECT
+    // ===========================================
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (header) {
             if (window.scrollY > 100) {
                 header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
                 header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(232, 245, 233, 0.95))';
@@ -2631,129 +2738,140 @@
                 header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
                 header.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(232, 245, 233, 0.95))';
             }
-        });
-        
-        // Prevent horizontal scroll on mobile
-        window.addEventListener('load', function() {
-            document.body.style.overflowX = 'hidden';
-        });
-        
-        // Fix for iOS viewport height issue
-        function setVH() {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
         }
+    });
+    
+    // ===========================================
+    // FIX iOS VIEWPORT HEIGHT
+    // ===========================================
+    function setVH() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
+    
+    // ===========================================
+    // ANIMATE ON SCROLL
+    // ===========================================
+    function animateOnScroll() {
+        const elements = document.querySelectorAll('.stats-box, .about-box, .innovation-banner, .kelurahan-box');
         
-        setVH();
-        window.addEventListener('resize', setVH);
-        window.addEventListener('orientationchange', setVH);
-        
-        // Add animation on scroll
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.stats-box, .about-box, .innovation-banner, .kelurahan-box');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            elements.forEach(element => {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(30px)';
-                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(element);
-            });
-        }
-        
-        // Initialize animations on load
-        window.addEventListener('load', animateOnScroll);
-        
-        // Click effect for Kelurahan Box
-        const kelurahanBox = document.getElementById('kelurahanBox');
-        if (kelurahanBox) {
-            kelurahanBox.addEventListener('click', function() {
-                this.style.transform = 'translateY(-8px) scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = 'translateY(-8px) scale(1.02)';
-                }, 150);
-            });
-        }
-        
-        // Confetti effect for innovation banner
-        function createConfetti() {
-            const innovationBanner = document.querySelector('.innovation-banner');
-            if (!innovationBanner) return;
-            
-            for (let i = 0; i < 15; i++) {
-                const confetti = document.createElement('div');
-                confetti.innerHTML = '★';
-                confetti.style.position = 'absolute';
-                confetti.style.color = Math.random() > 0.5 ? 'var(--gold)' : 'var(--bronze)';
-                confetti.style.fontSize = Math.random() * 10 + 8 + 'px';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = Math.random() * 100 + '%';
-                confetti.style.opacity = '0';
-                confetti.style.transition = 'opacity 0.5s, transform 2s';
-                confetti.style.zIndex = '1';
-                confetti.style.pointerEvents = 'none';
-                
-                innovationBanner.appendChild(confetti);
-                
-                setTimeout(() => {
-                    confetti.style.opacity = '0.7';
-                    confetti.style.transform = `translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
-                }, 100);
-                
-                setTimeout(() => {
-                    confetti.style.opacity = '0';
-                    setTimeout(() => {
-                        if (confetti.parentNode) {
-                            confetti.parentNode.removeChild(confetti);
-                        }
-                    }, 500);
-                }, 2000);
-            }
-        }
-        
-        // Trigger confetti when innovation banner is in view
-        const innovationObserver = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(createConfetti, 500);
-                    innovationObserver.unobserve(entry.target);
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.1 });
         
+        elements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+    }
+    
+    window.addEventListener('load', animateOnScroll);
+    
+    // ===========================================
+    // KELURAHAN BOX CLICK EFFECT
+    // ===========================================
+    const kelurahanBox = document.getElementById('kelurahanBox');
+    if (kelurahanBox) {
+        kelurahanBox.addEventListener('click', function() {
+            this.style.transform = 'translateY(-8px) scale(0.98)';
+            setTimeout(() => {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            }, 150);
+        });
+    }
+    
+    // ===========================================
+    // CONFETTI EFFECT INNOVATION BANNER
+    // ===========================================
+    function createConfetti() {
         const innovationBanner = document.querySelector('.innovation-banner');
-        if (innovationBanner) {
-            innovationObserver.observe(innovationBanner);
-        }
+        if (!innovationBanner) return;
         
-        // Add pulse animation to kelurahan box
-        setInterval(() => {
-            const kelurahanBox = document.getElementById('kelurahanBox');
-            if (kelurahanBox && isElementInViewport(kelurahanBox)) {
-                kelurahanBox.style.boxShadow = '0 15px 40px rgba(26, 95, 122, 0.3)';
+        for (let i = 0; i < 15; i++) {
+            const confetti = document.createElement('div');
+            confetti.innerHTML = '★';
+            confetti.style.position = 'absolute';
+            confetti.style.color = Math.random() > 0.5 ? '#ffd700' : '#cd7f32';
+            confetti.style.fontSize = Math.random() * 10 + 8 + 'px';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = Math.random() * 100 + '%';
+            confetti.style.opacity = '0';
+            confetti.style.transition = 'opacity 0.5s, transform 2s';
+            confetti.style.zIndex = '1';
+            confetti.style.pointerEvents = 'none';
+            
+            innovationBanner.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.style.opacity = '0.7';
+                confetti.style.transform = `translate(${Math.random() * 20 - 10}px, ${Math.random() * 20 - 10}px)`;
+            }, 100);
+            
+            setTimeout(() => {
+                confetti.style.opacity = '0';
                 setTimeout(() => {
-                    kelurahanBox.style.boxShadow = '0 10px 30px rgba(26, 95, 122, 0.15)';
-                }, 1000);
-            }
-        }, 3000);
-        
-        function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
+                    }
+                }, 500);
+            }, 2000);
         }
-    </script>
+    }
+    
+    const innovationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(createConfetti, 500);
+                innovationObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    const innovationBanner = document.querySelector('.innovation-banner');
+    if (innovationBanner) {
+        innovationObserver.observe(innovationBanner);
+    }
+    
+    // ===========================================
+    // PULSE ANIMATION KELURAHAN BOX
+    // ===========================================
+    setInterval(() => {
+        const kelurahanBox = document.getElementById('kelurahanBox');
+        if (kelurahanBox && isElementInViewport(kelurahanBox)) {
+            kelurahanBox.style.boxShadow = '0 15px 40px rgba(26, 95, 122, 0.3)';
+            setTimeout(() => {
+                kelurahanBox.style.boxShadow = '0 10px 30px rgba(26, 95, 122, 0.15)';
+            }, 1000);
+        }
+    }, 3000);
+    
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+    
+    // ===========================================
+    // PREVENT HORIZONTAL SCROLL
+    // ===========================================
+    window.addEventListener('load', function() {
+        document.body.style.overflowX = 'hidden';
+    });
+</script>
 </body>
 </html>

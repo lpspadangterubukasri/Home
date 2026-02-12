@@ -2268,7 +2268,7 @@
     // ===========================================
     // KONFIGURASI API - GOOGLE APPS SCRIPT
     // ===========================================
-    const LPS_API_URL = 'https://script.google.com/macros/s/AKfycbyBfMwJOa9Cy9y8n_Lki-fu8g8JhKPddeh_GIdvsf-8eTI7JQfJ7DBubyPdTSKcZv4/exec';
+    const LPS_API_URL = 'https://script.google.com/macros/s/AKfycbxA8v9VjbeY-DHulo_vaK5Q2dFVBS-IIZjBlqAPKeDGM4sRm7XA6UPZPL6_hHTxIk0/exec';
     
     // ===========================================
     // FETCH DATA DARI SPREADSHEET
@@ -2277,6 +2277,8 @@
         try {
             // Tampilkan loading state
             showLoadingState();
+            
+            console.log('📡 Mengambil data dari API...');
             
             const response = await fetch(LPS_API_URL, {
                 method: 'GET',
@@ -2288,6 +2290,7 @@
             });
             
             const result = await response.json();
+            console.log('📦 Response API:', result);
             
             if (result.success) {
                 // Update data peserta LPS
@@ -2301,6 +2304,8 @@
                 localStorage.setItem('lpsDataLastFetch', new Date().toISOString());
                 
                 console.log('✅ Data berhasil diupdate:', result.timestamp);
+                console.log('📊 Data peserta DLHK:', result.data.pesertaDLHK); // Cek khusus
+                
                 return result.data;
             } else {
                 console.error('❌ API Error:', result.error);
@@ -2316,6 +2321,8 @@
     // UPDATE ANGKA STATISTIK
     // ===========================================
     function updateStatNumbers(data) {
+        console.log('📊 Update stat dengan data:', data);
+        
         // Data Peserta LPS
         const pesertaRT = document.getElementById('pesertaRT');
         const subsidiSilang = document.getElementById('subsidiSilang');
@@ -2325,13 +2332,38 @@
         const belumPeserta = document.getElementById('belumPeserta');
         const totalPeserta = document.getElementById('totalPeserta');
         
-        if (pesertaRT) pesertaRT.textContent = formatNumber(data.pesertaRT);
-        if (subsidiSilang) subsidiSilang.textContent = formatNumber(data.subsidiSilang);
-        if (pesertaUMKM) pesertaUMKM.textContent = formatNumber(data.pesertaUMKM);
-        if (pesertaBadanUsaha) pesertaBadanUsaha.textContent = formatNumber(data.pesertaBadanUsaha);
-        if (pesertaDLHK) pesertaDLHK.textContent = formatNumber(data.pesertaDLHK);
-        if (belumPeserta) belumPeserta.textContent = formatNumber(data.belumPeserta);
-        if (totalPeserta) totalPeserta.textContent = formatNumber(data.totalPeserta);
+        if (pesertaRT) {
+            pesertaRT.textContent = formatNumber(data.pesertaRT);
+            animateCounter(pesertaRT, data.pesertaRT);
+        }
+        if (subsidiSilang) {
+            subsidiSilang.textContent = formatNumber(data.subsidiSilang);
+            animateCounter(subsidiSilang, data.subsidiSilang);
+        }
+        if (pesertaUMKM) {
+            pesertaUMKM.textContent = formatNumber(data.pesertaUMKM);
+            animateCounter(pesertaUMKM, data.pesertaUMKM);
+        }
+        if (pesertaBadanUsaha) {
+            pesertaBadanUsaha.textContent = formatNumber(data.pesertaBadanUsaha);
+            animateCounter(pesertaBadanUsaha, data.pesertaBadanUsaha);
+        }
+        if (pesertaDLHK) {
+            pesertaDLHK.textContent = formatNumber(data.pesertaDLHK);
+            animateCounter(pesertaDLHK, data.pesertaDLHK);
+        }
+        if (belumPeserta) {
+            // Hapus titik dari string "1.114" dan konversi ke number
+            const belumPesertaValue = typeof data.belumPeserta === 'string' 
+                ? parseInt(data.belumPeserta.replace(/\./g, '')) 
+                : data.belumPeserta;
+            belumPeserta.textContent = formatNumber(belumPesertaValue);
+            animateCounter(belumPeserta, belumPesertaValue);
+        }
+        if (totalPeserta) {
+            totalPeserta.textContent = formatNumber(data.totalPeserta);
+            animateCounter(totalPeserta, data.totalPeserta);
+        }
         
         // Data Kelurahan
         const penduduk = document.getElementById('penduduk');
@@ -2339,17 +2371,46 @@
         const rt = document.getElementById('rt');
         const rw = document.getElementById('rw');
         
-        if (penduduk) penduduk.textContent = formatNumber(data.penduduk);
-        if (kk) kk.textContent = formatNumber(data.kk);
-        if (rt) rt.textContent = formatNumber(data.rt);
-        if (rw) rw.textContent = formatNumber(data.rw);
+        if (penduduk) {
+            const pendudukValue = typeof data.penduduk === 'string' 
+                ? parseInt(data.penduduk.replace(/\./g, '')) 
+                : data.penduduk;
+            penduduk.textContent = formatNumber(pendudukValue);
+            animateCounter(penduduk, pendudukValue);
+        }
+        if (kk) {
+            const kkValue = typeof data.kk === 'string' 
+                ? parseInt(data.kk.replace(/\./g, '')) 
+                : data.kk;
+            kk.textContent = formatNumber(kkValue);
+            animateCounter(kk, kkValue);
+        }
+        if (rt) {
+            rt.textContent = formatNumber(data.rt);
+            animateCounter(rt, data.rt);
+        }
+        if (rw) {
+            rw.textContent = formatNumber(data.rw);
+            animateCounter(rw, data.rw);
+        }
     }
     
     // ===========================================
     // FORMAT ANGKA (PEMISAH RIBUAN)
     // ===========================================
     function formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        if (num === undefined || num === null) return '0';
+        
+        // Jika sudah dalam format string dengan titik, biarkan
+        if (typeof num === 'string' && num.includes('.')) {
+            return num;
+        }
+        
+        // Konversi ke number dan format
+        const number = Number(num);
+        if (isNaN(number)) return '0';
+        
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
     
     // ===========================================
@@ -2358,13 +2419,21 @@
     function showLoadingState() {
         const statElements = [
             'pesertaRT', 'subsidiSilang', 'pesertaUMKM', 
-            'pesertaBadanUsaha', 'pesertaDLHK', 'belumPeserta', 'totalPeserta'
+            'pesertaBadanUsaha', 'pesertaDLHK', 'belumPeserta', 'totalPeserta',
+            'penduduk', 'kk', 'rt', 'rw'
         ];
         
         statElements.forEach(id => {
             const el = document.getElementById(id);
-            if (el && (el.textContent === '0' || el.textContent === '113' || el.textContent === '6' || el.textContent === '15' || el.textContent === '5' || el.textContent === '20' || el.textContent === '1116' || el.textContent === '133')) {
-                el.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            if (el) {
+                const currentText = el.textContent;
+                // Hanya tampilkan loading jika masih angka default
+                if (currentText === '113' || currentText === '6' || currentText === '15' || 
+                    currentText === '5' || currentText === '20' || currentText === '1.116' || 
+                    currentText === '133' || currentText === '4.192' || currentText === '1.255' || 
+                    currentText === '26' || currentText === '6') {
+                    el.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                }
             }
         });
     }
@@ -2391,37 +2460,45 @@
     
     function useDefaultData() {
         const defaultData = {
-            pesertaRT: 113,
+            pesertaRT: 115,
             subsidiSilang: 6,
             pesertaUMKM: 15,
             pesertaBadanUsaha: 5,
-            pesertaDLHK: 20,
-            belumPeserta: 1116,
-            totalPeserta: 133,
+            pesertaDLHK: 1,        // BERUBAH JADI 1
+            belumPeserta: 1114,    // BERUBAH JADI 1114
+            totalPeserta: 141,     // BERUBAH JADI 141
             penduduk: 4192,
             kk: 1255,
             rt: 26,
             rw: 6
         };
         updateStatNumbers(defaultData);
-        console.log('📊 Menggunakan data default');
+        console.log('📊 Menggunakan data default (sesuai sheet)');
     }
     
     // ===========================================
-    // ANIMASI COUNTER (MODIFIKASI)
+    // ANIMASI COUNTER
     // ===========================================
     function animateCounter(element, target) {
+        if (!element) return;
+        
         // Jika element berisi icon loading, hapus dulu
-        if (element && element.innerHTML.includes('fa-spinner')) {
+        if (element.innerHTML.includes('fa-spinner')) {
             element.innerHTML = '0';
         }
         
+        const targetNum = Number(target);
+        if (isNaN(targetNum)) {
+            element.textContent = formatNumber(target);
+            return;
+        }
+        
         let current = 0;
-        const increment = target / 50;
+        const increment = targetNum / 50;
         const timer = setInterval(() => {
             current += increment;
-            if (current >= target) {
-                element.textContent = formatNumber(target);
+            if (current >= targetNum) {
+                element.textContent = formatNumber(targetNum);
                 clearInterval(timer);
             } else {
                 element.textContent = formatNumber(Math.floor(current));
@@ -2436,6 +2513,7 @@
     // INISIALISASI SAAT HALAMAN DIMUAT
     // ===========================================
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 Halaman dimuat, mengambil data...');
         // Fetch data dari API
         fetchLPSData();
         
@@ -2449,6 +2527,7 @@
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                console.log('👁️ Section stats terlihat, refresh data...');
                 fetchLPSData();
             }
         });

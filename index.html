@@ -1902,7 +1902,7 @@
                 <a href="#stats">Data Peserta LPS</a>
             </div>
             
-            <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownTogglel">
+            <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggleDokumentasi">
                 Dokumentasi
                 <i class="fas fa-chevron-down"></i>
             </a>
@@ -2265,14 +2265,22 @@
         const overlay = document.getElementById('overlay');
         const mobileDropdownToggle = document.getElementById('mobileDropdownToggle');
         const mobileDropdownContent = document.getElementById('mobileDropdownContent');
-        const mobileDropdownToggle = document.getElementById('mobileDropdownTogglel');
-        const mobileDropdownContent = document.getElementById('mobileDropdownContentl');
         
         mobileToggle.addEventListener('click', () => {
             mobileToggle.classList.toggle('active');
             mobileNav.classList.toggle('active');
             overlay.classList.toggle('active');
             document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+
+const mobileDropdownToggleDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
+const mobileDropdownContentDokumentasi = document.getElementById('mobileDropdownContentl');
+
+if (mobileDropdownToggleDokumentasi) {
+    mobileDropdownToggleDokumentasi.addEventListener('click', (e) => {
+        e.preventDefault();
+        mobileDropdownToggleDokumentasi.classList.toggle('active');
+        mobileDropdownContentDokumentasi.classList.toggle('active');
+            
         });
         
         overlay.addEventListener('click', () => {

@@ -2263,318 +2263,112 @@
         </div>
     </div>
     
-    <!-- JavaScript -->
+        <!-- JavaScript -->
     <script>
     // ===========================================
-    // KONFIGURASI API - DENGAN ANTI CACHE
+    // KONFIGURASI API - GUNAKAN URL BARU HASIL DEPLOY!
     // ===========================================
-    const LPS_API_URL = 'https://script.google.com/macros/s/AKfycbwSQqQrjtstvKcuxxMvqP4H-YGBOFyW02_rpzalFelgEKokMktsYzPkqdxgr_BH2z8/exec';
+    const LPS_API_URL = 'https://script.google.com/macros/s/AKfycbwSQqQrjtstvKcuxxMvqP4H-YGBOFyW02_rpzalFelgEKokMktsYzPkqdxgr_BH2z8/exec'; // GANTI DENGAN URL ANDA!
     
     // ===========================================
-    // FETCH DATA DENGAN ANTI CACHE
+    // FETCH DATA DARI SPREADSHEET
     // ===========================================
-    async function fetchLPSData(force = true) {
+    async function fetchLPSData() {
         try {
-            // Tampilkan loading state
+            // Tampilkan loading
             showLoadingState();
             
-            // BUAT URL DENGAN TIMESTAMP UNTUK MENGHINDARI CACHE
-            const url = force 
-                ? `${LPS_API_URL}?t=${Date.now()}&r=${Math.random()}`
-                : LPS_API_URL;
+            // Tambah timestamp anti cache
+            const url = `${LPS_API_URL}?t=${Date.now()}`;
             
-            console.log('📡 Mengambil data dari API:', url);
+            console.log('📡 Mengambil data:', url);
             
             const response = await fetch(url, {
                 method: 'GET',
                 mode: 'cors',
-                cache: 'no-store', // PAKSA TIDAK PAKAI CACHE
+                cache: 'no-cache',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Cache-Control': 'no-cache, no-store, must-revalidate',
-                    'Pragma': 'no-cache',
-                    'Expires': '0'
+                    'Content-Type': 'application/json'
                 }
             });
             
             const result = await response.json();
-            console.log('📦 Response API:', result);
+            console.log('📦 Response:', result);
             
             if (result.success) {
-                // HAPUS CACHE LAMA
-                localStorage.removeItem('lpsData');
+                // Update angka di website
+                updateNumbers(result.data);
                 
-                // Update data peserta LPS
-                updateStatNumbers(result.data);
+                // Simpan ke cache
+                localStorage.setItem('lpsData', JSON.stringify(result.data));
                 
-                // Simpan ke localStorage dengan timestamp baru
-                localStorage.setItem('lpsData', JSON.stringify({
-                    data: result.data,
-                    timestamp: result.timestamp,
-                    cacheBuster: result.cacheBuster
-                }));
-                
-                // TAMPILKAN DATA YANG DIDAPAT
-                console.log('✅ DATA TERBARU DARI SPREADSHEET:');
-                console.log('   Peserta RT:', result.data.pesertaRT);
-                console.log('   Subsidi Silang:', result.data.subsidiSilang);
-                console.log('   UMKM:', result.data.pesertaUMKM);
-                console.log('   Badan Usaha:', result.data.pesertaBadanUsaha);
-                console.log('   DLHK:', result.data.pesertaDLHK);
-                console.log('   Total:', result.data.totalPeserta);
-                console.log('   Belum Peserta:', result.data.belumPeserta);
-                
-                return result.data;
+                console.log('✅ Data dari spreadsheet:', result.data);
             } else {
-                console.error('❌ API Error:', result.error);
-                useFallbackData();
+                console.error('❌ Error:', result.error);
+                useCachedData();
             }
         } catch (error) {
-            console.error('❌ Gagal mengambil data:', error);
-            useFallbackData();
+            console.error('❌ Gagal fetch:', error);
+            useCachedData();
         }
     }
     
     // ===========================================
-    // UPDATE ANGKA STATISTIK - DENGAN LOG
+    // UPDATE ANGKA DI WEBSITE
     // ===========================================
-    function updateStatNumbers(data) {
-        console.log('📊 Update stat dengan data TERBARU:', data);
+    function updateNumbers(data) {
+        console.log('📊 Update angka:', data);
         
         // Data Peserta LPS
-        const pesertaRT = document.getElementById('pesertaRT');
-        const subsidiSilang = document.getElementById('subsidiSilang');
-        const pesertaUMKM = document.getElementById('pesertaUMKM');
-        const pesertaBadanUsaha = document.getElementById('pesertaBadanUsaha');
-        const pesertaDLHK = document.getElementById('pesertaDLHK');
-        const belumPeserta = document.getElementById('belumPeserta');
-        const totalPeserta = document.getElementById('totalPeserta');
-        
-        if (pesertaRT) {
-            pesertaRT.textContent = formatNumber(data.pesertaRT);
-            animateCounter(pesertaRT, data.pesertaRT);
-        }
-        if (subsidiSilang) {
-            subsidiSilang.textContent = formatNumber(data.subsidiSilang);
-            animateCounter(subsidiSilang, data.subsidiSilang);
-        }
-        if (pesertaUMKM) {
-            pesertaUMKM.textContent = formatNumber(data.pesertaUMKM);
-            animateCounter(pesertaUMKM, data.pesertaUMKM);
-        }
-        if (pesertaBadanUsaha) {
-            pesertaBadanUsaha.textContent = formatNumber(data.pesertaBadanUsaha);
-            animateCounter(pesertaBadanUsaha, data.pesertaBadanUsaha);
-        }
-        if (pesertaDLHK) {
-            pesertaDLHK.textContent = formatNumber(data.pesertaDLHK);
-            animateCounter(pesertaDLHK, data.pesertaDLHK);
-        }
-        if (belumPeserta) {
-            const belumPesertaValue = typeof data.belumPeserta === 'string' 
-                ? parseInt(data.belumPeserta.replace(/\./g, '')) 
-                : data.belumPeserta;
-            belumPeserta.textContent = formatNumber(belumPesertaValue);
-            animateCounter(belumPeserta, belumPesertaValue);
-        }
-        if (totalPeserta) {
-            totalPeserta.textContent = formatNumber(data.totalPeserta);
-            animateCounter(totalPeserta, data.totalPeserta);
-        }
+        setNumber('pesertaRT', data.pesertaRT);
+        setNumber('subsidiSilang', data.subsidiSilang);
+        setNumber('pesertaUMKM', data.pesertaUMKM);
+        setNumber('pesertaBadanUsaha', data.pesertaBadanUsaha);
+        setNumber('pesertaDLHK', data.pesertaDLHK);
+        setNumber('totalPeserta', data.totalPeserta);
+        setNumber('belumPeserta', data.belumPeserta);
         
         // Data Kelurahan
-        const penduduk = document.getElementById('penduduk');
-        const kk = document.getElementById('kk');
-        const rt = document.getElementById('rt');
-        const rw = document.getElementById('rw');
-        
-        if (penduduk) {
-            const pendudukValue = typeof data.penduduk === 'string' 
-                ? parseInt(data.penduduk.replace(/\./g, '')) 
-                : data.penduduk;
-            penduduk.textContent = formatNumber(pendudukValue);
-            animateCounter(penduduk, pendudukValue);
-        }
-        if (kk) {
-            const kkValue = typeof data.kk === 'string' 
-                ? parseInt(data.kk.replace(/\./g, '')) 
-                : data.kk;
-            kk.textContent = formatNumber(kkValue);
-            animateCounter(kk, kkValue);
-        }
-        if (rt) {
-            rt.textContent = formatNumber(data.rt);
-            animateCounter(rt, data.rt);
-        }
-        if (rw) {
-            rw.textContent = formatNumber(data.rw);
-            animateCounter(rw, data.rw);
+        setNumber('penduduk', data.penduduk);
+        setNumber('kk', data.kk);
+        setNumber('rt', data.rt);
+        setNumber('rw', data.rw);
+    }
+    
+    // ===========================================
+    // SET NOMOR DENGAN FORMAT
+    // ===========================================
+    function setNumber(id, value) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.textContent = formatNumber(value);
+            animateNumber(el, value);
         }
     }
     
     // ===========================================
-    // RESET DAN FORCE REFRESH
-    // ===========================================
-    function forceRefreshData() {
-        console.log('🔄 FORCE REFRESH DATA...');
-        
-        // 1. Hapus semua cache
-        localStorage.removeItem('lpsData');
-        localStorage.removeItem('lpsDataLastFetch');
-        
-        // 2. Clear cache browser via Cache API jika tersedia
-        if ('caches' in window) {
-            caches.keys().then(function(names) {
-                for (let name of names) {
-                    caches.delete(name);
-                }
-            });
-        }
-        
-        // 3. Fetch data baru
-        fetchLPSData(true);
-        
-        // 4. Reload setelah 2 detik (opsional)
-        // setTimeout(() => {
-        //     location.reload();
-        // }, 2000);
-    }
-    
-    // ===========================================
-    // TOMBOL REFRESH MANUAL (TAMBAHKAN DI HTML)
-    // ===========================================
-    function addRefreshButton() {
-        const statsSection = document.getElementById('stats');
-        if (statsSection) {
-            const header = statsSection.querySelector('.section-header');
-            if (header) {
-                // Cek apakah tombol sudah ada
-                if (!document.getElementById('refreshDataBtn')) {
-                    const refreshBtn = document.createElement('button');
-                    refreshBtn.id = 'refreshDataBtn';
-                    refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Update Data';
-                    refreshBtn.style.cssText = `
-                        background: linear-gradient(135deg, var(--accent), var(--secondary));
-                        color: white;
-                        border: none;
-                        padding: 10px 25px;
-                        border-radius: 50px;
-                        font-size: 0.9rem;
-                        font-weight: 600;
-                        cursor: pointer;
-                        margin-top: 15px;
-                        box-shadow: 0 4px 12px rgba(87, 197, 182, 0.3);
-                        transition: all 0.3s ease;
-                    `;
-                    refreshBtn.onmouseover = function() {
-                        this.style.transform = 'translateY(-3px)';
-                        this.style.boxShadow = '0 6px 16px rgba(87, 197, 182, 0.4)';
-                    };
-                    refreshBtn.onmouseout = function() {
-                        this.style.transform = 'translateY(0)';
-                        this.style.boxShadow = '0 4px 12px rgba(87, 197, 182, 0.3)';
-                    };
-                    refreshBtn.onclick = function(e) {
-                        e.preventDefault();
-                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengupdate...';
-                        forceRefreshData();
-                        setTimeout(() => {
-                            this.innerHTML = '<i class="fas fa-sync-alt"></i> Update Data';
-                        }, 3000);
-                    };
-                    header.appendChild(refreshBtn);
-                }
-            }
-        }
-    }
-    
-    // ===========================================
-    // FORMAT ANGKA
+    // FORMAT ANGKA (PAKAI TITIK)
     // ===========================================
     function formatNumber(num) {
         if (num === undefined || num === null) return '0';
-        if (typeof num === 'string' && num.includes('.')) {
-            return num;
-        }
-        const number = Number(num);
-        if (isNaN(number)) return '0';
-        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
     
     // ===========================================
-    // TAMPILKAN LOADING STATE
+    // ANIMASI ANGKA
     // ===========================================
-    function showLoadingState() {
-        const statElements = [
-            'pesertaRT', 'subsidiSilang', 'pesertaUMKM', 
-            'pesertaBadanUsaha', 'pesertaDLHK', 'belumPeserta', 'totalPeserta',
-            'penduduk', 'kk', 'rt', 'rw'
-        ];
-        
-        statElements.forEach(id => {
-            const el = document.getElementById(id);
-            if (el && !el.innerHTML.includes('fa-spinner')) {
-                el.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            }
-        });
-    }
-    
-    // ===========================================
-    // FALLBACK DATA
-    // ===========================================
-    function useFallbackData() {
-        const cached = localStorage.getItem('lpsData');
-        
-        if (cached) {
-            try {
-                const { data } = JSON.parse(cached);
-                updateStatNumbers(data);
-                console.log('📦 Menggunakan data cached:', new Date().toLocaleTimeString());
-            } catch (e) {
-                console.error('Error parsing cached data:', e);
-                useDefaultData();
-            }
-        } else {
-            useDefaultData();
-        }
-    }
-    
-    function useDefaultData() {
-        const defaultData = {
-            pesertaRT: 115,
-            subsidiSilang: 6,
-            pesertaUMKM: 15,
-            pesertaBadanUsaha: 5,
-            pesertaDLHK: 1,
-            belumPeserta: 1114,
-            totalPeserta: 141,
-            penduduk: 4192,
-            kk: 1255,
-            rt: 26,
-            rw: 6
-        };
-        updateStatNumbers(defaultData);
-        console.log('📊 Menggunakan data default');
-    }
-    
-    // ===========================================
-    // ANIMASI COUNTER
-    // ===========================================
-    function animateCounter(element, target) {
+    function animateNumber(element, target) {
         if (!element) return;
         
+        // Hapus spinner
         if (element.innerHTML.includes('fa-spinner')) {
             element.innerHTML = '0';
         }
         
         const targetNum = Number(target);
-        if (isNaN(targetNum)) {
-            element.textContent = formatNumber(target);
-            return;
-        }
-        
         let current = 0;
-        const increment = targetNum / 50;
+        const increment = targetNum / 30;
+        
         const timer = setInterval(() => {
             current += increment;
             if (current >= targetNum) {
@@ -2583,42 +2377,90 @@
             } else {
                 element.textContent = formatNumber(Math.floor(current));
             }
-        }, 15);
+        }, 20);
     }
     
-    window.animateCounter = animateCounter;
+    // ===========================================
+    // LOADING STATE
+    // ===========================================
+    function showLoadingState() {
+        const ids = [
+            'pesertaRT', 'subsidiSilang', 'pesertaUMKM', 
+            'pesertaBadanUsaha', 'pesertaDLHK', 'belumPeserta', 
+            'totalPeserta', 'penduduk', 'kk', 'rt', 'rw'
+        ];
+        
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && !el.innerHTML.includes('fa-spinner')) {
+                el.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            }
+        });
+    }
+    
+    // ===========================================
+    // GUNAKAN DATA CACHE
+    // ===========================================
+    function useCachedData() {
+        const cached = localStorage.getItem('lpsData');
+        if (cached) {
+            try {
+                const data = JSON.parse(cached);
+                console.log('📦 Pakai cache:', data);
+                updateNumbers(data);
+            } catch (e) {
+                useDefaultData();
+            }
+        } else {
+            useDefaultData();
+        }
+    }
+    
+    // ===========================================
+    // DATA DEFAULT (SESUAI SHEET)
+    // ===========================================
+    function useDefaultData() {
+        const defaultData = {
+            pesertaRT: 115,
+            subsidiSilang: 6,
+            pesertaUMKM: 15,
+            pesertaBadanUsaha: 5,
+            pesertaDLHK: 32,
+            totalPeserta: 141,
+            belumPeserta: 4811,
+            penduduk: 4192,
+            kk: 4952,
+            rt: 26,
+            rw: 6
+        };
+        console.log('📊 Pakai data default:', defaultData);
+        updateNumbers(defaultData);
+    }
     
     // ===========================================
     // INISIALISASI
     // ===========================================
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 Halaman dimuat, mengambil data...');
+        console.log('🚀 Mulai ambil data...');
         
         // Hapus cache lama
         localStorage.removeItem('lpsData');
-        localStorage.removeItem('lpsDataLastFetch');
         
-        // Fetch data baru
-        fetchLPSData(true);
+        // Ambil data baru
+        fetchLPSData();
         
-        // Tambahkan tombol refresh
-        setTimeout(addRefreshButton, 1000);
-        
-        // Refresh data setiap 30 detik (lebih sering)
-        setInterval(() => {
-            console.log('⏰ Auto-refresh data...');
-            fetchLPSData(true);
-        }, 30 * 1000);
+        // Auto refresh tiap 30 detik
+        setInterval(fetchLPSData, 30000);
     });
     
     // ===========================================
-    // FETCH SAAT SECTION STATS TERLIHAT
+    // FETCH SAAT STATS TERLIHAT
     // ===========================================
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                console.log('👁️ Section stats terlihat, force refresh...');
-                fetchLPSData(true);
+                console.log('👁️ Stats terlihat, refresh...');
+                fetchLPSData();
             }
         });
     }, { threshold: 0.1 });
@@ -2629,17 +2471,168 @@
     }
     
     // ===========================================
-    // PREVENT HORIZONTAL SCROLL
+    // MOBILE NAVIGATION (COPY DARI HTML ANDA)
     // ===========================================
-    window.addEventListener('load', function() {
-        document.body.style.overflowX = 'hidden';
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const overlay = document.getElementById('overlay');
+    
+    if (mobileToggle && mobileNav && overlay) {
+        mobileToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mobileToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    }
+    
+    // Dropdown Informasi
+    const mobileDropdownToggleInformasi = document.getElementById('mobileDropdownToggleInformasi');
+    const mobileDropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
+    
+    if (mobileDropdownToggleInformasi) {
+        mobileDropdownToggleInformasi.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            mobileDropdownToggleInformasi.classList.toggle('active');
+            mobileDropdownContentInformasi.classList.toggle('active');
+        });
+    }
+    
+    // Dropdown Dokumentasi
+    const mobileDropdownToggleDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
+    const mobileDropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
+    
+    if (mobileDropdownToggleDokumentasi) {
+        mobileDropdownToggleDokumentasi.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            mobileDropdownToggleDokumentasi.classList.toggle('active');
+            mobileDropdownContentDokumentasi.classList.toggle('active');
+        });
+    }
+    
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            if (this.classList.contains('mobile-dropdown-toggle')) return;
+            
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            
+            e.preventDefault();
+            
+            if (href === '#home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const target = document.querySelector(href);
+                if (target) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    window.scrollTo({
+                        top: target.offsetTop - headerHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Tutup mobile nav
+            if (mobileNav?.contains(this)) {
+                mobileToggle.classList.remove('active');
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
     });
     
-    // ===========================================
-    // KODE NAVIGASI, MAP, DLL YANG LAMA TETAP SAMA
-    // ===========================================
-    // ... (semua kode mobile navigation, dropdown, dll tetap seperti di atas)
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (header) {
+            header.style.boxShadow = window.scrollY > 100 
+                ? '0 4px 20px rgba(0, 0, 0, 0.1)' 
+                : '0 4px 20px rgba(0, 0, 0, 0.05)';
+        }
+    });
     
-</script>
+    // Video fallback
+    const bgVideo = document.getElementById('bgVideo');
+    const bgImage = document.getElementById('bgImage');
+    
+    if (bgVideo) {
+        bgVideo.addEventListener('error', () => {
+            bgVideo.style.display = 'none';
+            if (bgImage) bgImage.style.display = 'block';
+        });
+    }
+    
+    // Install banner
+    const installBanner = document.getElementById('installBanner');
+    const closeBanner = document.getElementById('closeBanner');
+    
+    if (installBanner && closeBanner) {
+        setTimeout(() => {
+            if (!localStorage.getItem('lpsBannerDismissed')) {
+                installBanner.classList.add('active');
+            }
+        }, 3000);
+        
+        closeBanner.addEventListener('click', () => {
+            installBanner.classList.remove('active');
+            localStorage.setItem('lpsBannerDismissed', 'true');
+        });
+    }
+    
+    // Map drag
+    const mapWrapper = document.getElementById('mapWrapper');
+    if (mapWrapper) {
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+        
+        mapWrapper.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - mapWrapper.offsetLeft;
+            startY = e.pageY - mapWrapper.offsetTop;
+            scrollLeft = mapWrapper.scrollLeft;
+            scrollTop = mapWrapper.scrollTop;
+        });
+        
+        mapWrapper.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - mapWrapper.offsetLeft;
+            const y = e.pageY - mapWrapper.offsetTop;
+            mapWrapper.scrollLeft = scrollLeft - (x - startX) * 2;
+            mapWrapper.scrollTop = scrollTop - (y - startY) * 2;
+        });
+        
+        ['mouseup', 'mouseleave'].forEach(event => {
+            mapWrapper.addEventListener(event, () => isDragging = false);
+        });
+    }
+    
+    // Legend toggle
+    const toggleLegend = document.getElementById('toggleLegend');
+    const legendContent = document.getElementById('legendContent');
+    
+    if (toggleLegend && legendContent) {
+        const icon = toggleLegend.querySelector('i');
+        toggleLegend.addEventListener('click', () => {
+            legendContent.classList.toggle('collapsed');
+            legendContent.classList.toggle('expanded');
+            icon.className = legendContent.classList.contains('collapsed') 
+                ? 'fas fa-chevron-down' 
+                : 'fas fa-chevron-up';
+        });
+    }
+    </script>
 </body>
 </html>

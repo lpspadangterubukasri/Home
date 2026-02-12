@@ -361,6 +361,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            cursor: pointer;
         }
         
         .mobile-dropdown-toggle i {
@@ -1428,140 +1429,140 @@
         }
 
         /* Barcode Card Styles */
-.barcode-card {
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 25px 20px;
-    box-shadow: var(--card-shadow);
-    border: 1px solid rgba(200, 230, 201, 0.8);
-    transition: var(--transition);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.barcode-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
-}
-
-.barcode-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    gap: 15px;
-}
-
-.barcode-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--accent), var(--secondary));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.5rem;
-    box-shadow: 0 5px 15px rgba(87, 197, 182, 0.3);
-}
-
-.barcode-title {
-    font-size: 1.4rem;
-    color: var(--green-dark);
-    font-weight: 600;
-}
-
-.barcode-image {
-    width: 200px;
-    height: 200px;
-    margin: 15px auto;
-    border-radius: 15px;
-    overflow: hidden;
-    border: 2px solid var(--accent);
-    padding: 10px;
-    background: white;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    transition: var(--transition);
-}
-
-.barcode-image:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-}
-
-.barcode-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.scan-text {
-    color: var(--primary);
-    font-size: 0.95rem;
-    margin-bottom: 20px;
-    font-style: italic;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.scan-text i {
-    color: var(--accent);
-}
-
-.join-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 35px;
-    background: linear-gradient(135deg, #25D366, #128C7E);
-    color: white;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: var(--transition);
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-    font-size: 1rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.join-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: 0.5s;
-}
-
-.join-btn:hover::before {
-    left: 100%;
-}
-
-.join-btn:hover {
-    background: linear-gradient(135deg, #128C7E, #075E54);
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-}
-
-.join-btn i {
-    font-size: 1.2rem;
-    transition: transform 0.3s ease;
-}
-
-.join-btn:hover i {
-    transform: translateX(5px);
-}
+        .barcode-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(200, 230, 201, 0.8);
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .barcode-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(21, 152, 149, 0.15);
+        }
+        
+        .barcode-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+        
+        .barcode-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(87, 197, 182, 0.3);
+        }
+        
+        .barcode-title {
+            font-size: 1.4rem;
+            color: var(--green-dark);
+            font-weight: 600;
+        }
+        
+        .barcode-image {
+            width: 200px;
+            height: 200px;
+            margin: 15px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            padding: 10px;
+            background: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .barcode-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .barcode-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .scan-text {
+            color: var(--primary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .scan-text i {
+            color: var(--accent);
+        }
+        
+        .join-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .join-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .join-btn:hover::before {
+            left: 100%;
+        }
+        
+        .join-btn:hover {
+            background: linear-gradient(135deg, #128C7E, #075E54);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+        
+        .join-btn i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .join-btn:hover i {
+            transform: translateX(5px);
+        }
         
         .map-frame {
             width: 100%;
@@ -1887,14 +1888,16 @@
             </button>
         </div>
         
-        <!-- Mobile Navigation -->
+        <!-- Mobile Navigation - PERBAIKAN DROPDOWN DOKUMENTASI -->
         <div class="mobile-nav" id="mobileNav">
             <a href="#home">Beranda</a>
-            <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggle">
+            
+            <!-- Dropdown Informasi -->
+            <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggleInformasi">
                 Informasi
                 <i class="fas fa-chevron-down"></i>
             </a>
-            <div class="mobile-dropdown-content" id="mobileDropdownContent">
+            <div class="mobile-dropdown-content" id="mobileDropdownContentInformasi">
                 <a href="https://lpspadangterubukasri.github.io/Home/struktur.html">Profil</a>
                 <a href="maintenance.html">Petugas</a>
                 <a href="#peta">Peta Wilayah</a>
@@ -1902,16 +1905,18 @@
                 <a href="#stats">Data Peserta LPS</a>
             </div>
             
+            <!-- Dropdown Dokumentasi - ID DIPERBAIKI -->
             <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggleDokumentasi">
                 Dokumentasi
                 <i class="fas fa-chevron-down"></i>
             </a>
-            <div class="mobile-dropdown-content" id="mobileDropdownContentl">
+            <div class="mobile-dropdown-content" id="mobileDropdownContentDokumentasi">
                 <a href="maintenance.html">Peraturan</a>
                 <a href="maintenance.html">Berita Acara</a>
                 <a href="maintenance.html">Foto Kegiatan</a>
                 <a href="maintenance.html">Video Kegiatan</a>
             </div>
+            
             <a href="maintenance.html">Program</a>
             <a href="#about">Kontak</a>
         </div>
@@ -2202,29 +2207,30 @@
                         referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
+                
                 <!-- Barcode Card untuk Join WhatsApp -->
-<div class="about-box barcode-card">
-    <div class="barcode-header">
-        <div class="barcode-icon">
-            <i class="fab fa-whatsapp"></i>
-        </div>
-        <div class="barcode-title">Join Komunitas WA Kami</div>
-    </div>
-    
-    <div class="barcode-image">
-        <img src="data/foto/barcodekomunitas.jpg" alt="QR Code WhatsApp Community LPS Padang Terubuk Asri" loading="lazy">
-    </div>
-    
-    <div class="scan-text">
-        <i class="fas fa-qrcode"></i>
-        Scan Barcode di atas
-    </div>
-    
-    <a href="https://chat.whatsapp.com/KL6d0GzYAIT5FZFzwU8lsQ" target="_blank" class="join-btn">
-        <i class="fab fa-whatsapp"></i>
-        Join Sekarang !!
-    </a>
-</div>
+                <div class="about-box barcode-card">
+                    <div class="barcode-header">
+                        <div class="barcode-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="barcode-title">Join Komunitas WA Kami</div>
+                    </div>
+                    
+                    <div class="barcode-image">
+                        <img src="data/foto/barcodekomunitas.jpg" alt="QR Code WhatsApp Community LPS Padang Terubuk Asri" loading="lazy">
+                    </div>
+                    
+                    <div class="scan-text">
+                        <i class="fas fa-qrcode"></i>
+                        Scan Barcode di atas
+                    </div>
+                    
+                    <a href="https://chat.whatsapp.com/KL6d0GzYAIT5FZFzwU8lsQ" target="_blank" class="join-btn">
+                        <i class="fab fa-whatsapp"></i>
+                        Join Sekarang !!
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -2263,24 +2269,12 @@
         const mobileToggle = document.getElementById('mobileToggle');
         const mobileNav = document.getElementById('mobileNav');
         const overlay = document.getElementById('overlay');
-        const mobileDropdownToggle = document.getElementById('mobileDropdownToggle');
-        const mobileDropdownContent = document.getElementById('mobileDropdownContent');
         
         mobileToggle.addEventListener('click', () => {
             mobileToggle.classList.toggle('active');
             mobileNav.classList.toggle('active');
             overlay.classList.toggle('active');
             document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
-
-const mobileDropdownToggleDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
-const mobileDropdownContentDokumentasi = document.getElementById('mobileDropdownContentl');
-
-if (mobileDropdownToggleDokumentasi) {
-    mobileDropdownToggleDokumentasi.addEventListener('click', (e) => {
-        e.preventDefault();
-        mobileDropdownToggleDokumentasi.classList.toggle('active');
-        mobileDropdownContentDokumentasi.classList.toggle('active');
-            
         });
         
         overlay.addEventListener('click', () => {
@@ -2290,10 +2284,40 @@ if (mobileDropdownToggleDokumentasi) {
             document.body.style.overflow = 'auto';
         });
         
-        mobileDropdownToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            mobileDropdownToggle.classList.toggle('active');
-            mobileDropdownContent.classList.toggle('active');
+        // DROPDOWN INFORMASI MOBILE - FIXED
+        const mobileDropdownToggleInformasi = document.getElementById('mobileDropdownToggleInformasi');
+        const mobileDropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
+        
+        if (mobileDropdownToggleInformasi) {
+            mobileDropdownToggleInformasi.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                mobileDropdownToggleInformasi.classList.toggle('active');
+                mobileDropdownContentInformasi.classList.toggle('active');
+            });
+        }
+        
+        // DROPDOWN DOKUMENTASI MOBILE - FIXED (SEBELUMNYA TIDAK BERFUNGSI)
+        const mobileDropdownToggleDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
+        const mobileDropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
+        
+        if (mobileDropdownToggleDokumentasi) {
+            mobileDropdownToggleDokumentasi.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                mobileDropdownToggleDokumentasi.classList.toggle('active');
+                mobileDropdownContentDokumentasi.classList.toggle('active');
+            });
+        }
+        
+        // Tutup mobile nav saat link diklik
+        document.querySelectorAll('.mobile-nav a[href^="#"]').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
         });
         
         // Background Video/Image Handling
@@ -2505,10 +2529,13 @@ if (mobileDropdownToggleDokumentasi) {
                     }
                 }
                 
-                mobileToggle.classList.remove('active');
-                mobileNav.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
+                // Tutup mobile nav jika link diklik
+                if (mobileNav.classList.contains('active')) {
+                    mobileToggle.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
             });
         });
         

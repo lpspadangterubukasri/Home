@@ -2265,60 +2265,142 @@
     
     <!-- JavaScript -->
     <script>
-        // Mobile Navigation Toggle
-        const mobileToggle = document.getElementById('mobileToggle');
-        const mobileNav = document.getElementById('mobileNav');
-        const overlay = document.getElementById('overlay');
-        
-        mobileToggle.addEventListener('click', () => {
-            mobileToggle.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+           // Mobile Navigation Toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const overlay = document.getElementById('overlay');
+    
+    mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileToggle.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+    });
+    
+    overlay.addEventListener('click', () => {
+        mobileToggle.classList.remove('active');
+        mobileNav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    // DROPDOWN INFORMASI MOBILE - FIXED
+    const mobileDropdownToggleInformasi = document.getElementById('mobileDropdownToggleInformasi');
+    const mobileDropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
+    
+    if (mobileDropdownToggleInformasi) {
+        mobileDropdownToggleInformasi.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            mobileDropdownToggleInformasi.classList.toggle('active');
+            mobileDropdownContentInformasi.classList.toggle('active');
         });
-        
-        overlay.addEventListener('click', () => {
-            mobileToggle.classList.remove('active');
-            mobileNav.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+    }
+    
+    // DROPDOWN DOKUMENTASI MOBILE - FIXED
+    const mobileDropdownToggleDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
+    const mobileDropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
+    
+    if (mobileDropdownToggleDokumentasi) {
+        mobileDropdownToggleDokumentasi.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            mobileDropdownToggleDokumentasi.classList.toggle('active');
+            mobileDropdownContentDokumentasi.classList.toggle('active');
         });
-        
-        // DROPDOWN INFORMASI MOBILE - FIXED
-        const mobileDropdownToggleInformasi = document.getElementById('mobileDropdownToggleInformasi');
-        const mobileDropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
-        
-        if (mobileDropdownToggleInformasi) {
-            mobileDropdownToggleInformasi.addEventListener('click', (e) => {
+    }
+    
+    // PERBAIKAN: Jangan tutup mobile nav saat klik dropdown atau link internal
+    // Hanya tutup jika link adalah link eksternal atau link section yang valid
+    document.querySelectorAll('.mobile-nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Jangan tutup nav jika ini adalah dropdown toggle
+            if (this.classList.contains('mobile-dropdown-toggle')) {
                 e.preventDefault();
-                e.stopPropagation();
-                mobileDropdownToggleInformasi.classList.toggle('active');
-                mobileDropdownContentInformasi.classList.toggle('active');
-            });
-        }
-        
-        // DROPDOWN DOKUMENTASI MOBILE - FIXED (SEBELUMNYA TIDAK BERFUNGSI)
-        const mobileDropdownToggleDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
-        const mobileDropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
-        
-        if (mobileDropdownToggleDokumentasi) {
-            mobileDropdownToggleDokumentasi.addEventListener('click', (e) => {
+                return;
+            }
+            
+            // Cek apakah link mengarah ke anchor (#)
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#') && href !== '#') {
                 e.preventDefault();
-                e.stopPropagation();
-                mobileDropdownToggleDokumentasi.classList.toggle('active');
-                mobileDropdownContentDokumentasi.classList.toggle('active');
-            });
-        }
-        
-        // Tutup mobile nav saat link diklik
-        document.querySelectorAll('.mobile-nav a[href^="#"]').forEach(link => {
-            link.addEventListener('click', () => {
+                
+                // Scroll ke target
+                const targetId = href;
+                if (targetId === '#home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                
+                // Tutup mobile nav setelah scroll
+                setTimeout(() => {
+                    mobileToggle.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }, 100);
+            } else if (href && !href.startsWith('#')) {
+                // Link eksternal - biarkan navigasi default
+                // Tapi tutup nav dulu
                 mobileToggle.classList.remove('active');
                 mobileNav.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.style.overflow = 'auto';
-            });
+            }
         });
+    });
+    
+    // PERBAIKAN: Smooth scrolling untuk semua anchor links - JANGAN TUTUP NAV DI SINI
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            // Skip jika ini dropdown toggle mobile
+            if (this.classList.contains('mobile-dropdown-toggle')) {
+                return;
+            }
+            
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            
+            e.preventDefault();
+            
+            const targetId = href;
+            if (targetId === '#home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Hanya tutup mobile nav jika ini link di mobile nav dan bukan dropdown toggle
+            if (mobileNav.contains(this) && !this.classList.contains('mobile-dropdown-toggle')) {
+                setTimeout(() => {
+                    mobileToggle.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }, 100);
+            }
+        });
+    });
         
         // Background Video/Image Handling
         const bgVideo = document.getElementById('bgVideo');

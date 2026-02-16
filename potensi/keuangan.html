@@ -496,7 +496,7 @@
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            background: rgba(200, 230, 201, 0.3);
+            background: rgba(200, 230, 201, 1);
             position: sticky;
             top: 0;
             z-index: 10;
@@ -696,7 +696,7 @@
                 </div>
                 <div :class="['connection-status', { 'error': connectionError }]" v-if="!loading">
                     <i :class="connectionError ? 'fas fa-times-circle' : 'fas fa-check-circle'"></i>
-                    {{ connectionError ? 'Terputus' : 'Terhubung' }}
+                    {{ connectionError ? 'Terputus' : 'Terhubung ke Data Base' }}
                 </div>
             </div>
             
@@ -836,15 +836,48 @@
 
         <!-- Footer -->
         <div class="footer">
-            <span>
+            <span style="color: white;">
                 <i class="fas fa-cloud-upload-alt"></i> 
                 Data: LPS Padang Terubuk Asri
             </span>
             <span class="badge-api">
-                <i class="fas fa-database"></i> Database-LPS-PTA · v2026
+                <i class="fas fa-database"></i> Database-LPS-PTA · 2026
             </span>
         </div>
     </div>
+
+<script>
+    // ========== SISTEM PENGAMANAN HALAMAN ==========
+    (function() {
+        // 1. Kunci yang harus cocok dengan yang disimpan saat login
+        const LOGIN_KEY = 'lps_pta_auth';
+        const LOGIN_VALUE = 'true';
+        
+        // 2. URL halaman login (pastikan path-nya benar!)
+        const LOGIN_PAGE_URL = 'https://lpspadangterubukasri.github.io/Home/potensi/login.html';
+
+        // 3. Periksa apakah pengguna sudah login
+        function isUserLoggedIn() {
+            try {
+                // Cek di session storage (data hilang saat tab ditutup)
+                return sessionStorage.getItem(LOGIN_KEY) === LOGIN_VALUE;
+            } catch (e) {
+                console.warn('Gagal mengakses sessionStorage:', e);
+                return false; // Anggap belum login jika gagal akses
+            }
+        }
+
+        // 4. Jika belum login, alihkan ke halaman login
+        if (!isUserLoggedIn()) {
+            console.log('Akses ditolak. Mengalihkan ke halaman login...');
+            // Tambahkan pesan redirect yang halus
+            window.location.replace(LOGIN_PAGE_URL + '?redirect=' + encodeURIComponent(window.location.href));
+        } else {
+            console.log('Akses diizinkan. Selamat datang!');
+        }
+    })();
+    // ========== AKHIR SISTEM PENGAMANAN ==========
+</script>
 
     <!-- Vue JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

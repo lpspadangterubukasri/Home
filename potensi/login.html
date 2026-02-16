@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Halaman Login LPS Padang Terubuk Asri - Akses Dashboard Keuangan">
+    <title>LPS Padang Terubuk Asri · Login</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/login.html">
+    <meta property="og:title" content="Login LPS Padang Terubuk Asri">
+    <meta property="og:description" content="Akses dashboard keuangan dan data LPS Padang Terubuk Asri">
+    <meta property="og:image" content="https://lpspadangterubukasri.github.io/Home/data/foto/thumbnail.png">
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" href="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://lpspadangterubukasri.github.io/Home/data/foto/logoaplikasi.png">
+    <meta name="theme-color" content="#1a5f7a">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --green-light: #e8f5e9;
+            --green-medium: #c8e6c9;
+            --green-dark: #388e3c;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 15px 35px rgba(21, 152, 149, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--light), #e8f5e9);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://lpspadangterubukasri.github.io/Home/data/foto/logoaplikasi.png');
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 4px 8px rgba(21, 152, 149, 0.2));
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--dark);
+            opacity: 0.7;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .login-card {
+            background: linear-gradient(145deg, #ffffff, var(--green-light));
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--green-medium);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary), var(--primary));
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--green-medium);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-label i {
+            color: var(--accent);
+            margin-right: 8px;
+            width: 18px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            font-size: 16px;
+            z-index: 1;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px 16px 45px;
+            border: 2px solid var(--green-medium);
+            border-radius: 50px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            background: var(--white);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(87, 197, 182, 0.1);
+        }
+
+        .form-input.error {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1;
+            background: var(--white);
+            padding: 5px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 8px;
+            padding-left: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .error-message i {
+            font-size: 12px;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--secondary);
+            cursor: pointer;
+        }
+
+        .remember-me span {
+            color: var(--dark);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 50px;
+            background: rgba(87, 197, 182, 0.1);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .forgot-password:hover {
+            background: rgba(87, 197, 182, 0.2);
+            border-color: var(--accent);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(21, 152, 149, 0.4);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-btn i {
+            font-size: 18px;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--white);
+            border-radius: 50px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid var(--green-medium);
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+
+        .back-home:hover {
+            background: var(--green-light);
+            transform: translateX(-5px);
+            border-color: var(--accent);
+        }
+
+        .back-home i {
+            color: var(--accent);
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        .toast {
+            background: linear-gradient(145deg, #ffffff, var(--green-light));
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-left: 5px solid;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            animation: slideIn 0.3s ease;
+            border: 1px solid var(--green-medium);
+            backdrop-filter: blur(10px);
+        }
+
+        .toast.info {
+            border-left-color: var(--secondary);
+        }
+
+        .toast.warning {
+            border-left-color: #f59e0b;
+        }
+
+        .toast.success {
+            border-left-color: var(--green-dark);
+        }
+
+        .toast.error {
+            border-left-color: #dc2626;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .toast.info .toast-icon {
+            background: rgba(87, 197, 182, 0.2);
+            color: var(--secondary);
+        }
+
+        .toast.warning .toast-icon {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .toast-message {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .toast-message strong {
+            color: var(--primary);
+        }
+
+        .toast-close {
+            color: #999;
+            cursor: pointer;
+            font-size: 18px;
+            transition: var(--transition);
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+
+        .toast-close:hover {
+            color: var(--dark);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .loading-spinner {
+            background: linear-gradient(145deg, #ffffff, var(--green-light));
+            padding: 40px 50px;
+            border-radius: 30px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            border: 1px solid var(--green-medium);
+            animation: floatIn 0.6s ease;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading-spinner i {
+            font-size: 60px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .loading-spinner h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .loading-spinner p {
+            color: var(--dark);
+            font-size: 15px;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .login-card {
+                padding: 30px 20px;
+            }
+
+            .logo-img {
+                height: 50px;
+            }
+
+            .logo-text {
+                font-size: 20px;
+            }
+
+            .login-title {
+                font-size: 24px;
+            }
+
+            .form-input {
+                padding: 14px 20px 14px 45px;
+                font-size: 14px;
+            }
+
+            .login-btn {
+                padding: 14px 25px;
+            }
+
+            .toast-container {
+                left: 20px;
+                right: 20px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="app">
+        <!-- Loading Overlay -->
+        <div v-if="loading" class="loading-overlay">
+            <div class="loading-spinner">
+                <i class="fas fa-circle-notch fa-spin"></i>
+                <h3>LPS Padang Terubuk Asri</h3>
+                <p>Memuat halaman login...</p>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" v-if="toast.show">
+            <div :class="['toast', toast.type]">
+                <div class="toast-icon">
+                    <i :class="toast.icon"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">{{ toast.title }}</div>
+                    <div class="toast-message" v-html="toast.message"></div>
+                </div>
+                <button class="toast-close" @click="closeToast">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="login-header">
+            <div class="logo-wrapper">
+                <img src="https://lpspadangterubukasri.github.io/Home/data/foto/logolps.png" alt="LPS Logo" class="logo-img">
+                <span class="logo-text">LPS PTA</span>
+            </div>
+            <div class="subtitle">Lembaga Pengelola Sampah Padang Terubuk Asri</div>
+        </div>
+
+        <!-- Login Card -->
+        <div class="login-card">
+            <h2 class="login-title">Selamat Datang</h2>
+            <p class="login-subtitle">Silakan login untuk mengakses dashboard keuangan</p>
+
+            <!-- Form Login -->
+            <form @submit.prevent="handleLogin">
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i>
+                        Username
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input 
+                            type="text" 
+                            class="form-input" 
+                            :class="{ 'error': errors.username }"
+                            v-model="form.username"
+                            placeholder="Masukkan username"
+                            autocomplete="off"
+                            @focus="clearError('username')"
+                        >
+                    </div>
+                    <div v-if="errors.username" class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        {{ errors.username }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input 
+                            :type="showPassword ? 'text' : 'password'"
+                            class="form-input" 
+                            :class="{ 'error': errors.password }"
+                            v-model="form.password"
+                            placeholder="Masukkan password"
+                            @focus="clearError('password')"
+                            @keyup.enter="handleLogin"
+                        >
+                        <i class="fas" 
+                           :class="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                           @click="togglePassword"
+                           style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--accent); z-index: 1;">
+                        </i>
+                    </div>
+                    <div v-if="errors.password" class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        {{ errors.password }}
+                    </div>
+                </div>
+
+                <div class="login-options">
+                    <label class="remember-me">
+                        <input type="checkbox" v-model="rememberMe">
+                        <span>Ingat saya</span>
+                    </label>
+                    <a class="forgot-password" @click="showForgotPassword">
+                        <i class="fas fa-key"></i> Lupa Password?
+                    </a>
+                </div>
+
+                <button type="submit" class="login-btn" :disabled="isSubmitting">
+                    <i class="fas fa-sign-in-alt"></i>
+                    {{ isSubmitting ? 'Memproses...' : 'Login' }}
+                </button>
+            </form>
+        </div>
+
+        <!-- Back to Home -->
+        <div style="text-align: center;">
+            <a href="https://lpspadangterubukasri.github.io/Home/" class="back-home">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </a>
+        </div>
+    </div>
+
+    <!-- Vue JS -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+const { createApp, ref, reactive, onMounted } = Vue;
+
+const app = createApp({
+    setup() {
+        // ========== KONFIGURASI ==========
+        const APP_URL = 'https://script.google.com/macros/s/AKfycbw-UZVz9DrLBoz-l9wVM-86hsOlEnWQ_tU_BiKLNDuCzHjAdr5b3oTO76Nl7AFwD5o/exec/exec';
+        const REDIRECT_URL = 'https://lpspadangterubukasri.github.io/Home/potensi/keuangan.html';
+        const ADMIN_PHONE = '0821-7008-9590';
+        const ADMIN_NAME = 'TRY HOLLY';
+
+        // ========== STATE ==========
+        const loading = ref(true);
+        const isSubmitting = ref(false);
+        const showPassword = ref(false);
+        const rememberMe = ref(false);
+        
+        const form = reactive({
+            username: '',
+            password: ''
+        });
+        
+        const errors = reactive({
+            username: '',
+            password: ''
+        });
+        
+        const toast = reactive({
+            show: false,
+            type: 'info',
+            title: '',
+            message: '',
+            icon: 'fas fa-info-circle',
+            timeout: null
+        });
+
+        // ========== FUNGSI UTILITY ==========
+        function togglePassword() {
+            showPassword.value = !showPassword.value;
+        }
+        
+        function clearError(field) {
+            if (field === 'username') errors.username = '';
+            if (field === 'password') errors.password = '';
+        }
+        
+        function showToast(type, title, message, duration = 5000) {
+            if (toast.timeout) {
+                clearTimeout(toast.timeout);
+            }
+            
+            let icon = 'fas fa-info-circle';
+            if (type === 'success') icon = 'fas fa-check-circle';
+            if (type === 'warning') icon = 'fas fa-exclamation-triangle';
+            if (type === 'error') icon = 'fas fa-times-circle';
+            
+            toast.type = type;
+            toast.title = title;
+            toast.message = message;
+            toast.icon = icon;
+            toast.show = true;
+            
+            toast.timeout = setTimeout(() => {
+                toast.show = false;
+            }, duration);
+        }
+        
+        function closeToast() {
+            toast.show = false;
+            if (toast.timeout) {
+                clearTimeout(toast.timeout);
+            }
+        }
+        
+        function showForgotPassword() {
+            showToast(
+                'warning',
+                'Lupa Password?',
+                `Hubungi admin kami:<br><strong>${ADMIN_NAME}</strong><br>📞 <strong>${ADMIN_PHONE}</strong>`,
+                10000
+            );
+        }
+        
+        // ========== FUNGSI FETCH DENGAN FALLBACK ==========
+        async function fetchWithFallback(url, options) {
+            // Coba dengan mode no-cors
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    mode: 'cors',
+                    cache: 'no-cache'
+                });
+                
+                if (response.ok) {
+                    const text = await response.text();
+                    try {
+                        return JSON.parse(text);
+                    } catch (e) {
+                        console.log('Response bukan JSON:', text);
+                        return { success: false, message: 'Invalid response' };
+                    }
+                }
+                throw new Error(`HTTP ${response.status}`);
+            } catch (error) {
+                console.log('Fetch error:', error);
+                
+                // Fallback ke JSONP
+                return new Promise((resolve, reject) => {
+                    const callbackName = 'jsonp_callback_' + Date.now();
+                    const script = document.createElement('script');
+                    
+                    window[callbackName] = function(data) {
+                        delete window[callbackName];
+                        document.body.removeChild(script);
+                        resolve(data);
+                    };
+                    
+                    script.src = url + '?action=' + options.body.action + 
+                                '&username=' + encodeURIComponent(options.body.username) +
+                                '&password=' + encodeURIComponent(options.body.password) +
+                                '&callback=' + callbackName;
+                    
+                    script.onerror = function() {
+                        delete window[callbackName];
+                        document.body.removeChild(script);
+                        reject(new Error('JSONP failed'));
+                    };
+                    
+                    document.body.appendChild(script);
+                    
+                    // Timeout
+                    setTimeout(() => {
+                        if (window[callbackName]) {
+                            delete window[callbackName];
+                            document.body.removeChild(script);
+                            reject(new Error('JSONP timeout'));
+                        }
+                    }, 10000);
+                });
+            }
+        }
+        
+        // ========== HANDLE LOGIN ==========
+        async function handleLogin() {
+            // Reset errors
+            errors.username = '';
+            errors.password = '';
+            
+            // Validasi input
+            let isValid = true;
+            
+            if (!form.username.trim()) {
+                errors.username = 'Username tidak boleh kosong';
+                isValid = false;
+            }
+            
+            if (!form.password.trim()) {
+                errors.password = 'Password tidak boleh kosong';
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            isSubmitting.value = true;
+            
+            try {
+                showToast('info', 'Menghubungi server...', 'Silakan tunggu', 0);
+                
+                // Coba fetch biasa dulu
+                try {
+                    const response = await fetch(APP_URL, {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            action: 'login',
+                            username: form.username.trim(),
+                            password: form.password.trim()
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Login berhasil
+                        if (rememberMe.value) {
+                            localStorage.setItem('lps_user', form.username);
+                            localStorage.setItem('lps_logged_in', 'true');
+                        } else {
+                            sessionStorage.setItem('lps_user', form.username);
+                            sessionStorage.setItem('lps_logged_in', 'true');
+                        }
+                        
+                        showToast('success', 'Login Berhasil!', `Selamat datang, ${form.username}! Mengalihkan...`, 2000);
+                        
+                        setTimeout(() => {
+                            window.location.href = REDIRECT_URL;
+                        }, 1500);
+                        
+                    } else {
+                        errors.username = result.message || 'Login gagal';
+                        errors.password = result.message || 'Login gagal';
+                        showToast('error', 'Login Gagal', result.message || 'Username atau password salah', 3000);
+                    }
+                    
+                } catch (fetchError) {
+                    console.log('Fetch gagal, coba JSONP...', fetchError);
+                    
+                    // Fallback ke JSONP
+                    const jsonpUrl = APP_URL + '?action=login&username=' + encodeURIComponent(form.username.trim()) + 
+                                    '&password=' + encodeURIComponent(form.password.trim()) + 
+                                    '&callback=handleLoginResponse';
+                    
+                    window.handleLoginResponse = function(result) {
+                        delete window.handleLoginResponse;
+                        
+                        if (result.success) {
+                            if (rememberMe.value) {
+                                localStorage.setItem('lps_user', form.username);
+                                localStorage.setItem('lps_logged_in', 'true');
+                            } else {
+                                sessionStorage.setItem('lps_user', form.username);
+                                sessionStorage.setItem('lps_logged_in', 'true');
+                            }
+                            
+                            showToast('success', 'Login Berhasil!', `Selamat datang, ${form.username}! Mengalihkan...`, 2000);
+                            
+                            setTimeout(() => {
+                                window.location.href = REDIRECT_URL;
+                            }, 1500);
+                            
+                        } else {
+                            errors.username = result.message || 'Login gagal';
+                            errors.password = result.message || 'Login gagal';
+                            showToast('error', 'Login Gagal', result.message || 'Username atau password salah', 3000);
+                        }
+                    };
+                    
+                    const script = document.createElement('script');
+                    script.src = jsonpUrl;
+                    document.body.appendChild(script);
+                }
+                
+            } catch (error) {
+                console.error('Error final:', error);
+                showToast('error', 'Koneksi Gagal', 'Tidak dapat terhubung ke server. Coba refresh halaman.', 5000);
+                
+            } finally {
+                isSubmitting.value = false;
+                closeToast(); // Tutup toast info
+            }
+        }
+        
+        // ========== CEK SESSION ==========
+        function checkExistingSession() {
+            const loggedIn = localStorage.getItem('lps_logged_in') || sessionStorage.getItem('lps_logged_in');
+            
+            if (loggedIn === 'true') {
+                const user = localStorage.getItem('lps_user') || sessionStorage.getItem('lps_user');
+                
+                if (user) {
+                    showToast('info', 'Session Aktif', `Selamat datang kembali, ${user}! Mengalihkan...`, 2000);
+                    
+                    setTimeout(() => {
+                        window.location.href = REDIRECT_URL;
+                    }, 2000);
+                    
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        // ========== INIT ==========
+        onMounted(() => {
+            const hasSession = checkExistingSession();
+            
+            if (!hasSession) {
+                setTimeout(() => {
+                    loading.value = false;
+                }, 800);
+            }
+        });
+        
+        return {
+            loading,
+            isSubmitting,
+            showPassword,
+            rememberMe,
+            form,
+            errors,
+            toast,
+            togglePassword,
+            clearError,
+            handleLogin,
+            showForgotPassword,
+            closeToast
+        };
+    }
+});
+
+app.mount('#app');
+</script>
+</body>
+</html>

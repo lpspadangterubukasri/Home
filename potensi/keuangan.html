@@ -78,6 +78,7 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .filter-label {
@@ -175,7 +176,7 @@
             color: #9C27B0;
         }
 
-        /* Tab bulan dengan premium */
+        /* Tab bulan dengan desain premium */
         .month-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -198,9 +199,12 @@
             transition: all 0.3s ease;
             border-radius: 30px;
             position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .month-tab:hover:not(.disabled) {
+        .month-tab:hover {
             background: #f5f5f5;
             color: #333;
         }
@@ -211,26 +215,24 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
-        .month-tab.disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            position: relative;
+        .month-tab.active:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
         }
 
-        .month-tab.disabled::after {
-            content: '⛔';
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            font-size: 10px;
-            background: #ff4444;
+        .no-data-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            background: rgba(255, 68, 68, 0.1);
+            color: #ff4444;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+
+        .month-tab.active .no-data-badge {
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            border-radius: 50%;
-            width: 15px;
-            height: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         /* Container cards untuk uang masuk dan keluar */
@@ -379,18 +381,6 @@
             font-weight: 500;
         }
 
-        /* No data indicator untuk bulan */
-        .no-data-badge {
-            display: inline-block;
-            padding: 3px 8px;
-            background: #ffebee;
-            color: #f44336;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            margin-left: 5px;
-            font-weight: 500;
-        }
-
         /* Loading state */
         .loading {
             text-align: center;
@@ -412,6 +402,25 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Info section */
+        .info-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .info-section i {
+            color: #667eea;
+            font-style: normal;
+            font-weight: 600;
         }
 
         /* Responsive */
@@ -464,6 +473,9 @@
         <div class="filter-section">
             <span class="filter-label">📅 Pilih Tahun:</span>
             <select id="yearSelect" class="year-select"></select>
+            <div style="margin-left: auto; color: #666; font-size: 0.9rem;">
+                <span id="dataInfo">Memuat data...</span>
+            </div>
         </div>
 
         <!-- Stat Cards -->
@@ -495,6 +507,12 @@
             <!-- Akan diisi dengan JavaScript -->
         </div>
 
+        <!-- Info Section -->
+        <div class="info-section" id="infoSection">
+            <span>📌</span>
+            <span id="infoMessage">Klik pada bulan untuk melihat laporan keuangan</span>
+        </div>
+
         <!-- Cards Container -->
         <div class="cards-container" id="cardsContainer">
             <!-- Akan diisi dengan JavaScript -->
@@ -507,7 +525,7 @@
         const SHEET_NAME = 'KEUANGAN';
         
         // URL untuk publik view only
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}&tq=`;
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
         // Nama bulan dalam Bahasa Indonesia
         const months = [
@@ -517,7 +535,7 @@
 
         // State aplikasi
         let currentYear = new Date().getFullYear();
-        let currentMonth = new Date().getMonth(); // 0-11
+        let currentMonth = 5; // Default Juni (0-based, 5 = Juni)
         let allData = [];
         let filteredData = [];
         let availableMonths = new Set(); // Untuk melacak bulan yang memiliki data
@@ -526,6 +544,8 @@
         const yearSelect = document.getElementById('yearSelect');
         const monthTabs = document.getElementById('monthTabs');
         const cardsContainer = document.getElementById('cardsContainer');
+        const infoMessage = document.getElementById('infoMessage');
+        const dataInfo = document.getElementById('dataInfo');
         
         // Stats elements
         const totalSetoranBulanIniEl = document.getElementById('totalSetoranBulanIni');
@@ -557,12 +577,14 @@
             if (!dateStr) return null;
             
             // Coba parse dengan format DD/MM/YYYY
-            const parts = dateStr.split('/');
-            if (parts.length === 3) {
-                const day = parseInt(parts[0], 10);
-                const month = parseInt(parts[1], 10) - 1; // Bulan dimulai dari 0
-                const year = parseInt(parts[2], 10);
-                return new Date(year, month, day);
+            if (typeof dateStr === 'string' && dateStr.includes('/')) {
+                const parts = dateStr.split('/');
+                if (parts.length === 3) {
+                    const day = parseInt(parts[0], 10);
+                    const month = parseInt(parts[1], 10) - 1; // Bulan dimulai dari 0
+                    const year = parseInt(parts[2], 10);
+                    return new Date(year, month, day);
+                }
             }
             
             // Fallback ke Date.parse
@@ -612,6 +634,8 @@
                         <div>Memuat data keuangan...</div>
                     </div>
                 `;
+                
+                dataInfo.textContent = 'Mengambil data dari spreadsheet...';
                 
                 // Fetch data dari Google Sheets
                 const response = await fetch(SHEET_URL);
@@ -691,12 +715,17 @@
                 allData = parsedData;
                 filterDataByYear();
                 
+                // Update info data
+                dataInfo.textContent = `Total data: ${allData.length} transaksi`;
+                
                 // Set current month ke bulan pertama yang memiliki data atau Juni jika tidak ada
                 if (availableMonths.size > 0) {
                     const sortedMonths = Array.from(availableMonths).sort((a, b) => a - b);
                     currentMonth = sortedMonths[0]; // Ambil bulan pertama yang ada datanya
+                    infoMessage.textContent = `Menampilkan bulan ${months[currentMonth]} ${currentYear} (bulan pertama dengan data)`;
                 } else {
-                    currentMonth = 5; // Juni (0-based, jadi 5 = Juni)
+                    currentMonth = 5; // Juni
+                    infoMessage.textContent = 'Belum ada data untuk tahun ini. Silakan pilih tahun lain.';
                 }
                 
                 renderMonthTabs();
@@ -714,6 +743,7 @@
                         </div>
                     </div>
                 `;
+                dataInfo.textContent = 'Gagal memuat data';
             }
         }
 
@@ -730,6 +760,8 @@
                     availableMonths.add(item.tanggalObj.getMonth());
                 }
             });
+            
+            console.log('Available months for', currentYear, ':', Array.from(availableMonths));
         }
 
         // Render month tabs
@@ -740,8 +772,9 @@
                 const tab = document.createElement('button');
                 const hasData = availableMonths.has(index);
                 
-                tab.className = `month-tab ${index === currentMonth ? 'active' : ''} ${!hasData ? 'disabled' : ''}`;
+                tab.className = `month-tab ${index === currentMonth ? 'active' : ''}`;
                 tab.textContent = month;
+                tab.dataset.month = index;
                 
                 // Tambah badge jika tidak ada data
                 if (!hasData) {
@@ -751,18 +784,27 @@
                     tab.appendChild(badge);
                 }
                 
-                tab.dataset.month = index;
-                
-                if (hasData) {
-                    tab.addEventListener('click', () => {
-                        document.querySelectorAll('.month-tab').forEach(t => t.classList.remove('active'));
-                        tab.classList.add('active');
-                        currentMonth = index;
-                        updateDisplay();
-                    });
-                } else {
-                    tab.disabled = true;
-                }
+                // Event listener untuk semua tab (termasuk yang tidak ada data)
+                tab.addEventListener('click', () => {
+                    // Hapus active class dari semua tab
+                    document.querySelectorAll('.month-tab').forEach(t => t.classList.remove('active'));
+                    
+                    // Tambah active class ke tab yang diklik
+                    tab.classList.add('active');
+                    
+                    // Update current month
+                    currentMonth = parseInt(tab.dataset.month);
+                    
+                    // Update info message
+                    if (hasData) {
+                        infoMessage.textContent = `Menampilkan laporan bulan ${months[currentMonth]} ${currentYear}`;
+                    } else {
+                        infoMessage.textContent = `Bulan ${months[currentMonth]} ${currentYear} belum memiliki data`;
+                    }
+                    
+                    // Update tampilan
+                    updateDisplay();
+                });
                 
                 monthTabs.appendChild(tab);
             });
@@ -782,13 +824,13 @@
                 .filter(item => item.tipe === 'PENGELUARAN')
                 .reduce((sum, item) => sum + item.jumlah, 0);
                 
-            return { totalPemasukan, totalPengeluaran };
+            return { totalPemasukan, totalPengeluaran, hasData: monthData.length > 0 };
         }
 
         // Update semua tampilan
         function updateDisplay() {
             // Hitung total bulan ini
-            const { totalPemasukan, totalPengeluaran } = calculateMonthTotals(currentMonth);
+            const { totalPemasukan, totalPengeluaran, hasData } = calculateMonthTotals(currentMonth);
             const sisaBulanIni = totalPemasukan - totalPengeluaran;
             
             // Hitung total seluruh bulan di tahun yang dipilih
@@ -833,17 +875,27 @@
             const hasAnyData = pemasukanData.length > 0 || pengeluaranData.length > 0;
             
             if (!hasAnyData) {
+                // Hitung bulan mana saja yang memiliki data untuk suggestion
+                const monthsWithData = Array.from(availableMonths)
+                    .sort((a, b) => a - b)
+                    .map(m => months[m]);
+                
                 cardsContainer.innerHTML = `
                     <div class="empty-state" style="grid-column: span 2;">
                         <div class="empty-state-icon">📋</div>
                         <div class="empty-state-title">Laporan Keuangan Bulan ini tidak ada atau belum di Input</div>
                         <div class="empty-state-message">
                             Untuk bulan ${months[currentMonth]} ${currentYear} belum terdapat data transaksi.
-                            Silakan pilih bulan lain yang sudah memiliki data.
                         </div>
-                        <div class="empty-state-suggestion">
-                            ${availableMonths.size > 0 ? 'Bulan dengan data: ' + Array.from(availableMonths).sort((a,b)=>a-b).map(m => months[m]).join(', ') : 'Belum ada data untuk tahun ini'}
-                        </div>
+                        ${monthsWithData.length > 0 ? `
+                            <div class="empty-state-suggestion">
+                                Bulan dengan data: ${monthsWithData.join(', ')}
+                            </div>
+                        ` : `
+                            <div class="empty-state-suggestion">
+                                Belum ada data untuk tahun ${currentYear}
+                            </div>
+                        `}
                     </div>
                 `;
                 return;
@@ -945,15 +997,18 @@
             if (availableMonths.size > 0) {
                 const sortedMonths = Array.from(availableMonths).sort((a, b) => a - b);
                 currentMonth = sortedMonths[0];
+                infoMessage.textContent = `Menampilkan bulan ${months[currentMonth]} ${currentYear} (bulan pertama dengan data)`;
             } else {
                 currentMonth = 5; // Juni
+                infoMessage.textContent = `Belum ada data untuk tahun ${currentYear}`;
             }
             
             renderMonthTabs();
             updateDisplay();
+            dataInfo.textContent = `Total data: ${filteredData.length} transaksi di tahun ${currentYear}`;
         });
 
-        // Inisialisasii
+        // Inisialisasi
         initYearSelect();
         fetchData();
     </script>

@@ -576,31 +576,61 @@
             font-weight: 600;
         }
 
-        /* Back to Home Button */
-        .back-home {
+        /* Logout Button - Menggantikan back-home */
+        .logout-button {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            background: var(--white);
+            background: linear-gradient(145deg, #dc2626, #ef4444);
             border-radius: 50px;
-            color: var(--primary);
+            color: white;
             text-decoration: none;
             font-weight: 600;
             font-size: 14px;
-            border: 1px solid var(--green-medium);
+            border: 1px solid #fecaca;
             transition: var(--transition);
             margin-bottom: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
         }
 
-        .back-home:hover {
-            background: var(--green-light);
+        .logout-button:hover {
+            background: linear-gradient(145deg, #b91c1c, #dc2626);
             transform: translateX(-5px);
-            border-color: var(--accent);
+            border-color: #fecaca;
+            box-shadow: 0 6px 15px rgba(220, 38, 38, 0.3);
         }
 
-        .back-home i {
+        .logout-button i {
+            color: white;
+            font-size: 14px;
+        }
+
+        /* User Info */
+        .user-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: var(--green-light);
+            border-radius: 50px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 13px;
+            border: 1px solid var(--green-medium);
+            margin-left: 10px;
+        }
+
+        .user-info i {
             color: var(--accent);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         /* Responsive */
@@ -642,6 +672,11 @@
                 padding: 10px 8px;
                 font-size: 12px;
             }
+
+            .logout-button {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
         }
 
         /* Animation */
@@ -662,9 +697,16 @@
     </style>
 </head>
 <body>
-    <a href="https://lpspadangterubukasri.github.io/Home/" class="back-home">
-        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
-    </a>
+    <!-- Logout Button - Menggantikan back-home -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <button onclick="handleLogout()" class="logout-button">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+        <div id="userDisplay" class="user-info">
+            <i class="fas fa-user-circle"></i> 
+            <span id="usernameDisplay">Loading...</span>
+        </div>
+    </div>
 
     <div class="dashboard" id="app">
         <!-- Loading -->
@@ -846,38 +888,89 @@
         </div>
     </div>
 
-<script>
-    // ========== SISTEM PENGAMANAN HALAMAN ==========
-    (function() {
-        // 1. Kunci yang harus cocok dengan yang disimpan saat login
-        const LOGIN_KEY = 'lps_pta_auth';
-        const LOGIN_VALUE = 'true';
-        
-        // 2. URL halaman login (pastikan path-nya benar!)
-        const LOGIN_PAGE_URL = 'https://lpspadangterubukasri.github.io/Home/potensi/login.html';
+    <script>
+        // ========== SISTEM PENGAMANAN HALAMAN ==========
+        (function() {
+            // 1. Kunci yang harus cocok dengan yang disimpan saat login
+            const LOGIN_KEY = 'lps_pta_auth';
+            const LOGIN_VALUE = 'true';
+            
+            // 2. URL halaman login (pastikan path-nya benar!)
+            const LOGIN_PAGE_URL = 'https://lpspadangterubukasri.github.io/Home/potensi/login.html';
 
-        // 3. Periksa apakah pengguna sudah login
-        function isUserLoggedIn() {
+            // 3. Periksa apakah pengguna sudah login
+            function isUserLoggedIn() {
+                try {
+                    // Cek di session storage dan local storage
+                    return sessionStorage.getItem(LOGIN_KEY) === LOGIN_VALUE || 
+                           localStorage.getItem(LOGIN_KEY) === LOGIN_VALUE;
+                } catch (e) {
+                    console.warn('Gagal mengakses storage:', e);
+                    return false;
+                }
+            }
+
+            // 4. Jika belum login, alihkan ke halaman login
+            if (!isUserLoggedIn()) {
+                console.log('Akses ditolak. Mengalihkan ke halaman login...');
+                window.location.replace(LOGIN_PAGE_URL + '?redirect=' + encodeURIComponent(window.location.href));
+            } else {
+                console.log('Akses diizinkan. Selamat datang!');
+            }
+        })();
+        // ========== AKHIR SISTEM PENGAMANAN ==========
+
+        // ========== FUNGSI LOGOUT ==========
+        function handleLogout() {
+            // Kunci yang digunakan
+            const LOGIN_KEY = 'lps_pta_auth';
+            const LOGIN_PAGE_URL = 'https://lpspadangterubukasri.github.io/Home/potensi/login.html';
+            
             try {
-                // Cek di session storage (data hilang saat tab ditutup)
-                return sessionStorage.getItem(LOGIN_KEY) === LOGIN_VALUE;
+                // Hapus semua data session
+                sessionStorage.removeItem(LOGIN_KEY);
+                sessionStorage.removeItem('lps_username');
+                sessionStorage.removeItem('lps_user');
+                
+                // Hapus juga dari localStorage jika ada
+                localStorage.removeItem(LOGIN_KEY);
+                localStorage.removeItem('lps_remembered_user');
+                localStorage.removeItem('lps_user');
+                localStorage.removeItem('lps_logged_in');
+                
+                // Hapus juga data lain yang mungkin tersisa
+                sessionStorage.removeItem('lps_logged_in');
+                
+                console.log('Logout berhasil, mengalihkan ke halaman login...');
+                
+                // Redirect ke halaman login
+                window.location.href = LOGIN_PAGE_URL;
+                
             } catch (e) {
-                console.warn('Gagal mengakses sessionStorage:', e);
-                return false; // Anggap belum login jika gagal akses
+                console.error('Error saat logout:', e);
+                // Fallback: redirect langsung
+                window.location.href = LOGIN_PAGE_URL;
             }
         }
 
-        // 4. Jika belum login, alihkan ke halaman login
-        if (!isUserLoggedIn()) {
-            console.log('Akses ditolak. Mengalihkan ke halaman login...');
-            // Tambahkan pesan redirect yang halus
-            window.location.replace(LOGIN_PAGE_URL + '?redirect=' + encodeURIComponent(window.location.href));
-        } else {
-            console.log('Akses diizinkan. Selamat datang!');
+        // ========== TAMPILKAN USERNAME ==========
+        function displayUsername() {
+            const usernameDisplay = document.getElementById('usernameDisplay');
+            if (usernameDisplay) {
+                // Coba ambil username dari berbagai sumber
+                const username = sessionStorage.getItem('lps_username') || 
+                                localStorage.getItem('lps_remembered_user') ||
+                                sessionStorage.getItem('lps_user') ||
+                                localStorage.getItem('lps_user') ||
+                                'Pengguna';
+                
+                usernameDisplay.textContent = username;
+            }
         }
-    })();
-    // ========== AKHIR SISTEM PENGAMANAN ==========
-</script>
+
+        // Jalankan saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', displayUsername);
+    </script>
 
     <!-- Vue JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -1029,7 +1122,7 @@
                     }
                 }
                 
-                // ========== FETCH DATA POTENSI ==========
+                // ========== FETCH DATA ==========
                 async function fetchData() {
                     loading.value = true;
                     error.value = null;

@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ========== CSS ANDA TETAP SAMA ========== */
+        /* (salin semua CSS yang sudah Anda buat di sini) */
         * {
             margin: 0;
             padding: 0;
@@ -704,9 +706,13 @@ const app = createApp({
     setup() {
         // ========== KONFIGURASI ==========
         const APP_URL = 'https://script.google.com/macros/s/AKfycbw-UZVz9DrLBoz-l9wVM-86hsOlEnWQ_tU_BiKLNDuCzHjAdr5b3oTO76Nl7AFwD5o/exec/exec';
-        const REDIRECT_URL = 'https://lpspadangterubukasri.github.io/Home/potensi/keuangan.html';
+        const DASHBOARD_URL = 'https://lpspadangterubukasri.github.io/Home/potensi/keuangan.html';
         const ADMIN_PHONE = '0821-7008-9590';
         const ADMIN_NAME = 'TRY HOLLY';
+        
+        // ========== KUNCI UNTUK SESSION STORAGE ==========
+        const AUTH_KEY = 'lps_pta_auth';
+        const AUTH_VALUE = 'true';
 
         // ========== STATE ==========
         const loading = ref(true);
@@ -778,6 +784,27 @@ const app = createApp({
                 `Hubungi admin kami:<br><strong>${ADMIN_NAME}</strong><br>📞 <strong>${ADMIN_PHONE}</strong>`,
                 10000
             );
+        }
+        
+        // ========== FUNGSI UNTUK MENDAPATKAN URL REDIRECT ==========
+        function getRedirectUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('redirect') || DASHBOARD_URL;
+        }
+        
+        // ========== FUNGSI UNTUK MENYIMPAN STATUS LOGIN ==========
+        function setLoginStatus() {
+            // Simpan ke session storage (default)
+            sessionStorage.setItem(AUTH_KEY, AUTH_VALUE);
+            
+            // Jika "Ingat Saya" dicentang, simpan juga ke localStorage
+            if (rememberMe.value) {
+                localStorage.setItem(AUTH_KEY, AUTH_VALUE);
+                localStorage.setItem('lps_remembered_user', form.username);
+            }
+            
+            // Simpan username untuk keperluan display
+            sessionStorage.setItem('lps_username', form.username);
         }
         
         // ========== FUNGSI FETCH DENGAN FALLBACK ==========
@@ -883,19 +910,14 @@ const app = createApp({
                     const result = await response.json();
                     
                     if (result.success) {
-                        // Login berhasil
-                        if (rememberMe.value) {
-                            localStorage.setItem('lps_user', form.username);
-                            localStorage.setItem('lps_logged_in', 'true');
-                        } else {
-                            sessionStorage.setItem('lps_user', form.username);
-                            sessionStorage.setItem('lps_logged_in', 'true');
-                        }
+                        // ===== LOGIN BERHASIL - SET STATUS =====
+                        setLoginStatus();
                         
                         showToast('success', 'Login Berhasil!', `Selamat datang, ${form.username}! Mengalihkan...`, 2000);
                         
+                        // Redirect ke halaman yang dimaksud
                         setTimeout(() => {
-                            window.location.href = REDIRECT_URL;
+                            window.location.href = getRedirectUrl();
                         }, 1500);
                         
                     } else {
@@ -916,18 +938,13 @@ const app = createApp({
                         delete window.handleLoginResponse;
                         
                         if (result.success) {
-                            if (rememberMe.value) {
-                                localStorage.setItem('lps_user', form.username);
-                                localStorage.setItem('lps_logged_in', 'true');
-                            } else {
-                                sessionStorage.setItem('lps_user', form.username);
-                                sessionStorage.setItem('lps_logged_in', 'true');
-                            }
+                            // ===== LOGIN BERHASIL - SET STATUS =====
+                            setLoginStatus();
                             
                             showToast('success', 'Login Berhasil!', `Selamat datang, ${form.username}! Mengalihkan...`, 2000);
                             
                             setTimeout(() => {
-                                window.location.href = REDIRECT_URL;
+                                window.location.href = getRedirectUrl();
                             }, 1500);
                             
                         } else {
@@ -954,27 +971,39 @@ const app = createApp({
         
         // ========== CEK SESSION ==========
         function checkExistingSession() {
-            const loggedIn = localStorage.getItem('lps_logged_in') || sessionStorage.getItem('lps_logged_in');
+            // Cek di localStorage (remember me) atau sessionStorage
+            const isLoggedIn = localStorage.getItem(AUTH_KEY) === AUTH_VALUE || 
+                              sessionStorage.getItem(AUTH_KEY) === AUTH_VALUE;
             
-            if (loggedIn === 'true') {
-                const user = localStorage.getItem('lps_user') || sessionStorage.getItem('lps_user');
+            if (isLoggedIn) {
+                const user = localStorage.getItem('lps_remembered_user') || 
+                            sessionStorage.getItem('lps_username') || 
+                            'Pengguna';
                 
-                if (user) {
-                    showToast('info', 'Session Aktif', `Selamat datang kembali, ${user}! Mengalihkan...`, 2000);
-                    
-                    setTimeout(() => {
-                        window.location.href = REDIRECT_URL;
-                    }, 2000);
-                    
-                    return true;
-                }
+                showToast('info', 'Session Aktif', `Selamat datang kembali, ${user}! Mengalihkan...`, 2000);
+                
+                setTimeout(() => {
+                    window.location.href = getRedirectUrl();
+                }, 2000);
+                
+                return true;
             }
             
             return false;
         }
         
+        // ========== ISI FORM DENGAN USERNAME YANG TERSIMPAN ==========
+        function loadRememberedUser() {
+            const rememberedUser = localStorage.getItem('lps_remembered_user');
+            if (rememberedUser) {
+                form.username = rememberedUser;
+                rememberMe.value = true;
+            }
+        }
+        
         // ========== INIT ==========
         onMounted(() => {
+            loadRememberedUser();
             const hasSession = checkExistingSession();
             
             if (!hasSession) {
@@ -1002,6 +1031,6 @@ const app = createApp({
 });
 
 app.mount('#app');
-</script>
+    </script>
 </body>
 </html>

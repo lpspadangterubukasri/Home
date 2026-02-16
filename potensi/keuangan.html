@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LPS Padang Terubuk Asri - Laporan Keuangan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container utama dengan efek glassmorphism */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Header dengan efek gradient */
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header .subtitle span {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Filter tahun dengan desain premium */
+        .filter-section {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .year-select {
+            padding: 12px 25px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .year-select:hover, .year-select:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Card stats dengan desain modern */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-sub {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .stat-card.income .stat-value {
+            color: #4CAF50;
+        }
+
+        .stat-card.expense .stat-value {
+            color: #f44336;
+        }
+
+        .stat-card.balance .stat-value {
+            color: #2196F3;
+        }
+
+        .stat-card.total .stat-value {
+            color: #9C27B0;
+        }
+
+        /* Tab bulan dengan desain premium */
+        .month-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+            background: white;
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .month-tab {
+            padding: 10px 20px;
+            border: none;
+            background: transparent;
+            color: #666;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 30px;
+            position: relative;
+        }
+
+        .month-tab:hover:not(.disabled) {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .month-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .month-tab.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            position: relative;
+        }
+
+        .month-tab.disabled::after {
+            content: '⛔';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 10px;
+            background: #ff4444;
+            color: white;
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Container cards untuk uang masuk dan keluar */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f5f5f5;
+        }
+
+        .card-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card.income .badge {
+            background: #e8f5e9;
+            color: #4CAF50;
+        }
+
+        .card.expense .badge {
+            background: #ffebee;
+            color: #f44336;
+        }
+
+        .card.income .card-header h2 {
+            color: #4CAF50;
+        }
+
+        .card.expense .card-header h2 {
+            color: #f44336;
+        }
+
+        /* Tabel dengan desain modern */
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border-radius: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 10px;
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        tr:hover td {
+            background: #f8f9fa;
+        }
+
+        .amount {
+            font-weight: 600;
+        }
+
+        .amount.positive {
+            color: #4CAF50;
+        }
+
+        .amount.negative {
+            color: #f44336;
+        }
+
+        /* Empty state dengan desain elegan */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .empty-state-message {
+            font-size: 1rem;
+            color: #666;
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .empty-state-suggestion {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-radius: 50px;
+            display: inline-block;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        /* No data indicator untuk bulan */
+        .no-data-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background: #ffebee;
+            color: #f44336;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+            font-weight: 500;
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .month-tabs {
+                border-radius: 15px;
+                padding: 10px;
+            }
+            
+            .month-tab {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .filter-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LAPORAN KEUANGAN LPS PADANG TERUBUK ASRI</h1>
+            <div class="subtitle">
+                <span></span>
+                Real-time Financial Dashboard
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <span class="filter-label">📅 Pilih Tahun:</span>
+            <select id="yearSelect" class="year-select"></select>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="stats-container" id="statsContainer">
+            <div class="stat-card">
+                <div class="stat-label">Total Setoran Bulan Ini</div>
+                <div class="stat-value" id="totalSetoranBulanIni">Rp 0</div>
+                <div class="stat-sub" id="setoranBulanIniPeriod">-</div>
+            </div>
+            <div class="stat-card expense">
+                <div class="stat-label">Total Pengeluaran Bulan Ini</div>
+                <div class="stat-value" id="totalPengeluaranBulanIni">Rp 0</div>
+                <div class="stat-sub" id="pengeluaranBulanIniPeriod">-</div>
+            </div>
+            <div class="stat-card balance">
+                <div class="stat-label">Sisa Keuangan Bulan Ini</div>
+                <div class="stat-value" id="sisaKeuanganBulanIni">Rp 0</div>
+                <div class="stat-sub">Saldo bersih bulan ini</div>
+            </div>
+            <div class="stat-card total">
+                <div class="stat-label">Total Keuangan Seluruh Bulan</div>
+                <div class="stat-value" id="totalKeuanganSeluruh">Rp 0</div>
+                <div class="stat-sub" id="totalKeuanganPeriod">Akumulasi semua bulan</div>
+            </div>
+        </div>
+
+        <!-- Month Tabs -->
+        <div class="month-tabs" id="monthTabs">
+            <!-- Akan diisi dengan JavaScript -->
+        </div>
+
+        <!-- Cards Container -->
+        <div class="cards-container" id="cardsContainer">
+            <!-- Akan diisi dengan JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi
+        const SPREADSHEET_ID = '1b83VDb7h_CFyoXFM7RFXT-_ZpDcPSUy_TtkenfwoTgQ';
+        const SHEET_NAME = 'KEUANGAN';
+        
+        // URL untuk publik view only
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}&tq=`;
+
+        // Nama bulan dalam Bahasa Indonesia
+        const months = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
+        // State aplikasi
+        let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth(); // 0-11
+        let allData = [];
+        let filteredData = [];
+        let availableMonths = new Set(); // Untuk melacak bulan yang memiliki data
+
+        // Element references
+        const yearSelect = document.getElementById('yearSelect');
+        const monthTabs = document.getElementById('monthTabs');
+        const cardsContainer = document.getElementById('cardsContainer');
+        
+        // Stats elements
+        const totalSetoranBulanIniEl = document.getElementById('totalSetoranBulanIni');
+        const totalPengeluaranBulanIniEl = document.getElementById('totalPengeluaranBulanIni');
+        const sisaKeuanganBulanIniEl = document.getElementById('sisaKeuanganBulanIni');
+        const totalKeuanganSeluruhEl = document.getElementById('totalKeuanganSeluruh');
+        const setoranBulanIniPeriodEl = document.getElementById('setoranBulanIniPeriod');
+        const pengeluaranBulanIniPeriodEl = document.getElementById('pengeluaranBulanIniPeriod');
+        const totalKeuanganPeriodEl = document.getElementById('totalKeuanganPeriod');
+
+        // Inisialisasi tahun dari 2025 sampai tahun berjalan + 1
+        function initYearSelect() {
+            const currentYear_ = new Date().getFullYear();
+            const startYear = 2025;
+            
+            for (let year = startYear; year <= currentYear_ + 1; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                if (year === currentYear) {
+                    option.selected = true;
+                }
+                yearSelect.appendChild(option);
+            }
+        }
+
+        // Parse tanggal dengan format DD/MM/YYYY
+        function parseDate(dateStr) {
+            if (!dateStr) return null;
+            
+            // Coba parse dengan format DD/MM/YYYY
+            const parts = dateStr.split('/');
+            if (parts.length === 3) {
+                const day = parseInt(parts[0], 10);
+                const month = parseInt(parts[1], 10) - 1; // Bulan dimulai dari 0
+                const year = parseInt(parts[2], 10);
+                return new Date(year, month, day);
+            }
+            
+            // Fallback ke Date.parse
+            const date = new Date(dateStr);
+            return isNaN(date.getTime()) ? null : date;
+        }
+
+        // Format angka ke Rupiah
+        function formatRupiah(amount) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Format tanggal untuk display
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            try {
+                // Jika sudah dalam format DD/MM/YYYY
+                if (dateStr.includes('/')) {
+                    return dateStr;
+                }
+                
+                const date = new Date(dateStr);
+                if (isNaN(date.getTime())) return dateStr;
+                
+                // Format ke DD/MM/YYYY
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            } catch {
+                return dateStr;
+            }
+        }
+
+        // Fetch data dari Google Sheets (publik)
+        async function fetchData() {
+            try {
+                // Tampilkan loading
+                cardsContainer.innerHTML = `
+                    <div class="loading" style="grid-column: span 2;">
+                        <div class="loading-spinner"></div>
+                        <div>Memuat data keuangan...</div>
+                    </div>
+                `;
+                
+                // Fetch data dari Google Sheets
+                const response = await fetch(SHEET_URL);
+                const text = await response.text();
+                
+                // Parse JSON dari response
+                const jsonText = text.substring(47, text.length - 2);
+                const data = JSON.parse(jsonText);
+                
+                // Ambil rows
+                const rows = data.table.rows;
+                const parsedData = [];
+                
+                // Skip header row (index 0)
+                for (let i = 1; i < rows.length; i++) {
+                    const row = rows[i];
+                    const cells = row.c || [];
+                    
+                    // Kolom A sampai K (0-10)
+                    if (cells.length >= 11) {
+                        // Kolom A: TANGGAL SETORAN
+                        const tanggalSetoran = cells[0]?.v || '';
+                        
+                        // Kolom B: NAMA PENYETOR
+                        const namaPenyetor = cells[1]?.v || '';
+                        
+                        // Kolom C: DARI WILAYAH RW
+                        const dariWilayah = cells[2]?.v || '';
+                        
+                        // Kolom D: NAMA PENERIMA SETORAN
+                        const namaPenerimaSetoran = cells[3]?.v || '';
+                        
+                        // Kolom E: JUMLAH SETORAN
+                        const jumlahSetoran = parseFloat(cells[4]?.v || '0');
+                        
+                        // Kolom F: KETERANGAN SETORAN
+                        const keteranganSetoran = cells[5]?.v || '';
+                        
+                        // Kolom G: TANGGAL PENGELUARAN
+                        const tanggalPengeluaran = cells[6]?.v || '';
+                        
+                        // Kolom H: PILIH PENGIMPUTAN (PEMASUKAN/PENGELUARAN)
+                        const tipe = cells[7]?.v || '';
+                        
+                        // Kolom I: NAMA PENERIMA UANG
+                        const namaPenerimaUang = cells[8]?.v || '';
+                        
+                        // Kolom J: TUJUAN
+                        const tujuan = cells[9]?.v || '';
+                        
+                        // Kolom K: JUMLAH
+                        const jumlahPengeluaran = parseFloat(cells[10]?.v || '0');
+                        
+                        // Hanya proses jika tipe valid
+                        if (tipe === 'PEMASUKAN' || tipe === 'PENGELUARAN') {
+                            const tanggal = tipe === 'PEMASUKAN' ? tanggalSetoran : tanggalPengeluaran;
+                            const parsedDate = parseDate(tanggal);
+                            
+                            if (parsedDate) {
+                                parsedData.push({
+                                    tanggal: tanggal,
+                                    tanggalObj: parsedDate,
+                                    tipe: tipe,
+                                    nama: tipe === 'PEMASUKAN' ? namaPenyetor : namaPenerimaUang,
+                                    wilayah: dariWilayah,
+                                    penerima: tipe === 'PEMASUKAN' ? namaPenerimaSetoran : '',
+                                    jumlah: tipe === 'PEMASUKAN' ? jumlahSetoran : jumlahPengeluaran,
+                                    keterangan: tipe === 'PEMASUKAN' ? keteranganSetoran : tujuan,
+                                    tanggalSetoran: tanggalSetoran,
+                                    tanggalPengeluaran: tanggalPengeluaran
+                                });
+                            }
+                        }
+                    }
+                }
+                
+                allData = parsedData;
+                filterDataByYear();
+                
+                // Set current month ke bulan pertama yang memiliki data atau Juni jika tidak ada
+                if (availableMonths.size > 0) {
+                    const sortedMonths = Array.from(availableMonths).sort((a, b) => a - b);
+                    currentMonth = sortedMonths[0]; // Ambil bulan pertama yang ada datanya
+                } else {
+                    currentMonth = 5; // Juni (0-based, jadi 5 = Juni)
+                }
+                
+                renderMonthTabs();
+                updateDisplay();
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                cardsContainer.innerHTML = `
+                    <div class="empty-state" style="grid-column: span 2;">
+                        <div class="empty-state-icon">📊</div>
+                        <div class="empty-state-title">Gagal Memuat Data</div>
+                        <div class="empty-state-message">
+                            Pastikan spreadsheet dapat diakses publik.<br>
+                            Jika masalah berlanjut, hubungi administrator.
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Filter data berdasarkan tahun yang dipilih
+        function filterDataByYear() {
+            filteredData = allData.filter(item => {
+                return item.tanggalObj && item.tanggalObj.getFullYear() === currentYear;
+            });
+            
+            // Update available months
+            availableMonths.clear();
+            filteredData.forEach(item => {
+                if (item.tanggalObj) {
+                    availableMonths.add(item.tanggalObj.getMonth());
+                }
+            });
+        }
+
+        // Render month tabs
+        function renderMonthTabs() {
+            monthTabs.innerHTML = '';
+            
+            months.forEach((month, index) => {
+                const tab = document.createElement('button');
+                const hasData = availableMonths.has(index);
+                
+                tab.className = `month-tab ${index === currentMonth ? 'active' : ''} ${!hasData ? 'disabled' : ''}`;
+                tab.textContent = month;
+                
+                // Tambah badge jika tidak ada data
+                if (!hasData) {
+                    const badge = document.createElement('span');
+                    badge.className = 'no-data-badge';
+                    badge.textContent = 'kosong';
+                    tab.appendChild(badge);
+                }
+                
+                tab.dataset.month = index;
+                
+                if (hasData) {
+                    tab.addEventListener('click', () => {
+                        document.querySelectorAll('.month-tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        currentMonth = index;
+                        updateDisplay();
+                    });
+                } else {
+                    tab.disabled = true;
+                }
+                
+                monthTabs.appendChild(tab);
+            });
+        }
+
+        // Hitung total untuk bulan tertentu
+        function calculateMonthTotals(month) {
+            const monthData = filteredData.filter(item => {
+                return item.tanggalObj && item.tanggalObj.getMonth() === month;
+            });
+            
+            const totalPemasukan = monthData
+                .filter(item => item.tipe === 'PEMASUKAN')
+                .reduce((sum, item) => sum + item.jumlah, 0);
+                
+            const totalPengeluaran = monthData
+                .filter(item => item.tipe === 'PENGELUARAN')
+                .reduce((sum, item) => sum + item.jumlah, 0);
+                
+            return { totalPemasukan, totalPengeluaran };
+        }
+
+        // Update semua tampilan
+        function updateDisplay() {
+            // Hitung total bulan ini
+            const { totalPemasukan, totalPengeluaran } = calculateMonthTotals(currentMonth);
+            const sisaBulanIni = totalPemasukan - totalPengeluaran;
+            
+            // Hitung total seluruh bulan di tahun yang dipilih
+            const totalPemasukanTahun = filteredData
+                .filter(item => item.tipe === 'PEMASUKAN')
+                .reduce((sum, item) => sum + item.jumlah, 0);
+                
+            const totalPengeluaranTahun = filteredData
+                .filter(item => item.tipe === 'PENGELUARAN')
+                .reduce((sum, item) => sum + item.jumlah, 0);
+                
+            const totalKeuanganTahun = totalPemasukanTahun - totalPengeluaranTahun;
+            
+            // Update stats
+            totalSetoranBulanIniEl.textContent = formatRupiah(totalPemasukan);
+            totalPengeluaranBulanIniEl.textContent = formatRupiah(totalPengeluaran);
+            sisaKeuanganBulanIniEl.textContent = formatRupiah(sisaBulanIni);
+            totalKeuanganSeluruhEl.textContent = formatRupiah(totalKeuanganTahun);
+            
+            setoranBulanIniPeriodEl.textContent = `Bulan ${months[currentMonth]} ${currentYear}`;
+            pengeluaranBulanIniPeriodEl.textContent = `Bulan ${months[currentMonth]} ${currentYear}`;
+            totalKeuanganPeriodEl.textContent = `Tahun ${currentYear}`;
+            
+            // Render cards
+            renderCards();
+        }
+
+        // Render cards untuk bulan yang dipilih
+        function renderCards() {
+            const monthData = filteredData.filter(item => {
+                return item.tanggalObj && item.tanggalObj.getMonth() === currentMonth;
+            });
+            
+            const pemasukanData = monthData
+                .filter(item => item.tipe === 'PEMASUKAN')
+                .sort((a, b) => b.tanggalObj - a.tanggalObj);
+                
+            const pengeluaranData = monthData
+                .filter(item => item.tipe === 'PENGELUARAN')
+                .sort((a, b) => b.tanggalObj - a.tanggalObj);
+            
+            const hasAnyData = pemasukanData.length > 0 || pengeluaranData.length > 0;
+            
+            if (!hasAnyData) {
+                cardsContainer.innerHTML = `
+                    <div class="empty-state" style="grid-column: span 2;">
+                        <div class="empty-state-icon">📋</div>
+                        <div class="empty-state-title">Laporan Keuangan Bulan ini tidak ada atau belum di Input</div>
+                        <div class="empty-state-message">
+                            Untuk bulan ${months[currentMonth]} ${currentYear} belum terdapat data transaksi.
+                            Silakan pilih bulan lain yang sudah memiliki data.
+                        </div>
+                        <div class="empty-state-suggestion">
+                            ${availableMonths.size > 0 ? 'Bulan dengan data: ' + Array.from(availableMonths).sort((a,b)=>a-b).map(m => months[m]).join(', ') : 'Belum ada data untuk tahun ini'}
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            cardsContainer.innerHTML = `
+                <div class="card income">
+                    <div class="card-header">
+                        <h2>
+                            <span>💰</span> 
+                            Riwayat Uang Masuk
+                        </h2>
+                        <span class="badge">${months[currentMonth]} ${currentYear}</span>
+                    </div>
+                    <div class="table-container">
+                        ${pemasukanData.length > 0 ? `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>Nama Penyetor</th>
+                                        <th>Wilayah</th>
+                                        <th>Penerima</th>
+                                        <th>Jumlah</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${pemasukanData.map(item => `
+                                        <tr>
+                                            <td>${formatDate(item.tanggalSetoran || item.tanggal)}</td>
+                                            <td>${item.nama || '-'}</td>
+                                            <td>${item.wilayah || '-'}</td>
+                                            <td>${item.penerima || '-'}</td>
+                                            <td class="amount positive">${formatRupiah(item.jumlah)}</td>
+                                            <td>${item.keterangan || '-'}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        ` : `
+                            <div class="empty-state">
+                                <div class="empty-state-icon">💰</div>
+                                <div class="empty-state-title">Belum Ada Uang Masuk</div>
+                                <div class="empty-state-message">Tidak ada data pemasukan untuk bulan ini</div>
+                            </div>
+                        `}
+                    </div>
+                </div>
+                
+                <div class="card expense">
+                    <div class="card-header">
+                        <h2>
+                            <span>💸</span>
+                            Riwayat Uang Keluar
+                        </h2>
+                        <span class="badge">${months[currentMonth]} ${currentYear}</span>
+                    </div>
+                    <div class="table-container">
+                        ${pengeluaranData.length > 0 ? `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>Penerima</th>
+                                        <th>Tujuan</th>
+                                        <th>Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${pengeluaranData.map(item => `
+                                        <tr>
+                                            <td>${formatDate(item.tanggalPengeluaran || item.tanggal)}</td>
+                                            <td>${item.nama || '-'}</td>
+                                            <td>${item.keterangan || '-'}</td>
+                                            <td class="amount negative">${formatRupiah(item.jumlah)}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        ` : `
+                            <div class="empty-state">
+                                <div class="empty-state-icon">💸</div>
+                                <div class="empty-state-title">Belum Ada Uang Keluar</div>
+                                <div class="empty-state-message">Tidak ada data pengeluaran untuk bulan ini</div>
+                            </div>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Event listener untuk change tahun
+        yearSelect.addEventListener('change', (e) => {
+            currentYear = parseInt(e.target.value);
+            filterDataByYear();
+            
+            // Reset ke bulan pertama yang memiliki data atau Juni
+            if (availableMonths.size > 0) {
+                const sortedMonths = Array.from(availableMonths).sort((a, b) => a - b);
+                currentMonth = sortedMonths[0];
+            } else {
+                currentMonth = 5; // Juni
+            }
+            
+            renderMonthTabs();
+            updateDisplay();
+        });
+
+        // Inisialisasi
+        initYearSelect();
+        fetchData();
+    </script>
+</body>
+</html>

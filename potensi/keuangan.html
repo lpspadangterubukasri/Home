@@ -576,7 +576,7 @@
             font-weight: 600;
         }
 
-        /* Logout Button - Menggantikan back-home */
+        /* Logout Button */
         .logout-button {
             display: inline-flex;
             align-items: center;
@@ -697,7 +697,7 @@
     </style>
 </head>
 <body>
-    <!-- Logout Button - Menggantikan back-home -->
+    <!-- Logout Button -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
         <button onclick="handleLogout()" class="logout-button">
             <i class="fas fa-sign-out-alt"></i> Logout
@@ -889,7 +889,7 @@
     </div>
 
     <script>
-        // ========== SISTEM PENGAMANAN HALAMAN ==========
+        
         (function() {
             // 1. Kunci yang harus cocok dengan yang disimpan saat login
             const LOGIN_KEY = 'lps_pta_auth';
@@ -918,7 +918,7 @@
                 console.log('Akses diizinkan. Selamat datang!');
             }
         })();
-        // ========== AKHIR SISTEM PENGAMANAN ==========
+        
 
         // ========== FUNGSI LOGOUT ==========
         function handleLogout() {

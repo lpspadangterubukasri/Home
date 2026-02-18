@@ -471,6 +471,85 @@
             transform: translateY(0);
         }
 
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-content {
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Warna stat per tema */
+        #rumah-tangga .stat-icon {
+            background: rgba(46, 125, 50, 0.15);
+            color: #1b5e20;
+        }
+        #rumah-tangga .stat-value {
+            color: #1b5e20;
+        }
+
+        #umkm .stat-icon {
+            background: rgba(25, 118, 210, 0.15);
+            color: #0d47a1;
+        }
+        #umkm .stat-value {
+            color: #0d47a1;
+        }
+
+        #badan-usaha .stat-icon {
+            background: rgba(123, 31, 162, 0.15);
+            color: #4a148c;
+        }
+        #badan-usaha .stat-value {
+            color: #4a148c;
+        }
+
         /* Data Table Section */
         .data-section {
             margin-top: 2rem;
@@ -555,7 +634,7 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            margin-top: 10px;
+            margin-bottom: 15px;
         }
 
         .filter-chip {
@@ -1001,6 +1080,9 @@
                 padding: 1.5rem;
                 max-height: 85vh;
             }
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         /* Warna untuk tabel per tema */
@@ -1200,13 +1282,45 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Tombol Submit Pindah ke Sini -->
-            <div class="submit-section">
-                <button class="btn-submit" id="submitAllBtn">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    KIRIM DATA
-                </button>
+
+            <!-- Stats Cards -->
+            <div class="stats-container" id="rt_stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">PESERTA LPS</div>
+                        <div class="stat-value" id="rt_stat_lps">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">SUBSIDI SILANG</div>
+                        <div class="stat-value" id="rt_stat_subsidi">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">TIDAK IKUT</div>
+                        <div class="stat-value" id="rt_stat_tidak">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">TOTAL</div>
+                        <div class="stat-value" id="rt_stat_total">0</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Data Table Section -->
@@ -1225,15 +1339,17 @@
                     </div>
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="rt_search" placeholder="Cari berdasarkan Nama, Alamat, RT, RW..." onkeyup="filterData('rumah-tangga')">
+                        <input type="text" id="rt_search" placeholder="Cari berdasarkan Nama, Alamat, RT, RW, NIK, KK..." onkeyup="filterData('rumah-tangga')">
                     </div>
                 </div>
 
                 <div class="search-filters">
-                    <span class="filter-chip active" onclick="setFilter('rumah-tangga', 'nama')"><i class="fas fa-user"></i> Nama</span>
-                    <span class="filter-chip" onclick="setFilter('rumah-tangga', 'alamat')"><i class="fas fa-map-pin"></i> Alamat</span>
-                    <span class="filter-chip" onclick="setFilter('rumah-tangga', 'rt')"><i class="fas fa-road"></i> RT</span>
-                    <span class="filter-chip" onclick="setFilter('rumah-tangga', 'rw')"><i class="fas fa-road"></i> RW</span>
+                    <span class="filter-chip active" onclick="setFilter('rumah-tangga', 'nama', event)"><i class="fas fa-user"></i> Nama</span>
+                    <span class="filter-chip" onclick="setFilter('rumah-tangga', 'alamat', event)"><i class="fas fa-map-pin"></i> Alamat</span>
+                    <span class="filter-chip" onclick="setFilter('rumah-tangga', 'rt', event)"><i class="fas fa-road"></i> RT</span>
+                    <span class="filter-chip" onclick="setFilter('rumah-tangga', 'rw', event)"><i class="fas fa-road"></i> RW</span>
+                    <span class="filter-chip" onclick="setFilter('rumah-tangga', 'nik', event)"><i class="fas fa-id-card"></i> NIK</span>
+                    <span class="filter-chip" onclick="setFilter('rumah-tangga', 'kk', event)"><i class="fas fa-id-card-clip"></i> KK</span>
                 </div>
 
                 <div class="table-container">
@@ -1434,13 +1550,45 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Tombol Submit Pindah ke Sini -->
-            <div class="submit-section">
-                <button class="btn-submit" id="submitAllBtn">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    KIRIM DATA
-                </button>
+
+            <!-- Stats Cards -->
+            <div class="stats-container" id="umkm_stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">PESERTA LPS</div>
+                        <div class="stat-value" id="umkm_stat_lps">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">PESERTA DLHK</div>
+                        <div class="stat-value" id="umkm_stat_dlhk">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">TIDAK IKUT</div>
+                        <div class="stat-value" id="umkm_stat_tidak">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">TOTAL</div>
+                        <div class="stat-value" id="umkm_stat_total">0</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Data Table Section -->
@@ -1459,15 +1607,17 @@
                     </div>
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="umkm_search" placeholder="Cari berdasarkan Nama, Alamat, RT, RW..." onkeyup="filterData('umkm')">
+                        <input type="text" id="umkm_search" placeholder="Cari berdasarkan Nama, Alamat, RT, RW, NIK, KK..." onkeyup="filterData('umkm')">
                     </div>
                 </div>
 
                 <div class="search-filters">
-                    <span class="filter-chip active" onclick="setFilter('umkm', 'nama')"><i class="fas fa-user"></i> Nama</span>
-                    <span class="filter-chip" onclick="setFilter('umkm', 'alamat')"><i class="fas fa-map-pin"></i> Alamat</span>
-                    <span class="filter-chip" onclick="setFilter('umkm', 'rt')"><i class="fas fa-road"></i> RT</span>
-                    <span class="filter-chip" onclick="setFilter('umkm', 'rw')"><i class="fas fa-road"></i> RW</span>
+                    <span class="filter-chip active" onclick="setFilter('umkm', 'nama', event)"><i class="fas fa-user"></i> Nama</span>
+                    <span class="filter-chip" onclick="setFilter('umkm', 'alamat', event)"><i class="fas fa-map-pin"></i> Alamat</span>
+                    <span class="filter-chip" onclick="setFilter('umkm', 'rt', event)"><i class="fas fa-road"></i> RT</span>
+                    <span class="filter-chip" onclick="setFilter('umkm', 'rw', event)"><i class="fas fa-road"></i> RW</span>
+                    <span class="filter-chip" onclick="setFilter('umkm', 'nik', event)"><i class="fas fa-id-card"></i> NIK</span>
+                    <span class="filter-chip" onclick="setFilter('umkm', 'kk', event)"><i class="fas fa-id-card-clip"></i> KK</span>
                 </div>
 
                 <div class="table-container">
@@ -1670,13 +1820,45 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Tombol Submit Pindah ke Sini -->
-            <div class="submit-section">
-                <button class="btn-submit" id="submitAllBtn">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    KIRIM DATA
-                </button>
+
+            <!-- Stats Cards -->
+            <div class="stats-container" id="bu_stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">PESERTA LPS</div>
+                        <div class="stat-value" id="bu_stat_lps">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">PESERTA DLHK</div>
+                        <div class="stat-value" id="bu_stat_dlhk">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">TIDAK IKUT</div>
+                        <div class="stat-value" id="bu_stat_tidak">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">TOTAL</div>
+                        <div class="stat-value" id="bu_stat_total">0</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Data Table Section -->
@@ -1695,15 +1877,17 @@
                     </div>
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="bu_search" placeholder="Cari berdasarkan Nama, Alamat, RT, RW..." onkeyup="filterData('badan-usaha')">
+                        <input type="text" id="bu_search" placeholder="Cari berdasarkan Nama, Alamat, RT, RW, NIK, KK..." onkeyup="filterData('badan-usaha')">
                     </div>
                 </div>
 
                 <div class="search-filters">
-                    <span class="filter-chip active" onclick="setFilter('badan-usaha', 'nama')"><i class="fas fa-user"></i> Nama</span>
-                    <span class="filter-chip" onclick="setFilter('badan-usaha', 'alamat')"><i class="fas fa-map-pin"></i> Alamat</span>
-                    <span class="filter-chip" onclick="setFilter('badan-usaha', 'rt')"><i class="fas fa-road"></i> RT</span>
-                    <span class="filter-chip" onclick="setFilter('badan-usaha', 'rw')"><i class="fas fa-road"></i> RW</span>
+                    <span class="filter-chip active" onclick="setFilter('badan-usaha', 'nama', event)"><i class="fas fa-user"></i> Nama</span>
+                    <span class="filter-chip" onclick="setFilter('badan-usaha', 'alamat', event)"><i class="fas fa-map-pin"></i> Alamat</span>
+                    <span class="filter-chip" onclick="setFilter('badan-usaha', 'rt', event)"><i class="fas fa-road"></i> RT</span>
+                    <span class="filter-chip" onclick="setFilter('badan-usaha', 'rw', event)"><i class="fas fa-road"></i> RW</span>
+                    <span class="filter-chip" onclick="setFilter('badan-usaha', 'nik', event)"><i class="fas fa-id-card"></i> NIK</span>
+                    <span class="filter-chip" onclick="setFilter('badan-usaha', 'kk', event)"><i class="fas fa-id-card-clip"></i> KK</span>
                 </div>
 
                 <div class="table-container">
@@ -1748,8 +1932,16 @@
             </div>
         </div>
 
+        <!-- Tombol Submit -->
+        <div class="submit-section">
+            <button class="btn-submit" id="submitAllBtn">
+                <i class="fas fa-cloud-upload-alt"></i>
+                KIRIM DATA
+            </button>
+        </div>
+
         <div class="footer">
-            <p>© 2026 Lembaga Pengelola Sampah Padang Terubuk<br>Jika terdapat kendala dalam pengimputan mohon kabari Admin : TRY HOLLY (0821-7008-9590)</p>
+            <p>© 2025 Lembaga Pengelola Sampah Padang Terubuk</p>
         </div>
     </div>
 
@@ -1932,6 +2124,70 @@
         }
         
         return '';
+    }
+
+    // ============ FUNGSI UPDATE STATS ============
+    function updateStats(tabId) {
+        const state = dataState[tabId];
+        const data = state.allData;
+        
+        if (tabId === 'rumah-tangga') {
+            let lps = 0, subsidi = 0, tidak = 0;
+            
+            data.forEach(item => {
+                const status = (item.STATUS || item.STATUS1 || '').toUpperCase();
+                if (status.includes('PESERTA LPS') && !status.includes('SUBSIDI')) {
+                    lps++;
+                } else if (status.includes('SUBSIDI')) {
+                    subsidi++;
+                } else if (status.includes('TIDAK')) {
+                    tidak++;
+                }
+            });
+            
+            document.getElementById('rt_stat_lps').textContent = lps;
+            document.getElementById('rt_stat_subsidi').textContent = subsidi;
+            document.getElementById('rt_stat_tidak').textContent = tidak;
+            document.getElementById('rt_stat_total').textContent = data.length;
+            
+        } else if (tabId === 'umkm') {
+            let lps = 0, dlhk = 0, tidak = 0;
+            
+            data.forEach(item => {
+                const status = (item.STATUS || item.STATUS2 || '').toUpperCase();
+                if (status === 'PESERTA LPS') {
+                    lps++;
+                } else if (status === 'PESERTA DLHK') {
+                    dlhk++;
+                } else if (status === 'TIDAK IKUT LPS') {
+                    tidak++;
+                }
+            });
+            
+            document.getElementById('umkm_stat_lps').textContent = lps;
+            document.getElementById('umkm_stat_dlhk').textContent = dlhk;
+            document.getElementById('umkm_stat_tidak').textContent = tidak;
+            document.getElementById('umkm_stat_total').textContent = data.length;
+            
+        } else if (tabId === 'badan-usaha') {
+            let lps = 0, dlhk = 0, tidak = 0;
+            
+            data.forEach(item => {
+                const status = (item.STATUS || item.STATUS3 || '').toUpperCase();
+                if (status === 'PESERTA LPS') {
+                    lps++;
+                } else if (status === 'PESERTA DLHK') {
+                    dlhk++;
+                } else if (status === 'TIDAK IKUT LPS') {
+                    tidak++;
+                }
+            });
+            
+            document.getElementById('bu_stat_lps').textContent = lps;
+            document.getElementById('bu_stat_dlhk').textContent = dlhk;
+            document.getElementById('bu_stat_tidak').textContent = tidak;
+            document.getElementById('bu_stat_total').textContent = data.length;
+        }
     }
 
     // ============ FUNGSI SWITCH TAB ============
@@ -2122,11 +2378,13 @@
                 });
                 
                 state.filteredData = [...state.allData];
+                updateStats(tabId);
                 applyFilter(tabId);
             } else {
                 showNotification('Gagal memuat data: ' + result.message, true);
                 state.allData = [];
                 state.filteredData = [];
+                updateStats(tabId);
                 renderTable(tabId);
             }
         } catch (error) {
@@ -2134,6 +2392,7 @@
             showNotification('Gagal memuat data dari server', true);
             state.allData = [];
             state.filteredData = [];
+            updateStats(tabId);
             renderTable(tabId);
         }
     };
@@ -2147,16 +2406,35 @@
             state.filteredData = [...state.allData];
         } else {
             state.filteredData = state.allData.filter(item => {
-                if (state.filterBy === 'nama') {
-                    return (item.NAMA_PESERTA || '').toLowerCase().includes(searchTerm);
-                } else if (state.filterBy === 'alamat') {
-                    return (item.ALAMAT || '').toLowerCase().includes(searchTerm);
-                } else if (state.filterBy === 'rt') {
-                    return (item.RT || '').toLowerCase().includes(searchTerm);
-                } else if (state.filterBy === 'rw') {
-                    return (item.RW || '').toLowerCase().includes(searchTerm);
+                // Ambil nilai kolom yang akan dicari
+                const nama = (item.NAMA_PESERTA || item.NAMA_PESERTA1 || item.NAMA_PESERTA2 || item.NAMA_PESERTA3 || '').toLowerCase();
+                const alamat = (item.ALAMAT || item.ALAMAT1 || item.ALAMAT2 || item.ALAMAT3 || '').toLowerCase();
+                const rt = (item.RT || item.RT1 || item.RT2 || item.RT3 || '').toLowerCase();
+                const rw = (item.RW || item.RW1 || item.RW2 || item.RW3 || '').toLowerCase();
+                const nik = (item.NO_NIK || item.NO_NIK1 || item.NO_NIK2 || item.NO_NIK3 || '').toLowerCase();
+                const kk = (item.NO_KK || item.NO_KK1 || item.NO_KK2 || item.NO_KK3 || '').toLowerCase();
+
+                switch (state.filterBy) {
+                    case 'nama':
+                        return nama.includes(searchTerm);
+                    case 'alamat':
+                        return alamat.includes(searchTerm);
+                    case 'rt':
+                        return rt.includes(searchTerm);
+                    case 'rw':
+                        return rw.includes(searchTerm);
+                    case 'nik':
+                        return nik.includes(searchTerm);
+                    case 'kk':
+                        return kk.includes(searchTerm);
+                    default:
+                        return nama.includes(searchTerm) || 
+                               alamat.includes(searchTerm) || 
+                               rt.includes(searchTerm) || 
+                               rw.includes(searchTerm) ||
+                               nik.includes(searchTerm) ||
+                               kk.includes(searchTerm);
                 }
-                return true;
             });
         }
 
@@ -2274,12 +2552,16 @@
 
     // ============ FUNGSI SET FILTER ============
     window.setFilter = function(tabId, filterBy, event) {
+        // Hapus class active dari semua chip di tab ini
         const chips = document.querySelectorAll(`#${tabId} .filter-chip`);
         chips.forEach(chip => chip.classList.remove('active'));
-        event.target.classList.add('active');
+        
+        // Tambah class active ke chip yang diklik
+        event.currentTarget.classList.add('active');
 
         dataState[tabId].filterBy = filterBy;
-        filterData(tabId);
+        dataState[tabId].currentPage = 1;
+        applyFilter(tabId);
     };
 
     // ============ FUNGSI CHANGE PAGE ============
@@ -2846,6 +3128,7 @@
                     dataState[tabId].filteredData[filteredDataIndex] = { ...updatedData, rowIndex: currentEditRowIndex };
                 }
 
+                updateStats(tabId);
                 renderTable(tabId);
                 closeEditModal();
                 showNotification('Data berhasil diperbarui');
@@ -2946,6 +3229,4 @@
     window.formatRT_RW = formatRT_RW;
 </script>
 </body>
-
 </html>
-

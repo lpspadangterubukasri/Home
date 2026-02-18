@@ -1323,9 +1323,9 @@
                 </div>
             </div>
             
-            <!-- Tombol Submit Pindah ke Sini -->
+            <!-- Tombol Submit Rumah Tangga -->
             <div class="submit-section">
-                <button class="btn-submit" id="submitAllBtn">
+                <button class="btn-submit" id="submitRumahTanggaBtn">
                     <i class="fas fa-cloud-upload-alt"></i>
                     KIRIM DATA
                 </button>
@@ -1599,9 +1599,9 @@
                 </div>
             </div>
             
-            <!-- Tombol Submit Pindah ke Sini -->
+            <!-- Tombol Submit UMKM -->
             <div class="submit-section">
-                <button class="btn-submit" id="submitAllBtn">
+                <button class="btn-submit" id="submitUmkmBtn">
                     <i class="fas fa-cloud-upload-alt"></i>
                     KIRIM DATA
                 </button>
@@ -1877,9 +1877,9 @@
                 </div>
             </div>
             
-            <!-- Tombol Submit Pindah ke Sini -->
+            <!-- Tombol Submit Badan Usaha -->
             <div class="submit-section">
-                <button class="btn-submit" id="submitAllBtn">
+                <button class="btn-submit" id="submitBadanUsahaBtn">
                     <i class="fas fa-cloud-upload-alt"></i>
                     KIRIM DATA
                 </button>
@@ -2287,73 +2287,6 @@
             top: 0,
             behavior: 'smooth'
         });
-    }
-
-    // ============ FUNGSI AMBIL DATA FORM ============
-    function getActiveFormData() {
-        const activeTab = document.querySelector('.tab-content.active').id;
-
-        if (activeTab === 'rumah-tangga') {
-            return {
-                sheetName: 'RUMAHTANGGA',
-                TANGGAL_INPUT1: document.getElementById('rt_tanggal').value || '',
-                NAMA_PESERTA1: document.getElementById('rt_nama').value.toUpperCase() || '',
-                NO_NIK1: document.getElementById('rt_nik').value || '',
-                NO_KK1: document.getElementById('rt_kk').value || '',
-                ALAMAT1: document.getElementById('rt_alamat').value.toUpperCase() || '',
-                RT1: document.getElementById('rt_rt').value || '',
-                RW1: document.getElementById('rt_rw').value || '',
-                KELURAHAN1: document.getElementById('rt_kelurahan').value.toUpperCase() || 'PADANG TERUBUK',
-                KECAMATAN1: document.getElementById('rt_kecamatan').value.toUpperCase() || 'SENAPELAN',
-                KOTA1: document.getElementById('rt_kota').value.toUpperCase() || 'PEKANBARU',
-                PROVINSI1: document.getElementById('rt_provinsi').value.toUpperCase() || 'RIAU',
-                NO_TELP1: document.getElementById('rt_telp').value || '',
-                STATUS1: document.getElementById('rt_status').value || '',
-                TARIF_IURAN1: document.getElementById('rt_tarif').value || '0'
-            };
-        }
-        else if (activeTab === 'umkm') {
-            return {
-                sheetName: 'UMKM',
-                TANGGAL_INPUT2: document.getElementById('umkm_tanggal').value || '',
-                NAMA_PESERTA2: document.getElementById('umkm_nama').value.toUpperCase() || '',
-                NAMA_UMKM2: document.getElementById('umkm_nama_usaha').value.toUpperCase() || '',
-                NO_SURAT_IZIN_USAHA_UMKM2: document.getElementById('umkm_no_izin').value.toUpperCase() || '',
-                NO_NIK2: document.getElementById('umkm_nik').value || '',
-                NO_KK2: document.getElementById('umkm_kk').value || '',
-                ALAMAT2: document.getElementById('umkm_alamat').value.toUpperCase() || '',
-                RT2: document.getElementById('umkm_rt').value || '',
-                RW2: document.getElementById('umkm_rw').value || '',
-                KELURAHAN2: document.getElementById('umkm_kelurahan').value.toUpperCase() || 'PADANG TERUBUK',
-                KECAMATAN2: document.getElementById('umkm_kecamatan').value.toUpperCase() || 'SENAPELAN',
-                KOTA2: document.getElementById('umkm_kota').value.toUpperCase() || 'PEKANBARU',
-                PROVINSI2: document.getElementById('umkm_provinsi').value.toUpperCase() || 'RIAU',
-                NO_TELP2: document.getElementById('umkm_telp').value || '',
-                STATUS2: document.getElementById('umkm_status').value || '',
-                TARIF_IURAN2: document.getElementById('umkm_tarif').value || '0'
-            };
-        }
-        else if (activeTab === 'badan-usaha') {
-            return {
-                sheetName: 'BADANUSAHA',
-                TANGGAL_INPUT3: document.getElementById('bu_tanggal').value || '',
-                NAMA_PESERTA3: document.getElementById('bu_nama').value.toUpperCase() || '',
-                NAMA_BADAN_USAHA3: document.getElementById('bu_nama_usaha').value.toUpperCase() || '',
-                NO_SURAT_IZIN_BADAN_USAHA3: document.getElementById('bu_no_izin').value.toUpperCase() || '',
-                NO_NIK3: document.getElementById('bu_nik').value || '',
-                NO_KK3: document.getElementById('bu_kk').value || '',
-                ALAMAT3: document.getElementById('bu_alamat').value.toUpperCase() || '',
-                RT3: document.getElementById('bu_rt').value || '',
-                RW3: document.getElementById('bu_rw').value || '',
-                KELURAHAN3: document.getElementById('bu_kelurahan').value.toUpperCase() || 'PADANG TERUBUK',
-                KECAMATAN3: document.getElementById('bu_kecamatan').value.toUpperCase() || 'SENAPELAN',
-                KOTA3: document.getElementById('bu_kota').value.toUpperCase() || 'PEKANBARU',
-                PROVINSI3: document.getElementById('bu_provinsi').value.toUpperCase() || 'RIAU',
-                NO_TELP3: document.getElementById('bu_telp').value || '',
-                STATUS3: document.getElementById('bu_status').value || '',
-                TARIF_IURAN3: document.getElementById('bu_tarif').value || '0'
-            };
-        }
     }
 
     // ============ FUNGSI LOAD DATA ============
@@ -3158,27 +3091,15 @@
         }
     };
 
-    // ============ HANDLE SUBMIT ============
-    document.getElementById('submitAllBtn').addEventListener('click', async () => {
-        const activeTab = document.querySelector('.tab-content.active').id;
+    // ============ HANDLE SUBMIT RUMAH TANGGA ============
+    document.getElementById('submitRumahTanggaBtn').addEventListener('click', async () => {
+        const activeTab = 'rumah-tangga';
         let isValid = true;
         let errorMessage = '';
 
-        if (activeTab === 'rumah-tangga') {
-            if (!document.getElementById('rt_nama').value) {
-                isValid = false;
-                errorMessage = 'Nama peserta harus diisi!';
-            }
-        } else if (activeTab === 'umkm') {
-            if (!document.getElementById('umkm_nama').value) {
-                isValid = false;
-                errorMessage = 'Nama pemilik harus diisi!';
-            }
-        } else {
-            if (!document.getElementById('bu_nama').value) {
-                isValid = false;
-                errorMessage = 'Nama penanggung jawab harus diisi!';
-            }
+        if (!document.getElementById('rt_nama').value) {
+            isValid = false;
+            errorMessage = 'Nama peserta harus diisi!';
         }
 
         if (!isValid) {
@@ -3188,7 +3109,23 @@
 
         loading.classList.add('active');
 
-        const formData = getActiveFormData();
+        const formData = {
+            sheetName: 'RUMAHTANGGA',
+            TANGGAL_INPUT1: document.getElementById('rt_tanggal').value || '',
+            NAMA_PESERTA1: document.getElementById('rt_nama').value.toUpperCase() || '',
+            NO_NIK1: document.getElementById('rt_nik').value || '',
+            NO_KK1: document.getElementById('rt_kk').value || '',
+            ALAMAT1: document.getElementById('rt_alamat').value.toUpperCase() || '',
+            RT1: document.getElementById('rt_rt').value || '',
+            RW1: document.getElementById('rt_rw').value || '',
+            KELURAHAN1: document.getElementById('rt_kelurahan').value.toUpperCase() || 'PADANG TERUBUK',
+            KECAMATAN1: document.getElementById('rt_kecamatan').value.toUpperCase() || 'SENAPELAN',
+            KOTA1: document.getElementById('rt_kota').value.toUpperCase() || 'PEKANBARU',
+            PROVINSI1: document.getElementById('rt_provinsi').value.toUpperCase() || 'RIAU',
+            NO_TELP1: document.getElementById('rt_telp').value || '',
+            STATUS1: document.getElementById('rt_status').value || '',
+            TARIF_IURAN1: document.getElementById('rt_tarif').value || '0'
+        };
 
         try {
             const response = await fetch(APPS_SCRIPT_URL, {
@@ -3206,7 +3143,139 @@
 
             if (result.success) {
                 modal.classList.add('active');
-                loadData(activeTab);
+                loadData('rumah-tangga');
+            } else {
+                showNotification('Gagal menyimpan: ' + result.message, true);
+            }
+
+        } catch (error) {
+            loading.classList.remove('active');
+            console.error('Error detail:', error);
+            showNotification('Gagal terhubung ke server', true);
+        }
+    });
+
+    // ============ HANDLE SUBMIT UMKM ============
+    document.getElementById('submitUmkmBtn').addEventListener('click', async () => {
+        const activeTab = 'umkm';
+        let isValid = true;
+        let errorMessage = '';
+
+        if (!document.getElementById('umkm_nama').value) {
+            isValid = false;
+            errorMessage = 'Nama pemilik harus diisi!';
+        }
+
+        if (!isValid) {
+            showNotification(errorMessage, true);
+            return;
+        }
+
+        loading.classList.add('active');
+
+        const formData = {
+            sheetName: 'UMKM',
+            TANGGAL_INPUT2: document.getElementById('umkm_tanggal').value || '',
+            NAMA_PESERTA2: document.getElementById('umkm_nama').value.toUpperCase() || '',
+            NAMA_UMKM2: document.getElementById('umkm_nama_usaha').value.toUpperCase() || '',
+            NO_SURAT_IZIN_USAHA_UMKM2: document.getElementById('umkm_no_izin').value.toUpperCase() || '',
+            NO_NIK2: document.getElementById('umkm_nik').value || '',
+            NO_KK2: document.getElementById('umkm_kk').value || '',
+            ALAMAT2: document.getElementById('umkm_alamat').value.toUpperCase() || '',
+            RT2: document.getElementById('umkm_rt').value || '',
+            RW2: document.getElementById('umkm_rw').value || '',
+            KELURAHAN2: document.getElementById('umkm_kelurahan').value.toUpperCase() || 'PADANG TERUBUK',
+            KECAMATAN2: document.getElementById('umkm_kecamatan').value.toUpperCase() || 'SENAPELAN',
+            KOTA2: document.getElementById('umkm_kota').value.toUpperCase() || 'PEKANBARU',
+            PROVINSI2: document.getElementById('umkm_provinsi').value.toUpperCase() || 'RIAU',
+            NO_TELP2: document.getElementById('umkm_telp').value || '',
+            STATUS2: document.getElementById('umkm_status').value || '',
+            TARIF_IURAN2: document.getElementById('umkm_tarif').value || '0'
+        };
+
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(formData).toString()
+            });
+
+            const result = await response.json();
+            
+            loading.classList.remove('active');
+
+            if (result.success) {
+                modal.classList.add('active');
+                loadData('umkm');
+            } else {
+                showNotification('Gagal menyimpan: ' + result.message, true);
+            }
+
+        } catch (error) {
+            loading.classList.remove('active');
+            console.error('Error detail:', error);
+            showNotification('Gagal terhubung ke server', true);
+        }
+    });
+
+    // ============ HANDLE SUBMIT BADAN USAHA ============
+    document.getElementById('submitBadanUsahaBtn').addEventListener('click', async () => {
+        const activeTab = 'badan-usaha';
+        let isValid = true;
+        let errorMessage = '';
+
+        if (!document.getElementById('bu_nama').value) {
+            isValid = false;
+            errorMessage = 'Nama penanggung jawab harus diisi!';
+        }
+
+        if (!isValid) {
+            showNotification(errorMessage, true);
+            return;
+        }
+
+        loading.classList.add('active');
+
+        const formData = {
+            sheetName: 'BADANUSAHA',
+            TANGGAL_INPUT3: document.getElementById('bu_tanggal').value || '',
+            NAMA_PESERTA3: document.getElementById('bu_nama').value.toUpperCase() || '',
+            NAMA_BADAN_USAHA3: document.getElementById('bu_nama_usaha').value.toUpperCase() || '',
+            NO_SURAT_IZIN_BADAN_USAHA3: document.getElementById('bu_no_izin').value.toUpperCase() || '',
+            NO_NIK3: document.getElementById('bu_nik').value || '',
+            NO_KK3: document.getElementById('bu_kk').value || '',
+            ALAMAT3: document.getElementById('bu_alamat').value.toUpperCase() || '',
+            RT3: document.getElementById('bu_rt').value || '',
+            RW3: document.getElementById('bu_rw').value || '',
+            KELURAHAN3: document.getElementById('bu_kelurahan').value.toUpperCase() || 'PADANG TERUBUK',
+            KECAMATAN3: document.getElementById('bu_kecamatan').value.toUpperCase() || 'SENAPELAN',
+            KOTA3: document.getElementById('bu_kota').value.toUpperCase() || 'PEKANBARU',
+            PROVINSI3: document.getElementById('bu_provinsi').value.toUpperCase() || 'RIAU',
+            NO_TELP3: document.getElementById('bu_telp').value || '',
+            STATUS3: document.getElementById('bu_status').value || '',
+            TARIF_IURAN3: document.getElementById('bu_tarif').value || '0'
+        };
+
+        try {
+            const response = await fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(formData).toString()
+            });
+
+            const result = await response.json();
+            
+            loading.classList.remove('active');
+
+            if (result.success) {
+                modal.classList.add('active');
+                loadData('badan-usaha');
             } else {
                 showNotification('Gagal menyimpan: ' + result.message, true);
             }
@@ -3246,4 +3315,3 @@
 </script>
 </body>
 </html>
-

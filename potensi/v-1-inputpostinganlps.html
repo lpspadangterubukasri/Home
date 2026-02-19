@@ -740,38 +740,76 @@
             fileInput.click();
         });
         
-        // Handle pilih file
+        // Handle pilih file - VERSI MEMPERBolehkan PILIH 4 FOTO SEKALIGUS
         fileInput.addEventListener('change', (e) => {
             const files = Array.from(e.target.files);
             
-            // Batasi maksimal 4 file
+            // CEK TOTAL file yang akan ditambahkan + yang sudah ada
             if (selectedFiles.length + files.length > 4) {
-                showNotification('error', 'Maksimal 4 foto', 'Hanya bisa upload maksimal 4 foto');
+                const sisaSlot = 4 - selectedFiles.length;
+                showNotification('error', 'Maksimal 4 foto', 
+                    `Anda sudah memilih ${selectedFiles.length} foto. Hanya bisa tambah ${sisaSlot > 0 ? sisaSlot : 0} foto lagi`);
+                
+                // Reset file input dan keluar
+                fileInput.value = '';
                 return;
             }
             
-            // Validasi tipe file
-            const validFiles = files.filter(file => {
-                const isValid = file.type === 'image/jpeg' || file.type === 'image/png';
-                if (!isValid) {
-                    showNotification('error', 'Format tidak didukung', 'Hanya file JPG dan PNG yang diperbolehkan');
+            // Validasi tipe file (hanya JPG/PNG)
+            const validFiles = [];
+            const invalidFiles = [];
+            
+            files.forEach(file => {
+                const isValidType = file.type === 'image/jpeg' || 
+                                   file.type === 'image/jpg' || 
+                                   file.type === 'image/png' ||
+                                   file.type === 'image/JPG' || 
+                                   file.type === 'image/PNG' || 
+                                   file.type === 'image/JPEG';
+                
+                if (isValidType) {
+                    validFiles.push(file);
+                } else {
+                    invalidFiles.push(file.name);
                 }
-                return isValid;
             });
             
-            // Tambahkan ke array
-            selectedFiles = [...selectedFiles, ...validFiles];
+            // Tampilkan notifikasi jika ada file tidak valid
+            if (invalidFiles.length > 0) {
+                showNotification('error', 'Format tidak didukung', 
+                    `${invalidFiles.length} file bukan JPG/PNG: ${invalidFiles.join(', ').substring(0, 50)}...`);
+            }
             
-            // Update preview
-            updatePreview();
+            // Tambahkan file valid ke array
+            if (validFiles.length > 0) {
+                selectedFiles = [...selectedFiles, ...validFiles];
+                
+                // Update preview
+                updatePreview();
+                
+                // Beri tahu jumlah foto yang berhasil ditambahkan
+                showNotification('success', 'Berhasil', 
+                    `${validFiles.length} foto ditambahkan. Total: ${selectedFiles.length}/4`);
+                
+                // Notifikasi jika sudah mencapai maksimal
+                if (selectedFiles.length === 4) {
+                    showNotification('success', 'Maksimal tercapai', 
+                        'Anda sudah memilih 4 foto');
+                }
+            }
             
-            // Reset file input
+            // Reset file input agar bisa pilih file yang sama lagi
             fileInput.value = '';
         });
         
         // Update preview gambar
         function updatePreview() {
             previewContainer.innerHTML = '';
+            
+            if (selectedFiles.length === 0) {
+                // Kosongkan preview
+                return;
+            }
             
             selectedFiles.forEach((file, index) => {
                 const reader = new FileReader();
@@ -799,6 +837,10 @@
         function removeFile(index) {
             selectedFiles.splice(index, 1);
             updatePreview();
+            
+            // Beri tahu setelah hapus
+            showNotification('success', 'Foto dihapus', 
+                `Sisa ${selectedFiles.length}/4 foto`);
         }
         
         // =============================================
@@ -866,24 +908,29 @@
             
             // Disable tombol submit
             const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
             
             try {
                 // Konversi file ke base64
-                const filePromises = selectedFiles.map(file => {
-                    return new Promise((resolve) => {
-                        const reader = new FileReader();
-                        reader.onload = (e) => resolve({
-                            name: file.name,
-                            type: file.type,
-                            data: e.target.result.split(',')[1]
-                        });
-                        reader.readAsDataURL(file);
-                    });
-                });
+                let fileData = [];
                 
-                const fileData = await Promise.all(filePromises);
+                if (selectedFiles.length > 0) {
+                    const filePromises = selectedFiles.map(file => {
+                        return new Promise((resolve) => {
+                            const reader = new FileReader();
+                            reader.onload = (e) => resolve({
+                                name: file.name,
+                                type: file.type,
+                                data: e.target.result.split(',')[1] // Ambil base64 tanpa prefix
+                            });
+                            reader.readAsDataURL(file);
+                        });
+                    });
+                    
+                    fileData = await Promise.all(filePromises);
+                }
                 
                 // Siapkan data
                 const formData = {
@@ -906,7 +953,7 @@
                     body: JSON.stringify(formData)
                 });
                 
-                // Tampilkan modal sukses (bukan redirect otomatis)
+                // Tampilkan modal sukses
                 showSuccessModal();
                 
             } catch (error) {
@@ -915,7 +962,7 @@
             } finally {
                 // Enable tombol submit
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Postingan';
+                submitBtn.innerHTML = originalText;
             }
         });
         
@@ -939,11 +986,79 @@
         });
         
         // =============================================
-        // CEK KONEKSI
+        // CEK KONEKSI DAN FITUR TAMBAHAN
         // =============================================
         console.log('📝 Halaman Postingan LPS - Versi Desktop siap!');
         console.log('🔗 URL Apps Script:', APPS_SCRIPT_URL);
+        console.log('📸 Fitur: Bisa pilih 4 foto sekaligus!');
+        
+        // Tambahan: Drag & Drop support
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = 'rgba(87, 197, 182, 0.15)';
+            uploadArea.style.borderColor = 'var(--primary)';
+        });
+        
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = 'rgba(87, 197, 182, 0.04)';
+            uploadArea.style.borderColor = 'var(--secondary)';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = 'rgba(87, 197, 182, 0.04)';
+            uploadArea.style.borderColor = 'var(--secondary)';
+            
+            const files = Array.from(e.dataTransfer.files);
+            
+            // Trigger validasi yang sama seperti file input
+            if (files.length > 0) {
+                // Buat event palsu untuk memakai validasi yang sama
+                const fakeEvent = {
+                    target: {
+                        files: files
+                    }
+                };
+                fileInput.dispatchEvent(new Event('change')); // Ini tidak akan membawa files
+                
+                // Alternatif: panggil langsung logic validasi
+                handleFileSelection(files);
+            }
+        });
+        
+        // Fungsi handle file selection (dipisah agar bisa dipakai dari drag & drop)
+        function handleFileSelection(files) {
+            // CEK TOTAL file yang akan ditambahkan + yang sudah ada
+            if (selectedFiles.length + files.length > 4) {
+                const sisaSlot = 4 - selectedFiles.length;
+                showNotification('error', 'Maksimal 4 foto', 
+                    `Anda sudah memilih ${selectedFiles.length} foto. Hanya bisa tambah ${sisaSlot > 0 ? sisaSlot : 0} foto lagi`);
+                return;
+            }
+            
+            // Validasi tipe file
+            const validFiles = [];
+            files.forEach(file => {
+                const isValidType = file.type === 'image/jpeg' || 
+                                   file.type === 'image/jpg' || 
+                                   file.type === 'image/png' ||
+                                   file.type === 'image/JPG' || 
+                                   file.type === 'image/PNG' || 
+                                   file.type === 'image/JPEG';
+                
+                if (isValidType) {
+                    validFiles.push(file);
+                }
+            });
+            
+            if (validFiles.length > 0) {
+                selectedFiles = [...selectedFiles, ...validFiles];
+                updatePreview();
+                showNotification('success', 'Berhasil', 
+                    `${validFiles.length} foto ditambahkan via drag & drop. Total: ${selectedFiles.length}/4`);
+            }
+        }
     </script>
-</body>
 
 </html>

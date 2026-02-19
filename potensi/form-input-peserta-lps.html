@@ -2020,22 +2020,80 @@
         });
     });
 
-    // Filter angka untuk semua input
-    document.querySelectorAll('.nik-input, .kk-input, .telp-input, .rt-input, .rw-input').forEach(input => {
-        input.addEventListener('input', function() {
-            // Hanya angka
-            this.value = this.value.replace(/[^0-9]/g, '');
-
-            // Batasi panjang
-            if (this.classList.contains('nik-input') || this.classList.contains('kk-input')) {
-                if (this.value.length > 16) this.value = this.value.slice(0, 16);
-            } else if (this.classList.contains('rt-input') || this.classList.contains('rw-input')) {
-                if (this.value.length > 3) this.value = this.value.slice(0, 3);
-            } else if (this.classList.contains('telp-input')) {
-                if (this.value.length > 15) this.value = this.value.slice(0, 15);
-            }
-        });
+    // Filter untuk input No Telp (boleh + di depan)
+document.querySelectorAll('.nik-input, .kk-input, .rt-input, .rw-input').forEach(input => {
+    input.addEventListener('input', function() {
+        // Hanya angka untuk NIK, KK, RT, RW
+        this.value = this.value.replace(/[^0-9]/g, '');
+        
+        // Batasi panjang
+        if (this.classList.contains('nik-input') || this.classList.contains('kk-input')) {
+            if (this.value.length > 16) this.value = this.value.slice(0, 16);
+        } else if (this.classList.contains('rt-input') || this.classList.contains('rw-input')) {
+            if (this.value.length > 3) this.value = this.value.slice(0, 3);
+        }
     });
+});
+
+// Filter khusus untuk input telp (boleh angka, +, spasi, dan -)
+document.querySelectorAll('.telp-input').forEach(input => {
+    input.addEventListener('input', function() {
+        // Simpan nilai asli untuk deteksi perubahan
+        let originalValue = this.value;
+        
+        // Hapus karakter kecuali angka, +, spasi, dan -
+        let cleaned = this.value.replace(/[^0-9+\-\s]/g, '');
+        
+        // Pastikan hanya satu + di awal
+        if (cleaned.indexOf('+') > 0) {
+            cleaned = cleaned.replace(/\+/g, ''); // Hapus semua +
+        }
+        if (cleaned.startsWith('+')) {
+            // Jika diawali +, biarkan
+            cleaned = '+' + cleaned.substring(1).replace(/[^0-9\-\s]/g, '');
+        } else {
+            // Jika tidak diawali +, hapus semua +
+            cleaned = cleaned.replace(/\+/g, '');
+        }
+        
+        // Batasi panjang (termasuk karakter +, spasi, -)
+        if (cleaned.length > 20) {
+            cleaned = cleaned.slice(0, 20);
+        }
+        
+        // Update nilai jika berbeda
+        if (this.value !== cleaned) {
+            this.value = cleaned;
+        }
+    });
+
+    // Tambahkan event paste khusus
+    input.addEventListener('paste', function(e) {
+        e.preventDefault();
+        let pastedText = (e.clipboardData || window.clipboardData).getData('text');
+        
+        // Bersihkan tapi pertahankan +, angka, spasi, dan -
+        let cleaned = pastedText.replace(/[^0-9+\-\s]/g, '');
+        
+        // Format: pastikan hanya satu + di awal
+        if (cleaned.indexOf('+') > 0) {
+            cleaned = cleaned.replace(/\+/g, '');
+        }
+        if (cleaned.startsWith('+')) {
+            cleaned = '+' + cleaned.substring(1).replace(/[^0-9\-\s]/g, '');
+        } else {
+            cleaned = cleaned.replace(/\+/g, '');
+        }
+        
+        // Batasi panjang
+        if (cleaned.length > 20) {
+            cleaned = cleaned.slice(0, 20);
+        }
+        
+        // Set nilai
+        this.value = cleaned;
+    });
+});
 
     // Fungsi format RT/RW
     window.formatRT_RW = function(input) {

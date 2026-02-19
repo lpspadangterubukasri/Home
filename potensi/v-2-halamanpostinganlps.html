@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Postingan dan informasi terbaru LPS Padang Terubuk Asri">
+    <title>Berita Terbaru LPS - Padang Terubuk Asri</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/postingan.html">
+    <meta property="og:title" content="Postingan LPS Padang Terubuk Asri">
+    <meta property="og:description" content="Informasi terbaru dan kegiatan Lembaga Pengelola Sampah Padang Terubuk Asri">
+    <meta property="og:site_name" content="LPS PADANG TERUBUK ASRI">
+    <meta property="og:image" content="https://lpspadangterubukasri.github.io/Home/data/foto/thumbnail.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===========================================
+           VARIABEL LPS
+        =========================================== */
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --card-bg: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+            --card-shadow: 0 15px 35px rgba(21, 152, 149, 0.12);
+            --green-light: #e8f5e9;
+            --green-medium: #c8e6c9;
+            --green-dark: #388e3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(145deg, #f6f9fc 0%, #edf2f7 100%);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== NOTIFICATION ===== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(26,95,122,0.3);
+            z-index: 9999;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 350px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .notification-text {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .notification-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .notification-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        
+        /* ===== HEADER ===== */
+        .posts-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 60px 30px 40px;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(26,95,122,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .posts-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .header-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-logo-center {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+            margin-bottom: 15px;
+            animation: fadeInDown 0.8s ease;
+        }
+        
+        .header-title-bottom {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.4;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .header-title-bottom .updating-indicator {
+            margin-left: 10px;
+            background: rgba(255,255,255,0.15);
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .stat-badge {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .stat-badge i {
+            color: var(--accent);
+        }
+        
+        .live-badge {
+            background: #10b981;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; transform: scale(0.98); }
+        }
+        
+        .last-update {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 auto;
+            width: fit-content;
+        }
+        
+        .last-update:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .last-update i {
+            transition: transform 0.5s;
+        }
+        
+        .last-update:hover i {
+            transform: rotate(180deg);
+        }
+        
+        /* ===== FILTER SECTION ===== */
+        .filter-section {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 32px;
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+        
+        .filter-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-title i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .filter-title h4 {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .filter-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-end;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .filter-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        
+        .filter-select {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 60px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-select:hover {
+            border-color: var(--secondary);
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(87,197,182,0.1);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .btn-filter {
+            padding: 14px 28px;
+            border-radius: 60px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-filter:hover {
+            background: linear-gradient(135deg, #45b0a1, #128b87);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(21,152,149,0.3);
+        }
+        
+        .btn-reset {
+            padding: 14px 28px;
+            border-radius: 60px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-reset:hover {
+            background: #f8fafc;
+            border-color: var(--secondary);
+        }
+        
+        .active-filter-badge {
+            background: #f1f5f9;
+            padding: 8px 20px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #475569;
+            margin-top: 16px;
+        }
+        
+        /* ===== ENTRY SELECTOR ===== */
+        .entry-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .entry-control {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: white;
+            padding: 8px 16px 8px 20px;
+            border-radius: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        
+        .entry-control span {
+            color: #475569;
+            font-size: 0.9rem;
+        }
+        
+        .entry-select {
+            padding: 10px 18px;
+            border-radius: 40px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-weight: 500;
+            color: var(--dark);
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .timeline-info {
+            background: white;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        
+        .timeline-info i {
+            color: var(--accent);
+        }
+        
+        /* ===== CARD STYLES ===== */
+        .posts-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 15px 35px -12px rgba(0,20,30,0.12);
+            width: 100%;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.6);
+            transition: all 0.25s ease;
+            position: relative;
+            border-left: 8px solid var(--accent);
+        }
+        
+        .card.new-post {
+            border-left: 8px solid #f59e0b;
+            background: linear-gradient(to right, #ffffff, #fffbeb);
+        }
+        
+        .card.new-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #d97706, #f59e0b);
+            background-size: 200% 100%;
+            animation: gradientMove 2s linear infinite;
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+        
+        .card:hover {
+            box-shadow: 0 24px 44px -14px rgba(21,152,149,0.18);
+            transform: translateY(-2px);
+        }
+        
+        .new-label {
+            position: absolute;
+            top: 16px;
+            right: 22px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(245,158,11,0.3);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        .card-preview {
+            display: flex;
+            align-items: center;
+            padding: 16px 22px;
+            gap: 18px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+        
+        .thumbnail {
+            width: 70px;
+            height: 70px;
+            flex-shrink: 0;
+            background: var(--green-light);
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .preview-content {
+            flex: 1;
+        }
+        
+        .post-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        
+        .kategori-badge {
+            background: var(--green-light);
+            color: var(--green-dark);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 60px;
+            border: 1px solid var(--green-medium);
+        }
+        
+        .pemosting-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(26,95,122,0.08);
+            padding: 4px 12px;
+            border-radius: 60px;
+        }
+        
+        .judul-post {
+            font-size: 1.12rem;
+            font-weight: 650;
+            color: #0a1c2a;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .judul-post i {
+            color: var(--accent);
+        }
+        
+        .preview-excerpt {
+            font-size: 0.85rem;
+            color: #4f6f7f;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        
+        .preview-excerpt i {
+            color: var(--accent);
+            font-size: 0.7rem;
+        }
+        
+        .meta-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.8rem;
+            color: #4f6f7f;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-info i {
+            color: var(--accent);
+            margin-right: 4px;
+        }
+        
+        .time-badge {
+            background: rgba(87,197,182,0.1);
+            padding: 4px 12px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .foto-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(87,197,182,0.1);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--secondary);
+        }
+        
+        .share-preview-btn {
+            position: absolute;
+            top: 16px;
+            right: 70px;
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(21,152,149,0.3);
+            transition: all 0.2s;
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 3;
+        }
+        
+        .share-preview-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(21,152,149,0.4);
+        }
+        
+        .share-preview-btn i {
+            font-size: 1.1rem;
+        }
+        
+        .arrow-toggle {
+            width: 42px;
+            height: 42px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.03);
+            transition: all 0.2s;
+            color: var(--secondary);
+        }
+        
+        .card.expanded .arrow-toggle {
+            transform: rotate(180deg);
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+        }
+        
+        .card-detail {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+            background: rgba(249,252,255,0.7);
+        }
+        
+        .card.expanded .card-detail {
+            max-height: 2000px;
+            opacity: 1;
+            padding: 22px 24px 28px;
+            border-top: 1px solid rgba(168,192,207,0.2);
+        }
+        
+        .isi-konten {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: #1f3a4b;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(84,110,122,0.08);
+            white-space: pre-line;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        
+        /* ===== SHARE BUTTONS ===== */
+        .share-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .share-btn {
+            flex: 1;
+            min-width: 50px;
+            padding: 12px 16px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+        
+        .share-btn i {
+            font-size: 1.1rem;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+        
+        .share-wa {
+            background: #25D366;
+        }
+        
+        .share-fb {
+            background: #1877F2;
+        }
+        
+        .share-twitter {
+            background: #1DA1F2;
+        }
+        
+        .share-telegram {
+            background: #0088cc;
+        }
+        
+        .share-email {
+            background: #EA4335;
+        }
+        
+        .share-more {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+        }
+        
+        /* ===== GALERI FOTO (DIBAWAH ISI KONTEN) ===== */
+        .foto-galeri {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(84,110,122,0.08);
+        }
+        
+        .galeri-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .galeri-title i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .galeri-title span {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        /* Grid untuk foto - menyesuaikan dengan jumlah foto */
+        .galeri-grid {
+            display: grid;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        /* Default grid untuk 1 foto */
+        .galeri-grid.grid-1 {
+            grid-template-columns: 1fr;
+        }
+        
+        /* Grid untuk 2 foto */
+        .galeri-grid.grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        /* Grid untuk 3 foto - 2 kolom, baris pertama 2 foto, baris kedua 1 foto */
+        .galeri-grid.grid-3 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        /* Grid untuk 4 foto */
+        .galeri-grid.grid-4 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        /* Item foto */
+        .galeri-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        /* Item khusus untuk grid 3 - item ke-3 memenuhi 2 kolom */
+        .galeri-grid.grid-3 .galeri-item:nth-child(3) {
+            grid-column: span 2;
+        }
+        
+        .galeri-item:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .galeri-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .galeri-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .galeri-item:hover .galeri-overlay {
+            transform: translateY(0);
+        }
+        
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            overflow: auto;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10000;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        
+        .modal-caption {
+            margin: 20px auto;
+            display: block;
+            width: 80%;
+            text-align: center;
+            color: #ccc;
+            font-size: 1rem;
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-nav:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .modal-prev {
+            left: 20px;
+        }
+        
+        .modal-next {
+            right: 20px;
+        }
+        
+        /* ===== INFO SECTION ===== */
+        .info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .info-icon {
+            width: 24px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+        
+        .info-content {
+            flex: 1;
+            line-height: 1.5;
+        }
+        
+        .info-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn i {
+            font-size: 1rem;
+        }
+        
+        .btn-map {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            box-shadow: 0 8px 18px rgba(87,197,182,0.3);
+        }
+        
+        .btn-map:hover {
+            background: linear-gradient(135deg, #45b0a1, #128b87);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(87,197,182,0.4);
+        }
+        
+        .btn-share {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            box-shadow: 0 8px 18px rgba(87,197,182,0.3);
+        }
+        
+        .btn-share:hover {
+            background: linear-gradient(135deg, #45b0a1, #128b87);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(87,197,182,0.4);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 60px;
+            color: #4e6a79;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--green-light);
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #7c8f99;
+            padding: 30px 0;
+            border-top: 1px solid rgba(0,0,0,0.04);
+        }
+        
+        /* ===== UPDATING INDICATOR ===== */
+        .updating-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-left: 15px;
+        }
+        
+        .updating-indicator i {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .posts-header {
+                padding: 40px 20px 30px;
+            }
+            
+            .header-logo-center {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .header-title-bottom {
+                font-size: 1.5rem;
+            }
+            
+            .header-stats {
+                gap: 12px;
+            }
+            
+            .stat-badge {
+                padding: 6px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .filter-grid {
+                flex-direction: column;
+            }
+            
+            .filter-buttons {
+                width: 100%;
+            }
+            
+            .btn-filter, .btn-reset {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .entry-selector {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .entry-control {
+                justify-content: space-between;
+            }
+            
+            .card-preview {
+                flex-wrap: wrap;
+                gap: 12px;
+                padding-right: 60px;
+            }
+            
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .judul-post {
+                font-size: 1rem;
+            }
+            
+            .new-label {
+                position: static;
+                display: inline-block;
+                margin: 15px 15px 0;
+            }
+            
+            .meta-info {
+                gap: 10px;
+            }
+            
+            .share-preview-btn {
+                top: 12px;
+                right: 65px;
+                width: 38px;
+                height: 38px;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+            }
+            
+            .share-btn {
+                width: 100%;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn-map, .btn-share {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            /* Responsive grid untuk mobile */
+            .galeri-grid.grid-1,
+            .galeri-grid.grid-2,
+            .galeri-grid.grid-3,
+            .galeri-grid.grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .galeri-grid.grid-3 .galeri-item:nth-child(3) {
+                grid-column: span 1;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-logo-center {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .header-title-bottom {
+                font-size: 1.2rem;
+            }
+            
+            .header-stats {
+                flex-direction: column;
+            }
+            
+            .stat-badge {
+                width: 100%;
+            }
+            
+            .live-badge {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .last-update {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .filter-title h4 {
+                font-size: 1rem;
+            }
+            
+            .post-badge {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .meta-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .modal-nav {
+                display: none;
+            }
+            
+            .share-preview-btn {
+                top: 10px;
+                right: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NOTIFICATION -->
+    <div class="notification" id="notification">
+        <i class="fas fa-bell"></i>
+        <div class="notification-content">
+            <div class="notification-title" id="notificationTitle">Postingan Baru</div>
+            <div class="notification-text" id="notificationMessage">Ada postingan baru, klik untuk melihat</div>
+        </div>
+        <button class="notification-close" onclick="hideNotification()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <!-- HEADER POSTINGAN -->
+    <div class="posts-header">
+        <div class="container">
+            <div class="header-logo-container">
+                <img src="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png" 
+                     alt="LPS Logo" 
+                     class="header-logo-center">
+                <h1 class="header-title-bottom">
+                    YUK... CARI TAHU KEGIATAN KAMI DISINI...
+                    <span class="updating-indicator" id="updatingIndicator" style="display: none;">
+                        <i class="fas fa-sync-alt fa-spin"></i>
+                        Mengupdate...
+                    </span>
+                </h1>
+            </div>
+
+            <div class="header-stats">
+                <span class="stat-badge">
+                    <i class="fas fa-file-alt"></i>
+                    Total: <span id="totalPosts">0</span>
+                </span>
+                <span class="stat-badge">
+                    <i class="fas fa-clock"></i>
+                    Baru hari ini: <span id="newToday">0</span>
+                </span>
+                
+                <span class="live-badge">
+                    <i class="fas fa-circle"></i>
+                    Server Online
+                </span>
+            </div>
+            <div class="last-update" onclick="manualRefresh()" id="lastUpdate">
+                <i class="fas fa-sync-alt"></i>
+                Menghubungkan ke server...
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- FILTER SECTION -->
+        <div class="filter-section">
+            <div class="filter-title">
+                <i class="fas fa-sliders-h"></i>
+                <h4>Filter Postingan</h4>
+            </div>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <div class="filter-label"><i class="fas fa-tag"></i> Kategori</div>
+                    <select id="filterKategori" class="filter-select">
+                        <option value="SEMUA">Semua Kategori</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label"><i class="fas fa-user"></i> Pemosting</div>
+                    <select id="filterPemosting" class="filter-select">
+                        <option value="SEMUA">Semua Pemosting</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label"><i class="fas fa-calendar"></i> Rentang Waktu</div>
+                    <select id="filterWaktu" class="filter-select">
+                        <option value="SEMUA">Semua Waktu</option>
+                        <option value="HARI_INI">Hari Ini</option>
+                        <option value="MINGGU_INI">Minggu Ini</option>
+                        <option value="BULAN_INI">Bulan Ini</option>
+                        <option value="TAHUN_INI">Tahun Ini</option>
+                    </select>
+                </div>
+                <div class="filter-buttons">
+                    <button id="applyFilterBtn" class="btn-filter">
+                        <i class="fas fa-check"></i> Terapkan
+                    </button>
+                    <button id="resetFilterBtn" class="btn-reset">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                </div>
+            </div>
+            <div id="activeFilterBadge" class="active-filter-badge" style="display: none;">
+                <i class="fas fa-filter"></i> Filter aktif: <span id="filterText"></span>
+                <button id="clearFilterBadge" style="background: none; border: none; color: var(--accent); margin-left: 8px; cursor: pointer;">
+                    <i class="fas fa-times-circle"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- ENTRY SELECTOR -->
+        <div class="entry-selector">
+            <div class="entry-control">
+                <span><i class="fas fa-eye"></i> Tampilkan</span>
+                <select id="entryLimit" class="entry-select">
+                    <option value="10">10 Postingan</option>
+                    <option value="25">25 Postingan</option>
+                    <option value="50">50 Postingan</option>
+                    <option value="100">100 Postingan</option>
+                    <option value="0">Semua</option>
+                </select>
+            </div>
+            <div class="timeline-info" id="showingInfo">
+                <i class="fas fa-info-circle"></i>
+                Menampilkan 0 postingan
+            </div>
+        </div>
+        
+        <!-- POSTINGAN FEED -->
+        <div id="postsFeed" class="posts-feed">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Memuat postingan...</p>
+            </div>
+        </div>
+        
+        <footer>
+            <i class="fas fa-bolt" style="color: var(--accent);"></i>
+            Update real-time dari DATA BASE - LPS Padang Terubuk Asri
+        </footer>
+    </div>
+    
+    <!-- MODAL GAMBAR -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <button class="modal-nav modal-prev" onclick="prevImage()"><i class="fas fa-chevron-left"></i></button>
+        <button class="modal-nav modal-next" onclick="nextImage()"><i class="fas fa-chevron-right"></i></button>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+    
+    <!-- MODAL SHARE (UNTUK PILIHAN SHARE LEBIH BANYAK) -->
+    <div id="shareModal" class="modal" style="background: rgba(0,0,0,0.8);">
+        <span class="close-modal" onclick="closeShareModal()">&times;</span>
+        <div style="background: white; border-radius: 30px; padding: 30px; max-width: 400px; width: 90%; margin: 50px auto;">
+            <h3 style="color: var(--dark); margin-bottom: 20px; text-align: center;">Bagikan ke</h3>
+            <div class="share-buttons" id="shareModalButtons"></div>
+            <button onclick="closeShareModal()" class="btn-reset" style="width: 100%; margin-top: 15px; justify-content: center;">
+                <i class="fas fa-times"></i> Tutup
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // ===========================================
+        // KONFIGURASI - GANTI DENGAN URL APPS SCRIPT ANDA
+        // ===========================================
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwdcNoPRzw0PfPN5H1M7aWq3lesJMmedqoXDtRyI9o0zyLQTjtxrLHMW8Sik6Hk1aY/exec';
+        
+        const STORAGE_KEY = 'lps_posts_expanded';
+        const POSTS_CACHE_KEY = 'lps_posts_data';
+        let expandedCardId = null;
+        let allPosts = [];
+        let filteredPosts = [];
+        let currentLimit = 10;
+        let currentFilter = {
+            kategori: 'SEMUA',
+            pemosting: 'SEMUA',
+            waktu: 'SEMUA'
+        };
+        let updateInterval;
+        let isUpdating = false;
+        let currentImages = [];
+        let currentImageIndex = 0;
+        let currentShareData = null;
+        
+        // ===========================================
+        // FUNGSI SHARE KE MEDIA SOSIAL
+        // ===========================================
+        function shareToWhatsApp(judul, konten, imageUrl) {
+            const text = `${judul}\n\n${konten.substring(0, 100)}...\n\n${imageUrl ? '📸 Lihat foto: ' + imageUrl : ''}\n\nDari LPS Padang Terubuk Asri`;
+            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+        
+        function shareToFacebook(judul, konten, imageUrl) {
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(judul + '\n\n' + konten.substring(0, 100) + '...')}`;
+            window.open(url, '_blank');
+        }
+        
+        function shareToTwitter(judul, konten, imageUrl) {
+            const text = `${judul} - ${konten.substring(0, 80)}...`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
+            window.open(url, '_blank');
+        }
+        
+        function shareToTelegram(judul, konten, imageUrl) {
+            const text = `${judul}\n\n${konten.substring(0, 100)}...\n\n${imageUrl ? '📸 ' + imageUrl : ''}`;
+            const url = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+        
+        function shareToEmail(judul, konten, imageUrl) {
+            const subject = encodeURIComponent(`[LPS] ${judul}`);
+            const body = encodeURIComponent(
+                `${judul}\n\n` +
+                `${konten.substring(0, 200)}...\n\n` +
+                `${imageUrl ? 'Foto: ' + imageUrl + '\n\n' : ''}` +
+                `Lihat selengkapnya di: ${window.location.href}`
+            );
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+        
+        function shareToMore(judul, konten, imageUrl) {
+            if (navigator.share) {
+                navigator.share({
+                    title: judul,
+                    text: konten.substring(0, 100) + '...',
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                // Tampilkan modal dengan pilihan share lainnya
+                showShareModal(judul, konten, imageUrl);
+            }
+        }
+        
+        function showShareModal(judul, konten, imageUrl) {
+            const modal = document.getElementById('shareModal');
+            const buttonsContainer = document.getElementById('shareModalButtons');
+            
+            buttonsContainer.innerHTML = `
+                <button onclick="shareToWhatsApp('${judul.replace(/'/g, "\\'")}', '${konten.replace(/'/g, "\\'")}', '${imageUrl}')" class="share-btn share-wa">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </button>
+                <button onclick="shareToFacebook('${judul.replace(/'/g, "\\'")}', '${konten.replace(/'/g, "\\'")}', '${imageUrl}')" class="share-btn share-fb">
+                    <i class="fab fa-facebook"></i> Facebook
+                </button>
+                <button onclick="shareToTwitter('${judul.replace(/'/g, "\\'")}', '${konten.replace(/'/g, "\\'")}', '${imageUrl}')" class="share-btn share-twitter">
+                    <i class="fab fa-twitter"></i> Twitter
+                </button>
+                <button onclick="shareToTelegram('${judul.replace(/'/g, "\\'")}', '${konten.replace(/'/g, "\\'")}', '${imageUrl}')" class="share-btn share-telegram">
+                    <i class="fab fa-telegram"></i> Telegram
+                </button>
+                <button onclick="shareToEmail('${judul.replace(/'/g, "\\'")}', '${konten.replace(/'/g, "\\'")}', '${imageUrl}')" class="share-btn share-email">
+                    <i class="fas fa-envelope"></i> Email
+                </button>
+            `;
+            
+            modal.classList.add('active');
+        }
+        
+        function closeShareModal() {
+            document.getElementById('shareModal').classList.remove('active');
+        }
+        
+        // Fungsi utama untuk menangani share dari berbagai tombol
+        window.handleShare = function(judul, konten, imageUrl, platform = 'more') {
+            // Bersihkan konten dari tag HTML jika ada
+            const cleanKonten = konten.replace(/<[^>]*>/g, '');
+            
+            // Panggil fungsi share sesuai platform
+            switch(platform) {
+                case 'wa':
+                    shareToWhatsApp(judul, cleanKonten, imageUrl);
+                    break;
+                case 'fb':
+                    shareToFacebook(judul, cleanKonten, imageUrl);
+                    break;
+                case 'twitter':
+                    shareToTwitter(judul, cleanKonten, imageUrl);
+                    break;
+                case 'telegram':
+                    shareToTelegram(judul, cleanKonten, imageUrl);
+                    break;
+                case 'email':
+                    shareToEmail(judul, cleanKonten, imageUrl);
+                    break;
+                default:
+                    shareToMore(judul, cleanKonten, imageUrl);
+            }
+        };
+        
+        // ===========================================
+        // NOTIFICATION SYSTEM
+        // ===========================================
+        function showNotification(title, message, postId) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notificationTitle').textContent = title;
+            document.getElementById('notificationMessage').textContent = message;
+            notification.classList.add('show');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+            
+            // Click notification to scroll to new post
+            notification.onclick = function() {
+                const card = document.querySelector(`[data-card-id="${postId}"]`);
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.classList.add('new-post');
+                    setTimeout(() => {
+                        card.classList.remove('new-post');
+                    }, 2000);
+                }
+                notification.classList.remove('show');
+            };
+        }
+        
+        function hideNotification() {
+            document.getElementById('notification').classList.remove('show');
+        }
+        
+        // ===========================================
+        // UPDATING INDICATOR
+        // ===========================================
+        function setUpdating(updating) {
+            const indicator = document.getElementById('updatingIndicator');
+            if (updating) {
+                indicator.style.display = 'inline-flex';
+            } else {
+                indicator.style.display = 'none';
+            }
+        }
+        
+        // ===========================================
+        // STATE MANAGEMENT - CARD TETAP TERBUKA
+        // ===========================================
+        function saveExpandedCard(cardId) {
+            try {
+                if (cardId) {
+                    localStorage.setItem(STORAGE_KEY, cardId);
+                } else {
+                    localStorage.removeItem(STORAGE_KEY);
+                }
+                expandedCardId = cardId;
+            } catch (e) {
+                console.log('Storage error:', e);
+            }
+        }
+        
+        function getSavedExpandedCard() {
+            try {
+                return localStorage.getItem(STORAGE_KEY);
+            } catch (e) {
+                return null;
+            }
+        }
+        
+        // ===========================================
+        // TOGGLE CARD
+        // ===========================================
+        window.toggleCard = function(cardId) {
+            const card = document.querySelector(`[data-card-id="${cardId}"]`);
+            if (card) {
+                if (card.classList.contains('expanded')) {
+                    card.classList.remove('expanded');
+                    saveExpandedCard(null);
+                } else {
+                    document.querySelectorAll('.card').forEach(c => {
+                        c.classList.remove('expanded');
+                    });
+                    card.classList.add('expanded');
+                    saveExpandedCard(cardId);
+                    
+                    // Scroll ke card yang dibuka dengan smooth
+                    setTimeout(() => {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 100);
+                }
+            }
+        };
+        
+        // ===========================================
+        // CEK POSTINGAN BARU (24 JAM)
+        // ===========================================
+        function isNewPost(timestamp) {
+            if (!timestamp) return false;
+            try {
+                const postDate = new Date(timestamp);
+                const now = new Date();
+                const diffHours = (now - postDate) / (1000 * 60 * 60);
+                return diffHours < 24;
+            } catch {
+                return false;
+            }
+        }
+        
+        // ===========================================
+        // FORMAT TANGGAL
+        // ===========================================
+        function formatDate(timestamp) {
+            if (!timestamp) return 'Tanggal tidak diketahui';
+            
+            try {
+                const date = new Date(timestamp);
+                if (isNaN(date.getTime())) return timestamp;
+                
+                const now = new Date();
+                const diffTime = now - date;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays === 0) {
+                    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+                    if (diffHours === 0) {
+                        const diffMinutes = Math.floor(diffTime / (1000 * 60));
+                        return `${diffMinutes} menit yang lalu`;
+                    }
+                    return `${diffHours} jam yang lalu`;
+                } else if (diffDays === 1) {
+                    return 'Kemarin';
+                } else if (diffDays < 7) {
+                    return `${diffDays} hari yang lalu`;
+                } else if (diffDays < 30) {
+                    const weeks = Math.floor(diffDays / 7);
+                    return `${weeks} minggu yang lalu`;
+                } else if (diffDays < 365) {
+                    const months = Math.floor(diffDays / 30);
+                    return `${months} bulan yang lalu`;
+                } else {
+                    const years = Math.floor(diffDays / 365);
+                    return `${years} tahun yang lalu`;
+                }
+            } catch {
+                return timestamp;
+            }
+        }
+        
+        function formatFullDate(timestamp) {
+            if (!timestamp) return '';
+            try {
+                const date = new Date(timestamp);
+                return date.toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } catch {
+                return timestamp;
+            }
+        }
+        
+        // ===========================================
+        // THUMBNAIL BERDASARKAN PEMOSTING
+        // ===========================================
+        function getThumbnailByPemosting(pemosting) {
+            const lower = pemosting.toLowerCase();
+            
+            if (lower.includes('pengurus')) {
+                return 'https://lpspadangterubukasri.github.io/Home/data/foto/pengurus.png';
+            } else if (lower.includes('petugas angkutan') || lower.includes('petugasangkutan')) {
+                return 'https://lpspadangterubukasri.github.io/Home/data/foto/petugasangkutan.png';
+            } else if (lower.includes('petugas')) {
+                return 'https://lpspadangterubukasri.github.io/Home/data/foto/petugas.png';
+            }
+            
+            return 'data/poto/pengurus.png';
+        }
+        
+        // ===========================================
+        // FILTER FUNGSI
+        // ===========================================
+        function filterByWaktu(post, filter) {
+            if (filter === 'SEMUA') return true;
+            
+            const postDate = new Date(post.timestamp);
+            const now = new Date();
+            
+            const startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const startWeek = new Date(now);
+            startWeek.setDate(now.getDate() - now.getDay());
+            startWeek.setHours(0,0,0,0);
+            
+            const startMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const startYear = new Date(now.getFullYear(), 0, 1);
+            
+            switch(filter) {
+                case 'HARI_INI':
+                    return postDate >= startToday;
+                case 'MINGGU_INI':
+                    return postDate >= startWeek;
+                case 'BULAN_INI':
+                    return postDate >= startMonth;
+                case 'TAHUN_INI':
+                    return postDate >= startYear;
+                default:
+                    return true;
+            }
+        }
+        
+        function applyFilter() {
+            const kategori = document.getElementById('filterKategori').value;
+            const pemosting = document.getElementById('filterPemosting').value;
+            const waktu = document.getElementById('filterWaktu').value;
+            
+            currentFilter = { kategori, pemosting, waktu };
+            
+            filteredPosts = allPosts.filter(post => {
+                if (kategori !== 'SEMUA' && post.kategori !== kategori) return false;
+                if (pemosting !== 'SEMUA' && post.pemosting !== pemosting) return false;
+                if (!filterByWaktu(post, waktu)) return false;
+                return true;
+            });
+            
+            updateFilterBadge();
+            renderPosts();
+        }
+        
+        function resetFilter() {
+            document.getElementById('filterKategori').value = 'SEMUA';
+            document.getElementById('filterPemosting').value = 'SEMUA';
+            document.getElementById('filterWaktu').value = 'SEMUA';
+            currentFilter = { kategori: 'SEMUA', pemosting: 'SEMUA', waktu: 'SEMUA' };
+            filteredPosts = [...allPosts];
+            document.getElementById('activeFilterBadge').style.display = 'none';
+            renderPosts();
+        }
+        
+        function updateFilterBadge() {
+            const badge = document.getElementById('activeFilterBadge');
+            const filterText = document.getElementById('filterText');
+            
+            if (currentFilter.kategori === 'SEMUA' && currentFilter.pemosting === 'SEMUA' && currentFilter.waktu === 'SEMUA') {
+                badge.style.display = 'none';
+                return;
+            }
+            
+            let text = [];
+            if (currentFilter.kategori !== 'SEMUA') text.push(`Kategori: ${currentFilter.kategori}`);
+            if (currentFilter.pemosting !== 'SEMUA') text.push(`Pemosting: ${currentFilter.pemosting}`);
+            if (currentFilter.waktu !== 'SEMUA') {
+                let waktuText = {
+                    'HARI_INI': 'Hari Ini',
+                    'MINGGU_INI': 'Minggu Ini',
+                    'BULAN_INI': 'Bulan Ini',
+                    'TAHUN_INI': 'Tahun Ini'
+                }[currentFilter.waktu] || currentFilter.waktu;
+                text.push(`Waktu: ${waktuText}`);
+            }
+            
+            filterText.innerHTML = text.join(' · ');
+            badge.style.display = 'flex';
+        }
+        
+        function updateFilterOptions() {
+            const kategoriSelect = document.getElementById('filterKategori');
+            const pemostingSelect = document.getElementById('filterPemosting');
+            
+            const kategoris = [...new Set(allPosts.map(p => p.kategori).filter(k => k))];
+            const pemostings = [...new Set(allPosts.map(p => p.pemosting).filter(p => p))];
+            
+            kategoriSelect.innerHTML = '<option value="SEMUA">Semua Kategori</option>';
+            kategoris.forEach(k => {
+                kategoriSelect.innerHTML += `<option value="${k}">${k}</option>`;
+            });
+            
+            pemostingSelect.innerHTML = '<option value="SEMUA">Semua Pemosting</option>';
+            pemostings.forEach(p => {
+                pemostingSelect.innerHTML += `<option value="${p}">${p}</option>`;
+            });
+        }
+        
+        // ===========================================
+        // MODAL GAMBAR
+        // ===========================================
+        window.openModal = function(images, index, caption) {
+            if (typeof images === 'string') {
+                // Single image
+                currentImages = [images];
+                currentImageIndex = 0;
+            } else {
+                // Multiple images
+                currentImages = images;
+                currentImageIndex = index || 0;
+            }
+            
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modal.classList.add('active');
+            modalImg.src = currentImages[currentImageIndex];
+            modalCaption.textContent = caption || `Foto ${currentImageIndex + 1} dari ${currentImages.length}`;
+            
+            // Show/hide navigation buttons
+            const prevBtn = document.querySelector('.modal-prev');
+            const nextBtn = document.querySelector('.modal-next');
+            
+            if (currentImages.length <= 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
+        };
+        
+        window.prevImage = function() {
+            if (currentImages.length > 0) {
+                currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+                document.getElementById('modalImage').src = currentImages[currentImageIndex];
+                document.getElementById('modalCaption').textContent = `Foto ${currentImageIndex + 1} dari ${currentImages.length}`;
+            }
+        };
+        
+        window.nextImage = function() {
+            if (currentImages.length > 0) {
+                currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+                document.getElementById('modalImage').src = currentImages[currentImageIndex];
+                document.getElementById('modalCaption').textContent = `Foto ${currentImageIndex + 1} dari ${currentImages.length}`;
+            }
+        };
+        
+        // Close modal
+        document.querySelector('.close-modal').addEventListener('click', function() {
+            document.getElementById('imageModal').classList.remove('active');
+        });
+        
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('imageModal');
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('imageModal');
+            if (!modal.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                modal.classList.remove('active');
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            }
+        });
+        
+        // ===========================================
+        // RENDER POSTINGAN
+        // ===========================================
+        function renderPosts() {
+            const feed = document.getElementById('postsFeed');
+            
+            if (!filteredPosts || filteredPosts.length === 0) {
+                feed.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-newspaper" style="font-size: 48px; opacity: 0.5; margin-bottom: 20px;"></i>
+                        <h3>Tidak ada postingan</h3>
+                        <p>Belum ada postingan yang tersedia</p>
+                    </div>
+                `;
+                updateStats();
+                return;
+            }
+            
+            const limit = currentLimit === 0 ? filteredPosts.length : currentLimit;
+            const postsToShow = filteredPosts.slice(0, limit);
+            
+            let html = '';
+            
+            postsToShow.forEach((post, index) => {
+                const isNew = isNewPost(post.timestamp);
+                const excerpt = (post.isiKonten || '').replace(/<[^>]*>/g, '').substring(0, 80) + '...';
+                const cardId = `post-${post.id || index}-${post.timestamp}`;
+                const thumbnail = post.thumbnail || getThumbnailByPemosting(post.pemosting);
+                
+                // Ambil gambar pertama untuk thumbnail share
+                const validImages = (post.gambar || []).filter(img => img && img.trim() !== '');
+                const shareImage = validImages.length > 0 ? validImages[0] : thumbnail;
+                const imageCount = validImages.length;
+                
+                // Tentukan class grid berdasarkan jumlah gambar
+                let gridClass = '';
+                if (imageCount === 1) gridClass = 'grid-1';
+                else if (imageCount === 2) gridClass = 'grid-2';
+                else if (imageCount === 3) gridClass = 'grid-3';
+                else if (imageCount >= 4) {
+                    gridClass = 'grid-4';
+                    // Ambil maksimal 4 gambar
+                    validImages.splice(4);
+                }
+                
+                html += `
+                    <div class="card ${isNew ? 'new-post' : ''}" data-card-id="${cardId}">
+                        ${isNew ? '<span class="new-label"><i class="fas fa-bolt"></i> BARU</span>' : ''}
+                        <div class="card-preview" onclick="toggleCard('${cardId}')">
+                            <div class="thumbnail">
+                                <img src="${thumbnail}" onerror="this.src='data/foto/pengurus.png'" loading="lazy">
+                            </div>
+                            <div class="preview-content">
+                                <div class="post-badge">
+                                    ${post.kategori ? `<span class="kategori-badge"><i class="fas fa-tag"></i> ${post.kategori}</span>` : ''}
+                                    <span class="pemosting-badge"><i class="fas fa-user"></i> ${post.pemosting}</span>
+                                </div>
+                                <div class="judul-post">
+                                    <i class="fas fa-pen-square"></i>
+                                    ${post.judul}
+                                </div>
+                                <div class="preview-excerpt">
+                                    <i class="fas fa-quote-right"></i>
+                                    ${excerpt}
+                                </div>
+                                <div class="meta-info">
+                                    <span class="time-badge">
+                                        <i class="far fa-clock"></i>
+                                        ${formatDate(post.timestamp)}
+                                    </span>
+                                    <span class="foto-counter">
+                                        <i class="far fa-images"></i>
+                                        ${imageCount} foto
+                                    </span>
+                                </div>
+                            </div>
+                            <button class="share-preview-btn" onclick="event.stopPropagation(); handleShare('${post.judul.replace(/'/g, "\\'")}', '${(post.isiKonten || '').replace(/'/g, "\\'")}', '${shareImage}', 'more')" title="Bagikan">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <div class="arrow-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="card-detail">
+                            <div class="detail-inner">
+                                <div class="isi-konten">
+                                    ${(post.isiKonten || '').replace(/\n/g, '<br>')}
+                                </div>`;
+                
+                // Galeri Foto (ditempatkan di bawah isi konten)
+                if (imageCount > 0) {
+                    html += `
+                        <div class="foto-galeri">
+                            <div class="galeri-title">
+                                <i class="fas fa-camera"></i>
+                                <span>Dokumentasi (${imageCount} foto)</span>
+                            </div>
+                            <div class="galeri-grid ${gridClass}">`;
+                    
+                    validImages.forEach((gbr, idx) => {
+                        html += `
+                            <div class="galeri-item" onclick="openModal(${JSON.stringify(validImages)}, ${idx}, 'Foto ${idx+1} dari ${imageCount}')">
+                                <img src="${gbr}" loading="lazy" onerror="this.src='data/foto/pengurus.png'">
+                                <div class="galeri-overlay">
+                                    <i class="fas fa-search-plus"></i> Perbesar
+                                </div>
+                            </div>`;
+                    });
+                    
+                    html += `</div></div>`;
+                }
+                
+                // Informasi Tambahan
+                html += `
+                                <div class="info-section">
+                                    <div class="info-row">
+                                        <div class="info-icon">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">WAKTU POSTING</div>
+                                            <div>${formatFullDate(post.timestamp)}</div>
+                                        </div>
+                                    </div>
+                                    <div class="info-row">
+                                        <div class="info-icon">
+                                            <i class="fas fa-user-circle"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">DIPOSTING OLEH</div>
+                                            <div>${post.pemosting}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="share-buttons">
+                                    <button onclick="handleShare('${post.judul.replace(/'/g, "\\'")}', '${(post.isiKonten || '').replace(/'/g, "\\'")}', '${shareImage}', 'wa')" class="share-btn share-wa">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </button>
+                                    <button onclick="handleShare('${post.judul.replace(/'/g, "\\'")}', '${(post.isiKonten || '').replace(/'/g, "\\'")}', '${shareImage}', 'fb')" class="share-btn share-fb">
+                                        <i class="fab fa-facebook"></i> Facebook
+                                    </button>
+                                    <button onclick="handleShare('${post.judul.replace(/'/g, "\\'")}', '${(post.isiKonten || '').replace(/'/g, "\\'")}', '${shareImage}', 'twitter')" class="share-btn share-twitter">
+                                        <i class="fab fa-twitter"></i> Twitter
+                                    </button>
+                                    <button onclick="handleShare('${post.judul.replace(/'/g, "\\'")}', '${(post.isiKonten || '').replace(/'/g, "\\'")}', '${shareImage}', 'telegram')" class="share-btn share-telegram">
+                                        <i class="fab fa-telegram"></i> Telegram
+                                    </button>
+                                    <button onclick="handleShare('${post.judul.replace(/'/g, "\\'")}', '${(post.isiKonten || '').replace(/'/g, "\\'")}', '${shareImage}', 'email')" class="share-btn share-email">
+                                        <i class="fas fa-envelope"></i> Email
+                                    </button>
+                                </div>
+                                
+                                <div class="button-group">`;
+                
+                if (post.linkMap) {
+                    html += `
+                                    <a href="${post.linkMap}" target="_blank" class="btn btn-map">
+                                        <i class="fas fa-map-marked-alt"></i>
+                                        Lihat Peta
+                                    </a>`;
+                }
+                
+                html += `
+                                    <button onclick="handleShare('${post.judul.replace(/'/g, "\\'")}', '${(post.isiKonten || '').replace(/'/g, "\\'")}', '${shareImage}', 'more')" class="btn btn-share">
+                                        <i class="fas fa-share-alt"></i>
+                                        Bagikan Lainnya
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            feed.innerHTML = html;
+            updateStats();
+            
+            // Restore expanded card
+            setTimeout(() => {
+                const savedCardId = getSavedExpandedCard();
+                if (savedCardId) {
+                    const card = document.querySelector(`[data-card-id="${savedCardId}"]`);
+                    if (card) {
+                        card.classList.add('expanded');
+                        expandedCardId = savedCardId;
+                    }
+                }
+            }, 200);
+        }
+        
+        function updateStats() {
+            const newToday = filteredPosts.filter(p => isNewPost(p.timestamp)).length;
+            document.getElementById('totalPosts').textContent = filteredPosts.length;
+            document.getElementById('newToday').textContent = newToday;
+            
+            const limit = currentLimit === 0 ? filteredPosts.length : currentLimit;
+            document.getElementById('showingInfo').innerHTML = `
+                <i class="fas fa-info-circle"></i>
+                Menampilkan ${Math.min(limit, filteredPosts.length)} dari ${filteredPosts.length} postingan
+            `;
+        }
+        
+        // ===========================================
+        // FETCH DATA DARI APPS SCRIPT
+        // ===========================================
+        async function fetchPosts(showUpdateIndicator = true) {
+            if (isUpdating) return;
+            
+            try {
+                if (showUpdateIndicator) {
+                    setUpdating(true);
+                }
+                
+                const url = `${APPS_SCRIPT_URL}?t=${Date.now()}`;
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'no-cache'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    // Filter hanya baris yang terisi (timestamp tidak kosong)
+                    const newPosts = result.data
+                        .filter(post => post.timestamp && post.judul) // Hanya yang punya timestamp dan judul
+                        .map(post => ({
+                            ...post,
+                            thumbnail: getThumbnailByPemosting(post.pemosting),
+                            gambar: (post.gambar || []).filter(g => g) // Filter gambar kosong
+                        }))
+                        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Urutkan berdasarkan timestamp terbaru
+                    
+                    // Cek apakah ada postingan baru
+                    if (allPosts.length > 0 && newPosts.length > allPosts.length) {
+                        const newPost = newPosts.find(np => !allPosts.some(op => op.id === np.id));
+                        if (newPost) {
+                            showNotification(
+                                'Postingan Baru!',
+                                `"${newPost.judul}" oleh ${newPost.pemosting}`,
+                                `post-${newPost.id}-${newPost.timestamp}`
+                            );
+                        }
+                    }
+                    
+                    allPosts = newPosts;
+                    filteredPosts = [...allPosts];
+                    
+                    // Update cache
+                    localStorage.setItem(POSTS_CACHE_KEY, JSON.stringify({
+                        data: allPosts,
+                        timestamp: Date.now()
+                    }));
+                    
+                    updateFilterOptions();
+                    renderPosts();
+                    
+                    document.getElementById('lastUpdate').innerHTML = `
+                        <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                        Terakhir update: ${new Date().toLocaleTimeString('id-ID')} · ${allPosts.length} postingan
+                    `;
+                    
+                } else {
+                    throw new Error(result.message || 'Gagal mengambil data');
+                }
+                
+            } catch (error) {
+                console.error('Fetch error:', error);
+                
+                document.getElementById('lastUpdate').innerHTML = `
+                    <i class="fas fa-exclamation-circle" style="color: #e11d48;"></i>
+                    Gagal terhubung - Mencoba ulang...
+                `;
+                
+                // Coba pakai cache
+                const cached = localStorage.getItem(POSTS_CACHE_KEY);
+                if (cached) {
+                    try {
+                        const cache = JSON.parse(cached);
+                        allPosts = cache.data;
+                        filteredPosts = [...allPosts];
+                        updateFilterOptions();
+                        renderPosts();
+                        
+                        document.getElementById('lastUpdate').innerHTML = `
+                            <i class="fas fa-history" style="color: #f59e0b;"></i>
+                            Data tersimpan: ${new Date(cache.timestamp).toLocaleString()}
+                        `;
+                    } catch (e) {
+                        if (allPosts.length === 0) {
+                            showError();
+                        }
+                    }
+                } else if (allPosts.length === 0) {
+                    showError();
+                }
+            } finally {
+                if (showUpdateIndicator) {
+                    setUpdating(false);
+                }
+            }
+        }
+        
+        function showError() {
+            document.getElementById('postsFeed').innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #e11d48; margin-bottom: 20px;"></i>
+                    <h3>Gagal Memuat Data</h3>
+                    <p>Periksa koneksi internet dan coba lagi</p>
+                    <button onclick="manualRefresh()" class="btn-filter" style="margin-top: 20px;">
+                        <i class="fas fa-sync-alt"></i> Coba Lagi
+                    </button>
+                </div>
+            `;
+        }
+        
+        // ===========================================
+        // MANUAL REFRESH
+        // ===========================================
+        function manualRefresh() {
+            fetchPosts(true);
+        }
+        
+        // ===========================================
+        // INITIALIZATION
+        // ===========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 LPS Postingan dengan Real-time Update dan Share siap');
+            
+            // Event listeners
+            document.getElementById('applyFilterBtn').addEventListener('click', applyFilter);
+            document.getElementById('resetFilterBtn').addEventListener('click', resetFilter);
+            document.getElementById('clearFilterBadge').addEventListener('click', resetFilter);
+            
+            document.getElementById('entryLimit').addEventListener('change', function(e) {
+                currentLimit = parseInt(e.target.value);
+                renderPosts();
+            });
+            
+            // Cek cache dulu sebelum fetch
+            const cached = localStorage.getItem(POSTS_CACHE_KEY);
+            if (cached) {
+                try {
+                    const cache = JSON.parse(cached);
+                    allPosts = cache.data;
+                    filteredPosts = [...allPosts];
+                    updateFilterOptions();
+                    renderPosts();
+                    
+                    document.getElementById('lastUpdate').innerHTML = `
+                        <i class="fas fa-history" style="color: #f59e0b;"></i>
+                        Memuat data tersimpan: ${new Date(cache.timestamp).toLocaleString()}
+                    `;
+                } catch (e) {
+                    // Abaikan, lanjut fetch
+                }
+            }
+            
+            // Fetch data pertama
+            fetchPosts(true);
+            
+            // Auto update setiap 10 menit (tanpa mengganggu user)
+            setInterval(() => {
+                fetchPosts(false);
+            }, 600000);
+        });
+        
+        // Observer untuk menjaga card tetap terbuka
+        const observer = new MutationObserver(function(mutations) {
+            if (expandedCardId) {
+                setTimeout(() => {
+                    const card = document.querySelector(`[data-card-id="${expandedCardId}"]`);
+                    if (card && !card.classList.contains('expanded')) {
+                        card.classList.add('expanded');
+                    }
+                }, 200);
+            }
+        });
+        
+        window.addEventListener('load', function() {
+            const feed = document.getElementById('postsFeed');
+            if (feed) {
+                observer.observe(feed, { childList: true, subtree: true });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -2265,499 +2265,453 @@
     
         <!-- JavaScript -->
     <script>
-    // ===========================================
-    // KONFIGURASI API - URL BARU AKTIF!
-    // ===========================================
-    const LPS_API_URL = 'https://script.google.com/macros/s/AKfycbyBfMwJOa9Cy9y8n_Lki-fu8g8JhKPddeh_GIdvsf-8eTI7JQfJ7DBubyPdTSKcZv4/exec';
+// ===========================================
+// KONFIGURASI API - URL BARU!
+// ===========================================
+const LPS_API_URL = 'https://script.google.com/macros/s/AKfycbwIWeS5G09Ec7EleMkGt7DXpnokQtNTWseDPU8bivWsxGF7DwgMHafXteG6KwBkwhU/exec';
+
+// ===========================================
+// TAMPILKAN LOADING
+// ===========================================
+function showLoading() {
+    const ids = [
+        'pesertaRT', 'subsidiSilang', 'pesertaUMKM', 
+        'pesertaBadanUsaha', 'pesertaDLHK', 'belumPeserta', 
+        'totalPeserta', 'penduduk', 'kk', 'rt', 'rw'
+    ];
     
-    // ===========================================
-    // DATA DEFAULT SESUAI SHEET (FALLBACK)
-    // ===========================================
-    const DEFAULT_DATA = {
-        pesertaRT: 115,
-        subsidiSilang: 6,
-        pesertaUMKM: 15,
-        pesertaBadanUsaha: 5,
-        pesertaDLHK: 27,
-        totalPeserta: 141,
-        belumPeserta: 2014,
-        penduduk: 4192,
-        kk: 2155,
-        rt: 26,
-        rw: 6
-    };
-    
-    // ===========================================
-    // FETCH DATA DARI SPREADSHEET
-    // ===========================================
-    async function fetchLPSData() {
-        try {
-            // Tampilkan loading
-            showLoading();
-            
-            // URL dengan timestamp anti cache
-            const url = `${LPS_API_URL}?t=${Date.now()}`;
-            
-            console.log('📡 Mengambil data:', url);
-            
-            const response = await fetch(url, {
-                method: 'GET',
-                mode: 'cors',
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            
-            const result = await response.json();
-            console.log('📦 Response:', result);
-            
-            if (result.success && result.data) {
-                // Update angka di website
-                updateAllNumbers(result.data);
-                
-                // Simpan ke cache
-                localStorage.setItem('lpsData', JSON.stringify(result.data));
-                
-                console.log('✅ Data dari spreadsheet:', result.data);
-                return result.data;
-            } else {
-                console.error('❌ API Error:', result.error);
-                useCacheOrDefault();
-            }
-        } catch (error) {
-            console.error('❌ Gagal fetch:', error);
-            useCacheOrDefault();
-        }
-    }
-    
-    // ===========================================
-    // UPDATE SEMUA ANGKA
-    // ===========================================
-    function updateAllNumbers(data) {
-        console.log('📊 Update angka:', data);
-        
-        // Pastikan data valid
-        if (!data) return;
-        
-        // Data Peserta LPS
-        updateNumber('pesertaRT', data.pesertaRT);
-        updateNumber('subsidiSilang', data.subsidiSilang);
-        updateNumber('pesertaUMKM', data.pesertaUMKM);
-        updateNumber('pesertaBadanUsaha', data.pesertaBadanUsaha);
-        updateNumber('pesertaDLHK', data.pesertaDLHK);
-        updateNumber('totalPeserta', data.totalPeserta);
-        updateNumber('belumPeserta', data.belumPeserta);
-        
-        // Data Kelurahan
-        updateNumber('penduduk', data.penduduk);
-        updateNumber('kk', data.kk);
-        updateNumber('rt', data.rt);
-        updateNumber('rw', data.rw);
-    }
-    
-    // ===========================================
-    // UPDATE SATU ANGKA
-    // ===========================================
-    function updateNumber(id, value) {
+    ids.forEach(id => {
         const el = document.getElementById(id);
-        if (!el) return;
-        
-        // Format angka dengan titik
-        const formatted = formatNumber(value);
-        
-        // Update text content
-        el.textContent = formatted;
-        
-        // Animasi sederhana
-        animateNumber(el, value);
-    }
-    
-    // ===========================================
-    // FORMAT ANGKA (CONTOH: 2014 → 2.014)
-    // ===========================================
-    function formatNumber(num) {
-        if (num === undefined || num === null) return '0';
-        
-        // Konversi ke number
-        const number = Number(num);
-        if (isNaN(number)) return '0';
-        
-        // Format dengan titik sebagai pemisah ribuan
-        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
-    
-    // ===========================================
-    // ANIMASI ANGKA SEDERHANA
-    // ===========================================
-    function animateNumber(element, target) {
-        if (!element) return;
-        
-        // Hapus spinner jika ada
-        if (element.innerHTML.includes('fa-spinner')) {
-            element.innerHTML = '0';
+        if (el) {
+            el.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         }
-    }
-    
-    // ===========================================
-    // TAMPILKAN LOADING
-    // ===========================================
-    function showLoading() {
-        const ids = [
-            'pesertaRT', 'subsidiSilang', 'pesertaUMKM', 
-            'pesertaBadanUsaha', 'pesertaDLHK', 'belumPeserta', 
-            'totalPeserta', 'penduduk', 'kk', 'rt', 'rw'
-        ];
-        
-        ids.forEach(id => {
-            const el = document.getElementById(id);
-            if (el && !el.innerHTML.includes('fa-spinner')) {
-                el.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            }
-        });
-    }
-    
-    // ===========================================
-    // GUNAKAN CACHE ATAU DEFAULT
-    // ===========================================
-    function useCacheOrDefault() {
-        // Coba ambil dari localStorage
-        const cached = localStorage.getItem('lpsData');
-        
-        if (cached) {
-            try {
-                const data = JSON.parse(cached);
-                console.log('📦 Menggunakan data cache:', data);
-                updateAllNumbers(data);
-                return;
-            } catch (e) {
-                console.log('Cache corrupt, pakai default');
-            }
-        }
-        
-        // Pakai data default
-        console.log('📊 Menggunakan data default:', DEFAULT_DATA);
-        updateAllNumbers(DEFAULT_DATA);
-    }
-    
-    // ===========================================
-    // RESET DATA DAN FORCE REFRESH
-    // ===========================================
-    function refreshData() {
-        console.log('🔄 Refresh data...');
-        
-        // Hapus cache
-        localStorage.removeItem('lpsData');
-        
-        // Ambil data baru
-        fetchLPSData();
-    }
-    
-    // ===========================================
-    // INIT - JALANKAN SAAT HALAMAN DIMUAT
-    // ===========================================
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('🚀 LPS Website - Inisialisasi...');
-        
-        // Cek koneksi ke API
-        console.log('🔗 API URL:', LPS_API_URL);
-        
-        // Tampilkan loading dulu
+    });
+}
+
+// ===========================================
+// FETCH DATA DARI API
+// ===========================================
+async function fetchLPSData() {
+    try {
         showLoading();
         
-        // Ambil data dari spreadsheet
-        setTimeout(() => {
-            fetchLPSData();
-        }, 100);
+        const url = `${LPS_API_URL}?t=${Date.now()}`;
+        console.log('📡 Mengambil data:', url);
         
-        // Auto refresh setiap 30 detik
-        setInterval(fetchLPSData, 30000);
+        const response = await fetch(url, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache'
+        });
+        
+        const result = await response.json();
+        console.log('📦 Response dari API:', result);
+        
+        // CEK: API mengirim data dengan format { success, message, data }
+        if (result.success && result.data) {
+            // Update angka dengan data dari API
+            updateAllNumbers(result.data);
+            
+            // Simpan ke cache
+            localStorage.setItem('lpsData', JSON.stringify(result.data));
+            
+            console.log('✅ Data berhasil diupdate:', result.data);
+        } else {
+            console.error('❌ API Error:', result);
+            useCache();
+        }
+    } catch (error) {
+        console.error('❌ Gagal fetch:', error);
+        useCache();
+    }
+}
+
+// ===========================================
+// UPDATE SEMUA ANGKA
+// ===========================================
+function updateAllNumbers(data) {
+    console.log('📊 Mengupdate angka dengan:', data);
+    
+    if (!data) return;
+    
+    // Update setiap field
+    updateNumber('pesertaRT', data.pesertaRT);
+    updateNumber('subsidiSilang', data.subsidiSilang);
+    updateNumber('pesertaUMKM', data.pesertaUMKM);
+    updateNumber('pesertaBadanUsaha', data.pesertaBadanUsaha);
+    updateNumber('pesertaDLHK', data.pesertaDLHK);
+    updateNumber('totalPeserta', data.totalPeserta);
+    updateNumber('belumPeserta', data.belumPeserta);
+    updateNumber('penduduk', data.penduduk);
+    updateNumber('kk', data.kk);
+    updateNumber('rt', data.rt);
+    updateNumber('rw', data.rw);
+    
+    // Hapus pesan error jika ada
+    const errorMsg = document.querySelector('.error-message');
+    if (errorMsg) errorMsg.remove();
+}
+
+// ===========================================
+// UPDATE SATU ANGKA
+// ===========================================
+function updateNumber(id, value) {
+    const el = document.getElementById(id);
+    if (!el) {
+        console.warn(`Elemen ${id} tidak ditemukan`);
+        return;
+    }
+    
+    // Format angka dengan titik
+    const formatted = formatNumber(value);
+    console.log(`📝 Update ${id}: ${value} → ${formatted}`);
+    
+    // Update text
+    el.textContent = formatted;
+    el.style.color = '';
+    
+    // Animasi highlight
+    el.style.transition = 'all 0.3s ease';
+    el.style.transform = 'scale(1.1)';
+    el.style.color = '#1a5f7a';
+    
+    setTimeout(() => {
+        el.style.transform = 'scale(1)';
+        el.style.color = '';
+    }, 300);
+}
+
+// ===========================================
+// FORMAT ANGKA (CONTOH: 254 → 254, 1901 → 1.901)
+// ===========================================
+function formatNumber(num) {
+    if (num === undefined || num === null) return '0';
+    
+    const number = Number(num);
+    if (isNaN(number)) return '0';
+    
+    // Format dengan titik sebagai pemisah ribuan
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+// ===========================================
+// GUNAKAN CACHE JIKA ADA
+// ===========================================
+function useCache() {
+    const cached = localStorage.getItem('lpsData');
+    
+    if (cached) {
+        try {
+            const data = JSON.parse(cached);
+            console.log('📦 Menggunakan data cache:', data);
+            updateAllNumbers(data);
+            return;
+        } catch (e) {
+            console.log('Cache corrupt');
+        }
+    }
+    
+    // Jika tidak ada cache, hitung dari angka yang sudah ada di HTML
+    console.log('⚠️ Tidak ada cache, menggunakan angka default HTML');
+}
+
+// ===========================================
+// INIT - JALANKAN SAAT HALAMAN DIMUAT
+// ===========================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 LPS Website - Inisialisasi...');
+    console.log('🔗 API URL:', LPS_API_URL);
+    
+    // Tampilkan loading
+    showLoading();
+    
+    // Ambil data dari API
+    setTimeout(fetchLPSData, 100);
+    
+    // Auto refresh setiap 30 detik
+    setInterval(fetchLPSData, 30000);
+});
+
+// ===========================================
+// REFRESH SAAT STATS TERLIHAT
+// ===========================================
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            console.log('👁️ Stats terlihat, refresh...');
+            fetchLPSData();
+        }
+    });
+}, { threshold: 0.1 });
+
+const statsSection = document.getElementById('stats');
+if (statsSection) {
+    statsObserver.observe(statsSection);
+}
+
+// ===========================================
+// TOMBOL REFRESH MANUAL
+// ===========================================
+function addRefreshButton() {
+    const statsHeader = document.querySelector('#stats .section-header');
+    if (!statsHeader) return;
+    
+    if (document.getElementById('manualRefreshBtn')) return;
+    
+    const btn = document.createElement('button');
+    btn.id = 'manualRefreshBtn';
+    btn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
+    btn.style.cssText = `
+        background: linear-gradient(135deg, #57c5b6, #159895);
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin: 20px auto 0;
+        display: block;
+        box-shadow: 0 4px 12px rgba(21,152,149,0.3);
+        transition: all 0.3s ease;
+    `;
+    
+    btn.onmouseover = () => {
+        btn.style.transform = 'translateY(-3px)';
+        btn.style.boxShadow = '0 6px 16px rgba(21,152,149,0.4)';
+    };
+    
+    btn.onmouseout = () => {
+        btn.style.transform = 'translateY(0)';
+        btn.style.boxShadow = '0 4px 12px rgba(21,152,149,0.3)';
+    };
+    
+    btn.onclick = (e) => {
+        e.preventDefault();
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengupdate...';
+        fetchLPSData();
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
+        }, 2000);
+    };
+    
+    statsHeader.appendChild(btn);
+}
+
+setTimeout(addRefreshButton, 1500);
+
+// ===========================================
+// MOBILE NAVIGATION (TETAP SAMA)
+// ===========================================
+const mobileToggle = document.getElementById('mobileToggle');
+const mobileNav = document.getElementById('mobileNav');
+const overlay = document.getElementById('overlay');
+
+if (mobileToggle && mobileNav && overlay) {
+    mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        mobileToggle.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
     });
     
-    // ===========================================
-    // FETCH ULANG SAAT STATS TERLIHAT
-    // ===========================================
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                console.log('👁️ Stats terlihat, refresh...');
-                fetchLPSData();
+    overlay.addEventListener('click', () => {
+        mobileToggle.classList.remove('active');
+        mobileNav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+}
+
+// ===========================================
+// DROPDOWN MOBILE
+// ===========================================
+const dropdownInformasi = document.getElementById('mobileDropdownToggleInformasi');
+const dropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
+
+if (dropdownInformasi && dropdownContentInformasi) {
+    dropdownInformasi.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropdownInformasi.classList.toggle('active');
+        dropdownContentInformasi.classList.toggle('active');
+    });
+}
+
+const dropdownDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
+const dropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
+
+if (dropdownDokumentasi && dropdownContentDokumentasi) {
+    dropdownDokumentasi.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropdownDokumentasi.classList.toggle('active');
+        dropdownContentDokumentasi.classList.toggle('active');
+    });
+}
+
+// ===========================================
+// SMOOTH SCROLL
+// ===========================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        if (this.classList.contains('mobile-dropdown-toggle')) return;
+        
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        
+        e.preventDefault();
+        
+        if (href === '#home') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            const target = document.querySelector(href);
+            if (target) {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                window.scrollTo({
+                    top: target.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
             }
-        });
-    }, { threshold: 0.1 });
-    
-    const statsSection = document.getElementById('stats');
-    if (statsSection) {
-        statsObserver.observe(statsSection);
-    }
-    
-    // ===========================================
-    // TOMBOL REFRESH MANUAL (TAMBAHKAN DI STATS)
-    // ===========================================
-    function addRefreshButton() {
-        const statsHeader = document.querySelector('#stats .section-header');
-        if (!statsHeader) return;
+        }
         
-        // Cek apakah tombol sudah ada
-        if (document.getElementById('manualRefreshBtn')) return;
-        
-        const btn = document.createElement('button');
-        btn.id = 'manualRefreshBtn';
-        btn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
-        btn.style.cssText = `
-            background: linear-gradient(135deg, #57c5b6, #159895);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            box-shadow: 0 4px 12px rgba(21,152,149,0.3);
-            transition: all 0.3s ease;
-        `;
-        
-        btn.onmouseover = () => {
-            btn.style.transform = 'translateY(-3px)';
-            btn.style.boxShadow = '0 6px 16px rgba(21,152,149,0.4)';
-        };
-        
-        btn.onmouseout = () => {
-            btn.style.transform = 'translateY(0)';
-            btn.style.boxShadow = '0 4px 12px rgba(21,152,149,0.3)';
-        };
-        
-        btn.onclick = (e) => {
-            e.preventDefault();
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengupdate...';
-            refreshData();
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
-            }, 2000);
-        };
-        
-        statsHeader.appendChild(btn);
-    }
-    
-    // Tambahkan tombol refresh setelah halaman siap
-    setTimeout(addRefreshButton, 1500);
-    
-    // ===========================================
-    // MOBILE NAVIGATION
-    // ===========================================
-    const mobileToggle = document.getElementById('mobileToggle');
-    const mobileNav = document.getElementById('mobileNav');
-    const overlay = document.getElementById('overlay');
-    
-    if (mobileToggle && mobileNav && overlay) {
-        mobileToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            mobileToggle.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
-        });
-        
-        overlay.addEventListener('click', () => {
+        if (mobileNav?.contains(this)) {
             mobileToggle.classList.remove('active');
             mobileNav.classList.remove('active');
             overlay.classList.remove('active');
             document.body.style.overflow = 'auto';
-        });
-    }
-    
-    // ===========================================
-    // DROPDOWN MOBILE
-    // ===========================================
-    const dropdownInformasi = document.getElementById('mobileDropdownToggleInformasi');
-    const dropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
-    
-    if (dropdownInformasi && dropdownContentInformasi) {
-        dropdownInformasi.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropdownInformasi.classList.toggle('active');
-            dropdownContentInformasi.classList.toggle('active');
-        });
-    }
-    
-    const dropdownDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
-    const dropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
-    
-    if (dropdownDokumentasi && dropdownContentDokumentasi) {
-        dropdownDokumentasi.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropdownDokumentasi.classList.toggle('active');
-            dropdownContentDokumentasi.classList.toggle('active');
-        });
-    }
-    
-    // ===========================================
-    // SMOOTH SCROLL
-    // ===========================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            if (this.classList.contains('mobile-dropdown-toggle')) return;
-            
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            
-            e.preventDefault();
-            
-            if (href === '#home') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                const target = document.querySelector(href);
-                if (target) {
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    window.scrollTo({
-                        top: target.offsetTop - headerHeight,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-            
-            // Tutup mobile nav
-            if (mobileNav?.contains(this)) {
-                mobileToggle.classList.remove('active');
-                mobileNav.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    });
-    
-    // ===========================================
-    // HEADER SCROLL EFFECT
-    // ===========================================
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        if (header) {
-            if (window.scrollY > 50) {
-                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-                header.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.98), rgba(232,245,233,0.95))';
-            } else {
-                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
-                header.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.95), rgba(232,245,233,0.95))';
-            }
         }
     });
-    
-    // ===========================================
-    // VIDEO FALLBACK
-    // ===========================================
-    const bgVideo = document.getElementById('bgVideo');
-    const bgImage = document.getElementById('bgImage');
-    
-    if (bgVideo) {
-        bgVideo.addEventListener('error', () => {
-            bgVideo.style.display = 'none';
-            if (bgImage) bgImage.style.display = 'block';
-        });
-        
-        // Coba play video
-        bgVideo.play().catch(() => {
-            bgVideo.style.display = 'none';
-            if (bgImage) bgImage.style.display = 'block';
-        });
+});
+
+// ===========================================
+// HEADER SCROLL EFFECT
+// ===========================================
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (header) {
+        if (window.scrollY > 50) {
+            header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            header.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.98), rgba(232,245,233,0.95))';
+        } else {
+            header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
+            header.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.95), rgba(232,245,233,0.95))';
+        }
     }
-    
-    // ===========================================
-    // INSTALL BANNER
-    // ===========================================
-    const installBanner = document.getElementById('installBanner');
-    const closeBanner = document.getElementById('closeBanner');
-    const installBtn = document.getElementById('installBtn');
-    
-    if (installBanner && closeBanner && installBtn) {
-        // Tampilkan banner setelah 3 detik
-        setTimeout(() => {
-            if (!localStorage.getItem('lpsBannerDismissed')) {
-                installBanner.classList.add('active');
-            }
-        }, 3000);
-        
-        closeBanner.addEventListener('click', () => {
-            installBanner.classList.remove('active');
-            localStorage.setItem('lpsBannerDismissed', 'true');
-        });
-        
-        installBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Aplikasi LPS akan dipasang di perangkat Anda');
-            installBanner.classList.remove('active');
-            localStorage.setItem('lpsBannerDismissed', 'true');
-        });
-    }
-    
-    // ===========================================
-    // MAP DRAG
-    // ===========================================
-    const mapWrapper = document.getElementById('mapWrapper');
-    if (mapWrapper) {
-        let isDragging = false;
-        let startX, startY, scrollLeft, scrollTop;
-        
-        mapWrapper.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.pageX - mapWrapper.offsetLeft;
-            startY = e.pageY - mapWrapper.offsetTop;
-            scrollLeft = mapWrapper.scrollLeft;
-            scrollTop = mapWrapper.scrollTop;
-            mapWrapper.style.cursor = 'grabbing';
-        });
-        
-        mapWrapper.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - mapWrapper.offsetLeft;
-            const y = e.pageY - mapWrapper.offsetTop;
-            mapWrapper.scrollLeft = scrollLeft - (x - startX) * 2;
-            mapWrapper.scrollTop = scrollTop - (y - startY) * 2;
-        });
-        
-        mapWrapper.addEventListener('mouseup', () => {
-            isDragging = false;
-            mapWrapper.style.cursor = 'grab';
-        });
-        
-        mapWrapper.addEventListener('mouseleave', () => {
-            isDragging = false;
-            mapWrapper.style.cursor = 'grab';
-        });
-    }
-    
-    // ===========================================
-    // LEGEND TOGGLE
-    // ===========================================
-    const toggleLegend = document.getElementById('toggleLegend');
-    const legendContent = document.getElementById('legendContent');
-    
-    if (toggleLegend && legendContent) {
-        const icon = toggleLegend.querySelector('i');
-        
-        toggleLegend.addEventListener('click', () => {
-            legendContent.classList.toggle('collapsed');
-            legendContent.classList.toggle('expanded');
-            
-            if (icon) {
-                icon.className = legendContent.classList.contains('collapsed') 
-                    ? 'fas fa-chevron-down' 
-                    : 'fas fa-chevron-up';
-            }
-        });
-    }
-    
-    // ===========================================
-    // PREVENT HORIZONTAL SCROLL
-    // ===========================================
-    window.addEventListener('load', () => {
-        document.body.style.overflowX = 'hidden';
+});
+
+// ===========================================
+// VIDEO FALLBACK
+// ===========================================
+const bgVideo = document.getElementById('bgVideo');
+const bgImage = document.getElementById('bgImage');
+
+if (bgVideo) {
+    bgVideo.addEventListener('error', () => {
+        bgVideo.style.display = 'none';
+        if (bgImage) bgImage.style.display = 'block';
     });
     
-    console.log('✅ Script LPS siap!');
-    </script>
+    bgVideo.play().catch(() => {
+        bgVideo.style.display = 'none';
+        if (bgImage) bgImage.style.display = 'block';
+    });
+}
+
+// ===========================================
+// INSTALL BANNER
+// ===========================================
+const installBanner = document.getElementById('installBanner');
+const closeBanner = document.getElementById('closeBanner');
+const installBtn = document.getElementById('installBtn');
+
+if (installBanner && closeBanner && installBtn) {
+    setTimeout(() => {
+        if (!localStorage.getItem('lpsBannerDismissed')) {
+            installBanner.classList.add('active');
+        }
+    }, 3000);
+    
+    closeBanner.addEventListener('click', () => {
+        installBanner.classList.remove('active');
+        localStorage.setItem('lpsBannerDismissed', 'true');
+    });
+    
+    installBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('Aplikasi LPS akan dipasang di perangkat Anda');
+        installBanner.classList.remove('active');
+        localStorage.setItem('lpsBannerDismissed', 'true');
+    });
+}
+
+// ===========================================
+// MAP DRAG
+// ===========================================
+const mapWrapper = document.getElementById('mapWrapper');
+if (mapWrapper) {
+    let isDragging = false;
+    let startX, startY, scrollLeft, scrollTop;
+    
+    mapWrapper.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX - mapWrapper.offsetLeft;
+        startY = e.pageY - mapWrapper.offsetTop;
+        scrollLeft = mapWrapper.scrollLeft;
+        scrollTop = mapWrapper.scrollTop;
+        mapWrapper.style.cursor = 'grabbing';
+    });
+    
+    mapWrapper.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - mapWrapper.offsetLeft;
+        const y = e.pageY - mapWrapper.offsetTop;
+        mapWrapper.scrollLeft = scrollLeft - (x - startX) * 2;
+        mapWrapper.scrollTop = scrollTop - (y - startY) * 2;
+    });
+    
+    mapWrapper.addEventListener('mouseup', () => {
+        isDragging = false;
+        mapWrapper.style.cursor = 'grab';
+    });
+    
+    mapWrapper.addEventListener('mouseleave', () => {
+        isDragging = false;
+        mapWrapper.style.cursor = 'grab';
+    });
+}
+
+// ===========================================
+// LEGEND TOGGLE
+// ===========================================
+const toggleLegend = document.getElementById('toggleLegend');
+const legendContent = document.getElementById('legendContent');
+
+if (toggleLegend && legendContent) {
+    const icon = toggleLegend.querySelector('i');
+    
+    toggleLegend.addEventListener('click', () => {
+        legendContent.classList.toggle('collapsed');
+        legendContent.classList.toggle('expanded');
+        
+        if (icon) {
+            icon.className = legendContent.classList.contains('collapsed') 
+                ? 'fas fa-chevron-down' 
+                : 'fas fa-chevron-up';
+        }
+    });
+}
+
+// ===========================================
+// PREVENT HORIZONTAL SCROLL
+// ===========================================
+window.addEventListener('load', () => {
+    document.body.style.overflowX = 'hidden';
+});
+
+console.log('✅ Script siap! Data akan tampil dalam beberapa detik...');
+</script>
 </body>
 </html>

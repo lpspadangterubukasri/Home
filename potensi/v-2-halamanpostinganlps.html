@@ -399,6 +399,49 @@
             font-size: 0.65rem;
             color: #8e8e8e;
         }
+
+/* Tombol Back to Home - Floating di Kanan Atas */
+.back-home-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.back-home-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #0e4a60, #0f7a77);
+}
+
+.back-home-btn i {
+    font-size: 1.4rem;
+}
+
+/* Sesuaikan posisi untuk layar kecil agar tidak menimpa header */
+@media (max-width: 600px) {
+    .back-home-btn {
+        top: 12px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+    }
+    .back-home-btn i {
+        font-size: 1.2rem;
+    }
+}
         
         /* Responsive: tablet 3 kolom, mobile 2 kolom */
         @media (max-width: 700px) {
@@ -483,6 +526,11 @@
         
         <footer><i class="fas fa-bolt"></i> Update real-time - LPS Padang Terubuk Asri</footer>
     </div>
+
+<!-- Tombol Back to Home -->
+<a href="https://lpspadangterubukasri.github.io/Home/" class="back-home-btn" title="Kembali ke Beranda">
+    <i class="fas fa-home"></i>
+</a>
     
     <!-- MODAL POPUP DETAIL POSTINGAN -->
     <div id="postModal" class="post-modal">

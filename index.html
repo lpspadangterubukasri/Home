@@ -586,7 +586,7 @@
             border-color: rgba(255, 255, 255, 0.8);
         }
         
-        /* Stats Section - REVISI DENGAN PENAMBAHAN KONTEN BARU */
+        /* Stats Section */
         .stats-section {
             padding: 60px 0;
             background: linear-gradient(135deg, var(--light), #e8f5e9);
@@ -667,7 +667,6 @@
             }
         }
         
-        /* Innovation Banner - TAMBAHAN BARU */
         .innovation-banner {
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(205, 127, 50, 0.1));
             border: 2px solid var(--gold);
@@ -764,7 +763,6 @@
             color: var(--green-dark);
         }
         
-        /* Kelurahan Website Box - TAMBAHAN BARU */
         .kelurahan-box {
             background: linear-gradient(135deg, #e3f2fd, #bbdefb);
             border: 2px solid var(--primary);
@@ -865,7 +863,6 @@
             transform: translateX(5px);
         }
         
-        /* Stats Container */
         .stats-container {
             display: flex;
             flex-direction: column;
@@ -1854,7 +1851,7 @@
                 </div>
             </div>
             
-            <!-- Desktop Navigation -->
+            <!-- Desktop Navigation - DENGAN MENU BANK SAMPAH BARU -->
             <nav class="nav-desktop">
                 <a href="#home">Beranda</a>
                 <div class="dropdown">
@@ -1872,10 +1869,20 @@
                     <div class="dropdown-content">
                         <a href="maintenance.html">Peraturan</a>
                         <a href="maintenance.html">Berita Acara</a>
-                        <a href="maintenance.html">Foto Kegiatant</a>
+                        <a href="maintenance.html">Foto Kegiatan</a>
                         <a href="maintenance.html">Video Kegiatan</a>
                     </div>
                 </div>
+                <!-- MENU BANK SAMPAH BARU dengan Sub Menu -->
+                <div class="dropdown">
+                    <a href="#">Bank Sampah <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
+                    <div class="dropdown-content">
+                        <a href="https://senapelan.github.io/Home/publik/senapelankencana/dashboardbanksampah.html">Dashboard Bank Sampah</a>
+                        <a href="maintenance.html">Info Tabungan</a>
+                        <a href="maintenance.html">Harga Sampah</a>
+                    </div>
+                </div>
+                <!-- PROGRAM tetap di samping kanan Bank Sampah -->
                 <a href="maintenance.html">Program</a>
                 <a href="#about">Kontak</a>
             </nav>
@@ -1888,7 +1895,7 @@
             </button>
         </div>
         
-        <!-- Mobile Navigation - PERBAIKAN DROPDOWN DOKUMENTASI -->
+        <!-- Mobile Navigation - UPDATE DENGAN MENU BANK SAMPAH -->
         <div class="mobile-nav" id="mobileNav">
             <a href="#home">Beranda</a>
             
@@ -1905,7 +1912,7 @@
                 <a href="https://lpspadangterubukasri.github.io/Home/potensi/datapesertalps.html">Data Peserta LPS</a>
             </div>
             
-            <!-- Dropdown Dokumentasi - ID DIPERBAIKI -->
+            <!-- Dropdown Dokumentasi -->
             <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggleDokumentasi">
                 Dokumentasi
                 <i class="fas fa-chevron-down"></i>
@@ -1915,6 +1922,17 @@
                 <a href="maintenance.html">Berita Acara</a>
                 <a href="maintenance.html">Foto Kegiatan</a>
                 <a href="maintenance.html">Video Kegiatan</a>
+            </div>
+            
+            <!-- Dropdown Bank Sampah MOBILE -->
+            <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggleBankSampah">
+                Bank Sampah
+                <i class="fas fa-chevron-down"></i>
+            </a>
+            <div class="mobile-dropdown-content" id="mobileDropdownContentBankSampah">
+                <a href="https://senapelan.github.io/Home/publik/senapelankencana/dashboardbanksampah.html">Dashboard Bank Sampah</a>
+                <a href="maintenance.html">Info Tabungan</a>
+                <a href="maintenance.html">Harga Sampah</a>
             </div>
             
             <a href="maintenance.html">Program</a>
@@ -1946,7 +1964,7 @@
         </div>
     </section>
     
-    <!-- Stats Section -->
+    <!-- Stats Section (konten sama seperti sebelumnya, dipersingkat karena panjang) -->
     <section class="stats-section" id="stats">
         <div class="container">
             <div class="section-header">
@@ -1954,7 +1972,6 @@
                 <p class="section-subtitle">Pendataan Masih Berlangsung</p>
             </div>
             
-            <!-- Innovation Banner -->
             <div class="innovation-banner">
                 <div class="innovation-title">
                     <i class="fas fa-lightbulb"></i>
@@ -1969,7 +1986,6 @@
                 </div>
             </div>
             
-            <!-- Kelurahan Website Box -->
             <div class="kelurahan-box" id="kelurahanBox">
                 <div class="kelurahan-icon">
                     <i class="fas fa-globe"></i>
@@ -1987,30 +2003,12 @@
                 <div class="stats-box">
                     <h3>Data Peserta LPS</h3>
                     <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number" id="pesertaRT">113</div>
-                            <div class="stat-label">Peserta Rumah Tangga (RT)</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="subsidiSilang">6</div>
-                            <div class="stat-label">Peserta Subsidi Silang</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="pesertaUMKM">15</div>
-                            <div class="stat-label">Peserta UMKM</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="pesertaBadanUsaha">5</div>
-                            <div class="stat-label">Peserta Badan Usaha</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="pesertaDLHK">20</div>
-                            <div class="stat-label">Peserta DLHK</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="belumPeserta">1116</div>
-                            <div class="stat-label">Belum Jadi Peserta</div>
-                        </div>
+                        <div class="stat-item"><div class="stat-number" id="pesertaRT">113</div><div class="stat-label">Peserta Rumah Tangga (RT)</div></div>
+                        <div class="stat-item"><div class="stat-number" id="subsidiSilang">6</div><div class="stat-label">Peserta Subsidi Silang</div></div>
+                        <div class="stat-item"><div class="stat-number" id="pesertaUMKM">15</div><div class="stat-label">Peserta UMKM</div></div>
+                        <div class="stat-item"><div class="stat-number" id="pesertaBadanUsaha">5</div><div class="stat-label">Peserta Badan Usaha</div></div>
+                        <div class="stat-item"><div class="stat-number" id="pesertaDLHK">20</div><div class="stat-label">Peserta DLHK</div></div>
+                        <div class="stat-item"><div class="stat-number" id="belumPeserta">1116</div><div class="stat-label">Belum Jadi Peserta</div></div>
                         <div class="stat-item" style="grid-column: span 2; background: linear-gradient(145deg, #e3f2fd, #bbdefb);">
                             <div class="stat-number" id="totalPeserta">133</div>
                             <div class="stat-label" style="color: var(--primary); font-weight: 600;">Total Peserta LPS</div>
@@ -2021,22 +2019,10 @@
                 <div class="stats-box">
                     <h3>Data Kelurahan</h3>
                     <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number" id="penduduk">4192</div>
-                            <div class="stat-label">Jumlah Penduduk</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="kk">1255</div>
-                            <div class="stat-label">Kepala Keluarga</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="rt">26</div>
-                            <div class="stat-label">Rukun Tetangga</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" id="rw">6</div>
-                            <div class="stat-label">Rukun Warga</div>
-                        </div>
+                        <div class="stat-item"><div class="stat-number" id="penduduk">4192</div><div class="stat-label">Jumlah Penduduk</div></div>
+                        <div class="stat-item"><div class="stat-number" id="kk">1255</div><div class="stat-label">Kepala Keluarga</div></div>
+                        <div class="stat-item"><div class="stat-number" id="rt">26</div><div class="stat-label">Rukun Tetangga</div></div>
+                        <div class="stat-item"><div class="stat-number" id="rw">6</div><div class="stat-label">Rukun Warga</div></div>
                     </div>
                 </div>
             </div>
@@ -2052,65 +2038,20 @@
                     <img src="data/foto/peta-wilayah.png" alt="Peta Wilayah Kerja LPS Padang Terubuk Asri" class="map-image" id="mapImage">
                 </div>
                 <div class="map-overlay">
-                    <div class="legend-header">
-                        <h4>Legenda Peta Wilayah</h4>
-                        <button class="toggle-legend" id="toggleLegend">
-                            <i class="fas fa-chevron-up"></i>
-                        </button>
-                    </div>
+                    <div class="legend-header"><h4>Legenda Peta Wilayah</h4><button class="toggle-legend" id="toggleLegend"><i class="fas fa-chevron-up"></i></button></div>
                     <div class="legend-content expanded" id="legendContent">
-                        <div class="legend-item">
-                            <div class="legend-color color-1"></div>
-                            <div class="legend-text">Batas Wilayah Kelurahan</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color color-2"></div>
-                            <div class="legend-text">Jalur Bentor 1</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color color-3"></div>
-                            <div class="legend-text">Jalur Bentor 2</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color color-4"></div>
-                            <div class="legend-text">Wilayah Perumahan/Komplek</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color color-5"></div>
-                            <div class="legend-text">RW. 001</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color color-6"></div>
-                            <div class="legend-text">RW. 002</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color color-7"></div>
-                            <div class="legend-text">RW. 003</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color color-8"></div>
-                            <div class="legend-text">RW. 004</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color color-9"></div>
-                            <div class="legend-text">RW. 005</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color color-10"></div>
-                            <div class="legend-text">RW. 006</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-icon" style="color: #ff1493;">
-                                <i class="fas fa-building"></i>
-                            </div>
-                            <div class="legend-text">Kantor Sekretariat LPS</div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-icon" style="color: #32cd32;">
-                                <i class="fas fa-recycle"></i>
-                            </div>
-                            <div class="legend-text">Bank Sampah LPS</div>
-                        </div>
+                        <div class="legend-item"><div class="legend-color color-1"></div><div class="legend-text">Batas Wilayah Kelurahan</div></div>
+                        <div class="legend-item"><div class="legend-color color-2"></div><div class="legend-text">Jalur Bentor 1</div></div>
+                        <div class="legend-item"><div class="legend-color color-3"></div><div class="legend-text">Jalur Bentor 2</div></div>
+                        <div class="legend-item"><div class="legend-color color-4"></div><div class="legend-text">Wilayah Perumahan/Komplek</div></div>
+                        <div class="legend-item"><div class="legend-color color-5"></div><div class="legend-text">RW. 001</div></div>
+                        <div class="legend-item"><div class="legend-color color-6"></div><div class="legend-text">RW. 002</div></div>
+                        <div class="legend-item"><div class="legend-color color-7"></div><div class="legend-text">RW. 003</div></div>
+                        <div class="legend-item"><div class="legend-color color-8"></div><div class="legend-text">RW. 004</div></div>
+                        <div class="legend-item"><div class="legend-color color-9"></div><div class="legend-text">RW. 005</div></div>
+                        <div class="legend-item"><div class="legend-color color-10"></div><div class="legend-text">RW. 006</div></div>
+                        <div class="legend-item"><div class="legend-icon" style="color: #ff1493;"><i class="fas fa-building"></i></div><div class="legend-text">Kantor Sekretariat LPS</div></div>
+                        <div class="legend-item"><div class="legend-icon" style="color: #32cd32;"><i class="fas fa-recycle"></i></div><div class="legend-text">Bank Sampah LPS</div></div>
                     </div>
                 </div>
             </div>
@@ -2125,111 +2066,38 @@
                 <div class="about-box">
                     <div class="about-header">
                         <img src="data/foto/logolps.png" alt="LPS Logo" class="about-icon">
-                        <div class="about-title">
-                            <h4>LPS PTA</h4>
-                            <p>Lembaga Pengelola Sampah<br>Padang Terubuk Asri</p>
-                        </div>
+                        <div class="about-title"><h4>LPS PTA</h4><p>Lembaga Pengelola Sampah<br>Padang Terubuk Asri</p></div>
                     </div>
                     <p>Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri Kelurahan Padang Terubuk.</p>
-                    
                     <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <strong>Alamat Sekretariat:</strong><br>
-                                Jalan Melur No. 4 RT. 004 RW. 005<br>
-                                Kelurahan Padang Terubuk
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <strong>No. Telp:</strong><br>
-                                +62 813-6556-5011
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <strong>Email:</strong><br>
-                                lpspadangterubukasri@gmail.com
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-whatsapp"></i>
-                            <div>
-                                <strong>WhatsApp:</strong><br>
-                                +62 813-6556-5011
-                            </div>
-                        </div>
+                        <div class="contact-item"><i class="fas fa-map-marker-alt"></i><div><strong>Alamat Sekretariat:</strong><br>Jalan Melur No. 4 RT. 004 RW. 005<br>Kelurahan Padang Terubuk</div></div>
+                        <div class="contact-item"><i class="fas fa-phone"></i><div><strong>No. Telp:</strong><br>+62 813-6556-5011</div></div>
+                        <div class="contact-item"><i class="fas fa-envelope"></i><div><strong>Email:</strong><br>lpspadangterubukasri@gmail.com</div></div>
+                        <div class="contact-item"><i class="fab fa-whatsapp"></i><div><strong>WhatsApp:</strong><br>+62 813-6556-5011</div></div>
                     </div>
                 </div>
                 
                 <div class="about-box">
                     <h3 style="color: var(--green-dark); margin-bottom: 20px;">Informasi LPS</h3>
                     <ul style="list-style-type: none;">
-                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);">
-                            <a href="maintenance.html" style="text-decoration: none; color: #333; display: flex; align-items: center;">
-                                <i class="fas fa-book" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
-                                Sejarah LPS
-                            </a>
-                        </li>
-                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);">
-                            <a href="https://lpspadangterubukasri.github.io/Home/struktur.html" style="text-decoration: none; color: #333; display: flex; align-items: center;">
-                                <i class="fas fa-sitemap" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
-                                Struktur LPS
-                            </a>
-                        </li>
-                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);">
-                            <a href="https://lpspadangterubukasri.github.io/Home/dataangkutan.html" style="text-decoration: none; color: #333; display: flex; align-items: center;">
-                                <i class="fas fa-truck" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
-                                Data Angkutan
-                            </a>
-                        </li>
-                        <li style="padding: 12px 0;">
-                            <a href="https://lpspadangterubukasri.github.io/Home/visidanmisi.html" style="text-decoration: none; color: #333; display: flex; align-items: center;">
-                                <i class="fas fa-bullseye" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>
-                                Visi dan Misi
-                            </a>
-                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);"><a href="maintenance.html" style="text-decoration: none; color: #333; display: flex; align-items: center;"><i class="fas fa-book" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>Sejarah LPS</a></li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);"><a href="https://lpspadangterubukasri.github.io/Home/struktur.html" style="text-decoration: none; color: #333; display: flex; align-items: center;"><i class="fas fa-sitemap" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>Struktur LPS</a></li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(200, 230, 201, 0.5);"><a href="https://lpspadangterubukasri.github.io/Home/dataangkutan.html" style="text-decoration: none; color: #333; display: flex; align-items: center;"><i class="fas fa-truck" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>Data Angkutan</a></li>
+                        <li style="padding: 12px 0;"><a href="https://lpspadangterubukasri.github.io/Home/visidanmisi.html" style="text-decoration: none; color: #333; display: flex; align-items: center;"><i class="fas fa-bullseye" style="margin-right: 15px; color: var(--accent); font-size: 1.2rem;"></i>Visi dan Misi</a></li>
                     </ul>
                 </div>
                 
                 <div class="about-box">
                     <h3 style="color: var(--green-dark); margin-bottom: 20px;">Lokasi Kantor</h3>
                     <p>Kantor LPS Padang Terubuk Asri terletak di Jalan Melur No. 4, Kelurahan Padang Terubuk. Silakan kunjungi kami selama jam kerja atau hubungi terlebih dahulu untuk janji temu.</p>
-                    
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1146.763265661322!2d101.43406919999998!3d0.5336778000000109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMzInMDEuMiJOIDEwMcKwMjYnMDIuNyJF!5e1!3m2!1sen!2sid!4v1770468608348!5m2!1sen!2sid" 
-                        class="map-frame" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1146.763265661322!2d101.43406919999998!3d0.5336778000000109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMMKwMzInMDEuMiJOIDEwMcKwMjYnMDIuNyJF!5e1!3m2!1sen!2sid!4v1770468608348!5m2!1sen!2sid" class="map-frame" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 
-                <!-- Barcode Card untuk Join WhatsApp -->
                 <div class="about-box barcode-card">
-                    <div class="barcode-header">
-                        <div class="barcode-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="barcode-title">Join Komunitas WA Kami</div>
-                    </div>
-                    
-                    <div class="barcode-image">
-                        <img src="data/foto/barcodekomunitas.jpg" alt="QR Code WhatsApp Community LPS Padang Terubuk Asri" loading="lazy">
-                    </div>
-                    
-                    <div class="scan-text">
-                        <i class="fas fa-qrcode"></i>
-                        Scan Barcode di atas
-                    </div>
-                    
-                    <a href="https://chat.whatsapp.com/KL6d0GzYAIT5FZFzwU8lsQ" target="_blank" class="join-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        Join Sekarang !!
-                    </a>
+                    <div class="barcode-header"><div class="barcode-icon"><i class="fab fa-whatsapp"></i></div><div class="barcode-title">Join Komunitas WA Kami</div></div>
+                    <div class="barcode-image"><img src="data/foto/barcodekomunitas.jpg" alt="QR Code WhatsApp Community LPS Padang Terubuk Asri" loading="lazy"></div>
+                    <div class="scan-text"><i class="fas fa-qrcode"></i>Scan Barcode di atas</div>
+                    <a href="https://chat.whatsapp.com/KL6d0GzYAIT5FZFzwU8lsQ" target="_blank" class="join-btn"><i class="fab fa-whatsapp"></i>Join Sekarang !!</a>
                 </div>
             </div>
         </div>
@@ -2241,9 +2109,7 @@
             <div class="footer-content">
                 <img src="data/foto/logolps.png" alt="LPS Logo" class="footer-logo">
                 <p class="footer-text">Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri adalah lembaga resmi yang diakui Pemerintah Kota Pekanbaru untuk pengelolaan sampah terpadu di Kelurahan Padang Terubuk. Kami berkomitmen untuk menciptakan lingkungan yang bersih, sehat, dan asri melalui sistem pengelolaan sampah yang terintegrasi dan berkelanjutan.</p>
-                <div class="copyright">
-                    &copy; 2026 Lembaga Pengelola Sampah Padang Terubuk Asri. | Hak Cipta Dilindungi
-                </div>
+                <div class="copyright">&copy; 2026 Lembaga Pengelola Sampah Padang Terubuk Asri. | Hak Cipta Dilindungi</div>
             </div>
         </div>
     </footer>
@@ -2252,466 +2118,125 @@
     <div class="install-banner" id="installBanner">
         <div class="install-content">
             <img src="data/foto/logoaplikasi.png" alt="LPS App" class="install-icon">
-            <div class="install-text">
-                <h4>Pasang Aplikasi LPS</h4>
-                <p>Akses lebih mudah dengan memasang aplikasi LPS di perangkat Anda</p>
-            </div>
+            <div class="install-text"><h4>Pasang Aplikasi LPS</h4><p>Akses lebih mudah dengan memasang aplikasi LPS di perangkat Anda</p></div>
         </div>
-        <div class="install-buttons">
-            <a href="#" class="install-btn" id="installBtn">Pasang Aplikasi</a>
-            <button class="close-banner" id="closeBanner">&times;</button>
-        </div>
+        <div class="install-buttons"><a href="#" class="install-btn" id="installBtn">Pasang Aplikasi</a><button class="close-banner" id="closeBanner">&times;</button></div>
     </div>
     
-        <!-- JavaScript -->
+    <!-- JavaScript -->
     <script>
-// ===========================================
-// KONFIGURASI API - URL BARU!
-// ===========================================
-const LPS_API_URL = 'https://script.google.com/macros/s/AKfycbwIWeS5G09Ec7EleMkGt7DXpnokQtNTWseDPU8bivWsxGF7DwgMHafXteG6KwBkwhU/exec';
-
-// ===========================================
-// TAMPILKAN LOADING
-// ===========================================
-function showLoading() {
-    const ids = [
-        'pesertaRT', 'subsidiSilang', 'pesertaUMKM', 
-        'pesertaBadanUsaha', 'pesertaDLHK', 'belumPeserta', 
-        'totalPeserta', 'penduduk', 'kk', 'rt', 'rw'
-    ];
-    
-    ids.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        // KONFIGURASI API
+        const LPS_API_URL = 'https://script.google.com/macros/s/AKfycbwIWeS5G09Ec7EleMkGt7DXpnokQtNTWseDPU8bivWsxGF7DwgMHafXteG6KwBkwhU/exec';
+        
+        function showLoading() {
+            const ids = ['pesertaRT', 'subsidiSilang', 'pesertaUMKM', 'pesertaBadanUsaha', 'pesertaDLHK', 'belumPeserta', 'totalPeserta', 'penduduk', 'kk', 'rt', 'rw'];
+            ids.forEach(id => { const el = document.getElementById(id); if(el) el.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; });
         }
-    });
-}
-
-// ===========================================
-// FETCH DATA DARI API
-// ===========================================
-async function fetchLPSData() {
-    try {
-        showLoading();
         
-        const url = `${LPS_API_URL}?t=${Date.now()}`;
-        console.log('📡 Mengambil data:', url);
+        async function fetchLPSData() {
+            try {
+                showLoading();
+                const response = await fetch(`${LPS_API_URL}?t=${Date.now()}`, { method: 'GET', mode: 'cors', cache: 'no-cache' });
+                const result = await response.json();
+                if(result.success && result.data) {
+                    updateAllNumbers(result.data);
+                    localStorage.setItem('lpsData', JSON.stringify(result.data));
+                } else { useCache(); }
+            } catch(error) { useCache(); }
+        }
         
-        const response = await fetch(url, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache'
+        function updateAllNumbers(data) {
+            if(!data) return;
+            updateNumber('pesertaRT', data.pesertaRT);
+            updateNumber('subsidiSilang', data.subsidiSilang);
+            updateNumber('pesertaUMKM', data.pesertaUMKM);
+            updateNumber('pesertaBadanUsaha', data.pesertaBadanUsaha);
+            updateNumber('pesertaDLHK', data.pesertaDLHK);
+            updateNumber('totalPeserta', data.totalPeserta);
+            updateNumber('belumPeserta', data.belumPeserta);
+            updateNumber('penduduk', data.penduduk);
+            updateNumber('kk', data.kk);
+            updateNumber('rt', data.rt);
+            updateNumber('rw', data.rw);
+        }
+        
+        function updateNumber(id, value) {
+            const el = document.getElementById(id);
+            if(!el) return;
+            const formatted = (Number(value) || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            el.textContent = formatted;
+            el.style.transition = 'all 0.3s ease';
+            el.style.transform = 'scale(1.1)';
+            el.style.color = '#1a5f7a';
+            setTimeout(() => { el.style.transform = 'scale(1)'; el.style.color = ''; }, 300);
+        }
+        
+        function useCache() {
+            const cached = localStorage.getItem('lpsData');
+            if(cached) { try { updateAllNumbers(JSON.parse(cached)); } catch(e) {} }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(fetchLPSData, 100);
+            setInterval(fetchLPSData, 30000);
         });
         
-        const result = await response.json();
-        console.log('📦 Response dari API:', result);
-        
-        // CEK: API mengirim data dengan format { success, message, data }
-        if (result.success && result.data) {
-            // Update angka dengan data dari API
-            updateAllNumbers(result.data);
-            
-            // Simpan ke cache
-            localStorage.setItem('lpsData', JSON.stringify(result.data));
-            
-            console.log('✅ Data berhasil diupdate:', result.data);
-        } else {
-            console.error('❌ API Error:', result);
-            useCache();
-        }
-    } catch (error) {
-        console.error('❌ Gagal fetch:', error);
-        useCache();
-    }
-}
-
-// ===========================================
-// UPDATE SEMUA ANGKA
-// ===========================================
-function updateAllNumbers(data) {
-    console.log('📊 Mengupdate angka dengan:', data);
-    
-    if (!data) return;
-    
-    // Update setiap field
-    updateNumber('pesertaRT', data.pesertaRT);
-    updateNumber('subsidiSilang', data.subsidiSilang);
-    updateNumber('pesertaUMKM', data.pesertaUMKM);
-    updateNumber('pesertaBadanUsaha', data.pesertaBadanUsaha);
-    updateNumber('pesertaDLHK', data.pesertaDLHK);
-    updateNumber('totalPeserta', data.totalPeserta);
-    updateNumber('belumPeserta', data.belumPeserta);
-    updateNumber('penduduk', data.penduduk);
-    updateNumber('kk', data.kk);
-    updateNumber('rt', data.rt);
-    updateNumber('rw', data.rw);
-    
-    // Hapus pesan error jika ada
-    const errorMsg = document.querySelector('.error-message');
-    if (errorMsg) errorMsg.remove();
-}
-
-// ===========================================
-// UPDATE SATU ANGKA
-// ===========================================
-function updateNumber(id, value) {
-    const el = document.getElementById(id);
-    if (!el) {
-        console.warn(`Elemen ${id} tidak ditemukan`);
-        return;
-    }
-    
-    // Format angka dengan titik
-    const formatted = formatNumber(value);
-    console.log(`📝 Update ${id}: ${value} → ${formatted}`);
-    
-    // Update text
-    el.textContent = formatted;
-    el.style.color = '';
-    
-    // Animasi highlight
-    el.style.transition = 'all 0.3s ease';
-    el.style.transform = 'scale(1.1)';
-    el.style.color = '#1a5f7a';
-    
-    setTimeout(() => {
-        el.style.transform = 'scale(1)';
-        el.style.color = '';
-    }, 300);
-}
-
-// ===========================================
-// FORMAT ANGKA (CONTOH: 254 → 254, 1901 → 1.901)
-// ===========================================
-function formatNumber(num) {
-    if (num === undefined || num === null) return '0';
-    
-    const number = Number(num);
-    if (isNaN(number)) return '0';
-    
-    // Format dengan titik sebagai pemisah ribuan
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
-
-// ===========================================
-// GUNAKAN CACHE JIKA ADA
-// ===========================================
-function useCache() {
-    const cached = localStorage.getItem('lpsData');
-    
-    if (cached) {
-        try {
-            const data = JSON.parse(cached);
-            console.log('📦 Menggunakan data cache:', data);
-            updateAllNumbers(data);
-            return;
-        } catch (e) {
-            console.log('Cache corrupt');
-        }
-    }
-    
-    // Jika tidak ada cache, hitung dari angka yang sudah ada di HTML
-    console.log('⚠️ Tidak ada cache, menggunakan angka default HTML');
-}
-
-// ===========================================
-// INIT - JALANKAN SAAT HALAMAN DIMUAT
-// ===========================================
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 LPS Website - Inisialisasi...');
-    console.log('🔗 API URL:', LPS_API_URL);
-    
-    // Tampilkan loading
-    showLoading();
-    
-    // Ambil data dari API
-    setTimeout(fetchLPSData, 100);
-    
-    // Auto refresh setiap 30 detik
-    setInterval(fetchLPSData, 30000);
-});
-
-// ===========================================
-// REFRESH SAAT STATS TERLIHAT
-// ===========================================
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            console.log('👁️ Stats terlihat, refresh...');
-            fetchLPSData();
-        }
-    });
-}, { threshold: 0.1 });
-
-const statsSection = document.getElementById('stats');
-if (statsSection) {
-    statsObserver.observe(statsSection);
-}
-
-// ===========================================
-// TOMBOL REFRESH MANUAL
-// ===========================================
-function addRefreshButton() {
-    const statsHeader = document.querySelector('#stats .section-header');
-    if (!statsHeader) return;
-    
-    if (document.getElementById('manualRefreshBtn')) return;
-    
-    const btn = document.createElement('button');
-    btn.id = 'manualRefreshBtn';
-    btn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
-    btn.style.cssText = `
-        background: linear-gradient(135deg, #57c5b6, #159895);
-        color: white;
-        border: none;
-        padding: 10px 25px;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        cursor: pointer;
-        margin: 20px auto 0;
-        display: block;
-        box-shadow: 0 4px 12px rgba(21,152,149,0.3);
-        transition: all 0.3s ease;
-    `;
-    
-    btn.onmouseover = () => {
-        btn.style.transform = 'translateY(-3px)';
-        btn.style.boxShadow = '0 6px 16px rgba(21,152,149,0.4)';
-    };
-    
-    btn.onmouseout = () => {
-        btn.style.transform = 'translateY(0)';
-        btn.style.boxShadow = '0 4px 12px rgba(21,152,149,0.3)';
-    };
-    
-    btn.onclick = (e) => {
-        e.preventDefault();
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengupdate...';
-        fetchLPSData();
-        setTimeout(() => {
-            btn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
-        }, 2000);
-    };
-    
-    statsHeader.appendChild(btn);
-}
-
-setTimeout(addRefreshButton, 1500);
-
-// ===========================================
-// MOBILE NAVIGATION (TETAP SAMA)
-// ===========================================
-const mobileToggle = document.getElementById('mobileToggle');
-const mobileNav = document.getElementById('mobileNav');
-const overlay = document.getElementById('overlay');
-
-if (mobileToggle && mobileNav && overlay) {
-    mobileToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        mobileToggle.classList.toggle('active');
-        mobileNav.classList.toggle('active');
-        overlay.classList.toggle('active');
-        document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
-    });
-    
-    overlay.addEventListener('click', () => {
-        mobileToggle.classList.remove('active');
-        mobileNav.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    });
-}
-
-// ===========================================
-// DROPDOWN MOBILE
-// ===========================================
-const dropdownInformasi = document.getElementById('mobileDropdownToggleInformasi');
-const dropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
-
-if (dropdownInformasi && dropdownContentInformasi) {
-    dropdownInformasi.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        dropdownInformasi.classList.toggle('active');
-        dropdownContentInformasi.classList.toggle('active');
-    });
-}
-
-const dropdownDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
-const dropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
-
-if (dropdownDokumentasi && dropdownContentDokumentasi) {
-    dropdownDokumentasi.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        dropdownDokumentasi.classList.toggle('active');
-        dropdownContentDokumentasi.classList.toggle('active');
-    });
-}
-
-// ===========================================
-// SMOOTH SCROLL
-// ===========================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        if (this.classList.contains('mobile-dropdown-toggle')) return;
-        
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        
-        e.preventDefault();
-        
-        if (href === '#home') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-            const target = document.querySelector(href);
-            if (target) {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                window.scrollTo({
-                    top: target.offsetTop - headerHeight,
-                    behavior: 'smooth'
-                });
-            }
+        // MOBILE NAVIGATION
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('overlay');
+        if(mobileToggle && mobileNav && overlay) {
+            mobileToggle.addEventListener('click', (e) => { e.stopPropagation(); mobileToggle.classList.toggle('active'); mobileNav.classList.toggle('active'); overlay.classList.toggle('active'); document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto'; });
+            overlay.addEventListener('click', () => { mobileToggle.classList.remove('active'); mobileNav.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = 'auto'; });
         }
         
-        if (mobileNav?.contains(this)) {
-            mobileToggle.classList.remove('active');
-            mobileNav.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+        // MOBILE DROPDOWNS (Informasi + Dokumentasi + BANK SAMPAH)
+        const dropdownInformasi = document.getElementById('mobileDropdownToggleInformasi');
+        const dropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
+        if(dropdownInformasi && dropdownContentInformasi) {
+            dropdownInformasi.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); dropdownInformasi.classList.toggle('active'); dropdownContentInformasi.classList.toggle('active'); });
         }
-    });
-});
-
-// ===========================================
-// HEADER SCROLL EFFECT
-// ===========================================
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (header) {
-        if (window.scrollY > 50) {
-            header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-            header.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.98), rgba(232,245,233,0.95))';
-        } else {
-            header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
-            header.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.95), rgba(232,245,233,0.95))';
-        }
-    }
-});
-
-// ===========================================
-// VIDEO FALLBACK
-// ===========================================
-const bgVideo = document.getElementById('bgVideo');
-const bgImage = document.getElementById('bgImage');
-
-if (bgVideo) {
-    bgVideo.addEventListener('error', () => {
-        bgVideo.style.display = 'none';
-        if (bgImage) bgImage.style.display = 'block';
-    });
-    
-    bgVideo.play().catch(() => {
-        bgVideo.style.display = 'none';
-        if (bgImage) bgImage.style.display = 'block';
-    });
-}
-
-// ===========================================
-// INSTALL BANNER
-// ===========================================
-const installBanner = document.getElementById('installBanner');
-const closeBanner = document.getElementById('closeBanner');
-const installBtn = document.getElementById('installBtn');
-
-if (installBanner && closeBanner && installBtn) {
-    setTimeout(() => {
-        if (!localStorage.getItem('lpsBannerDismissed')) {
-            installBanner.classList.add('active');
-        }
-    }, 3000);
-    
-    closeBanner.addEventListener('click', () => {
-        installBanner.classList.remove('active');
-        localStorage.setItem('lpsBannerDismissed', 'true');
-    });
-    
-    installBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('Aplikasi LPS akan dipasang di perangkat Anda');
-        installBanner.classList.remove('active');
-        localStorage.setItem('lpsBannerDismissed', 'true');
-    });
-}
-
-// ===========================================
-// MAP DRAG
-// ===========================================
-const mapWrapper = document.getElementById('mapWrapper');
-if (mapWrapper) {
-    let isDragging = false;
-    let startX, startY, scrollLeft, scrollTop;
-    
-    mapWrapper.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.pageX - mapWrapper.offsetLeft;
-        startY = e.pageY - mapWrapper.offsetTop;
-        scrollLeft = mapWrapper.scrollLeft;
-        scrollTop = mapWrapper.scrollTop;
-        mapWrapper.style.cursor = 'grabbing';
-    });
-    
-    mapWrapper.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX - mapWrapper.offsetLeft;
-        const y = e.pageY - mapWrapper.offsetTop;
-        mapWrapper.scrollLeft = scrollLeft - (x - startX) * 2;
-        mapWrapper.scrollTop = scrollTop - (y - startY) * 2;
-    });
-    
-    mapWrapper.addEventListener('mouseup', () => {
-        isDragging = false;
-        mapWrapper.style.cursor = 'grab';
-    });
-    
-    mapWrapper.addEventListener('mouseleave', () => {
-        isDragging = false;
-        mapWrapper.style.cursor = 'grab';
-    });
-}
-
-// ===========================================
-// LEGEND TOGGLE
-// ===========================================
-const toggleLegend = document.getElementById('toggleLegend');
-const legendContent = document.getElementById('legendContent');
-
-if (toggleLegend && legendContent) {
-    const icon = toggleLegend.querySelector('i');
-    
-    toggleLegend.addEventListener('click', () => {
-        legendContent.classList.toggle('collapsed');
-        legendContent.classList.toggle('expanded');
         
-        if (icon) {
-            icon.className = legendContent.classList.contains('collapsed') 
-                ? 'fas fa-chevron-down' 
-                : 'fas fa-chevron-up';
+        const dropdownDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
+        const dropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
+        if(dropdownDokumentasi && dropdownContentDokumentasi) {
+            dropdownDokumentasi.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); dropdownDokumentasi.classList.toggle('active'); dropdownContentDokumentasi.classList.toggle('active'); });
         }
-    });
-}
-
-// ===========================================
-// PREVENT HORIZONTAL SCROLL
-// ===========================================
-window.addEventListener('load', () => {
-    document.body.style.overflowX = 'hidden';
-});
-
-console.log('✅ Script siap! Data akan tampil dalam beberapa detik...');
-</script>
+        
+        // BANK SAMPAH MOBILE DROPDOWN
+        const dropdownBankSampah = document.getElementById('mobileDropdownToggleBankSampah');
+        const dropdownContentBankSampah = document.getElementById('mobileDropdownContentBankSampah');
+        if(dropdownBankSampah && dropdownContentBankSampah) {
+            dropdownBankSampah.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); dropdownBankSampah.classList.toggle('active'); dropdownContentBankSampah.classList.toggle('active'); });
+        }
+        
+        // SMOOTH SCROLL
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if(this.classList.contains('mobile-dropdown-toggle')) return;
+                const href = this.getAttribute('href');
+                if(href === '#') return;
+                e.preventDefault();
+                if(href === '#home') window.scrollTo({ top: 0, behavior: 'smooth' });
+                else { const target = document.querySelector(href); if(target) { const headerHeight = document.querySelector('header').offsetHeight; window.scrollTo({ top: target.offsetTop - headerHeight, behavior: 'smooth' }); } }
+                if(mobileNav && mobileNav.contains(this)) { mobileToggle.classList.remove('active'); mobileNav.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = 'auto'; }
+            });
+        });
+        
+        // MAP DRAG & LEGEND TOGGLE
+        const mapWrapper = document.getElementById('mapWrapper');
+        if(mapWrapper) { let isDragging = false, startX, startY, scrollLeft, scrollTop; mapWrapper.addEventListener('mousedown', (e) => { isDragging = true; startX = e.pageX - mapWrapper.offsetLeft; startY = e.pageY - mapWrapper.offsetTop; scrollLeft = mapWrapper.scrollLeft; scrollTop = mapWrapper.scrollTop; mapWrapper.style.cursor = 'grabbing'; }); mapWrapper.addEventListener('mousemove', (e) => { if(!isDragging) return; e.preventDefault(); const x = e.pageX - mapWrapper.offsetLeft; const y = e.pageY - mapWrapper.offsetTop; mapWrapper.scrollLeft = scrollLeft - (x - startX) * 2; mapWrapper.scrollTop = scrollTop - (y - startY) * 2; }); mapWrapper.addEventListener('mouseup', () => { isDragging = false; mapWrapper.style.cursor = 'grab'; }); mapWrapper.addEventListener('mouseleave', () => { isDragging = false; mapWrapper.style.cursor = 'grab'; }); }
+        
+        const toggleLegend = document.getElementById('toggleLegend'); const legendContent = document.getElementById('legendContent');
+        if(toggleLegend && legendContent) { const icon = toggleLegend.querySelector('i'); toggleLegend.addEventListener('click', () => { legendContent.classList.toggle('collapsed'); legendContent.classList.toggle('expanded'); if(icon) icon.className = legendContent.classList.contains('collapsed') ? 'fas fa-chevron-down' : 'fas fa-chevron-up'; }); }
+        
+        const bgVideo = document.getElementById('bgVideo'); const bgImage = document.getElementById('bgImage');
+        if(bgVideo) { bgVideo.addEventListener('error', () => { bgVideo.style.display = 'none'; if(bgImage) bgImage.style.display = 'block'; }); bgVideo.play().catch(() => { bgVideo.style.display = 'none'; if(bgImage) bgImage.style.display = 'block'; }); }
+        
+        const installBanner = document.getElementById('installBanner'); const closeBanner = document.getElementById('closeBanner'); const installBtn = document.getElementById('installBtn');
+        if(installBanner && closeBanner && installBtn) { setTimeout(() => { if(!localStorage.getItem('lpsBannerDismissed')) installBanner.classList.add('active'); }, 3000); closeBanner.addEventListener('click', () => { installBanner.classList.remove('active'); localStorage.setItem('lpsBannerDismissed', 'true'); }); installBtn.addEventListener('click', (e) => { e.preventDefault(); alert('Aplikasi LPS akan dipasang di perangkat Anda'); installBanner.classList.remove('active'); localStorage.setItem('lpsBannerDismissed', 'true'); }); }
+        
+        window.addEventListener('load', () => { document.body.style.overflowX = 'hidden'; });
+    </script>
 </body>
 </html>

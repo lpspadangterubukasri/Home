@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Data Petugas Iuran Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri Kelurahan Padang Terubuk Kecamatan Senapelan Kota Pekanbaru">
+    <title>Petugas Iuran LPS Padang Terubuk Asri</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/petugasiuran.html">
+    <meta property="og:title" content="Petugas Iuran LPS Padang Terubuk Asri">
+    <meta property="og:description" content="Data Petugas Iuran Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri Kelurahan Padang Terubuk Kecamatan Senapelan Kota Pekanbaru">
+    <meta property="og:site_name" content="LPS Padang Terubuk Asri">
+    <meta property="og:image" content="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png">
+    <meta property="og:image:secure_url" content="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a5f7a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+            --success: #2e7d32;
+            --success-bg: #e8f5e9;
+            --warning: #f57f17;
+            --warning-bg: #fff8e1;
+            --danger: #c62828;
+            --danger-bg: #ffebee;
+            --gray: #757575;
+            --gray-bg: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f0f4f3;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* ===== HEADER MINIMALIS ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 20px rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid rgba(200, 230, 201, 0.3);
+            padding: 0;
+            height: 56px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            width: 100%;
+            height: 56px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            max-width: 70%;
+        }
+        
+        .logo {
+            height: 32px;
+            width: auto;
+            flex-shrink: 0;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+            overflow: hidden;
+        }
+        
+        .logo-text h1 {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.3px;
+        }
+        
+        .logo-text span {
+            font-size: 0.55rem;
+            color: var(--secondary);
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            opacity: 0.8;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(87, 197, 182, 0.25);
+            border: none;
+            cursor: pointer;
+            flex-shrink: 0;
+            height: 32px;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(87, 197, 182, 0.35);
+            background: linear-gradient(135deg, #45b0a1, #128b87);
+        }
+        
+        .back-button i {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-button:hover i {
+            transform: translateX(-3px);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding-top: 72px;
+            padding-bottom: 40px;
+        }
+        
+        /* ===== HERO MINIMALIS ===== */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary), #0c384f);
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin-bottom: 24px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(26, 95, 122, 0.2);
+        }
+        
+        .hero-section .icon-large {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            display: block;
+            color: var(--accent);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-section h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.5px;
+        }
+        
+        .hero-section .subtitle {
+            font-size: 0.75rem;
+            opacity: 0.85;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+        
+        .hero-section .breadcrumb {
+            margin-top: 10px;
+            font-size: 0.7rem;
+            opacity: 0.6;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-section .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .hero-section .breadcrumb a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* ===== STATS SUMMARY ===== */
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-summary-item {
+            background: white;
+            padding: 12px 8px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(200, 230, 201, 0.3);
+            transition: var(--transition);
+        }
+        
+        .stat-summary-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .stat-summary-item .number {
+            font-size: 1.3rem;
+            font-weight: 800;
+            display: block;
+            line-height: 1.2;
+        }
+        
+        .stat-summary-item .label {
+            font-size: 0.6rem;
+            color: #888;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-summary-item.active .number { color: var(--success); }
+        .stat-summary-item.warning .number { color: var(--warning); }
+        .stat-summary-item.danger .number { color: var(--danger); }
+        .stat-summary-item.total .number { color: var(--primary); }
+        
+        /* ===== CARD GRID ===== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        
+        /* ===== CARD ===== */
+        .petugas-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(200, 230, 201, 0.3);
+            position: relative;
+        }
+        
+        .petugas-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Status Warna Background Card */
+        .petugas-card.status-active {
+            background: var(--success-bg);
+            border-color: rgba(46, 125, 50, 0.2);
+        }
+        
+        .petugas-card.status-warning {
+            background: var(--warning-bg);
+            border-color: rgba(245, 127, 23, 0.2);
+        }
+        
+        .petugas-card.status-danger {
+            background: var(--danger-bg);
+            border-color: rgba(198, 40, 40, 0.2);
+        }
+        
+        .petugas-card.status-expired {
+            background: var(--gray-bg);
+            border-color: rgba(117, 117, 117, 0.2);
+            opacity: 0.7;
+        }
+        
+        /* Card Photo */
+        .card-photo {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card-photo .no-photo {
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.3;
+        }
+        
+        /* Status Badge */
+        .status-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+        
+        .status-badge.active { background: var(--success); }
+        .status-badge.warning { background: var(--warning); }
+        .status-badge.danger { background: var(--danger); }
+        .status-badge.expired { background: var(--gray); }
+        
+        /* Card Body */
+        .card-body {
+            padding: 14px 16px 16px;
+        }
+        
+        .card-body .nama {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+        
+        .card-body .wilayah {
+            font-size: 0.7rem;
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .card-body .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            font-size: 0.7rem;
+        }
+        
+        .card-body .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .card-body .info-row .label {
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .card-body .info-row .value {
+            color: #333;
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        /* Countdown */
+        .countdown {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+        
+        .countdown.active {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--success);
+        }
+        
+        .countdown.warning {
+            background: rgba(245, 127, 23, 0.1);
+            color: var(--warning);
+        }
+        
+        .countdown.danger {
+            background: rgba(198, 40, 40, 0.1);
+            color: var(--danger);
+        }
+        
+        .countdown .days {
+            font-size: 1rem;
+            font-weight: 800;
+        }
+        
+        /* Expired Message */
+        .expired-message {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: center;
+            background: rgba(117, 117, 117, 0.08);
+            color: var(--gray);
+            font-size: 0.65rem;
+            font-weight: 500;
+        }
+        
+        /* ===== LOADING & ERROR ===== */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e8f5e9;
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            text-align: center;
+            background: #ffebee;
+            border-radius: 12px;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .error-container i {
+            font-size: 2rem;
+            color: #e53935;
+            margin-bottom: 10px;
+        }
+        
+        .error-container h3 {
+            color: #c62828;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+        
+        .error-container p {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+        }
+        
+        .retry-btn {
+            padding: 8px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .retry-btn:hover {
+            background: #0c384f;
+            transform: translateY(-2px);
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            grid-column: 1/-1;
+        }
+        
+        .no-data i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--dark), #0c384f);
+            color: var(--white);
+            padding: 24px 0 14px;
+            text-align: center;
+            width: 100%;
+            margin-top: 30px;
+        }
+        
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        .footer-logo {
+            height: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .footer-text {
+            margin-bottom: 12px;
+            font-size: 0.75rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .copyright {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.65rem;
+            opacity: 0.6;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        
+        /* Tablet: 4 kolom */
+        @media (max-width: 1200px) {
+            .card-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        /* Tablet medium: 3 kolom */
+        @media (max-width: 992px) {
+            .card-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .stats-summary {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+        }
+        
+        /* Mobile: 2 kolom */
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .stats-summary {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            .stat-summary-item {
+                padding: 10px 6px;
+            }
+            
+            .stat-summary-item .number {
+                font-size: 1.1rem;
+            }
+            
+            .stat-summary-item .label {
+                font-size: 0.55rem;
+            }
+            
+            .card-photo {
+                height: 120px;
+            }
+            
+            .card-body {
+                padding: 10px 12px 12px;
+            }
+            
+            .card-body .nama {
+                font-size: 0.85rem;
+            }
+            
+            .hero-section {
+                padding: 18px 16px;
+                border-radius: 12px;
+            }
+            
+            .hero-section h1 {
+                font-size: 1rem;
+            }
+            
+            .hero-section .icon-large {
+                font-size: 1.6rem;
+            }
+            
+            .back-button {
+                padding: 4px 12px;
+                font-size: 0.65rem;
+                height: 28px;
+            }
+            
+            .logo {
+                height: 28px;
+            }
+            
+            .logo-text h1 {
+                font-size: 0.75rem;
+            }
+            
+            .logo-text span {
+                font-size: 0.5rem;
+            }
+            
+            header {
+                height: 48px;
+            }
+            
+            .header-content {
+                height: 48px;
+                padding: 0 12px;
+            }
+            
+            .main-content {
+                padding-top: 60px;
+                padding-bottom: 24px;
+            }
+        }
+        
+        /* Mobile kecil: 2 kolom */
+        @media (max-width: 480px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .card-photo {
+                height: 100px;
+            }
+            
+            .card-body .nama {
+                font-size: 0.75rem;
+            }
+            
+            .card-body .wilayah {
+                font-size: 0.6rem;
+                margin-bottom: 6px;
+            }
+            
+            .card-body .info-row {
+                font-size: 0.6rem;
+                padding: 3px 0;
+            }
+            
+            .status-badge {
+                font-size: 0.45rem;
+                padding: 2px 8px;
+                top: 5px;
+                right: 5px;
+            }
+            
+            .countdown {
+                font-size: 0.6rem;
+                padding: 5px 8px;
+                margin-top: 6px;
+            }
+            
+            .countdown .days {
+                font-size: 0.8rem;
+            }
+            
+            .expired-message {
+                font-size: 0.55rem;
+                padding: 5px 8px;
+                margin-top: 6px;
+            }
+            
+            .hero-section h1 {
+                font-size: 0.85rem;
+            }
+            
+            .hero-section .subtitle {
+                font-size: 0.65rem;
+            }
+            
+            .hero-section .breadcrumb {
+                font-size: 0.6rem;
+            }
+            
+            .stats-summary {
+                gap: 6px;
+            }
+            
+            .stat-summary-item {
+                padding: 8px 4px;
+                border-radius: 8px;
+            }
+            
+            .stat-summary-item .number {
+                font-size: 0.9rem;
+            }
+            
+            .stat-summary-item .label {
+                font-size: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Minimalis -->
+    <header>
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="https://lpspadangterubukasri.github.io/Home/data/foto/logolps.png" alt="LPS" class="logo">
+                <div class="logo-text">
+                    <h1>LPS PADANG TERUBUK</h1>
+                    <span>Lembaga Pengelola Sampah</span>
+                </div>
+            </div>
+            <a href="https://lpspadangterubukasri.github.io/Home/" class="back-button">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section Minimalis -->
+            <section class="hero-section">
+                <span class="icon-large">
+                    <i class="fas fa-users-cog"></i>
+                </span>
+                <h1>Petugas Iuran LPS</h1>
+                <p class="subtitle">Kelurahan Padang Terubuk · Kecamatan Senapelan · Kota Pekanbaru</p>
+                <div class="breadcrumb">
+                    <a href="https://lpspadangterubukasri.github.io/Home/">Beranda</a> 
+                    <i class="fas fa-chevron-right" style="font-size: 0.5rem; margin: 0 6px;"></i> 
+                    Petugas Iuran
+                </div>
+            </section>
+            
+            <!-- Stats Summary -->
+            <div class="stats-summary" id="statsSummary">
+                <div class="stat-summary-item total">
+                    <span class="number" id="totalPetugas">0</span>
+                    <span class="label">Total</span>
+                </div>
+                <div class="stat-summary-item active">
+                    <span class="number" id="aktifPetugas">0</span>
+                    <span class="label">Aktif</span>
+                </div>
+                <div class="stat-summary-item warning">
+                    <span class="number" id="warningPetugas">0</span>
+                    <span class="label">Peringatan</span>
+                </div>
+                <div class="stat-summary-item danger">
+                    <span class="number" id="dangerPetugas">0</span>
+                    <span class="label">Berakhir</span>
+                </div>
+            </div>
+            
+            <!-- Card Grid -->
+            <div id="cardContainer">
+                <!-- Loading -->
+                <div class="loading-container" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">Memuat Data Petugas...</p>
+                </div>
+                
+                <!-- Error -->
+                <div class="error-container" id="errorState" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h3>Gagal Memuat Data</h3>
+                    <p>Terjadi kesalahan saat mengambil data petugas.</p>
+                    <button class="retry-btn" onclick="loadPetugas()">
+                        <i class="fas fa-sync-alt"></i> Coba Lagi
+                    </button>
+                </div>
+                
+                <!-- Cards -->
+                <div id="cardGrid" style="display: none;" class="card-grid"></div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="https://lpspadangterubukasri.github.io/Home/data/foto/logolps.png" alt="LPS Logo" class="footer-logo">
+                <p class="footer-text">Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri adalah lembaga resmi yang diakui Pemerintah Kota Pekanbaru untuk pengelolaan sampah terpadu di Kelurahan Padang Terubuk.</p>
+                <div class="copyright">&copy; 2026 LPS Padang Terubuk Asri</div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // KONFIGURASI
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJU54ruZT_BDQMNbbvvrKZveW9LuJNFrHQEXg5gYKeFfFjOgKWbhAQ3IHLv2fkrNM/exec';
+        
+        // Fungsi utama load petugas
+        async function loadPetugas() {
+            const loadingState = document.getElementById('loadingState');
+            const errorState = document.getElementById('errorState');
+            const cardGrid = document.getElementById('cardGrid');
+            
+            loadingState.style.display = 'flex';
+            errorState.style.display = 'none';
+            cardGrid.style.display = 'none';
+            
+            try {
+                // Cek cache (valid 5 menit)
+                const cached = localStorage.getItem('petugasIuran');
+                if (cached) {
+                    const data = JSON.parse(cached);
+                    if (data && data.data && (Date.now() - data.timestamp < 300000)) {
+                        renderPetugas(data.data);
+                        loadingState.style.display = 'none';
+                        cardGrid.style.display = 'grid';
+                        return;
+                    }
+                }
+                
+                // Ambil dari Apps Script
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'no-cache'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    localStorage.setItem('petugasIuran', JSON.stringify({
+                        data: result.data,
+                        timestamp: Date.now()
+                    }));
+                    
+                    renderPetugas(result.data);
+                    loadingState.style.display = 'none';
+                    cardGrid.style.display = 'grid';
+                } else {
+                    throw new Error('Data tidak valid');
+                }
+                
+            } catch (error) {
+                console.error('Error loading petugas:', error);
+                
+                const cached = localStorage.getItem('petugasIuran');
+                if (cached) {
+                    try {
+                        const data = JSON.parse(cached);
+                        if (data && data.data) {
+                            renderPetugas(data.data);
+                            loadingState.style.display = 'none';
+                            cardGrid.style.display = 'grid';
+                            return;
+                        }
+                    } catch (e) {}
+                }
+                
+                loadingState.style.display = 'none';
+                errorState.style.display = 'flex';
+            }
+        }
+        
+        // Render petugas ke card
+        function renderPetugas(data) {
+            const cardGrid = document.getElementById('cardGrid');
+            
+            if (!data || data.length === 0) {
+                cardGrid.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-user-slash"></i>
+                        <p>Belum ada data petugas yang tersedia.</p>
+                    </div>
+                `;
+                cardGrid.style.display = 'grid';
+                updateStats([]);
+                return;
+            }
+            
+            const validData = data.filter(item => item.nama && item.nama.trim() !== '');
+            
+            if (validData.length === 0) {
+                cardGrid.innerHTML = `
+                    <div class="no-data">
+                        <i class="fas fa-user-slash"></i>
+                        <p>Belum ada data petugas yang valid.</p>
+                    </div>
+                `;
+                cardGrid.style.display = 'grid';
+                updateStats([]);
+                return;
+            }
+            
+            let cardsHtml = '';
+            const stats = { total: 0, aktif: 0, warning: 0, danger: 0 };
+            
+            validData.forEach((item, index) => {
+                const cardStatus = getCardStatus(item);
+                const countdownInfo = getCountdownInfo(item.perpanjangan);
+                
+                stats.total++;
+                if (cardStatus === 'active') stats.aktif++;
+                else if (cardStatus === 'warning') stats.warning++;
+                else if (cardStatus === 'danger') stats.danger++;
+                
+                const statusLabel = getStatusLabel(cardStatus);
+                const fotoUrl = item.foto && item.foto.trim() !== '' ? item.foto : '';
+                
+                cardsHtml += `
+                    <div class="petugas-card status-${cardStatus}">
+                        <div class="card-photo">
+                            ${fotoUrl ? `<img src="${fotoUrl}" alt="${item.nama}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'no-photo\\'><i class=\\'fas fa-user-circle\\'></i></div>'">` : `<div class="no-photo"><i class="fas fa-user-circle"></i></div>`}
+                            <span class="status-badge ${cardStatus}">${statusLabel}</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="nama">${item.nama || '-'}</div>
+                            <div class="wilayah"><i class="fas fa-map-marker-alt" style="font-size:0.55rem;margin-right:4px;"></i> ${item.wilayah || '-'}</div>
+                            <div class="info-row">
+                                <span class="label">No Surat Tugas</span>
+                                <span class="value">${item.no_surat || '-'}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Perpanjangan</span>
+                                <span class="value">${formatDate(item.perpanjangan) || '-'}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Status</span>
+                                <span class="value">${item.status || '-'}</span>
+                            </div>
+                            ${countdownInfo ? countdownInfo : ''}
+                            ${cardStatus === 'expired' ? `
+                                <div class="expired-message">
+                                    <i class="fas fa-sync-alt" style="margin-right:4px;"></i>
+                                    Pembaruan data oleh LPS
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cardGrid.innerHTML = cardsHtml;
+            cardGrid.style.display = 'grid';
+            updateStats(stats);
+        }
+        
+        // Fungsi untuk menentukan status card
+        function getCardStatus(item) {
+            if (!item.perpanjangan || item.perpanjangan.trim() === '') {
+                return 'expired';
+            }
+            
+            const endDate = new Date(item.perpanjangan);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            endDate.setHours(0, 0, 0, 0);
+            
+            const diffTime = endDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays < 0) {
+                return 'expired';
+            } else if (diffDays <= 30) {
+                return 'danger';
+            } else if (diffDays <= 60) {
+                return 'warning';
+            } else {
+                return 'active';
+            }
+        }
+        
+        // Fungsi untuk mendapatkan info countdown
+        function getCountdownInfo(perpanjangan) {
+            if (!perpanjangan || perpanjangan.trim() === '') {
+                return null;
+            }
+            
+            const endDate = new Date(perpanjangan);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            endDate.setHours(0, 0, 0, 0);
+            
+            const diffTime = endDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            let statusClass = '';
+            let message = '';
+            
+            if (diffDays < 0) {
+                return null;
+            } else if (diffDays === 0) {
+                statusClass = 'danger';
+                message = '⏰ Berakhir Hari Ini!';
+            } else if (diffDays <= 30) {
+                statusClass = 'danger';
+                message = `⏳ <span class="days">${diffDays}</span> hari lagi`;
+            } else if (diffDays <= 60) {
+                statusClass = 'warning';
+                message = `📅 <span class="days">${diffDays}</span> hari lagi`;
+            } else {
+                statusClass = 'active';
+                message = `✅ ${diffDays} hari tersisa`;
+            }
+            
+            return `<div class="countdown ${statusClass}">${message}</div>`;
+        }
+        
+        // Fungsi untuk mendapatkan label status
+        function getStatusLabel(status) {
+            const labels = {
+                'active': 'Aktif',
+                'warning': 'Peringatan',
+                'danger': 'Akan Berakhir',
+                'expired': 'Berakhir'
+            };
+            return labels[status] || 'Unknown';
+        }
+        
+        // Format tanggal
+        function formatDate(dateStr) {
+            if (!dateStr) return null;
+            try {
+                const date = new Date(dateStr);
+                if (isNaN(date.getTime())) return dateStr;
+                return date.toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                });
+            } catch (e) {
+                return dateStr;
+            }
+        }
+        
+        // Update stats summary
+        function updateStats(stats) {
+            document.getElementById('totalPetugas').textContent = stats.total || 0;
+            document.getElementById('aktifPetugas').textContent = stats.aktif || 0;
+            document.getElementById('warningPetugas').textContent = stats.warning || 0;
+            document.getElementById('dangerPetugas').textContent = stats.danger || 0;
+        }
+        
+        // Load saat halaman siap
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPetugas();
+            setInterval(loadPetugas, 300000);
+        });
+    </script>
+</body>
+</html>

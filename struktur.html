@@ -503,26 +503,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* === DEBUG INFO === */
-        .debug-info {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin: 10px 0;
-            font-size: 0.75rem;
-            color: #475569;
-            width: 100%;
-            max-width: 700px;
-            overflow-x: auto;
-            text-align: left;
-            font-family: 'Courier New', monospace;
-        }
-        .debug-info strong { color: #0b2b3d; }
-        .debug-info .highlight { color: #d97706; font-weight: 600; }
-        .debug-info .success { color: #0ea5a0; font-weight: 600; }
-        .debug-info .error { color: #dc2626; font-weight: 600; }
-
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
             body { padding-top: 72px; }
@@ -801,7 +781,6 @@
 
                 // Build lookup by JABATAN (case insensitive)
                 const dataMap = {};
-                const debugData = [];
 
                 rows.forEach((row, index) => {
                     const jabatan = (row.JABATAN || row.jabatan || '').toString().trim();
@@ -818,18 +797,7 @@
                             jabatanAsli: jabatan
                         };
                     }
-
-                    debugData.push({
-                        index: index + 1,
-                        jabatan: jabatan || '(kosong)',
-                        nama: nama || '(kosong)',
-                        noHp: noHp || '(kosong)',
-                        linkFoto: linkFoto || '(kosong)'
-                    });
                 });
-
-                // Debug info
-                console.log('Data dari spreadsheet:', debugData);
 
                 let html = '';
                 let delayIdx = 0;
@@ -905,21 +873,6 @@
                 html += `</div>`;
                 html += `</div>`;
 
-                // Tambahkan debug info di bawah chart
-                html += `
-                    <div class="debug-info">
-                        <strong>📊 Data dari Spreadsheet (${debugData.length} baris):</strong><br>
-                        ${debugData.map(d => 
-                            `• <span class="highlight">${d.jabatan}</span> → ${d.nama} ${d.linkFoto ? '📷' : '🚫'}`
-                        ).join('<br>')}
-                        <br><br>
-                        <span class="${Object.keys(dataMap).length > 0 ? 'success' : 'error'}">
-                            ${Object.keys(dataMap).length > 0 ? '✅' : '❌'} 
-                            Terdeteksi ${Object.keys(dataMap).length} jabatan: ${Object.keys(dataMap).join(', ')}
-                        </span>
-                    </div>
-                `;
-
                 chart.innerHTML = html;
 
                 // Trigger fade-in
@@ -944,7 +897,6 @@
 
                 // Jika link foto relatif, tambahkan base URL
                 if (foto && !foto.startsWith('http://') && !foto.startsWith('https://') && !foto.startsWith('data:')) {
-                    // Jika path dimulai dengan /, gunakan domain
                     if (foto.startsWith('/')) {
                         foto = `https://lpspadangterubukasri.github.io${foto}`;
                     } else {

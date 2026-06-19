@@ -197,7 +197,14 @@
         .stat-row .refresh-btn:hover {
             background: var(--accent);
             color: var(--white);
-            transform: rotate(30deg);
+        }
+
+        .stat-row .refresh-btn i {
+            transition: transform 0.5s ease;
+        }
+
+        .stat-row .refresh-btn:hover i {
+            transform: rotate(180deg);
         }
 
         /* ============================================
@@ -231,6 +238,32 @@
             box-shadow: var(--card-shadow);
             border-color: var(--accent);
         }
+
+        /* Badge Jenis Surat */
+        .badge-jenis {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 0.5rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(26, 95, 122, 0.3);
+        }
+
+        .badge-jenis.sk { background: #1a5f7a; }
+        .badge-jenis.perda { background: #b22234; }
+        .badge-jenis.perbup { background: #2e7d32; }
+        .badge-jenis.perwali { background: #e65100; }
+        .badge-jenis.surat-edaran { background: #6a1b9a; }
+        .badge-jenis.keputusan { background: #004d40; }
+        .badge-jenis.instruksi { background: #4a148c; }
+        .badge-jenis.default { background: var(--secondary); }
 
         /* PDF Preview Area */
         .pdf-preview {
@@ -478,6 +511,17 @@
             font-weight: 600;
         }
 
+        .modal-body .modal-meta .badge-jenis-modal {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+        }
+
         .modal-body .modal-pdf-container {
             background: var(--white);
             border-radius: 16px;
@@ -720,6 +764,12 @@
             .modal-body .modal-pdf-container iframe {
                 height: 280px;
             }
+            .badge-jenis {
+                font-size: 0.4rem;
+                padding: 1px 8px;
+                top: 6px;
+                left: 6px;
+            }
         }
     </style>
 </head>
@@ -795,6 +845,10 @@
                 <!-- Meta Info -->
                 <div class="modal-meta" id="modalMeta">
                     <div>
+                        <div class="meta-label">Jenis Surat</div>
+                        <div class="meta-value"><span class="badge-jenis-modal" id="modalJenis">-</span></div>
+                    </div>
+                    <div>
                         <div class="meta-label">Nomor Surat</div>
                         <div class="meta-value" id="modalNomor">-</div>
                     </div>
@@ -809,6 +863,10 @@
                     <div>
                         <div class="meta-label">Ditetapkan di</div>
                         <div class="meta-value" id="modalDitetapkan">-</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">Tentang</div>
+                        <div class="meta-value" id="modalTentang">-</div>
                     </div>
                 </div>
 
@@ -841,7 +899,7 @@
         // ============================================================
         //  KONFIGURASI
         // ============================================================
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz4Ve1UTGBGdGCyJQ_ByIuQuxMQ9r63c0hMezzz5YmhFipymYJmITbNJU8jhBo_6A/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcDOb0Q4ydLtfvRW07rQ6sUIUAmcA7vR6FmLOMsmS7i5sQ-yIX-9vufHRpLLchBQ8/exec';
 
         // ============================================================
         //  FUNGSI FORMAT TANGGAL (Support berbagai format)
@@ -909,29 +967,50 @@
         }
 
         // ============================================================
-        //  DATA FALLBACK
+        //  FUNGSI BADGE JENIS SURAT
+        // ============================================================
+        function getJenisBadgeClass(jenis) {
+            if (!jenis) return 'default';
+            const lower = jenis.toLowerCase();
+            if (lower.includes('sk') || lower.includes('keputusan')) return 'keputusan';
+            if (lower.includes('perda')) return 'perda';
+            if (lower.includes('perbup')) return 'perbup';
+            if (lower.includes('perwali')) return 'perwali';
+            if (lower.includes('edaran') || lower.includes('surat edaran')) return 'surat-edaran';
+            if (lower.includes('instruksi')) return 'instruksi';
+            return 'default';
+        }
+
+        // ============================================================
+        //  DATA FALLBACK (dengan header baru)
         // ============================================================
         const FALLBACK_DATA = [
-            { nomor_surat: "001/LPS-PTA/2026", tentang: "Pedoman Organisasi dan Tata Kerja", tanggal_terbit: "2026-01-10",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
-            { nomor_surat: "002/LPS-PTA/2026", tentang: "Standar Pelayanan Publik", tanggal_terbit: "8/25/2025",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
-            { nomor_surat: "003/LPS-PTA/2026", tentang: "Kode Etik dan Perilaku", tanggal_terbit: "15/01/2026",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
-            { nomor_surat: "004/LPS-PTA/2026", tentang: "Mekanisme Pengaduan Masyarakat", tanggal_terbit: "02-01-2026",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
-            { nomor_surat: "005/LPS-PTA/2026", tentang: "Rencana Strategis 2026-2030", tanggal_terbit: "2026-02-10",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
-            { nomor_surat: "006/LPS-PTA/2026", tentang: "Pedoman Pengelolaan Arsip", tanggal_terbit: "2/15/2026",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
-            { nomor_surat: "007/LPS-PTA/2026", tentang: "Standar Operasional Prosedur", tanggal_terbit: "20-02-2026",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
-            { nomor_surat: "008/LPS-PTA/2026", tentang: "Pedoman Keuangan dan Akuntansi", tanggal_terbit: "03/01/2026",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
-            { nomor_surat: "009/LPS-PTA/2026", tentang: "Peraturan Disiplin Pegawai", tanggal_terbit: "2026-03-05",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
-            { nomor_surat: "010/LPS-PTA/2026", tentang: "Pedoman Penilaian Kinerja", tanggal_terbit: "10/03/2026",
-                penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang", link_file: "#" },
+            { jenis_surat: "SK", nomor_surat: "001/SK-LPS/2026", tentang: "Pedoman Organisasi dan Tata Kerja",
+                tanggal_terbit: "2026-01-10", penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang",
+            link_file: "#" },
+            { jenis_surat: "Perda", nomor_surat: "002/PERDA/2026", tentang: "Standar Pelayanan Publik",
+                tanggal_terbit: "8/25/2025", penerbit: "Pemko Pekanbaru", ditetapkan_di: "Pekanbaru", link_file: "#" },
+            { jenis_surat: "Perbup", nomor_surat: "003/PERBUP/2026", tentang: "Kode Etik dan Perilaku",
+                tanggal_terbit: "15/01/2026", penerbit: "Pemkab Kampar", ditetapkan_di: "Bangkinang", link_file: "#" },
+            { jenis_surat: "Surat Edaran", nomor_surat: "004/SE-LPS/2026", tentang: "Mekanisme Pengaduan Masyarakat",
+                tanggal_terbit: "02-01-2026", penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang",
+            link_file: "#" },
+            { jenis_surat: "Instruksi", nomor_surat: "005/INSTR-LPS/2026", tentang: "Rencana Strategis 2026-2030",
+                tanggal_terbit: "2026-02-10", penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang",
+            link_file: "#" },
+            { jenis_surat: "Keputusan", nomor_surat: "006/KEP-LPS/2026", tentang: "Pedoman Pengelolaan Arsip",
+                tanggal_terbit: "2/15/2026", penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang",
+            link_file: "#" },
+            { jenis_surat: "Perwali", nomor_surat: "007/PERWALI/2026", tentang: "Standar Operasional Prosedur",
+                tanggal_terbit: "20-02-2026", penerbit: "Pemko Pekanbaru", ditetapkan_di: "Pekanbaru", link_file: "#" },
+            { jenis_surat: "SK", nomor_surat: "008/SK-LPS/2026", tentang: "Pedoman Keuangan dan Akuntansi",
+                tanggal_terbit: "03/01/2026", penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang",
+            link_file: "#" },
+            { jenis_surat: "Perda", nomor_surat: "009/PERDA/2026", tentang: "Peraturan Disiplin Pegawai",
+                tanggal_terbit: "2026-03-05", penerbit: "Pemko Pekanbaru", ditetapkan_di: "Pekanbaru", link_file: "#" },
+            { jenis_surat: "Keputusan", nomor_surat: "010/KEP-LPS/2026", tentang: "Pedoman Penilaian Kinerja",
+                tanggal_terbit: "10/03/2026", penerbit: "LPS Padang Terubuk Asri", ditetapkan_di: "Padang",
+            link_file: "#" },
         ];
 
         // ============================================================
@@ -958,18 +1037,31 @@
                 card.className = 'card-peraturan';
                 card.setAttribute('data-index', index);
                 card.addEventListener('click', function(e) {
-                    // Jangan trigger jika klik tombol download
                     if (e.target.closest('.btn-download')) return;
                     openModal(item);
                 });
 
-                // PDF Preview
+                // PDF Preview dengan Badge Jenis Surat
                 const preview = document.createElement('div');
                 preview.className = 'pdf-preview';
-                preview.innerHTML = `
-                    <i class="fas fa-file-pdf"></i>
-                    <span class="pdf-label">PDF</span>
-                `;
+
+                // Badge Jenis Surat
+                const jenis = item.jenis_surat || 'Peraturan';
+                const badgeClass = getJenisBadgeClass(jenis);
+                const badge = document.createElement('span');
+                badge.className = `badge-jenis ${badgeClass}`;
+                badge.textContent = jenis;
+                preview.appendChild(badge);
+
+                // Icon PDF
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-file-pdf';
+                preview.appendChild(icon);
+
+                const label = document.createElement('span');
+                label.className = 'pdf-label';
+                label.textContent = 'PDF';
+                preview.appendChild(label);
 
                 // Body
                 const body = document.createElement('div');
@@ -1032,20 +1124,24 @@
 
             const modal = document.getElementById('modalPreview');
             const title = document.getElementById('modalTitle');
+            const jenis = document.getElementById('modalJenis');
             const nomor = document.getElementById('modalNomor');
             const tanggal = document.getElementById('modalTanggal');
             const penerbit = document.getElementById('modalPenerbit');
             const ditetapkan = document.getElementById('modalDitetapkan');
+            const tentang = document.getElementById('modalTentang');
             const iframe = document.getElementById('pdfIframe');
             const placeholder = document.getElementById('pdfPlaceholder');
             const downloadBtn = document.getElementById('modalDownloadBtn');
 
             // Set meta
             title.textContent = item.tentang || 'Preview PDF';
+            jenis.textContent = item.jenis_surat || 'Peraturan';
             nomor.textContent = item.nomor_surat || '-';
             tanggal.textContent = formatDateIndonesia(item.tanggal_terbit);
             penerbit.textContent = item.penerbit || '-';
             ditetapkan.textContent = item.ditetapkan_di || '-';
+            tentang.textContent = item.tentang || '-';
 
             // Set download link
             const linkFile = item.link_file || '#';

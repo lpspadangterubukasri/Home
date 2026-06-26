@@ -464,6 +464,38 @@
             margin-right: 10px;
         }
         
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 90%;
+            text-align: center;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .toast.success {
+            background: var(--green-success);
+        }
+        
+        .toast.error {
+            background: var(--red);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .layanan-options {
@@ -598,63 +630,63 @@
                     
                     <div class="form-group">
                         <label>Nama Peserta <span class="required">*</span></label>
-                        <input type="text" name="nama_peserta_rt" placeholder="Masukkan nama lengkap" required>
+                        <input type="text" name="nama_peserta_rt" id="nama_peserta_rt" placeholder="Masukkan nama lengkap" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. NIK <span class="required">*</span></label>
-                        <input type="text" name="no_nik_rt" placeholder="Masukkan NIK (16 digit)" maxlength="16" required>
+                        <input type="text" name="no_nik_rt" id="no_nik_rt" placeholder="Masukkan NIK (16 digit)" maxlength="16" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. KK <span class="required">*</span></label>
-                        <input type="text" name="no_kk_rt" placeholder="Masukkan No. KK" required>
+                        <input type="text" name="no_kk_rt" id="no_kk_rt" placeholder="Masukkan No. KK" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Alamat Lengkap <span class="required">*</span></label>
-                        <textarea name="alamat_rt" placeholder="Masukkan alamat lengkap" required></textarea>
+                        <textarea name="alamat_rt" id="alamat_rt" placeholder="Masukkan alamat lengkap" required></textarea>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label>RT <span class="required">*</span></label>
-                            <input type="text" name="rt_rt" placeholder="Contoh: 001" required>
+                            <input type="text" name="rt_rt" id="rt_rt" placeholder="Contoh: 001" required>
                         </div>
                         <div class="form-group">
                             <label>RW <span class="required">*</span></label>
-                            <input type="text" name="rw_rt" placeholder="Contoh: 001" required>
+                            <input type="text" name="rw_rt" id="rw_rt" placeholder="Contoh: 001" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label>Kelurahan <span class="required">*</span></label>
-                        <input type="text" name="kelurahan_rt" value="Padang Terubuk" required>
+                        <input type="text" name="kelurahan_rt" id="kelurahan_rt" value="Padang Terubuk" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Kecamatan <span class="required">*</span></label>
-                        <input type="text" name="kecamatan_rt" value="Senapelan" required>
+                        <input type="text" name="kecamatan_rt" id="kecamatan_rt" value="Senapelan" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Kota <span class="required">*</span></label>
-                        <input type="text" name="kota_rt" value="Pekanbaru" required>
+                        <input type="text" name="kota_rt" id="kota_rt" value="Pekanbaru" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Provinsi <span class="required">*</span></label>
-                        <input type="text" name="provinsi_rt" value="Riau" required>
+                        <input type="text" name="provinsi_rt" id="provinsi_rt" value="Riau" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. Telp <span class="required">*</span></label>
-                        <input type="tel" name="no_telp_rt" placeholder="Contoh: 081234567890" required>
+                        <input type="tel" name="no_telp_rt" id="no_telp_rt" placeholder="Contoh: 081234567890" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Email Aktif <span class="required">*</span></label>
-                        <input type="email" name="email_rt" placeholder="Masukkan email aktif" required>
+                        <input type="email" name="email_rt" id="email_rt" placeholder="Masukkan email aktif" required>
                     </div>
                 </div>
                 
@@ -664,73 +696,73 @@
                     
                     <div class="form-group">
                         <label>Nama Peserta <span class="required">*</span></label>
-                        <input type="text" name="nama_peserta_umkm" placeholder="Masukkan nama lengkap" required>
+                        <input type="text" name="nama_peserta_umkm" id="nama_peserta_umkm" placeholder="Masukkan nama lengkap" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Nama UMKM <span class="required">*</span></label>
-                        <input type="text" name="nama_umkm" placeholder="Masukkan nama UMKM" required>
+                        <input type="text" name="nama_umkm" id="nama_umkm" placeholder="Masukkan nama UMKM" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. Surat Izin Usaha UMKM <span class="required">*</span></label>
-                        <input type="text" name="no_surat_izin_umkm" placeholder="Masukkan No. Surat Izin Usaha" required>
+                        <input type="text" name="no_surat_izin_umkm" id="no_surat_izin_umkm" placeholder="Masukkan No. Surat Izin Usaha" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. NIK <span class="required">*</span></label>
-                        <input type="text" name="no_nik_umkm" placeholder="Masukkan NIK (16 digit)" maxlength="16" required>
+                        <input type="text" name="no_nik_umkm" id="no_nik_umkm" placeholder="Masukkan NIK (16 digit)" maxlength="16" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. KK <span class="required">*</span></label>
-                        <input type="text" name="no_kk_umkm" placeholder="Masukkan No. KK" required>
+                        <input type="text" name="no_kk_umkm" id="no_kk_umkm" placeholder="Masukkan No. KK" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Alamat Lengkap <span class="required">*</span></label>
-                        <textarea name="alamat_umkm" placeholder="Masukkan alamat lengkap" required></textarea>
+                        <textarea name="alamat_umkm" id="alamat_umkm" placeholder="Masukkan alamat lengkap" required></textarea>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label>RT <span class="required">*</span></label>
-                            <input type="text" name="rt_umkm" placeholder="Contoh: 001" required>
+                            <input type="text" name="rt_umkm" id="rt_umkm" placeholder="Contoh: 001" required>
                         </div>
                         <div class="form-group">
                             <label>RW <span class="required">*</span></label>
-                            <input type="text" name="rw_umkm" placeholder="Contoh: 001" required>
+                            <input type="text" name="rw_umkm" id="rw_umkm" placeholder="Contoh: 001" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label>Kelurahan <span class="required">*</span></label>
-                        <input type="text" name="kelurahan_umkm" value="Padang Terubuk" required>
+                        <input type="text" name="kelurahan_umkm" id="kelurahan_umkm" value="Padang Terubuk" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Kecamatan <span class="required">*</span></label>
-                        <input type="text" name="kecamatan_umkm" value="Senapelan" required>
+                        <input type="text" name="kecamatan_umkm" id="kecamatan_umkm" value="Senapelan" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Kota <span class="required">*</span></label>
-                        <input type="text" name="kota_umkm" value="Pekanbaru" required>
+                        <input type="text" name="kota_umkm" id="kota_umkm" value="Pekanbaru" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Provinsi <span class="required">*</span></label>
-                        <input type="text" name="provinsi_umkm" value="Riau" required>
+                        <input type="text" name="provinsi_umkm" id="provinsi_umkm" value="Riau" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. Telp <span class="required">*</span></label>
-                        <input type="tel" name="no_telp_umkm" placeholder="Contoh: 081234567890" required>
+                        <input type="tel" name="no_telp_umkm" id="no_telp_umkm" placeholder="Contoh: 081234567890" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Email Aktif <span class="required">*</span></label>
-                        <input type="email" name="email_umkm" placeholder="Masukkan email aktif" required>
+                        <input type="email" name="email_umkm" id="email_umkm" placeholder="Masukkan email aktif" required>
                     </div>
                 </div>
                 
@@ -740,73 +772,73 @@
                     
                     <div class="form-group">
                         <label>Nama Peserta <span class="required">*</span></label>
-                        <input type="text" name="nama_peserta_bu" placeholder="Masukkan nama lengkap" required>
+                        <input type="text" name="nama_peserta_bu" id="nama_peserta_bu" placeholder="Masukkan nama lengkap" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Nama Badan Usaha <span class="required">*</span></label>
-                        <input type="text" name="nama_badan_usaha" placeholder="Masukkan nama badan usaha" required>
+                        <input type="text" name="nama_badan_usaha" id="nama_badan_usaha" placeholder="Masukkan nama badan usaha" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. Surat Izin Badan Usaha <span class="required">*</span></label>
-                        <input type="text" name="no_surat_izin_bu" placeholder="Masukkan No. Surat Izin Badan Usaha" required>
+                        <input type="text" name="no_surat_izin_bu" id="no_surat_izin_bu" placeholder="Masukkan No. Surat Izin Badan Usaha" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. NIK <span class="required">*</span></label>
-                        <input type="text" name="no_nik_bu" placeholder="Masukkan NIK (16 digit)" maxlength="16" required>
+                        <input type="text" name="no_nik_bu" id="no_nik_bu" placeholder="Masukkan NIK (16 digit)" maxlength="16" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. KK <span class="required">*</span></label>
-                        <input type="text" name="no_kk_bu" placeholder="Masukkan No. KK" required>
+                        <input type="text" name="no_kk_bu" id="no_kk_bu" placeholder="Masukkan No. KK" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Alamat Lengkap <span class="required">*</span></label>
-                        <textarea name="alamat_bu" placeholder="Masukkan alamat lengkap" required></textarea>
+                        <textarea name="alamat_bu" id="alamat_bu" placeholder="Masukkan alamat lengkap" required></textarea>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label>RT <span class="required">*</span></label>
-                            <input type="text" name="rt_bu" placeholder="Contoh: 001" required>
+                            <input type="text" name="rt_bu" id="rt_bu" placeholder="Contoh: 001" required>
                         </div>
                         <div class="form-group">
                             <label>RW <span class="required">*</span></label>
-                            <input type="text" name="rw_bu" placeholder="Contoh: 001" required>
+                            <input type="text" name="rw_bu" id="rw_bu" placeholder="Contoh: 001" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label>Kelurahan <span class="required">*</span></label>
-                        <input type="text" name="kelurahan_bu" value="Padang Terubuk" required>
+                        <input type="text" name="kelurahan_bu" id="kelurahan_bu" value="Padang Terubuk" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Kecamatan <span class="required">*</span></label>
-                        <input type="text" name="kecamatan_bu" value="Senapelan" required>
+                        <input type="text" name="kecamatan_bu" id="kecamatan_bu" value="Senapelan" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Kota <span class="required">*</span></label>
-                        <input type="text" name="kota_bu" value="Pekanbaru" required>
+                        <input type="text" name="kota_bu" id="kota_bu" value="Pekanbaru" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Provinsi <span class="required">*</span></label>
-                        <input type="text" name="provinsi_bu" value="Riau" required>
+                        <input type="text" name="provinsi_bu" id="provinsi_bu" value="Riau" required>
                     </div>
                     
                     <div class="form-group">
                         <label>No. Telp <span class="required">*</span></label>
-                        <input type="tel" name="no_telp_bu" placeholder="Contoh: 081234567890" required>
+                        <input type="tel" name="no_telp_bu" id="no_telp_bu" placeholder="Contoh: 081234567890" required>
                     </div>
                     
                     <div class="form-group">
                         <label>Email Aktif <span class="required">*</span></label>
-                        <input type="email" name="email_bu" placeholder="Masukkan email aktif" required>
+                        <input type="email" name="email_bu" id="email_bu" placeholder="Masukkan email aktif" required>
                     </div>
                 </div>
                 
@@ -816,6 +848,9 @@
             </form>
         </div>
     </div>
+    
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
     
     <!-- Modal Popup -->
     <div class="modal-overlay" id="successModal">
@@ -849,19 +884,99 @@
     </div>
     
     <script>
-        // Pilih jenis layanan
+        // ================================================================
+        // 1. SAVE & RESTORE FORM DATA (agar tidak hilang saat refresh)
+        // ================================================================
+        const FORM_STORAGE_KEY = 'lps_form_data';
+        
+        function saveFormData() {
+            const form = document.getElementById('registrationForm');
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            // Simpan juga jenis layanan yang aktif
+            data['jenis_layanan_selected'] = document.getElementById('jenisLayanan').value;
+            localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(data));
+        }
+        
+        function restoreFormData() {
+            const saved = localStorage.getItem(FORM_STORAGE_KEY);
+            if (!saved) return;
+            
+            try {
+                const data = JSON.parse(saved);
+                const form = document.getElementById('registrationForm');
+                
+                // Restore jenis layanan
+                if (data['jenis_layanan_selected']) {
+                    const value = data['jenis_layanan_selected'];
+                    document.getElementById('jenisLayanan').value = value;
+                    
+                    // Activate correct tab
+                    document.querySelectorAll('.layanan-option').forEach(el => {
+                        el.classList.toggle('active', el.dataset.value === value);
+                    });
+                    
+                    // Show correct form
+                    document.querySelectorAll('.form-section').forEach(el => el.classList.remove('active'));
+                    if (value === 'rumah-tangga') {
+                        document.getElementById('formRumahTangga').classList.add('active');
+                    } else if (value === 'umkm') {
+                        document.getElementById('formUMKM').classList.add('active');
+                    } else if (value === 'badan-usaha') {
+                        document.getElementById('formBadanUsaha').classList.add('active');
+                    }
+                }
+                
+                // Restore all form fields
+                for (let [key, value] of Object.entries(data)) {
+                    if (key === 'jenis_layanan_selected') continue;
+                    const input = form.querySelector(`[name="${key}"]`);
+                    if (input) {
+                        input.value = value;
+                    }
+                }
+            } catch(e) {
+                console.log('Error restoring form data:', e);
+            }
+        }
+        
+        // Auto-save on input change
+        document.addEventListener('DOMContentLoaded', function() {
+            // Restore saved data first
+            restoreFormData();
+            
+            // Then setup auto-save
+            const form = document.getElementById('registrationForm');
+            form.addEventListener('input', function() {
+                saveFormData();
+            });
+            form.addEventListener('change', function() {
+                saveFormData();
+            });
+            
+            // Save when selecting layanan
+            document.querySelectorAll('.layanan-option').forEach(el => {
+                el.addEventListener('click', function() {
+                    setTimeout(saveFormData, 100);
+                });
+            });
+        });
+        
+        // ================================================================
+        // 2. LAYANAN SELECTOR
+        // ================================================================
         function selectLayanan(element) {
-            // Remove active from all
             document.querySelectorAll('.layanan-option').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
             
             const value = element.dataset.value;
             document.getElementById('jenisLayanan').value = value;
             
-            // Hide all forms
             document.querySelectorAll('.form-section').forEach(el => el.classList.remove('active'));
             
-            // Show selected form
             if (value === 'rumah-tangga') {
                 document.getElementById('formRumahTangga').classList.add('active');
             } else if (value === 'umkm') {
@@ -869,9 +984,28 @@
             } else if (value === 'badan-usaha') {
                 document.getElementById('formBadanUsaha').classList.add('active');
             }
+            
+            // Save to localStorage
+            saveFormData();
         }
         
-        // Handle form submit
+        // ================================================================
+        // 3. TOAST NOTIFICATION
+        // ================================================================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+        
+        // ================================================================
+        // 4. HANDLE FORM SUBMIT
+        // ================================================================
         async function handleSubmit(event) {
             event.preventDefault();
             
@@ -879,14 +1013,13 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner"></span> Mengirim...';
             
-            // Get form data
             const formData = new FormData(event.target);
             const jenisLayanan = document.getElementById('jenisLayanan').value;
             
-            // Collect data based on layanan type
             let data = {
                 jenis_layanan: jenisLayanan,
-                timestamp: new Date().toLocaleString('id-ID')
+                timestamp: new Date().toLocaleString('id-ID'),
+                status: 'Menunggu Verifikasi'
             };
             
             if (jenisLayanan === 'rumah-tangga') {
@@ -902,9 +1035,11 @@
                 data.provinsi = formData.get('provinsi_rt');
                 data.no_telp = formData.get('no_telp_rt');
                 data.email = formData.get('email_rt');
+                data.nama_usaha = '-';
+                data.no_surat_izin = '-';
             } else if (jenisLayanan === 'umkm') {
                 data.nama_peserta = formData.get('nama_peserta_umkm');
-                data.nama_umkm = formData.get('nama_umkm');
+                data.nama_usaha = formData.get('nama_umkm');
                 data.no_surat_izin = formData.get('no_surat_izin_umkm');
                 data.no_nik = formData.get('no_nik_umkm');
                 data.no_kk = formData.get('no_kk_umkm');
@@ -919,7 +1054,7 @@
                 data.email = formData.get('email_umkm');
             } else if (jenisLayanan === 'badan-usaha') {
                 data.nama_peserta = formData.get('nama_peserta_bu');
-                data.nama_badan_usaha = formData.get('nama_badan_usaha');
+                data.nama_usaha = formData.get('nama_badan_usaha');
                 data.no_surat_izin = formData.get('no_surat_izin_bu');
                 data.no_nik = formData.get('no_nik_bu');
                 data.no_kk = formData.get('no_kk_bu');
@@ -935,8 +1070,8 @@
             }
             
             try {
-                // Kirim data ke Google Apps Script (untuk email)
-                const response = await fetch('https://script.google.com/macros/s/AKfycbzG32vvZD1Ek8eGB5IOh9VL2kT8y8Th_jY7G-KUbbHfycbJJnf53Ng6aEfMfGff6KY6/exec', {
+                // Kirim ke Google Apps Script
+                const response = await fetch('https://script.google.com/macros/s/AKfycbzeNJ28N-WMW_u0d4BYDSVrbNpQJvCM09zscbcr8H8ZJf-De2DqNaWTiDoxO2bBb5ki/exec', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -947,16 +1082,21 @@
                 
                 const result = await response.json();
                 
-                // Tampilkan modal sukses
-                showModal();
-                
-                // Reset form
-                event.target.reset();
-                
+                if (result.success) {
+                    // Clear saved form data
+                    localStorage.removeItem(FORM_STORAGE_KEY);
+                    showToast('✅ Pendaftaran berhasil dikirim!', 'success');
+                    showModal();
+                    event.target.reset();
+                } else {
+                    showToast('❌ Gagal mengirim: ' + (result.error || 'Unknown error'), 'error');
+                }
             } catch (error) {
                 console.error('Error:', error);
-                // Tetap tampilkan modal sukses meskipun ada error (sebagai fallback)
+                showToast('⚠️ Gagal terhubung ke server. Data disimpan secara lokal.', 'error');
+                // Tetap tampilkan modal sukses
                 showModal();
+                localStorage.removeItem(FORM_STORAGE_KEY);
                 event.target.reset();
             }
             
@@ -964,25 +1104,31 @@
             submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Pendaftaran';
         }
         
-        // Show modal
+        // ================================================================
+        // 5. MODAL CONTROLS
+        // ================================================================
         function showModal() {
             document.getElementById('successModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
         
-        // Close modal
         function closeModal() {
             document.getElementById('successModal').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
         
-        // Close modal on overlay click
         document.getElementById('successModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
         
+        // ================================================================
+        // 6. SETUP AUTO-SAVE ON PAGE UNLOAD
+        // ================================================================
+        window.addEventListener('beforeunload', function() {
+            saveFormData();
+        });
     </script>
 </body>
 </html>

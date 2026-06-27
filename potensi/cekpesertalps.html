@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Meta SEO & Sharing -->
+    <meta name="description" content="Cek Data Peserta Lembaga Pengelola Sampah (LPS) Padang Terubuk Asri. Cari data peserta berdasarkan Nama, NIK, atau NO KK.">
+    <meta name="keywords" content="LPS Padang Terubuk Asri, cek data peserta, pendataan sampah, pengelolaan sampah, Pekanbaru">
+    <meta name="author" content="LPS Padang Terubuk Asri">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/cek-data-peserta.html">
+    <meta property="og:title" content="Cek Data Peserta LPS Padang Terubuk Asri">
+    <meta property="og:description" content="Cek data peserta Lembaga Pengelola Sampah Padang Terubuk Asri berdasarkan Nama, NIK, atau NO KK.">
+    <meta property="og:image" content="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png">
+    <meta property="og:image:secure_url" content="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:site_name" content="LPS Padang Terubuk Asri">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cek Data Peserta LPS Padang Terubuk Asri">
+    <meta name="twitter:description" content="Cek data peserta Lembaga Pengelola Sampah Padang Terubuk Asri.">
+    <meta name="twitter:image" content="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png">
+
+    <!-- Favicon & Logo -->
+    <link rel="icon" href="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <title>Cek Data Peserta LPS Padang Terubuk Asri</title>
+    
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --card-bg: linear-gradient(145deg, #e8f5e9, #c8e6c9);
+            --card-shadow: 0 15px 35px rgba(21, 152, 149, 0.12);
+            --green-light: #e8f5e9;
+            --green-medium: #c8e6c9;
+            --green-dark: #388e3c;
+            --blue-light: #e3f2fd;
+            --blue-medium: #bbdefb;
+            --gold: #ffd700;
+            --bronze: #cd7f32;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --success: #28a745;
+            --info: #17a2b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f9fa, #e8f5e9);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark), #0c384f);
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo {
+            height: 45px;
+            width: auto;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.2;
+        }
+        
+        .logo-text span {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 300;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(-3px);
+        }
+        
+        /* Main Section */
+        .main-section {
+            padding: 40px 0 60px;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .page-title h2 {
+            font-size: 2rem;
+            color: var(--green-dark);
+            margin-bottom: 10px;
+        }
+        
+        .page-title p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        /* Search Box */
+        .search-container {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            border: 1px solid rgba(200, 230, 201, 0.5);
+        }
+        
+        .search-type-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .search-type-btn {
+            padding: 10px 25px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            background: var(--white);
+            color: #666;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .search-type-btn:hover {
+            border-color: var(--accent);
+            color: var(--primary);
+        }
+        
+        .search-type-btn.active {
+            border-color: var(--secondary);
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(87, 197, 182, 0.3);
+        }
+        
+        .search-type-btn i {
+            margin-right: 6px;
+        }
+        
+        .search-input-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .search-input-group input {
+            flex: 1;
+            min-width: 200px;
+            padding: 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+        
+        .search-input-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(87, 197, 182, 0.15);
+            background: var(--white);
+        }
+        
+        .search-input-group input::placeholder {
+            color: #aaa;
+        }
+        
+        .search-btn {
+            padding: 14px 35px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(87, 197, 182, 0.3);
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(87, 197, 182, 0.4);
+        }
+        
+        .search-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .search-btn i {
+            font-size: 1.1rem;
+        }
+        
+        .search-info {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #888;
+            text-align: center;
+        }
+        
+        /* Loading */
+        .loading-container {
+            text-align: center;
+            padding: 40px 0;
+            display: none;
+        }
+        
+        .loading-container.active {
+            display: block;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e0e0e0;
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        /* Results */
+        .results-container {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        .results-container.active {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .results-count {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .results-count i {
+            margin-right: 6px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .no-results i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .no-results h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .no-results p {
+            color: #999;
+        }
+        
+        /* Participant Card */
+        .participant-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+            border-left: 6px solid var(--accent);
+            transition: var(--transition);
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        .participant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(21, 152, 149, 0.15);
+        }
+        
+        .participant-card.rumah-tangga {
+            border-left-color: var(--info);
+        }
+        
+        .participant-card.umkm {
+            border-left-color: var(--warning);
+        }
+        
+        .participant-card.badan-usaha {
+            border-left-color: var(--success);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-title h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        .participant-badge {
+            padding: 4px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .participant-badge.rt {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .participant-badge.umkm {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .participant-badge.badan-usaha {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 25px;
+        }
+        
+        .card-body .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .info-item .label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .info-item .value {
+            font-size: 0.95rem;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .info-item .value.censored {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            color: var(--primary);
+        }
+        
+        .card-extra {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .card-extra .extra-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .card-extra .extra-item i {
+            color: var(--accent);
+            width: 20px;
+        }
+
+/* Status Belum Terdata */
+.status-unrecorded {
+    color: #dc3545 !important;
+    font-weight: 600;
+}
+
+.status-recorded {
+    color: var(--green-dark) !important;
+    font-weight: 600;
+}
+
+.extra-item .fa-exclamation-triangle {
+    color: #dc3545;
+}
+
+.extra-item .fa-info-circle {
+    color: var(--accent);
+}
+
+.extra-item .fa-money-bill-wave {
+    color: var(--green-dark);
+}
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            
+            .logo-container {
+                justify-content: center;
+            }
+            
+            .back-btn {
+                justify-content: center;
+            }
+            
+            .page-title h2 {
+                font-size: 1.5rem;
+            }
+            
+            .search-container {
+                padding: 20px 15px;
+            }
+            
+            .search-type-selector {
+                gap: 6px;
+            }
+            
+            .search-type-btn {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            
+            .search-input-group {
+                flex-direction: column;
+            }
+            
+            .search-input-group input {
+                width: 100%;
+                min-width: unset;
+            }
+            
+            .search-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .card-body {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .card-title {
+                flex-wrap: wrap;
+            }
+            
+            .participant-badge {
+                align-self: flex-start;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title h2 {
+                font-size: 1.2rem;
+            }
+            
+            .search-type-btn {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+            
+            .participant-card {
+                padding: 18px 15px;
+            }
+            
+            .card-title h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="https://lpspadangterubukasri.github.io/Home/data/foto/logolps.png" alt="LPS Logo" class="logo">
+                    <div class="logo-text">
+                        <h1>CEK DATA PESERTA LPS</h1>
+                        <span>Lembaga Pengelola Sampah Padang Terubuk Asri</span>
+                    </div>
+                </div>
+                <a href="https://lpspadangterubukasri.github.io/Home/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <section class="main-section">
+        <div class="container">
+            <div class="page-title">
+                <h2><i class="fas fa-search" style="color: var(--accent);"></i> Cek Data Peserta LPS</h2>
+                <p>Cari data peserta berdasarkan Nama, NIK, atau Nomor KK</p>
+            </div>
+            
+            <!-- Search Box -->
+            <div class="search-container">
+                <div class="search-type-selector">
+                    <button class="search-type-btn active" data-type="nama">
+                        <i class="fas fa-user"></i> Nama
+                    </button>
+                    <button class="search-type-btn" data-type="nik">
+                        <i class="fas fa-id-card"></i> NIK
+                    </button>
+                    <button class="search-type-btn" data-type="nokk">
+                        <i class="fas fa-address-card"></i> No. KK
+                    </button>
+                </div>
+                
+                <div class="search-input-group">
+                    <input type="text" id="searchInput" placeholder="Masukkan kata kunci pencarian..." autocomplete="off">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i> Cari Data
+                    </button>
+                </div>
+                
+                <div class="search-info">
+                    <i class="fas fa-info-circle"></i> Minimal 3 karakter untuk hasil yang lebih akurat
+                </div>
+            </div>
+            
+            <!-- Loading -->
+            <div class="loading-container" id="loadingContainer">
+                <div class="spinner"></div>
+                <p class="loading-text"><i class="fas fa-spinner fa-spin"></i> Mencari data...</p>
+            </div>
+            
+            <!-- Results -->
+            <div class="results-container" id="resultsContainer">
+                <div class="results-header">
+                    <div class="results-count" id="resultsCount">
+                        <i class="fas fa-users"></i> 0 data ditemukan
+                    </div>
+                    <button class="search-btn" id="resetBtn" style="padding: 8px 20px; font-size: 0.85rem; background: #e0e0e0; color: #666; box-shadow: none;">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                </div>
+                <div id="resultsContent"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer style="background: linear-gradient(135deg, var(--dark), #0c384f); color: var(--white); padding: 30px 0; text-align: center; margin-top: 40px;">
+        <div class="container">
+            <p style="font-size: 0.9rem; opacity: 0.9;">
+                &copy; 2026 Lembaga Pengelola Sampah Padang Terubuk Asri | 
+                <a href="#" style="color: var(--accent); text-decoration: none;">Cek Data Peserta</a>
+            </p>
+        </div>
+    </footer>
+    
+    <script>
+        // ============================================
+        // KONFIGURASI
+        // ============================================
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyr-n_F2ya-At46KTjpd05aFExBqc2BJUWC1HLr-WYHSqefXiw8Z4RQru77uMuIJi3e/exec';
+        // GANTI YOUR_SCRIPT_ID dengan ID Apps Script yang sudah di-deploy
+        
+        let currentSearchType = 'nama';
+        let isSearching = false;
+        
+        // ============================================
+        // DOM ELEMENTS
+        // ============================================
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const resultsCount = document.getElementById('resultsCount');
+        const resultsContent = document.getElementById('resultsContent');
+        const typeButtons = document.querySelectorAll('.search-type-btn');
+        
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        
+        // Type selector
+        typeButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                typeButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentSearchType = this.dataset.type;
+                searchInput.placeholder = getPlaceholder(currentSearchType);
+                searchInput.focus();
+            });
+        });
+        
+        function getPlaceholder(type) {
+            const map = {
+                'nama': 'Masukkan nama peserta...',
+                'nik': 'Masukkan NIK (16 digit)...',
+                'nokk': 'Masukkan Nomor KK...'
+            };
+            return map[type] || 'Masukkan kata kunci...';
+        }
+        
+        // Search button
+        searchBtn.addEventListener('click', performSearch);
+        
+        // Enter key
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Reset button
+        resetBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            resultsContainer.classList.remove('active');
+            resultsContent.innerHTML = '';
+            searchInput.focus();
+        });
+        
+        // ============================================
+        // SEARCH FUNCTION
+        // ============================================
+        async function performSearch() {
+            const keyword = searchInput.value.trim();
+            
+            // Validation
+            if (!keyword || keyword.length < 2) {
+                showAlert('Silakan masukkan minimal 2 karakter untuk pencarian.', 'warning');
+                searchInput.focus();
+                return;
+            }
+            
+            // Prevent duplicate search
+            if (isSearching) return;
+            
+            // Show loading
+            isSearching = true;
+            searchBtn.disabled = true;
+            searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mencari...';
+            loadingContainer.classList.add('active');
+            resultsContainer.classList.remove('active');
+            resultsContent.innerHTML = '';
+            
+            try {
+                // Build URL
+                const url = `${API_URL}?action=search&type=${currentSearchType}&keyword=${encodeURIComponent(keyword)}&t=${Date.now()}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'no-cache'
+                });
+                
+                const result = await response.json();
+                
+                // Log activity
+                logActivity(keyword, currentSearchType, result.count || 0);
+                
+                // Display results
+                displayResults(result);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showAlert('Terjadi kesalahan saat mencari data. Silakan coba lagi.', 'error');
+            } finally {
+                isSearching = false;
+                searchBtn.disabled = false;
+                searchBtn.innerHTML = '<i class="fas fa-search"></i> Cari Data';
+                loadingContainer.classList.remove('active');
+            }
+        }
+        
+        // ============================================
+        // DISPLAY RESULTS
+        // ============================================
+        function displayResults(result) {
+            resultsContainer.classList.add('active');
+            
+            if (!result.success) {
+                resultsCount.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${result.message || 'Data tidak ditemukan'}`;
+                resultsContent.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>Data Tidak Ditemukan</h3>
+                        <p>${result.message || 'Coba dengan kata kunci yang berbeda'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const data = result.data || [];
+            const count = data.length;
+            
+            resultsCount.innerHTML = `<i class="fas fa-users"></i> ${count} data ditemukan`;
+            
+            if (count === 0) {
+                resultsContent.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-user-slash"></i>
+                        <h3>Tidak Ada Data</h3>
+                        <p>Data peserta dengan kata kunci tersebut tidak ditemukan</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Build cards
+            let html = '';
+            data.forEach((participant, index) => {
+                html += buildParticipantCard(participant, index);
+            });
+            
+            resultsContent.innerHTML = html;
+        }
+        
+        // ============================================
+        // BUILD PARTICIPANT CARD
+        // ============================================
+        function buildParticipantCard(data, index) {
+    // Determine card class
+    let cardClass = 'participant-card';
+    let badgeClass = 'rt';
+    let badgeText = 'PESERTA RUMAH TANGGA';
+    
+    if (data.isBadanUsaha || data.participantType === 'PESERTA BADAN USAHA') {
+        cardClass += ' badan-usaha';
+        badgeClass = 'badan-usaha';
+        badgeText = 'PESERTA BADAN USAHA';
+    } else if (data.isUmkm || data.participantType === 'PESERTA UMKM') {
+        cardClass += ' umkm';
+        badgeClass = 'umkm';
+        badgeText = 'PESERTA UMKM';
+    } else {
+        cardClass += ' rumah-tangga';
+        badgeClass = 'rt';
+        badgeText = 'PESERTA RUMAH TANGGA';
+    }
+    
+    // Build address
+    const addressParts = [
+        data.alamat,
+        data.rt ? `RT. ${data.rt}` : '',
+        data.rw ? `RW. ${data.rw}` : '',
+        data.kelurahan,
+        data.kecamatan,
+        data.kota,
+        data.provinsi
+    ].filter(part => part && part.trim() !== '');
+    
+    const fullAddress = addressParts.join(', ');
+    
+    // Build extra info based on type
+    let extraHtml = '';
+    if (data.isUmkm || data.nama_umkm) {
+        extraHtml += `
+            <div class="extra-item"><i class="fas fa-store"></i> UMKM: ${data.nama_umkm || '-'}</div>
+        `;
+        if (data.no_surat_umkm) {
+            extraHtml += `
+                <div class="extra-item"><i class="fas fa-file-alt"></i> No. Surat: ${data.no_surat_umkm}</div>
+            `;
+        }
+    }
+    
+    if (data.isBadanUsaha || data.nama_badan_usaha) {
+        extraHtml += `
+            <div class="extra-item"><i class="fas fa-building"></i> Badan Usaha: ${data.nama_badan_usaha || '-'}</div>
+        `;
+        if (data.bo_surat_izin_usaha) {
+            extraHtml += `
+                <div class="extra-item"><i class="fas fa-file-contract"></i> No. Izin: ${data.bo_surat_izin_usaha}</div>
+            `;
+        }
+    }
+    
+    // Status and tariff - UPDATED with red color for unrecorded status
+    let statusHtml = '';
+    const statusValue = data.status ? data.status.toString().trim() : '';
+    const tariffValue = data.tarif_iuran ? data.tarif_iuran.toString().trim() : '';
+    
+    // Status dengan warna merah jika belum terdata
+    if (statusValue) {
+        statusHtml += `
+            <div class="extra-item">
+                <i class="fas fa-info-circle"></i> 
+                Status: <span style="font-weight: 600; color: var(--green-dark);">${statusValue}</span>
+            </div>
+        `;
+    } else {
+        statusHtml += `
+            <div class="extra-item">
+                <i class="fas fa-exclamation-triangle"></i> 
+                Status: <span style="font-weight: 600; color: #dc3545;">Belum terdata oleh petugas</span>
+            </div>
+        `;
+    }
+    
+    // Tarif Iuran
+    if (tariffValue) {
+        const tariffDisplay = tariffValue.includes('Rp') ? tariffValue : `Rp ${tariffValue}`;
+        statusHtml += `
+            <div class="extra-item">
+                <i class="fas fa-money-bill-wave"></i> 
+                Tarif Iuran: <span style="font-weight: 600; color: var(--green-dark);">${tariffDisplay}</span>
+            </div>
+        `;
+    } else {
+        statusHtml += `
+            <div class="extra-item">
+                <i class="fas fa-money-bill-wave"></i> 
+                Tarif Iuran: <span style="font-weight: 600; color: #dc3545;">-</span>
+            </div>
+        `;
+    }
+    
+    return `
+        <div class="${cardClass}" style="animation-delay: ${index * 0.1}s">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3><i class="fas fa-user-circle" style="color: var(--accent);"></i> ${data.nama_peserta || 'Nama tidak tersedia'}</h3>
+                    <span class="participant-badge ${badgeClass}">${badgeText}</span>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="info-item">
+                    <span class="label"><i class="fas fa-id-card"></i> NIK</span>
+                    <span class="value censored">${data.censored_nik || '-'}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label"><i class="fas fa-address-card"></i> No. KK</span>
+                    <span class="value censored">${data.censored_nokk || '-'}</span>
+                </div>
+                <div class="info-item full-width">
+                    <span class="label"><i class="fas fa-map-marker-alt"></i> Alamat</span>
+                    <span class="value">${fullAddress || 'Alamat tidak tersedia'}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label"><i class="fas fa-phone"></i> No. Telepon</span>
+                    <span class="value">${data.no_telp || '-'}</span>
+                </div>
+            </div>
+            
+            <div class="card-extra">
+                ${extraHtml}
+                ${statusHtml}
+            </div>
+        </div>
+    `;
+}
+        
+        // ============================================
+        // LOG ACTIVITY
+        // ============================================
+        async function logActivity(keyword, type, count) {
+            try {
+                const logUrl = `${API_URL}?action=log&keyword=${encodeURIComponent(keyword)}&type=${type}&count=${count}`;
+                await fetch(logUrl, {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'no-cache'
+                });
+            } catch (error) {
+                // Silent fail for logging
+                console.log('Logging failed:', error);
+            }
+        }
+        
+        // ============================================
+        // SHOW ALERT
+        // ============================================
+        function showAlert(message, type = 'info') {
+            // Use simple alert for now, can be enhanced with toast notification
+            alert(message);
+        }
+        
+        // ============================================
+        // INIT
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            searchInput.placeholder = getPlaceholder('nama');
+            searchInput.focus();
+            
+            // Auto-search on paste if valid
+            searchInput.addEventListener('paste', function() {
+                setTimeout(() => {
+                    const val = this.value.trim();
+                    if (val.length >= 2) {
+                        performSearch();
+                    }
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

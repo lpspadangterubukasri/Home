@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Dashboard - LPS Padang Terubuk Asri">
+    <title>Dashboard - LPS Padang Terubuk Asri</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/">
+    <meta property="og:title" content="Dashboard - Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
+    <meta property="og:description" content="Dashboard peserta LPS Padang Terubuk Asri">
+    <meta property="og:site_name" content="LPS PADANG TERUBUK ASRI">
+    <meta property="og:image" content="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
+    <meta property="og:image:secure_url" content="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Logo LPS Padang Terubuk Asri">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --green-dark: #388e3c;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --sidebar-width: 260px;
+            --bottom-nav-height: 72px;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(180deg, #1a5f7a 0%, #0d3d52 100%);
+            color: white;
+            padding: 20px 0;
+            z-index: 100;
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid rgba(87, 197, 182, 0.3);
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        
+        .sidebar-brand {
+            text-align: center;
+            padding: 10px 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-brand .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: white;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 2px solid var(--accent);
+        }
+        
+        .sidebar-brand h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+        }
+        
+        .sidebar-brand small {
+            font-size: 10px;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+        
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin: 0 15px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .sidebar-user .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            background: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        .sidebar-user .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .sidebar-user .user-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .sidebar-user .user-info .name {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .sidebar-user .user-info .role {
+            font-size: 10px;
+            opacity: 0.7;
+            display: inline-block;
+            background: rgba(87, 197, 182, 0.2);
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-top: 2px;
+        }
+        
+        /* ===== SIDEBAR MENU ===== */
+        .sidebar-menu {
+            flex: 1;
+            padding: 0 10px;
+        }
+        
+        .sidebar-menu .menu-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            opacity: 0.4;
+            padding: 10px 15px 5px;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .sidebar-menu .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin-bottom: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .sidebar-menu .menu-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+        
+        .sidebar-menu .menu-item.active {
+            background: rgba(87, 197, 182, 0.2);
+            color: white;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .sidebar-menu .menu-item i {
+            width: 22px;
+            font-size: 16px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .sidebar-footer {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: auto;
+        }
+        
+        .sidebar-footer .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: rgba(255, 255, 255, 0.7);
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .sidebar-footer .logout-btn:hover {
+            background: rgba(255, 0, 0, 0.15);
+            color: #ff6b6b;
+        }
+        
+        .sidebar-footer .logout-btn i {
+            width: 22px;
+            font-size: 16px;
+        }
+        
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 20px 30px 90px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+        
+        .main-content .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(26, 95, 122, 0.1);
+        }
+        
+        .main-content .page-header h1 {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .main-content .page-header h1 .header-logo {
+            display: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: contain;
+            background: white;
+            padding: 4px;
+            border: 2px solid var(--accent);
+        }
+        
+        .main-content .page-header .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .main-content .page-header .header-right .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 6px 16px 6px 10px;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .main-content .page-header .header-right .user-badge .avatar-sm {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+        
+        .main-content .page-header .header-right .user-badge .point-badge {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* ===== PAGE CONTENT ===== */
+        .page-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .page-content.hidden {
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* ===== CARDS KEPESERTAAN ===== */
+        .membership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        
+        .membership-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 24px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+            transition: var(--transition);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .membership-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .membership-card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .membership-card .card-header .status-badge {
+            font-size: 11px;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .membership-card .card-header .status-badge.active {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .membership-card .card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 16px;
+        }
+        
+        .membership-card .card-body .field {
+            display: flex;
+            flex-direction: column;
+            padding: 4px 0;
+        }
+        
+        .membership-card .card-body .field .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #a0aec0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .membership-card .card-body .field .value {
+            font-size: 13px;
+            font-weight: 500;
+            color: #2d3748;
+            word-break: break-word;
+        }
+        
+        .membership-card .card-body .field .value.nik-sensor {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px 20px;
+            color: #718096;
+        }
+        
+        .no-data i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            opacity: 0.3;
+        }
+        
+        /* ===== IFRAME ===== */
+        .iframe-container {
+            width: 100%;
+            height: calc(100vh - 180px);
+            min-height: 500px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: white;
+        }
+        
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* ===== PROFILE SETTINGS ===== */
+        .profile-settings {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .profile-settings .profile-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .profile-settings .profile-card .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .profile-settings .profile-card .profile-header .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            background: #e2e8f0;
+        }
+        
+        .profile-settings .profile-card .profile-header .profile-info h3 {
+            font-size: 20px;
+            color: var(--primary);
+        }
+        
+        .profile-settings .profile-card .profile-header .profile-info .role-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            margin-top: 4px;
+        }
+        
+        .profile-settings .profile-card .profile-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 30px;
+        }
+        
+        .profile-settings .profile-card .profile-body .field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile-settings .profile-card .profile-body .field .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #a0aec0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .profile-settings .profile-card .profile-body .field .value {
+            font-size: 14px;
+            font-weight: 500;
+            color: #2d3748;
+            padding: 6px 0;
+        }
+        
+        .profile-settings .profile-card .profile-body .field.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .profile-settings .profile-card .profile-body .field .form-control {
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+        }
+        
+        .profile-settings .profile-card .profile-body .field .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(21, 152, 149, 0.1);
+        }
+        
+        .profile-settings .profile-card .profile-body .field .btn-save {
+            padding: 10px 30px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            align-self: flex-start;
+        }
+        
+        .profile-settings .profile-card .profile-body .field .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(21, 152, 149, 0.3);
+        }
+        
+        .profile-settings .profile-card .profile-body .field .btn-save:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* ===== POPUP BONUS ===== */
+        .bonus-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .bonus-popup-overlay.active {
+            display: flex;
+        }
+        
+        .bonus-popup {
+            background: white;
+            border-radius: 24px;
+            max-width: 420px;
+            width: 100%;
+            padding: 40px 35px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin: 20px;
+        }
+        
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .bonus-popup .icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .bonus-popup h3 {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .bonus-popup p {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .bonus-popup .bonus-amount {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 15px 0;
+        }
+        
+        .bonus-popup .btn-claim {
+            padding: 12px 40px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            margin-top: 10px;
+        }
+        
+        .bonus-popup .btn-claim:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(87, 197, 182, 0.3);
+        }
+        
+        /* ===== ROLE UPGRADE POPUP ===== */
+        .role-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 9998;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .role-popup-overlay.active {
+            display: flex;
+        }
+        
+        .role-popup {
+            background: white;
+            border-radius: 24px;
+            max-width: 420px;
+            width: 100%;
+            padding: 40px 35px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin: 20px;
+            border-top: 6px solid var(--accent);
+        }
+        
+        .role-popup .icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .role-popup h3 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .role-popup .old-role {
+            font-size: 14px;
+            color: #a0aec0;
+            text-decoration: line-through;
+        }
+        
+        .role-popup .new-role {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 10px 0;
+            padding: 10px 20px;
+            background: rgba(87, 197, 182, 0.1);
+            border-radius: 12px;
+            display: inline-block;
+        }
+        
+        .role-popup p {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+        
+        .role-popup .btn-celebrate {
+            padding: 12px 40px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            margin-top: 15px;
+        }
+        
+        .role-popup .btn-celebrate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(87, 197, 182, 0.3);
+        }
+        
+        /* ===== ALERT ===== */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            display: none;
+            font-weight: 500;
+            animation: slideDown 0.3s ease;
+        }
+        
+        .alert.show {
+            display: block;
+        }
+        .alert-success {
+            background: #e6f7e6;
+            color: #1a7a3a;
+            border: 1px solid #b8e6b8;
+        }
+        .alert-error {
+            background: #fde8e8;
+            color: #b33c3c;
+            border: 1px solid #f5c6c6;
+        }
+        .alert-info {
+            background: #e3f2fd;
+            color: #1a5f7a;
+            border: 1px solid #b8d4e6;
+        }
+        
+        /* ===== SIDEBAR TOGGLE (HIDDEN DI MOBILE) ===== */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 101;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar-toggle:hover {
+            background: var(--secondary);
+        }
+        
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+        }
+        
+        /* ============================================================ */
+        /* ===== BOTTOM NAVIGATION (MOBILE) ===== */
+        /* ============================================================ */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            height: var(--bottom-nav-height);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .bottom-nav .nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 12px;
+            font-family: 'Poppins', sans-serif;
+            color: #a0aec0;
+            transition: var(--transition);
+            position: relative;
+            flex: 1;
+            height: 100%;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        
+        .bottom-nav .nav-item i {
+            font-size: 22px;
+            transition: var(--transition);
+        }
+        
+        .bottom-nav .nav-item span {
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        
+        .bottom-nav .nav-item.active {
+            color: var(--secondary);
+        }
+        
+        .bottom-nav .nav-item.active i {
+            transform: translateY(-2px);
+        }
+        
+        .bottom-nav .nav-item.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 0 0 3px 3px;
+        }
+        
+        /* ===== BOTTOM NAV - CENTER AVATAR ===== */
+        .bottom-nav .nav-item.nav-avatar {
+            position: relative;
+            margin-top: -18px;
+        }
+        
+        .bottom-nav .nav-item.nav-avatar .avatar-wrapper {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            overflow: hidden;
+            background: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
+        }
+        
+        .bottom-nav .nav-item.nav-avatar .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .bottom-nav .nav-item.nav-avatar .avatar-wrapper i {
+            font-size: 24px;
+            color: white;
+        }
+        
+        .bottom-nav .nav-item.nav-avatar .avatar-wrapper:hover {
+            transform: scale(1.05);
+            border-color: var(--secondary);
+        }
+        
+        .bottom-nav .nav-item.nav-avatar span {
+            margin-top: 4px;
+            font-size: 9px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .bottom-nav .nav-item.nav-avatar.active .avatar-wrapper {
+            border-color: var(--secondary);
+            box-shadow: 0 4px 20px rgba(21, 152, 149, 0.3);
+        }
+        
+        .bottom-nav .nav-item.nav-avatar.active::after {
+            display: none;
+        }
+        
+        /* ============================================================ */
+        /* ===== RESPONSIVE ===== */
+        /* ============================================================ */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .sidebar-toggle {
+                display: none !important;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 15px 15px 90px;
+            }
+            
+            .membership-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-settings .profile-card .profile-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-settings .profile-card .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .main-content .page-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+            
+            .main-content .page-header .header-right {
+                justify-content: space-between;
+            }
+            
+            .main-content .page-header h1 {
+                font-size: 18px;
+                gap: 10px;
+            }
+            
+            .main-content .page-header h1 .header-logo {
+                display: block;
+                width: 60px;
+                height: 60px;
+            }
+            
+            .iframe-container {
+                height: calc(100vh - 200px);
+                min-height: 350px;
+            }
+            
+            .bottom-nav {
+                display: block !important;
+            }
+            
+            .main-content .page-header .header-right .user-badge {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .bottom-nav .nav-item i {
+                font-size: 18px;
+            }
+            .bottom-nav .nav-item span {
+                font-size: 8px;
+            }
+            .bottom-nav .nav-item.nav-avatar .avatar-wrapper {
+                width: 44px;
+                height: 44px;
+            }
+            .bottom-nav .nav-item.nav-avatar {
+                margin-top: -14px;
+            }
+            .main-content .page-header h1 {
+                font-size: 16px;
+            }
+            .main-content .page-header h1 .header-logo {
+                width: 32px;
+                height: 32px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .sidebar-toggle {
+                display: none !important;
+            }
+            .bottom-nav {
+                display: none !important;
+            }
+            .main-content .page-header h1 .header-logo {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== SIDEBAR TOGGLE (TIDAK MUNCUL DI MOBILE) ===== -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img src="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" alt="LPS Logo" class="logo">
+            <h2>PROGRAM<br>PEMILAHAN SAMPAH</h2>
+            <small>Padang Terubuk Asri</small>
+        </div>
+        
+        <div class="sidebar-user" id="sidebarUser">
+            <div class="user-avatar" id="sidebarAvatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <div class="name" id="sidebarName">Loading...</div>
+                <div class="role" id="sidebarRole">Pemula</div>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <div class="menu-label">Menu Utama</div>
+            <button class="menu-item active" onclick="navigateTo('membership')" data-page="membership">
+                <i class="fas fa-id-card"></i> Kepesertaan LPS
+            </button>
+            <button class="menu-item" onclick="navigateTo('sortir')" data-page="sortir">
+                <i class="fas fa-recycle"></i> Pemilahan Sampah
+            </button>
+            <button class="menu-item" onclick="navigateTo('exchange')" data-page="exchange">
+                <i class="fas fa-coins"></i> Tukar Point
+            </button>
+            <div class="menu-label" style="margin-top:15px;">Akun</div>
+            <button class="menu-item" onclick="navigateTo('settings')" data-page="settings">
+                <i class="fas fa-cog"></i> Pengaturan Akun
+            </button>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i> Keluar
+            </button>
+        </div>
+    </aside>
+
+    <!-- ===== BOTTOM NAVIGATION (MOBILE) ===== -->
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="nav-items">
+            <button class="nav-item active" onclick="navigateTo('membership')" data-page="membership">
+                <i class="fas fa-id-card"></i>
+                <span>Kepesertaan</span>
+            </button>
+            <button class="nav-item" onclick="navigateTo('sortir')" data-page="sortir">
+                <i class="fas fa-recycle"></i>
+                <span>Pilah Sampah</span>
+            </button>
+            
+            <!-- ===== CENTER AVATAR ===== -->
+            <button class="nav-item nav-avatar" onclick="navigateTo('settings')" data-page="settings">
+                <div class="avatar-wrapper" id="bottomAvatarWrapper">
+                    <img src="" alt="Avatar" id="bottomAvatar" style="display:none;">
+                    <i class="fas fa-user" id="bottomAvatarIcon"></i>
+                </div>
+                <span>Akun</span>
+            </button>
+            
+            <button class="nav-item" onclick="navigateTo('exchange')" data-page="exchange">
+                <i class="fas fa-coins"></i>
+                <span>Tukar Point</span>
+            </button>
+            <button class="nav-item" onclick="handleLogout()" data-page="logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Keluar</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 id="pageTitle">
+                <img src="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" alt="LPS Logo" class="header-logo" id="headerLogo">
+                <span id="pageTitleText">Kepesertaan LPS</span>
+            </h1>
+            <div class="header-right">
+                <div class="user-badge" id="userBadge">
+                    <img src="" alt="Avatar" class="avatar-sm" id="headerAvatar" style="display:none;">
+                    <span id="headerName">Loading...</span>
+                    <span class="point-badge" id="headerPoint">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ===== PAGE: MEMBERSHIP ===== -->
+        <div class="page-content" id="page-membership">
+            <div id="membershipAlert" class="alert"></div>
+            <div class="membership-grid" id="membershipGrid">
+                <div class="no-data">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Memuat data kepesertaan...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ===== PAGE: SORTIR ===== -->
+        <div class="page-content hidden" id="page-sortir">
+            <div class="iframe-container">
+                <iframe src="https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/pilahsampah.html" loading="lazy"></iframe>
+            </div>
+        </div>
+        
+        <!-- ===== PAGE: EXCHANGE ===== -->
+        <div class="page-content hidden" id="page-exchange">
+            <div class="iframe-container">
+                <iframe src="https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/tukarpoint.html" loading="lazy"></iframe>
+            </div>
+        </div>
+        
+        <!-- ===== PAGE: SETTINGS ===== -->
+        <div class="page-content hidden" id="page-settings">
+            <div id="settingsAlert" class="alert"></div>
+            <div class="profile-settings">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <img src="" alt="Profile" class="profile-avatar" id="profileAvatar">
+                        <div class="profile-info">
+                            <h3 id="profileName">-</h3>
+                            <div class="role-badge" id="profileRole">Pemula</div>
+                            <p style="font-size:13px;color:#718096;margin-top:5px;">
+                                <i class="fas fa-star" style="color:var(--accent);"></i> 
+                                Point: <strong id="profilePoint">0</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="profile-body" id="profileBody">
+                        <!-- Dynamic fields from JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== BONUS POPUP ===== -->
+    <div class="bonus-popup-overlay" id="bonusPopup">
+        <div class="bonus-popup">
+            <div class="icon">🎉</div>
+            <h3 id="bonusTitle">Halo, <span id="bonusName">User</span>!</h3>
+            <p>Anda mendapatkan <strong>1000 point</strong> untuk login hari ini.</p>
+            <div class="bonus-amount">+1.000</div>
+            <p style="font-size:12px;color:#a0aec0;">Point Role Anda sekarang: <strong id="bonusTotalPoint">0</strong></p>
+            <button class="btn-claim" onclick="closeBonusPopup()"><i class="fas fa-check"></i> Saya Mengerti</button>
+        </div>
+    </div>
+
+    <!-- ===== ROLE UPGRADE POPUP ===== -->
+    <div class="role-popup-overlay" id="rolePopup">
+        <div class="role-popup">
+            <div class="icon">🏆</div>
+            <h3>🎊 Selamat! 🎊</h3>
+            <p>Anda berhasil naik level!</p>
+            <div class="old-role" id="oldRoleDisplay">Pemula</div>
+            <div class="new-role" id="newRoleDisplay">Veteran</div>
+            <p>Terus semangat memilah sampah untuk mendapatkan lebih banyak point!</p>
+            <button class="btn-celebrate" onclick="closeRolePopup()"><i class="fas fa-trophy"></i> Luar Biasa!</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ==================== JAVASCRIPT ============================= -->
+    <!-- ============================================================ -->
+    <script>
+        // ==================== KONFIGURASI ====================
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwJkT3U6Z2OL_2xJv6GLI9VeDi7R7E5untFu35ps3rNdZKez8t4Ckruv2w7efcnkcY/exec';
+        
+        // ==================== STATE ====================
+        let userData = null;
+        let currentPage = 'membership';
+        let isBonusClaimed = false;
+        let isLoadingMembership = false;
+        let pendingRolePopup = null;
+        
+        // ==================== HELPER ====================
+        function sensorId(id) {
+            if (!id || id.length < 16) return id;
+            return id.substring(0, 4) + '********' + id.substring(12);
+        }
+        
+        function showAlert(containerId, message, type) {
+            var alert = document.getElementById(containerId);
+            if (!alert) return;
+            alert.className = 'alert alert-' + type + ' show';
+            alert.textContent = message;
+        }
+        
+        function hideAlert(containerId) {
+            var alert = document.getElementById(containerId);
+            if (!alert) return;
+            alert.className = 'alert';
+            alert.textContent = '';
+        }
+        
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        
+        // ==================== API CALL ====================
+        function callAPI(action, data) {
+            return new Promise(function(resolve, reject) {
+                var callbackName = 'jsonp_callback_' + Date.now();
+                var params = new URLSearchParams({ action: action, callback: callbackName });
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) params.append(key, data[key]);
+                }
+                var url = API_URL + '?' + params.toString();
+                
+                var script = document.createElement('script');
+                script.src = url;
+                script.async = true;
+                
+                var timeout = setTimeout(function() {
+                    cleanup();
+                    reject(new Error('⏱️ Request timeout (15 detik)'));
+                }, 15000);
+                
+                function cleanup() {
+                    clearTimeout(timeout);
+                    delete window[callbackName];
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                }
+                
+                window[callbackName] = function(response) {
+                    cleanup();
+                    resolve(response);
+                };
+                
+                script.onerror = function() {
+                    cleanup();
+                    reject(new Error('❌ Gagal terhubung ke server.'));
+                };
+                
+                document.head.appendChild(script);
+            });
+        }
+        
+        // ==================== SIDEBAR ====================
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+        }
+        
+        // ==================== NAVIGATION ====================
+        function navigateTo(page) {
+            if (page === 'logout') {
+                handleLogout();
+                return;
+            }
+            
+            document.querySelectorAll('.sidebar-menu .menu-item').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            var sidebarItem = document.querySelector('.sidebar-menu .menu-item[data-page="' + page + '"]');
+            if (sidebarItem) sidebarItem.classList.add('active');
+            
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            var navItem = document.querySelector('.bottom-nav .nav-item[data-page="' + page + '"]');
+            if (navItem) navItem.classList.add('active');
+            
+            document.querySelectorAll('.page-content').forEach(function(el) {
+                el.classList.add('hidden');
+            });
+            
+            var targetPage = document.getElementById('page-' + page);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+            
+            var titles = {
+                membership: 'Kepesertaan LPS',
+                sortir: 'Pemilahan Sampah',
+                exchange: 'Tukar Point',
+                settings: 'Pengaturan Akun'
+            };
+            document.getElementById('pageTitleText').textContent = titles[page] || page;
+            
+            currentPage = page;
+            
+            if (page === 'membership' && !isLoadingMembership) {
+                loadMemberships();
+            }
+            
+            if (page === 'settings') {
+                loadSettings();
+            }
+            
+            if (window.innerWidth <= 768) {
+                var sidebar = document.getElementById('sidebar');
+                if (sidebar.classList.contains('open')) {
+                    toggleSidebar();
+                }
+            }
+        }
+        
+        // ==================== LOAD USER DATA ====================
+        function loadUserData() {
+            var session = sessionStorage.getItem('lps_session');
+            if (!session) {
+                window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/login.html';
+                return;
+            }
+            
+            try {
+                var sessionData = JSON.parse(session);
+                userData = sessionData;
+                
+                document.getElementById('sidebarName').textContent = userData.nama_peserta || userData.username;
+                document.getElementById('headerName').textContent = userData.nama_peserta || userData.username;
+                
+                // Gunakan endpoint baru: getUserDataWithRole (auto-update role)
+                callAPI('getUserDataWithRole', { nik: userData.nik })
+                    .then(function(result) {
+                        if (result.success && result.found) {
+                            userData.detail = result.data;
+                            updateUserUI(result.data);
+                            
+                            // Cek apakah ada perubahan role
+                            if (result.roleChanged) {
+                                showRolePopup(result.oldRole, result.newRole);
+                            }
+                            
+                            // Cek daily login bonus
+                            checkDailyLoginBonus();
+                            
+                            loadMemberships();
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('Error loading user data:', error);
+                    });
+                    
+            } catch (e) {
+                window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/login.html';
+            }
+        }
+        
+        // ==================== UPDATE USER UI ====================
+        function updateUserUI(data) {
+            // Sidebar avatar
+            var avatarEl = document.getElementById('sidebarAvatar');
+            if (data.url_foto && data.url_foto.trim() !== '') {
+                avatarEl.innerHTML = '<img src="' + data.url_foto + '">';
+            } else {
+                avatarEl.innerHTML = '<i class="fas fa-user"></i>';
+            }
+            
+            document.getElementById('sidebarRole').textContent = data.role || 'Pemula';
+            
+            var headerAvatar = document.getElementById('headerAvatar');
+            if (data.url_foto && data.url_foto.trim() !== '') {
+                headerAvatar.style.display = 'block';
+                headerAvatar.src = data.url_foto;
+            } else {
+                headerAvatar.style.display = 'none';
+            }
+            
+            document.getElementById('headerPoint').textContent = formatNumber(data.point_role || 0);
+            
+            var bottomAvatar = document.getElementById('bottomAvatar');
+            var bottomAvatarIcon = document.getElementById('bottomAvatarIcon');
+            
+            if (data.url_foto && data.url_foto.trim() !== '') {
+                bottomAvatar.style.display = 'block';
+                bottomAvatar.src = data.url_foto;
+                bottomAvatarIcon.style.display = 'none';
+            } else {
+                bottomAvatar.style.display = 'none';
+                bottomAvatarIcon.style.display = 'flex';
+            }
+        }
+        
+        // ==================== ROLE POPUP ====================
+        function showRolePopup(oldRole, newRole) {
+            document.getElementById('oldRoleDisplay').textContent = oldRole || 'Pemula';
+            document.getElementById('newRoleDisplay').textContent = newRole || 'Veteran';
+            document.getElementById('rolePopup').classList.add('active');
+            
+            // Efek confetti sederhana
+            setTimeout(function() {
+                var icon = document.querySelector('.role-popup .icon');
+                icon.style.transform = 'scale(1.2)';
+                setTimeout(function() {
+                    icon.style.transform = 'scale(1)';
+                }, 300);
+            }, 200);
+        }
+        
+        function closeRolePopup() {
+            document.getElementById('rolePopup').classList.remove('active');
+        }
+        
+        // ==================== CHECK DAILY LOGIN BONUS ====================
+        function checkDailyLoginBonus() {
+            if (isBonusClaimed) return;
+            
+            callAPI('checkDailyLogin', { nik: userData.nik })
+                .then(function(result) {
+                    if (result.success && !result.claimed) {
+                        claimDailyLoginBonus();
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error checking daily login:', error);
+                });
+        }
+        
+        function claimDailyLoginBonus() {
+            callAPI('addDailyLoginBonus', {
+                nik: userData.nik,
+                username: userData.username,
+                nama_peserta: userData.nama_peserta || userData.username
+            })
+            .then(function(result) {
+                if (result.success) {
+                    isBonusClaimed = true;
+                    
+                    document.getElementById('bonusName').textContent = userData.nama_peserta || userData.username;
+                    document.getElementById('bonusTotalPoint').textContent = formatNumber(result.point);
+                    document.getElementById('bonusPopup').classList.add('active');
+                    
+                    if (userData.detail) {
+                        userData.detail.point_role = result.point;
+                        userData.detail.role = result.role;
+                        updateUserUI(userData.detail);
+                    }
+                    
+                    // Jika role berubah karena bonus
+                    if (result.roleChanged) {
+                        // Tutup bonus popup dulu, lalu tampilkan role popup
+                        setTimeout(function() {
+                            closeBonusPopup();
+                            showRolePopup(result.oldRole, result.role);
+                        }, 2000);
+                    }
+                }
+            })
+            .catch(function(error) {
+                console.error('Error claiming bonus:', error);
+            });
+        }
+        
+        function closeBonusPopup() {
+            document.getElementById('bonusPopup').classList.remove('active');
+        }
+        
+        // ==================== LOAD MEMBERSHIPS ====================
+        function loadMemberships() {
+            if (isLoadingMembership) return;
+            if (!userData || !userData.nik) {
+                setTimeout(loadMemberships, 500);
+                return;
+            }
+            
+            isLoadingMembership = true;
+            var grid = document.getElementById('membershipGrid');
+            grid.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i><p>Memuat data kepesertaan...</p></div>';
+            hideAlert('membershipAlert');
+            
+            var cacheKey = 'membership_' + userData.nik;
+            var cachedData = sessionStorage.getItem(cacheKey);
+            var cacheTime = sessionStorage.getItem(cacheKey + '_time');
+            
+            if (cachedData && cacheTime && (Date.now() - parseInt(cacheTime) < 300000)) {
+                try {
+                    var parsedData = JSON.parse(cachedData);
+                    renderMemberships(parsedData);
+                    isLoadingMembership = false;
+                    return;
+                } catch(e) {}
+            }
+            
+            callAPI('getUserMemberships', { nik: userData.nik })
+                .then(function(result) {
+                    if (result.success) {
+                        if (result.count > 0) {
+                            sessionStorage.setItem(cacheKey, JSON.stringify(result.data));
+                            sessionStorage.setItem(cacheKey + '_time', String(Date.now()));
+                            renderMemberships(result.data);
+                        } else {
+                            grid.innerHTML = '<div class="no-data"><i class="fas fa-id-card"></i><p>Belum ada data kepesertaan</p></div>';
+                        }
+                    } else {
+                        showAlert('membershipAlert', result.message || 'Gagal memuat data', 'error');
+                        grid.innerHTML = '<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
+                    }
+                })
+                .catch(function(error) {
+                    showAlert('membershipAlert', '❌ ' + error.message, 'error');
+                    grid.innerHTML = '<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
+                })
+                .finally(function() {
+                    isLoadingMembership = false;
+                });
+        }
+        
+        function renderMemberships(data) {
+            var grid = document.getElementById('membershipGrid');
+            var html = '';
+            
+            data.forEach(function(item, index) {
+                html += '<div class="membership-card" style="animation-delay:' + (index * 0.05) + 's;">';
+                html += '  <div class="card-header">';
+                html += '    <strong>' + (item.nama_peserta || 'Peserta') + '</strong>';
+                html += '    <span class="status-badge active">' + (item.status || 'Aktif') + '</span>';
+                html += '  </div>';
+                html += '  <div class="card-body">';
+                
+                var fields = [
+                    { key: 'no_nik', label: 'NIK', class: 'nik-sensor' },
+                    { key: 'no_kk', label: 'No. KK', class: 'nik-sensor' },
+                    { key: 'alamat', label: 'Alamat' },
+                    { key: 'rt', label: 'RT' },
+                    { key: 'rw', label: 'RW' },
+                    { key: 'kelurahan', label: 'Kelurahan' },
+                    { key: 'kecamatan', label: 'Kecamatan' },
+                    { key: 'kota', label: 'Kota' },
+                    { key: 'provinsi', label: 'Provinsi' },
+                    { key: 'no_telp', label: 'No. Telepon' },
+                    { key: 'tarif_iuran', label: 'Tarif Iuran' },
+                    { key: 'nama_umkm', label: 'Nama UMKM' },
+                    { key: 'no_surat_umkm', label: 'No. Surat UMKM' },
+                    { key: 'nama_badan_usaha', label: 'Nama Badan Usaha' },
+                    { key: 'bo_surat_izin_usaha', label: 'No. Surat Izin Usaha' },
+                    { key: 'nama_petugas', label: 'Nama Petugas' }
+                ];
+                
+                fields.forEach(function(field) {
+                    var value = item[field.key] || '-';
+                    if (field.key === 'no_nik' || field.key === 'no_kk') {
+                        value = sensorId(value);
+                    }
+                    html += '  <div class="field">';
+                    html += '    <span class="label">' + field.label + '</span>';
+                    html += '    <span class="value ' + (field.class || '') + '">' + value + '</span>';
+                    html += '  </div>';
+                });
+                
+                html += '  </div>';
+                html += '</div>';
+            });
+            
+            grid.innerHTML = html;
+        }
+        
+        // ==================== LOAD SETTINGS ====================
+        function loadSettings() {
+            hideAlert('settingsAlert');
+            
+            if (!userData.detail) {
+                callAPI('getUserDataWithRole', { nik: userData.nik })
+                    .then(function(result) {
+                        if (result.success && result.found) {
+                            userData.detail = result.data;
+                            renderSettings(result.data);
+                            if (result.roleChanged) {
+                                showRolePopup(result.oldRole, result.newRole);
+                            }
+                        }
+                    })
+                    .catch(function(error) {
+                        showAlert('settingsAlert', '❌ ' + error.message, 'error');
+                    });
+            } else {
+                renderSettings(userData.detail);
+            }
+        }
+        
+        function renderSettings(data) {
+            var body = document.getElementById('profileBody');
+            
+            var avatar = document.getElementById('profileAvatar');
+            if (data.url_foto && data.url_foto.trim() !== '') {
+                avatar.src = data.url_foto;
+            } else {
+                avatar.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.nama_peserta || data.username) + '&background=159895&color=fff&size=80';
+            }
+            
+            document.getElementById('profileName').textContent = data.nama_peserta || data.username;
+            document.getElementById('profileRole').textContent = data.role || 'Pemula';
+            document.getElementById('profilePoint').textContent = formatNumber(data.point_role || 0);
+            
+            var fields = [
+                { key: 'id', label: 'ID Peserta' },
+                { key: 'username', label: 'Username' },
+                { key: 'nama_peserta', label: 'Nama Peserta' },
+                { key: 'nik', label: 'NIK', sensor: true },
+                { key: 'email', label: 'Email' },
+                { key: 'point_hadiah', label: 'Point Hadiah', format: true },
+                { key: 'point_role', label: 'Point Role', format: true },
+                { key: 'role', label: 'Role' }
+            ];
+            
+            var html = '';
+            fields.forEach(function(field) {
+                var value = data[field.key] || '-';
+                if (field.sensor) {
+                    value = sensorId(value);
+                }
+                if (field.format && !isNaN(value)) {
+                    value = formatNumber(Number(value));
+                }
+                html += '  <div class="field">';
+                html += '    <span class="label">' + field.label + '</span>';
+                html += '    <span class="value">' + value + '</span>';
+                html += '  </div>';
+            });
+            
+            html += '  <div class="field full-width">';
+            html += '    <span class="label">URL Foto Profil</span>';
+            html += '    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">';
+            html += '      <input type="url" class="form-control" id="fotoUrl" value="' + (data.url_foto || '') + '" placeholder="https://example.com/foto.jpg" style="flex:1;min-width:200px;">';
+            html += '      <button class="btn-save" onclick="updatePhoto()"><i class="fas fa-save"></i> Simpan</button>';
+            html += '    </div>';
+            html += '  </div>';
+            
+            body.innerHTML = html;
+        }
+        
+        // ==================== UPDATE PHOTO ====================
+        function updatePhoto() {
+            var url = document.getElementById('fotoUrl').value.trim();
+            hideAlert('settingsAlert');
+            
+            if (!url) {
+                showAlert('settingsAlert', 'Masukkan URL foto yang valid!', 'error');
+                return;
+            }
+            
+            var btn = document.querySelector('.btn-save');
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+            btn.disabled = true;
+            
+            callAPI('updateUserPhoto', {
+                nik: userData.nik,
+                url_foto: url
+            })
+            .then(function(result) {
+                if (result.success) {
+                    showAlert('settingsAlert', '✅ Foto berhasil diupdate!', 'success');
+                    if (userData.detail) {
+                        userData.detail.url_foto = url;
+                        updateUserUI(userData.detail);
+                    }
+                    var avatar = document.getElementById('profileAvatar');
+                    avatar.src = url;
+                } else {
+                    showAlert('settingsAlert', result.message || 'Gagal update foto!', 'error');
+                }
+            })
+            .catch(function(error) {
+                showAlert('settingsAlert', '❌ ' + error.message, 'error');
+            })
+            .finally(function() {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+        
+        // ==================== LOGOUT ====================
+        function handleLogout() {
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                sessionStorage.removeItem('lps_session');
+                localStorage.removeItem('lps_user');
+                window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/login.html';
+            }
+        }
+        
+        // ==================== INIT ====================
+        (function() {
+            var session = sessionStorage.getItem('lps_session');
+            if (!session) {
+                window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/login.html';
+                return;
+            }
+            
+            loadUserData();
+            
+            setInterval(function() {
+                var keys = Object.keys(sessionStorage);
+                keys.forEach(function(key) {
+                    if (key.startsWith('membership_') && key.endsWith('_time')) {
+                        var time = parseInt(sessionStorage.getItem(key));
+                        if (time && (Date.now() - time > 300000)) {
+                            sessionStorage.removeItem(key.replace('_time', ''));
+                            sessionStorage.removeItem(key);
+                        }
+                    }
+                });
+            }, 300000);
+        })();
+    </script>
+</body>
+</html>

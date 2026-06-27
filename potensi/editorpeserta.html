@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Dashboard Petugas LPS Padang Terubuk Asri - Kelola Data Peserta">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://lpspadangterubukasri.github.io/Home/data/foto/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dashboard Petugas LPS Padang Terubuk Asri</title>
+    <style>
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+            --card-shadow: 0 15px 35px rgba(21,152,149,0.12);
+            --green-dark: #388e3c;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --success: #28a745;
+            --info: #17a2b8;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:'Poppins',sans-serif; line-height:1.6; color:#333; overflow-x:hidden; background:linear-gradient(135deg,#f5f9fa,#e8f5e9); min-height:100vh; }
+        .container { width:100%; max-width:1200px; margin:0 auto; padding:0 20px; }
+        
+        /* LOGIN */
+        .login-page { display:flex; align-items:center; justify-content:center; min-height:100vh; background:linear-gradient(135deg,var(--dark),#0c384f); padding:20px; }
+        .login-box { background:var(--white); border-radius:24px; padding:45px 40px; max-width:420px; width:100%; box-shadow:0 25px 60px rgba(0,0,0,0.3); }
+        .login-box .logo-area { text-align:center; margin-bottom:30px; }
+        .login-box .logo-area img { height:60px; width:auto; margin-bottom:10px; }
+        .login-box .logo-area h1 { font-size:1.3rem; color:var(--dark); font-weight:700; }
+        .login-box .logo-area p { font-size:0.85rem; color:#888; }
+        .login-box .form-group { margin-bottom:18px; }
+        .login-box .form-group label { display:block; font-weight:600; font-size:0.85rem; color:#555; margin-bottom:5px; }
+        .login-box .form-group input { width:100%; padding:12px 16px; border:2px solid #e0e0e0; border-radius:10px; font-size:0.95rem; font-family:'Poppins',sans-serif; transition:var(--transition); background:#fafafa; }
+        .login-box .form-group input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(87,197,182,0.1); }
+        .login-box .remember-group { display:flex; align-items:center; gap:10px; margin:15px 0; }
+        .login-box .remember-group input[type="checkbox"] { width:18px; height:18px; accent-color:var(--accent); cursor:pointer; }
+        .login-box .remember-group label { font-size:0.9rem; color:#666; cursor:pointer; }
+        .login-btn { width:100%; padding:14px; background:linear-gradient(135deg,var(--accent),var(--secondary)); color:var(--white); border:none; border-radius:10px; font-weight:700; font-size:1rem; cursor:pointer; transition:var(--transition); display:flex; align-items:center; justify-content:center; gap:10px; }
+        .login-btn:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(87,197,182,0.3); }
+        .login-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+        .login-error { background:#fde8e8; color:var(--danger); padding:10px 14px; border-radius:8px; font-size:0.85rem; display:none; margin-bottom:15px; }
+        .login-error.active { display:block; }
+        
+        /* DASHBOARD */
+        #dashboard { display:none; }
+        #dashboard.active { display:block; }
+        
+        /* HEADER */
+        .dashboard-header { background:linear-gradient(135deg,var(--dark),#0c384f); color:var(--white); padding:15px 0; box-shadow:0 4px 20px rgba(0,0,0,0.2); position:sticky; top:0; z-index:1000; }
+        .dashboard-header .header-content { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; }
+        .dashboard-header .logo-container { display:flex; align-items:center; gap:12px; }
+        .dashboard-header .logo { height:40px; width:auto; }
+        .dashboard-header .logo-text h1 { font-size:1.1rem; font-weight:700; color:var(--white); line-height:1.2; }
+        .dashboard-header .logo-text span { font-size:0.7rem; color:var(--accent); font-weight:300; }
+        .dashboard-header .user-info { display:flex; align-items:center; gap:15px; }
+        .dashboard-header .user-info .user-name { font-weight:500; font-size:0.9rem; }
+        .dashboard-header .user-info .logout-btn { padding:8px 18px; background:rgba(255,255,255,0.15); color:var(--white); border:1px solid rgba(255,255,255,0.1); border-radius:50px; cursor:pointer; font-weight:500; font-size:0.8rem; transition:var(--transition); font-family:'Poppins',sans-serif; }
+        .dashboard-header .user-info .logout-btn:hover { background:rgba(255,255,255,0.25); }
+        
+        /* MAIN */
+        .main-content { padding:30px 0 60px; }
+        .page-title { text-align:center; margin-bottom:30px; }
+        .page-title h2 { font-size:1.8rem; color:var(--green-dark); }
+        .page-title p { color:#666; font-size:0.95rem; }
+        
+        /* SEARCH */
+        .search-section { background:var(--white); border-radius:20px; padding:25px; box-shadow:var(--card-shadow); margin-bottom:30px; border:1px solid rgba(200,230,201,0.5); }
+        .search-type-selector { display:flex; gap:8px; margin-bottom:15px; flex-wrap:wrap; justify-content:center; }
+        .search-type-btn { padding:8px 18px; border:2px solid #ddd; border-radius:50px; background:var(--white); color:#666; font-weight:500; cursor:pointer; transition:var(--transition); font-size:0.85rem; font-family:'Poppins',sans-serif; }
+        .search-type-btn:hover { border-color:var(--accent); color:var(--primary); }
+        .search-type-btn.active { border-color:var(--secondary); background:linear-gradient(135deg,var(--accent),var(--secondary)); color:var(--white); box-shadow:0 4px 15px rgba(87,197,182,0.3); }
+        .search-type-btn i { margin-right:6px; }
+        .search-input-group { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+        .search-input-group input { flex:1; min-width:200px; padding:12px 18px; border:2px solid #e0e0e0; border-radius:10px; font-size:0.95rem; font-family:'Poppins',sans-serif; transition:var(--transition); background:#fafafa; }
+        .search-input-group input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(87,197,182,0.1); background:var(--white); }
+        .search-btn { padding:12px 30px; background:linear-gradient(135deg,var(--accent),var(--secondary)); color:var(--white); border:none; border-radius:10px; font-weight:600; font-size:0.95rem; cursor:pointer; transition:var(--transition); display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 15px rgba(87,197,182,0.3); font-family:'Poppins',sans-serif; }
+        .search-btn:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(87,197,182,0.4); }
+        .search-btn:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+        .search-btn.reset-btn { background:#e0e0e0; color:#666; box-shadow:none; }
+        .search-btn.reset-btn:hover { background:#d0d0d0; transform:none; }
+        
+        /* LOADING */
+        .loading-container { text-align:center; padding:40px 0; display:none; }
+        .loading-container.active { display:block; }
+        .spinner { width:50px; height:50px; border:4px solid #e0e0e0; border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 15px; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        
+        /* RESULTS */
+        .results-container { display:none; animation:fadeInUp 0.5s ease-out; }
+        .results-container.active { display:block; }
+        @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+        .results-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px; }
+        .results-count { background:linear-gradient(135deg,var(--accent),var(--secondary)); color:var(--white); padding:6px 18px; border-radius:50px; font-weight:600; font-size:0.85rem; }
+        .results-count i { margin-right:6px; }
+        .no-results { text-align:center; padding:50px 20px; background:var(--white); border-radius:20px; box-shadow:var(--card-shadow); }
+        .no-results i { font-size:3.5rem; color:#ddd; margin-bottom:15px; }
+        .no-results h3 { color:#666; margin-bottom:8px; }
+        .no-results p { color:#999; }
+        
+        /* PARTICIPANT CARD */
+        .participant-card { background:var(--white); border-radius:16px; padding:22px; margin-bottom:20px; box-shadow:var(--card-shadow); border-left:5px solid var(--accent); transition:var(--transition); }
+        .participant-card:hover { transform:translateY(-3px); box-shadow:0 20px 40px rgba(21,152,149,0.12); }
+        .participant-card.rumah-tangga { border-left-color:var(--info); }
+        .participant-card.umkm { border-left-color:var(--warning); }
+        .participant-card.badan-usaha { border-left-color:var(--success); }
+        .card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; flex-wrap:wrap; gap:10px; }
+        .card-title { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+        .card-title h3 { font-size:1.2rem; color:var(--dark); margin:0; }
+        .participant-badge { padding:3px 12px; border-radius:50px; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+        .participant-badge.rt { background:#dbeafe; color:#1e40af; }
+        .participant-badge.umkm { background:#fef3c7; color:#92400e; }
+        .participant-badge.badan-usaha { background:#d1fae5; color:#065f46; }
+        .card-body { display:grid; grid-template-columns:1fr 1fr; gap:8px 20px; }
+        .card-body .full-width { grid-column:1/-1; }
+        .info-item { display:flex; flex-direction:column; gap:1px; }
+        .info-item .label { font-size:0.65rem; font-weight:600; color:#999; text-transform:uppercase; letter-spacing:0.5px; }
+        .info-item .value { font-size:0.9rem; color:#333; font-weight:500; word-break:break-word; }
+        .info-item .value.full { font-family:'Courier New',monospace; letter-spacing:1px; color:var(--dark); }
+        .card-extra { margin-top:12px; padding-top:12px; border-top:1px solid #f0f0f0; }
+        .card-extra .extra-item { display:flex; align-items:center; gap:8px; font-size:0.85rem; color:#555; margin-bottom:4px; }
+        .card-extra .extra-item i { color:var(--accent); width:18px; }
+        .card-actions { margin-top:12px; padding-top:12px; border-top:1px solid #f0f0f0; display:flex; gap:10px; flex-wrap:wrap; }
+        .btn-edit { padding:8px 20px; background:linear-gradient(135deg,#f59e0b,#d97706); color:var(--white); border:none; border-radius:8px; font-weight:600; font-size:0.85rem; cursor:pointer; transition:var(--transition); display:inline-flex; align-items:center; gap:6px; box-shadow:0 4px 15px rgba(245,158,11,0.25); font-family:'Poppins',sans-serif; }
+        .btn-edit:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(245,158,11,0.35); }
+        .btn-edit i { font-size:0.9rem; }
+        
+        /* ADD FORM */
+        .add-section { background:var(--white); border-radius:20px; padding:25px; box-shadow:var(--card-shadow); margin-top:30px; border:2px solid var(--accent); }
+        .add-section .section-title { display:flex; align-items:center; gap:10px; margin-bottom:20px; padding-bottom:10px; border-bottom:2px solid #f0f0f0; }
+        .add-section .section-title h3 { font-size:1.2rem; color:var(--dark); }
+        .add-section .section-title i { color:var(--accent); font-size:1.3rem; }
+        .form-row { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+        .form-row.three-col { grid-template-columns:1fr 1fr 1fr; }
+        .form-group { margin-bottom:14px; }
+        .form-group label { display:block; font-weight:600; font-size:0.8rem; color:#555; margin-bottom:4px; }
+        .form-group label .required { color:var(--danger); }
+        .form-group label .hint { font-weight:400; color:#999; font-size:0.7rem; }
+        .form-group input, .form-group textarea, .form-group select { width:100%; padding:10px 14px; border:2px solid #e0e0e0; border-radius:8px; font-size:0.9rem; font-family:'Poppins',sans-serif; transition:var(--transition); background:#fafafa; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 4px rgba(87,197,182,0.08); background:var(--white); }
+        .form-group input:disabled { background:#f0f0f0; cursor:not-allowed; }
+        .form-group textarea { resize:vertical; min-height:50px; }
+        .form-group select:disabled { cursor:not-allowed; opacity:0.7; }
+        .form-group .auto-fill-info { font-size:0.75rem; color:var(--accent); margin-top:4px; }
+        .form-group .auto-fill-info i { margin-right:4px; }
+        .form-group .lock-info { font-size:0.75rem; color:#999; margin-top:4px; display:block; }
+        .form-group .lock-info i { margin-right:4px; }
+        .btn-submit { padding:12px 35px; background:linear-gradient(135deg,var(--accent),var(--secondary)); color:var(--white); border:none; border-radius:10px; font-weight:700; font-size:0.95rem; cursor:pointer; transition:var(--transition); display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 15px rgba(87,197,182,0.3); font-family:'Poppins',sans-serif; }
+        .btn-submit:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(87,197,182,0.4); }
+        .btn-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+        .btn-submit i { font-size:1rem; }
+        
+        /* MODAL */
+        .modal-overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(5px); z-index:9999; align-items:center; justify-content:center; padding:20px; }
+        .modal-overlay.active { display:flex; }
+        .modal-content { background:var(--white); border-radius:24px; max-width:750px; width:100%; max-height:90vh; overflow-y:auto; padding:30px 28px; box-shadow:0 25px 60px rgba(0,0,0,0.3); animation:slideUp 0.3s ease; }
+        @keyframes slideUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding-bottom:15px; border-bottom:2px solid #f0f0f0; }
+        .modal-header h2 { font-size:1.2rem; color:var(--dark); display:flex; align-items:center; gap:10px; }
+        .modal-header h2 i { color:var(--accent); }
+        .modal-close { background:none; border:none; font-size:1.8rem; color:#999; cursor:pointer; transition:var(--transition); padding:0 5px; }
+        .modal-close:hover { color:var(--danger); transform:rotate(90deg); }
+        .modal-footer { display:flex; gap:12px; margin-top:20px; padding-top:15px; border-top:1px solid #f0f0f0; flex-wrap:wrap; justify-content:center; }
+        .modal-footer .btn-save { padding:12px 30px; background:linear-gradient(135deg,var(--accent),var(--secondary)); color:var(--white); border:none; border-radius:10px; font-weight:700; font-size:0.95rem; cursor:pointer; transition:var(--transition); display:inline-flex; align-items:center; gap:8px; font-family:'Poppins',sans-serif; }
+        .modal-footer .btn-save:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(87,197,182,0.4); }
+        .modal-footer .btn-save:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+        .modal-footer .btn-cancel { padding:12px 25px; background:#e0e0e0; color:#666; border:none; border-radius:10px; font-weight:600; font-size:0.95rem; cursor:pointer; transition:var(--transition); font-family:'Poppins',sans-serif; }
+        .modal-footer .btn-cancel:hover { background:#d0d0d0; }
+        
+        /* TOAST */
+        .toast { position:fixed; bottom:30px; right:30px; background:var(--dark); color:var(--white); padding:14px 22px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.2); display:none; align-items:center; gap:12px; z-index:10000; max-width:400px; }
+        .toast.active { display:flex; }
+        .toast.success { border-left:5px solid var(--success); }
+        .toast.error { border-left:5px solid var(--danger); }
+        .toast.warning { border-left:5px solid var(--warning); }
+        .toast i { font-size:1.3rem; }
+        .toast.success i { color:var(--success); }
+        .toast.error i { color:var(--danger); }
+        .toast.warning i { color:var(--warning); }
+        .toast .toast-close { background:none; border:none; color:#999; cursor:pointer; font-size:1.2rem; margin-left:auto; padding:0 5px; }
+        .toast .toast-close:hover { color:var(--white); }
+        
+        /* CONFIRM MODAL */
+        #confirmModal .modal-content { max-width:450px; }
+        #confirmModal .modal-body p { font-size:0.95rem; color:#333; line-height:1.8; white-space:pre-line; }
+        
+        /* RESPONSIVE */
+        @media (max-width:768px) {
+            .dashboard-header .header-content { flex-direction:column; align-items:stretch; text-align:center; }
+            .dashboard-header .logo-container { justify-content:center; }
+            .dashboard-header .user-info { justify-content:center; flex-wrap:wrap; }
+            .page-title h2 { font-size:1.3rem; }
+            .search-section { padding:18px 15px; }
+            .search-type-selector { gap:5px; }
+            .search-type-btn { padding:6px 12px; font-size:0.75rem; }
+            .search-input-group { flex-direction:column; }
+            .search-input-group input { width:100%; min-width:unset; }
+            .search-btn { width:100%; justify-content:center; }
+            .card-body { grid-template-columns:1fr; gap:6px; }
+            .card-header { flex-direction:column; align-items:stretch; }
+            .card-actions { flex-direction:column; }
+            .card-actions .btn-edit { justify-content:center; width:100%; }
+            .form-row { grid-template-columns:1fr; gap:0; }
+            .form-row.three-col { grid-template-columns:1fr; }
+            .modal-content { padding:20px 15px; margin:10px; }
+            .modal-footer { flex-direction:column; }
+            .modal-footer .btn-save, .modal-footer .btn-cancel { width:100%; justify-content:center; }
+            .results-header { flex-direction:column; text-align:center; }
+            .add-section { padding:18px 15px; }
+            .login-box { padding:30px 20px; }
+            .toast { right:15px; left:15px; max-width:unset; bottom:15px; }
+        }
+        @media (max-width:480px) {
+            .page-title h2 { font-size:1.1rem; }
+            .dashboard-header .logo-text h1 { font-size:0.95rem; }
+            .participant-card { padding:15px 12px; }
+            .card-title h3 { font-size:1rem; }
+            .modal-header h2 { font-size:1rem; }
+        }
+        .modal-content::-webkit-scrollbar { width:6px; }
+        .modal-content::-webkit-scrollbar-track { background:#f1f1f1; border-radius:10px; }
+        .modal-content::-webkit-scrollbar-thumb { background:var(--accent); border-radius:10px; }
+        .modal-content::-webkit-scrollbar-thumb:hover { background:var(--secondary); }
+    </style>
+</head>
+<body>
+
+<!-- ========== LOGIN PAGE ========== -->
+<div class="login-page" id="loginPage">
+    <div class="login-box">
+        <div class="logo-area">
+            <img src="https://lpspadangterubukasri.github.io/Home/data/foto/logolps.png" alt="LPS Logo">
+            <h1>Dashboard Petugas LPS</h1>
+            <p>Lembaga Pengelola Sampah Padang Terubuk Asri</p>
+        </div>
+        <div class="login-error" id="loginError">
+            <i class="fas fa-exclamation-circle"></i> <span id="loginErrorMsg">Username atau password salah</span>
+        </div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginUsername">Username</label>
+                <input type="text" id="loginUsername" placeholder="Masukkan username" autocomplete="username" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Masukkan password" autocomplete="current-password" required>
+            </div>
+            <div class="remember-group">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Ingat saya</label>
+            </div>
+            <button type="submit" class="login-btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Masuk
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- ========== DASHBOARD ========== -->
+<div id="dashboard">
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="https://lpspadangterubukasri.github.io/Home/data/foto/logolps.png" alt="LPS Logo" class="logo">
+                    <div class="logo-text">
+                        <h1>DASHBOARD PETUGAS LPS</h1>
+                        <span>Lembaga Pengelola Sampah Padang Terubuk Asri</span>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <span class="user-name" id="currentUser"><i class="fas fa-user"></i> Petugas</span>
+                    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="main-content">
+        <div class="container">
+            <div class="page-title">
+                <h2><i class="fas fa-database" style="color:var(--accent);"></i> Kelola Data Peserta LPS</h2>
+                <p>Cari, tambah, dan edit data peserta dengan mudah</p>
+            </div>
+            
+            <!-- SEARCH -->
+            <div class="search-section">
+                <div class="search-type-selector">
+                    <button class="search-type-btn active" data-type="nama"><i class="fas fa-user"></i> Nama</button>
+                    <button class="search-type-btn" data-type="nik"><i class="fas fa-id-card"></i> NIK</button>
+                    <button class="search-type-btn" data-type="nokk"><i class="fas fa-address-card"></i> No. KK</button>
+                    <button class="search-type-btn" data-type="rt"><i class="fas fa-home"></i> RT</button>
+                    <button class="search-type-btn" data-type="rw"><i class="fas fa-home"></i> RW</button>
+                </div>
+                <div class="search-input-group">
+                    <input type="text" id="searchInput" placeholder="Masukkan kata kunci pencarian..." autocomplete="off">
+                    <button class="search-btn" id="searchBtn"><i class="fas fa-search"></i> Cari Data</button>
+                    <button class="search-btn reset-btn" id="resetBtn"><i class="fas fa-undo"></i> Reset</button>
+                </div>
+                <div style="margin-top:10px;font-size:0.8rem;color:#999;">
+                    <i class="fas fa-info-circle"></i> Untuk pencarian RT/RW, gunakan format 1, 01, atau 001
+                </div>
+            </div>
+            
+            <!-- Loading -->
+            <div class="loading-container" id="loadingContainer">
+                <div class="spinner"></div>
+                <p class="loading-text"><i class="fas fa-spinner fa-spin"></i> Mencari data...</p>
+            </div>
+            
+            <!-- Results -->
+            <div class="results-container" id="resultsContainer">
+                <div class="results-header">
+                    <div class="results-count" id="resultsCount"><i class="fas fa-users"></i> 0 data ditemukan</div>
+                </div>
+                <div id="resultsContent"></div>
+            </div>
+            
+            <!-- ADD FORM -->
+            <div class="add-section" id="addSection">
+                <div class="section-title">
+                    <i class="fas fa-plus-circle"></i>
+                    <h3>Tambah Data Peserta Baru</h3>
+                </div>
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="addJenisLayanan">Jenis Layanan <span class="required">*</span></label>
+                        <select id="addJenisLayanan" required>
+                            <option value="RUMAH_TANGGA">Peserta Rumah Tangga</option>
+                            <option value="UMKM">Peserta UMKM</option>
+                            <option value="BADAN_USAHA">Peserta Badan Usaha</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row three-col">
+                        <div class="form-group">
+                            <label for="addNamaPeserta">Nama Peserta <span class="required">*</span></label>
+                            <input type="text" id="addNamaPeserta" placeholder="Nama lengkap" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="addNik">NIK <span class="hint">(opsional)</span></label>
+                            <input type="text" id="addNik" placeholder="16 digit NIK">
+                        </div>
+                        <div class="form-group">
+                            <label for="addNoKK">No. KK <span class="hint">(opsional)</span></label>
+                            <input type="text" id="addNoKK" placeholder="Nomor KK">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addAlamat">Alamat <span class="required">*</span></label>
+                        <textarea id="addAlamat" rows="2" placeholder="Alamat lengkap" required></textarea>
+                    </div>
+                    
+                    <div class="form-row three-col">
+                        <div class="form-group">
+                            <label for="addRt">RT <span class="hint">(contoh: 001)</span></label>
+                            <input type="text" id="addRt" placeholder="001" maxlength="3">
+                        </div>
+                        <div class="form-group">
+                            <label for="addRw">RW <span class="hint">(contoh: 001)</span></label>
+                            <input type="text" id="addRw" placeholder="001" maxlength="3">
+                        </div>
+                        <div class="form-group">
+                            <label for="addKelurahan">Kelurahan</label>
+                            <input type="text" id="addKelurahan" placeholder="Kelurahan">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row three-col">
+                        <div class="form-group">
+                            <label for="addKecamatan">Kecamatan</label>
+                            <input type="text" id="addKecamatan" placeholder="Kecamatan">
+                        </div>
+                        <div class="form-group">
+                            <label for="addKota">Kota</label>
+                            <input type="text" id="addKota" placeholder="Kota">
+                        </div>
+                        <div class="form-group">
+                            <label for="addProvinsi">Provinsi</label>
+                            <input type="text" id="addProvinsi" placeholder="Provinsi">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row three-col">
+                        <div class="form-group">
+                            <label for="addNoTelp">No. Telepon <span class="hint">(contoh: 6285270089590)</span></label>
+                            <input type="text" id="addNoTelp" placeholder="6285270089590">
+                        </div>
+                        <div class="form-group">
+                            <label for="addStatus">Status <span class="required">*</span></label>
+                            <select id="addStatus" required>
+                                <option value="">Pilih Status</option>
+                                <option value="PESERTA LPS">PESERTA LPS</option>
+                                <option value="PESERTA SUBSIDI SILANG">PESERTA SUBSIDI SILANG</option>
+                                <option value="PESERTA DLHK">PESERTA DLHK</option>
+                                <option value="TIDAK IKUT LPS">TIDAK IKUT LPS</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addTarif">Tarif Iuran</label>
+                            <input type="text" id="addTarif" placeholder="Tarif iuran">
+                        </div>
+                    </div>
+                    
+                    <div id="addUmkmFields" style="display:none;">
+                        <hr style="margin:15px 0;border-color:#f0f0f0;">
+                        <h4 style="color:var(--dark);margin-bottom:10px;"><i class="fas fa-store"></i> Data UMKM</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="addNamaUmkm">Nama UMKM</label>
+                                <input type="text" id="addNamaUmkm" placeholder="Nama UMKM">
+                            </div>
+                            <div class="form-group">
+                                <label for="addNoSuratUmkm">No. Surat UMKM</label>
+                                <input type="text" id="addNoSuratUmkm" placeholder="Nomor surat UMKM">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="addBadanUsahaFields" style="display:none;">
+                        <hr style="margin:15px 0;border-color:#f0f0f0;">
+                        <h4 style="color:var(--dark);margin-bottom:10px;"><i class="fas fa-building"></i> Data Badan Usaha</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="addNamaBadanUsaha">Nama Badan Usaha</label>
+                                <input type="text" id="addNamaBadanUsaha" placeholder="Nama Badan Usaha">
+                            </div>
+                            <div class="form-group">
+                                <label for="addNoSuratIzin">No. Surat Izin Usaha</label>
+                                <input type="text" id="addNoSuratIzin" placeholder="Nomor surat izin">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addNamaPetugas">Nama Petugas <span class="required">*</span></label>
+                        <input type="text" id="addNamaPetugas" placeholder="Akan terisi otomatis berdasarkan RT/RW" required readonly>
+                        <div class="auto-fill-info" id="addPetugasInfo">
+                            <i class="fas fa-info-circle"></i> Isi RT dan RW untuk mengisi nama petugas secara otomatis
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit" id="addSubmitBtn">
+                        <i class="fas fa-save"></i> Simpan Data Peserta
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer style="background:linear-gradient(135deg,var(--dark),#0c384f);color:var(--white);padding:25px 0;text-align:center;margin-top:20px;">
+        <div class="container">
+            <p style="font-size:0.85rem;opacity:0.9;">&copy; 2026 Lembaga Pengelola Sampah Padang Terubuk Asri | Dashboard Petugas</p>
+        </div>
+    </footer>
+</div>
+
+<!-- ========== MODAL EDIT ========== -->
+<div class="modal-overlay" id="editModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-edit"></i> Edit Data Peserta</h2>
+            <button class="modal-close" id="modalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="editForm">
+                <input type="hidden" id="editRowIndex" value="">
+                
+                <div class="form-group">
+                    <label for="editJenisLayanan">Jenis Layanan <span class="required">*</span></label>
+                    <select id="editJenisLayanan" required disabled>
+                        <option value="RUMAH_TANGGA">Peserta Rumah Tangga</option>
+                        <option value="UMKM">Peserta UMKM</option>
+                        <option value="BADAN_USAHA">Peserta Badan Usaha</option>
+                    </select>
+                    <small class="lock-info"><i class="fas fa-lock"></i> Jenis layanan tidak dapat diubah</small>
+                </div>
+                
+                <div class="form-row three-col">
+                    <div class="form-group">
+                        <label for="editNamaPeserta">Nama Peserta <span class="required">*</span></label>
+                        <input type="text" id="editNamaPeserta" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editNik">NIK</label>
+                        <input type="text" id="editNik" placeholder="16 digit NIK">
+                    </div>
+                    <div class="form-group">
+                        <label for="editNoKK">No. KK</label>
+                        <input type="text" id="editNoKK" placeholder="Nomor KK">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editAlamat">Alamat <span class="required">*</span></label>
+                    <textarea id="editAlamat" rows="2" required></textarea>
+                </div>
+                
+                <div class="form-row three-col">
+                    <div class="form-group">
+                        <label for="editRt">RT <span class="hint">(contoh: 001)</span></label>
+                        <input type="text" id="editRt" placeholder="001" maxlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label for="editRw">RW <span class="hint">(contoh: 001)</span></label>
+                        <input type="text" id="editRw" placeholder="001" maxlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label for="editKelurahan">Kelurahan</label>
+                        <input type="text" id="editKelurahan" placeholder="Kelurahan">
+                    </div>
+                </div>
+                
+                <div class="form-row three-col">
+                    <div class="form-group">
+                        <label for="editKecamatan">Kecamatan</label>
+                        <input type="text" id="editKecamatan" placeholder="Kecamatan">
+                    </div>
+                    <div class="form-group">
+                        <label for="editKota">Kota</label>
+                        <input type="text" id="editKota" placeholder="Kota">
+                    </div>
+                    <div class="form-group">
+                        <label for="editProvinsi">Provinsi</label>
+                        <input type="text" id="editProvinsi" placeholder="Provinsi">
+                    </div>
+                </div>
+                
+                <div class="form-row three-col">
+                    <div class="form-group">
+                        <label for="editNoTelp">No. Telepon <span class="hint">(contoh: 6285270089590)</span></label>
+                        <input type="text" id="editNoTelp" placeholder="6285270089590">
+                    </div>
+                    <div class="form-group">
+                        <label for="editStatus">Status <span class="required">*</span></label>
+                        <select id="editStatus" required>
+                            <option value="">Pilih Status</option>
+                            <option value="PESERTA LPS">PESERTA LPS</option>
+                            <option value="PESERTA SUBSIDI SILANG">PESERTA SUBSIDI SILANG</option>
+                            <option value="PESERTA DLHK">PESERTA DLHK</option>
+                            <option value="TIDAK IKUT LPS">TIDAK IKUT LPS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTarif">Tarif Iuran</label>
+                        <input type="text" id="editTarif" placeholder="Tarif iuran">
+                    </div>
+                </div>
+                
+                <div id="editUmkmFields" style="display:none;">
+                    <hr style="margin:15px 0;border-color:#f0f0f0;">
+                    <h4 style="color:var(--dark);margin-bottom:10px;"><i class="fas fa-store"></i> Data UMKM</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editNamaUmkm">Nama UMKM</label>
+                            <input type="text" id="editNamaUmkm" placeholder="Nama UMKM">
+                        </div>
+                        <div class="form-group">
+                            <label for="editNoSuratUmkm">No. Surat UMKM</label>
+                            <input type="text" id="editNoSuratUmkm" placeholder="Nomor surat UMKM">
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="editBadanUsahaFields" style="display:none;">
+                    <hr style="margin:15px 0;border-color:#f0f0f0;">
+                    <h4 style="color:var(--dark);margin-bottom:10px;"><i class="fas fa-building"></i> Data Badan Usaha</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editNamaBadanUsaha">Nama Badan Usaha</label>
+                            <input type="text" id="editNamaBadanUsaha" placeholder="Nama Badan Usaha">
+                        </div>
+                        <div class="form-group">
+                            <label for="editNoSuratIzin">No. Surat Izin Usaha</label>
+                            <input type="text" id="editNoSuratIzin" placeholder="Nomor surat izin">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editNamaPetugas">Nama Petugas <span class="required">*</span></label>
+                    <input type="text" id="editNamaPetugas" required>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-save" id="editSaveBtn"><i class="fas fa-save"></i> Simpan Perubahan</button>
+            <button class="btn-cancel" id="editCancelBtn">Batal</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== MODAL KONFIRMASI CUSTOM ========== -->
+<div class="modal-overlay" id="confirmModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-question-circle" style="color:var(--warning);"></i> Konfirmasi</h2>
+            <button class="modal-close" id="confirmModalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p id="confirmMessage" style="font-size:0.95rem;color:#333;line-height:1.8;white-space:pre-line;"></p>
+        </div>
+        <div class="modal-footer" style="justify-content:center;">
+            <button class="btn-cancel" id="confirmCancelBtn" style="padding:10px 30px;">Batal</button>
+            <button class="btn-save" id="confirmOkBtn" style="padding:10px 30px;background:linear-gradient(135deg,var(--accent),var(--secondary));">
+                <i class="fas fa-check"></i> Ya, Lanjutkan
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== TOAST ========== -->
+<div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">Pesan berhasil!</span>
+    <button class="toast-close" id="toastClose">&times;</button>
+</div>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+// ============================================
+// KONFIGURASI
+// ============================================
+// GANTI URL INI DENGAN URL APPS SCRIPT ANDA
+const API_URL = 'https://script.google.com/macros/s/AKfycbwl32ph-1lk0pOOmisCpZ6xmjBaVR8BiSwLfMakPSE_dXrq7qnbA1dLNgk37FDk-KY0/exec';
+const SESSION_KEY = 'lps_petugas_session';
+
+let currentUser = null;
+let currentSearchType = 'nama';
+let isSearching = false;
+let isSubmitting = false;
+let allPetugasData = [];
+let confirmResolve = null;
+
+// ============================================
+// DOM ELEMENTS
+// ============================================
+const loginPage = document.getElementById('loginPage');
+const loginForm = document.getElementById('loginForm');
+const loginUsername = document.getElementById('loginUsername');
+const loginPassword = document.getElementById('loginPassword');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const loginErrorMsg = document.getElementById('loginErrorMsg');
+const rememberMe = document.getElementById('rememberMe');
+
+const dashboard = document.getElementById('dashboard');
+const currentUserEl = document.getElementById('currentUser');
+const logoutBtn = document.getElementById('logoutBtn');
+
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const resetBtn = document.getElementById('resetBtn');
+const loadingContainer = document.getElementById('loadingContainer');
+const resultsContainer = document.getElementById('resultsContainer');
+const resultsCount = document.getElementById('resultsCount');
+const resultsContent = document.getElementById('resultsContent');
+const typeButtons = document.querySelectorAll('.search-type-btn');
+
+const addForm = document.getElementById('addForm');
+const addJenisLayanan = document.getElementById('addJenisLayanan');
+const addNamaPeserta = document.getElementById('addNamaPeserta');
+const addNik = document.getElementById('addNik');
+const addNoKK = document.getElementById('addNoKK');
+const addAlamat = document.getElementById('addAlamat');
+const addRt = document.getElementById('addRt');
+const addRw = document.getElementById('addRw');
+const addKelurahan = document.getElementById('addKelurahan');
+const addKecamatan = document.getElementById('addKecamatan');
+const addKota = document.getElementById('addKota');
+const addProvinsi = document.getElementById('addProvinsi');
+const addNoTelp = document.getElementById('addNoTelp');
+const addStatus = document.getElementById('addStatus');
+const addTarif = document.getElementById('addTarif');
+const addNamaUmkm = document.getElementById('addNamaUmkm');
+const addNoSuratUmkm = document.getElementById('addNoSuratUmkm');
+const addNamaBadanUsaha = document.getElementById('addNamaBadanUsaha');
+const addNoSuratIzin = document.getElementById('addNoSuratIzin');
+const addNamaPetugas = document.getElementById('addNamaPetugas');
+const addPetugasInfo = document.getElementById('addPetugasInfo');
+const addSubmitBtn = document.getElementById('addSubmitBtn');
+const addUmkmFields = document.getElementById('addUmkmFields');
+const addBadanUsahaFields = document.getElementById('addBadanUsahaFields');
+
+const editModal = document.getElementById('editModal');
+const modalClose = document.getElementById('modalClose');
+const editCancelBtn = document.getElementById('editCancelBtn');
+const editSaveBtn = document.getElementById('editSaveBtn');
+const editRowIndex = document.getElementById('editRowIndex');
+const editJenisLayanan = document.getElementById('editJenisLayanan');
+const editNamaPeserta = document.getElementById('editNamaPeserta');
+const editNik = document.getElementById('editNik');
+const editNoKK = document.getElementById('editNoKK');
+const editAlamat = document.getElementById('editAlamat');
+const editRt = document.getElementById('editRt');
+const editRw = document.getElementById('editRw');
+const editKelurahan = document.getElementById('editKelurahan');
+const editKecamatan = document.getElementById('editKecamatan');
+const editKota = document.getElementById('editKota');
+const editProvinsi = document.getElementById('editProvinsi');
+const editNoTelp = document.getElementById('editNoTelp');
+const editStatus = document.getElementById('editStatus');
+const editTarif = document.getElementById('editTarif');
+const editNamaUmkm = document.getElementById('editNamaUmkm');
+const editNoSuratUmkm = document.getElementById('editNoSuratUmkm');
+const editNamaBadanUsaha = document.getElementById('editNamaBadanUsaha');
+const editNoSuratIzin = document.getElementById('editNoSuratIzin');
+const editNamaPetugas = document.getElementById('editNamaPetugas');
+const editUmkmFields = document.getElementById('editUmkmFields');
+const editBadanUsahaFields = document.getElementById('editBadanUsahaFields');
+
+const confirmModal = document.getElementById('confirmModal');
+const confirmMessage = document.getElementById('confirmMessage');
+const confirmOkBtn = document.getElementById('confirmOkBtn');
+const confirmCancelBtn = document.getElementById('confirmCancelBtn');
+const confirmModalClose = document.getElementById('confirmModalClose');
+
+const toast = document.getElementById('toast');
+const toastMessage = document.getElementById('toastMessage');
+const toastClose = document.getElementById('toastClose');
+let toastTimeout = null;
+
+// ============================================
+// UPPERCASE HELPER
+// ============================================
+function setupUppercase(input) {
+    input.addEventListener('input', function() {
+        const skipIds = ['addNik', 'addNoKK', 'addNoTelp', 'addRt', 'addRw', 
+                         'editNik', 'editNoKK', 'editNoTelp', 'editRt', 'editRw'];
+        if (skipIds.includes(this.id)) return;
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        this.value = this.value.toUpperCase();
+        this.setSelectionRange(start, end);
+    });
+}
+
+// ============================================
+// SESSION MANAGEMENT
+// ============================================
+function saveSession(username) {
+    const sessionData = { username: username, timestamp: new Date().getTime() };
+    if (rememberMe.checked) {
+        localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+    } else {
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+    }
+    currentUser = username;
+}
+
+function getSession() {
+    let data = localStorage.getItem(SESSION_KEY);
+    if (!data) data = sessionStorage.getItem(SESSION_KEY);
+    if (data) {
+        try {
+            const session = JSON.parse(data);
+            if (new Date().getTime() - session.timestamp > 8 * 60 * 60 * 1000) {
+                clearSession();
+                return null;
+            }
+            return session;
+        } catch(e) { return null; }
+    }
+    return null;
+}
+
+function clearSession() {
+    localStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(SESSION_KEY);
+    currentUser = null;
+}
+
+// ============================================
+// LOGIN
+// ============================================
+loginForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const username = loginUsername.value.trim();
+    const password = loginPassword.value.trim();
+    if (!username || !password) {
+        showLoginError('Username dan password wajib diisi');
+        return;
+    }
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+    try {
+        const url = `${API_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&t=${Date.now()}`;
+        const response = await fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' });
+        const result = await response.json();
+        if (result.success === true) {
+            saveSession(username);
+            showDashboard(username);
+            showToast('Selamat datang, ' + username + '!', 'success');
+        } else {
+            showLoginError(result.message || 'Login gagal');
+        }
+    } catch (error) {
+        showLoginError('Terjadi kesalahan. Silakan coba lagi.');
+        console.error('Login error:', error);
+    } finally {
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Masuk';
+    }
+});
+
+function showLoginError(message) {
+    loginErrorMsg.textContent = message;
+    loginError.classList.add('active');
+    setTimeout(() => loginError.classList.remove('active'), 5000);
+}
+
+// ============================================
+// DASHBOARD
+// ============================================
+function showDashboard(username) {
+    loginPage.style.display = 'none';
+    dashboard.classList.add('active');
+    currentUserEl.innerHTML = '<i class="fas fa-user"></i> ' + username;
+    searchInput.focus();
+    loadAllPetugas();
+}
+
+logoutBtn.addEventListener('click', function() {
+    if (confirm('Yakin ingin logout?')) {
+        clearSession();
+        dashboard.classList.remove('active');
+        loginPage.style.display = 'flex';
+        loginUsername.value = '';
+        loginPassword.value = '';
+        loginUsername.focus();
+        showToast('Anda telah logout', 'warning');
+    }
+});
+
+// ============================================
+// LOAD ALL PETUGAS
+// ============================================
+async function loadAllPetugas() {
+    try {
+        const url = `${API_URL}?action=getAllPetugas&t=${Date.now()}`;
+        const response = await fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' });
+        const result = await response.json();
+        if (result.success === true) {
+            allPetugasData = result.data || [];
+        }
+    } catch (error) {
+        console.error('Error loading petugas data:', error);
+    }
+}
+
+// ============================================
+// AUTO-FILL NAMA PETUGAS
+// ============================================
+function autoFillPetugas(rtInput, rwInput, petugasInput, infoEl) {
+    const rt = rtInput.value.trim();
+    const rw = rwInput.value.trim();
+    if (rt && rw) {
+        const formattedRt = formatRT(rt);
+        const formattedRw = formatRT(rw);
+        const petugas = allPetugasData.find(p => 
+            formatRT(p.rt) === formattedRt && formatRT(p.rw) === formattedRw
+        );
+        if (petugas) {
+            petugasInput.value = petugas.nama_petugas;
+            if (infoEl) {
+                infoEl.innerHTML = '<i class="fas fa-check-circle" style="color:var(--success);"></i> Petugas ditemukan: ' + petugas.nama_petugas;
+                infoEl.style.color = 'var(--success)';
+            }
+        } else {
+            petugasInput.value = '';
+            if (infoEl) {
+                infoEl.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:var(--warning);"></i> Petugas tidak ditemukan untuk RT ' + formattedRt + ' RW ' + formattedRw;
+                infoEl.style.color = 'var(--warning)';
+            }
+        }
+    } else {
+        petugasInput.value = '';
+        if (infoEl) {
+            infoEl.innerHTML = '<i class="fas fa-info-circle"></i> Isi RT dan RW untuk mengisi nama petugas secara otomatis';
+            infoEl.style.color = 'var(--accent)';
+        }
+    }
+}
+
+function formatRT(value) {
+    if (!value) return '';
+    const numbers = value.toString().replace(/\D/g, '');
+    if (!numbers) return '';
+    return numbers.padStart(3, '0');
+}
+
+// ============================================
+// SEARCH TYPE SELECTOR
+// ============================================
+typeButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+        typeButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentSearchType = this.dataset.type;
+        searchInput.placeholder = getPlaceholder(currentSearchType);
+        searchInput.focus();
+    });
+});
+
+function getPlaceholder(type) {
+    const map = {
+        'nama': 'Masukkan nama peserta...',
+        'nik': 'Masukkan NIK...',
+        'nokk': 'Masukkan Nomor KK...',
+        'rt': 'Masukkan RT (contoh: 1, 01, 001)...',
+        'rw': 'Masukkan RW (contoh: 1, 01, 001)...'
+    };
+    return map[type] || 'Masukkan kata kunci...';
+}
+
+// ============================================
+// SEARCH
+// ============================================
+searchBtn.addEventListener('click', performSearch);
+searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') performSearch();
+});
+
+resetBtn.addEventListener('click', function() {
+    searchInput.value = '';
+    resultsContainer.classList.remove('active');
+    resultsContent.innerHTML = '';
+    searchInput.focus();
+});
+
+async function performSearch() {
+    const keyword = searchInput.value.trim();
+    if (!keyword || keyword.length < 2) {
+        showToast('Masukkan minimal 2 karakter untuk pencarian.', 'warning');
+        searchInput.focus();
+        return;
+    }
+    if (isSearching) return;
+    
+    isSearching = true;
+    searchBtn.disabled = true;
+    searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mencari...';
+    loadingContainer.classList.add('active');
+    resultsContainer.classList.remove('active');
+    resultsContent.innerHTML = '';
+    
+    try {
+        const url = `${API_URL}?action=search&type=${currentSearchType}&keyword=${encodeURIComponent(keyword)}&t=${Date.now()}`;
+        const response = await fetch(url, { method: 'GET', mode: 'cors', cache: 'no-cache' });
+        const result = await response.json();
+        displayResults(result);
+    } catch (error) {
+        console.error('Search error:', error);
+        showToast('Terjadi kesalahan saat mencari data.', 'error');
+    } finally {
+        isSearching = false;
+        searchBtn.disabled = false;
+        searchBtn.innerHTML = '<i class="fas fa-search"></i> Cari Data';
+        loadingContainer.classList.remove('active');
+    }
+}
+
+// ============================================
+// DISPLAY RESULTS
+// ============================================
+function displayResults(result) {
+    resultsContainer.classList.add('active');
+    if (!result.success) {
+        resultsCount.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${result.message || 'Data tidak ditemukan'}`;
+        resultsContent.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>Data Tidak Ditemukan</h3>
+                <p>${result.message || 'Coba dengan kata kunci yang berbeda'}</p>
+            </div>
+        `;
+        return;
+    }
+    const data = result.data || [];
+    const count = data.length;
+    resultsCount.innerHTML = `<i class="fas fa-users"></i> ${count} data ditemukan`;
+    if (count === 0) {
+        resultsContent.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-user-slash"></i>
+                <h3>Tidak Ada Data</h3>
+                <p>Data peserta dengan kata kunci tersebut tidak ditemukan</p>
+            </div>
+        `;
+        return;
+    }
+    let html = '';
+    data.forEach((participant, index) => {
+        html += buildParticipantCard(participant, index);
+    });
+    resultsContent.innerHTML = html;
+}
+
+// ============================================
+// BUILD PARTICIPANT CARD
+// ============================================
+function buildParticipantCard(data, index) {
+    let cardClass = 'participant-card';
+    let badgeClass = 'rt';
+    let badgeText = 'PESERTA RUMAH TANGGA';
+    
+    if (data.isBadanUsaha || data.participantType === 'PESERTA BADAN USAHA') {
+        cardClass += ' badan-usaha';
+        badgeClass = 'badan-usaha';
+        badgeText = 'PESERTA BADAN USAHA';
+    } else if (data.isUmkm || data.participantType === 'PESERTA UMKM') {
+        cardClass += ' umkm';
+        badgeClass = 'umkm';
+        badgeText = 'PESERTA UMKM';
+    }
+    
+    const addressParts = [
+        data.alamat,
+        data.rt ? `RT. ${data.rt}` : '',
+        data.rw ? `RW. ${data.rw}` : '',
+        data.kelurahan,
+        data.kecamatan,
+        data.kota,
+        data.provinsi
+    ].filter(part => part && part.trim() !== '');
+    const fullAddress = addressParts.join(', ');
+    
+    let extraHtml = '';
+    if (data.isUmkm || data.nama_umkm) {
+        extraHtml += `<div class="extra-item"><i class="fas fa-store"></i> UMKM: ${data.nama_umkm || '-'}</div>`;
+        if (data.no_surat_umkm) {
+            extraHtml += `<div class="extra-item"><i class="fas fa-file-alt"></i> No. Surat: ${data.no_surat_umkm}</div>`;
+        }
+    }
+    if (data.isBadanUsaha || data.nama_badan_usaha) {
+        extraHtml += `<div class="extra-item"><i class="fas fa-building"></i> Badan Usaha: ${data.nama_badan_usaha || '-'}</div>`;
+        if (data.bo_surat_izin_usaha) {
+            extraHtml += `<div class="extra-item"><i class="fas fa-file-contract"></i> No. Izin: ${data.bo_surat_izin_usaha}</div>`;
+        }
+    }
+    
+    const statusValue = data.status ? data.status.toString().trim() : '';
+    const tariffValue = data.tarif_iuran ? data.tarif_iuran.toString().trim() : '';
+    
+    if (statusValue) {
+        extraHtml += `<div class="extra-item"><i class="fas fa-info-circle"></i> Status: <span style="font-weight:600;color:var(--green-dark);">${statusValue}</span></div>`;
+    } else {
+        extraHtml += `<div class="extra-item"><i class="fas fa-exclamation-triangle"></i> Status: <span style="font-weight:600;color:#dc3545;">Belum terdata</span></div>`;
+    }
+    
+    if (tariffValue) {
+        const tariffDisplay = tariffValue.includes('Rp') ? tariffValue : `Rp ${tariffValue}`;
+        extraHtml += `<div class="extra-item"><i class="fas fa-money-bill-wave"></i> Tarif: <span style="font-weight:600;color:var(--green-dark);">${tariffDisplay}</span></div>`;
+    } else {
+        extraHtml += `<div class="extra-item"><i class="fas fa-money-bill-wave"></i> Tarif: <span style="font-weight:600;color:#999;">-</span></div>`;
+    }
+    
+    extraHtml += `<div class="extra-item"><i class="fas fa-user-tie"></i> Petugas: <span style="font-weight:500;">${data.nama_petugas || '-'}</span></div>`;
+    
+    const participantData = {
+        rowIndex: data.rowIndex || (index + 2),
+        timestamp: data.timestamp || '',
+        nama_peserta: data.nama_peserta || '',
+        no_nik: data.no_nik || '',
+        no_kk: data.no_kk || '',
+        alamat: data.alamat || '',
+        rt: data.rt || '',
+        rw: data.rw || '',
+        kelurahan: data.kelurahan || '',
+        kecamatan: data.kecamatan || '',
+        kota: data.kota || '',
+        provinsi: data.provinsi || '',
+        no_telp: data.no_telp || '',
+        status: data.status || '',
+        tarif_iuran: data.tarif_iuran || '',
+        nama_umkm: data.nama_umkm || '',
+        no_surat_umkm: data.no_surat_umkm || '',
+        nama_badan_usaha: data.nama_badan_usaha || '',
+        bo_surat_izin_usaha: data.bo_surat_izin_usaha || '',
+        nama_petugas: data.nama_petugas || '',
+        jenis_layanan: data.isBadanUsaha ? 'BADAN_USAHA' : (data.isUmkm ? 'UMKM' : 'RUMAH_TANGGA')
+    };
+    
+    const dataAttr = JSON.stringify(participantData).replace(/"/g, '&quot;');
+    const rowIndex = data.rowIndex || (index + 2);
+    
+    return `
+        <div class="${cardClass}" data-participant='${dataAttr}' data-rowindex="${rowIndex}">
+            <div class="card-header">
+                <div class="card-title">
+                    <h3><i class="fas fa-user-circle" style="color:var(--accent);"></i> ${data.nama_peserta || 'Nama tidak tersedia'}</h3>
+                    <span class="participant-badge ${badgeClass}">${badgeText}</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="info-item">
+                    <span class="label"><i class="fas fa-id-card"></i> NIK</span>
+                    <span class="value full">${data.no_nik || '-'}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label"><i class="fas fa-address-card"></i> No. KK</span>
+                    <span class="value full">${data.no_kk || '-'}</span>
+                </div>
+                <div class="info-item full-width">
+                    <span class="label"><i class="fas fa-map-marker-alt"></i> Alamat</span>
+                    <span class="value">${fullAddress || 'Alamat tidak tersedia'}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label"><i class="fas fa-phone"></i> No. Telepon</span>
+                    <span class="value">${data.no_telp || '-'}</span>
+                </div>
+            </div>
+            <div class="card-extra">${extraHtml}</div>
+            <div class="card-actions">
+                <button class="btn-edit" onclick="openEditModal(this)">
+                    <i class="fas fa-edit"></i> Edit Data
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================
+// MODAL KONFIRMASI CUSTOM
+// ============================================
+function showConfirm(message) {
+    return new Promise((resolve) => {
+        confirmMessage.textContent = message;
+        confirmModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        confirmResolve = resolve;
+    });
+}
+
+confirmOkBtn.addEventListener('click', function() {
+    confirmModal.classList.remove('active');
+    document.body.style.overflow = '';
+    if (confirmResolve) {
+        confirmResolve(true);
+        confirmResolve = null;
+    }
+});
+
+confirmCancelBtn.addEventListener('click', function() {
+    confirmModal.classList.remove('active');
+    document.body.style.overflow = '';
+    if (confirmResolve) {
+        confirmResolve(false);
+        confirmResolve = null;
+    }
+});
+
+confirmModalClose.addEventListener('click', function() {
+    confirmModal.classList.remove('active');
+    document.body.style.overflow = '';
+    if (confirmResolve) {
+        confirmResolve(false);
+        confirmResolve = null;
+    }
+});
+
+confirmModal.addEventListener('click', function(e) {
+    if (e.target === this) {
+        confirmModal.classList.remove('active');
+        document.body.style.overflow = '';
+        if (confirmResolve) {
+            confirmResolve(false);
+            confirmResolve = null;
+        }
+    }
+});
+
+// ============================================
+// EDIT MODAL
+// ============================================
+function openEditModal(button) {
+    const card = button.closest('.participant-card');
+    if (!card) return;
+    let participantData;
+    try {
+        const dataAttr = card.getAttribute('data-participant');
+        participantData = JSON.parse(dataAttr.replace(/&quot;/g, '"'));
+    } catch (e) {
+        console.error('Error parsing participant data:', e);
+        showToast('Gagal memuat data peserta.', 'error');
+        return;
+    }
+    const rowIndex = card.getAttribute('data-rowindex');
+    if (!rowIndex) {
+        showToast('Index baris tidak valid.', 'error');
+        return;
+    }
+    
+    editRowIndex.value = rowIndex;
+    editJenisLayanan.value = participantData.jenis_layanan || 'RUMAH_TANGGA';
+    editJenisLayanan.disabled = true;
+    editNamaPeserta.value = participantData.nama_peserta || '';
+    editNik.value = participantData.no_nik || '';
+    editNoKK.value = participantData.no_kk || '';
+    editAlamat.value = participantData.alamat || '';
+    editRt.value = participantData.rt || '';
+    editRw.value = participantData.rw || '';
+    editKelurahan.value = participantData.kelurahan || '';
+    editKecamatan.value = participantData.kecamatan || '';
+    editKota.value = participantData.kota || '';
+    editProvinsi.value = participantData.provinsi || '';
+    editNoTelp.value = participantData.no_telp || '';
+    editStatus.value = participantData.status || '';
+    editTarif.value = participantData.tarif_iuran || '';
+    editNamaUmkm.value = participantData.nama_umkm || '';
+    editNoSuratUmkm.value = participantData.no_surat_umkm || '';
+    editNamaBadanUsaha.value = participantData.nama_badan_usaha || '';
+    editNoSuratIzin.value = participantData.bo_surat_izin_usaha || '';
+    editNamaPetugas.value = participantData.nama_petugas || '';
+    
+    toggleEditFields(editJenisLayanan.value);
+    editModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeEditModal() {
+    editModal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeEditModal);
+editCancelBtn.addEventListener('click', closeEditModal);
+editModal.addEventListener('click', function(e) {
+    if (e.target === this) closeEditModal();
+});
+
+function toggleEditFields(type) {
+    if (type === 'UMKM') {
+        editUmkmFields.style.display = 'block';
+        editBadanUsahaFields.style.display = 'none';
+    } else if (type === 'BADAN_USAHA') {
+        editUmkmFields.style.display = 'none';
+        editBadanUsahaFields.style.display = 'block';
+    } else {
+        editUmkmFields.style.display = 'none';
+        editBadanUsahaFields.style.display = 'none';
+    }
+}
+
+// ============================================
+// SAVE EDIT
+// ============================================
+editSaveBtn.addEventListener('click', async function() {
+    if (isSubmitting) return;
+    
+    const namaPeserta = editNamaPeserta.value.trim();
+    const alamat = editAlamat.value.trim();
+    const status = editStatus.value;
+    
+    if (!namaPeserta || !alamat) {
+        showToast('Nama peserta dan alamat wajib diisi.', 'warning');
+        return;
+    }
+    if (!status) {
+        showToast('Status wajib dipilih.', 'warning');
+        return;
+    }
+    const noTelp = editNoTelp.value.trim();
+    if (noTelp && !noTelp.startsWith('62')) {
+        showToast('Nomor telepon harus diawali dengan 62.', 'warning');
+        return;
+    }
+    
+    const jenisLayanan = editJenisLayanan.value;
+    if (jenisLayanan === 'UMKM') {
+        const namaUmkm = editNamaUmkm.value.trim();
+        if (!namaUmkm) {
+            showToast('Nama UMKM wajib diisi untuk jenis layanan UMKM.', 'warning');
+            return;
+        }
+    }
+    if (jenisLayanan === 'BADAN_USAHA') {
+        const namaBadanUsaha = editNamaBadanUsaha.value.trim();
+        if (!namaBadanUsaha) {
+            showToast('Nama Badan Usaha wajib diisi untuk jenis layanan Badan Usaha.', 'warning');
+            return;
+        }
+    }
+    
+    const rowIndex = editRowIndex.value;
+    if (!rowIndex) {
+        showToast('Index baris tidak valid.', 'error');
+        return;
+    }
+    
+    const confirmMsg = 'Yakin ingin menyimpan perubahan data?\n\n' +
+                       'Nama: ' + namaPeserta + '\n' +
+                       'Jenis Layanan: ' + jenisLayanan + '\n' +
+                       'Status: ' + status + '\n\n' +
+                       'Pastikan data sudah benar sebelum menyimpan.';
+    
+    const confirmed = await showConfirm(confirmMsg);
+    if (!confirmed) return;
+    
+    isSubmitting = true;
+    editSaveBtn.disabled = true;
+    editSaveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+    
+    try {
+        const params = new URLSearchParams();
+        params.append('action', 'update');
+        params.append('rowIndex', rowIndex);
+        params.append('nama_peserta', namaPeserta);
+        params.append('no_nik', editNik.value.trim());
+        params.append('no_kk', editNoKK.value.trim());
+        params.append('alamat', alamat);
+        params.append('rt', editRt.value.trim());
+        params.append('rw', editRw.value.trim());
+        params.append('kelurahan', editKelurahan.value.trim());
+        params.append('kecamatan', editKecamatan.value.trim());
+        params.append('kota', editKota.value.trim());
+        params.append('provinsi', editProvinsi.value.trim());
+        params.append('no_telp', noTelp);
+        params.append('status', status);
+        params.append('tarif_iuran', editTarif.value.trim());
+        params.append('nama_umkm', editNamaUmkm.value.trim());
+        params.append('no_surat_umkm', editNoSuratUmkm.value.trim());
+        params.append('nama_badan_usaha', editNamaBadanUsaha.value.trim());
+        params.append('bo_surat_izin_usaha', editNoSuratIzin.value.trim());
+        params.append('nama_petugas', editNamaPetugas.value.trim());
+        params.append('jenis_layanan', jenisLayanan);
+        
+        const url = `${API_URL}?${params.toString()}&t=${Date.now()}`;
+        
+        // FETCH DENGAN TIMEOUT
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
+        
+        const response = await fetch(url, { 
+            method: 'GET', 
+            mode: 'cors', 
+            cache: 'no-cache',
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        // CEK STATUS RESPONSE
+        if (!response.ok) {
+            throw new Error('HTTP error! status: ' + response.status);
+        }
+        
+        // BACA RESPONSE SEBAGAI TEXT DULU
+        const textResponse = await response.text();
+        console.log('Raw response:', textResponse);
+        
+        // COBA PARSE JSON
+        let result;
+        try {
+            result = JSON.parse(textResponse);
+        } catch (parseError) {
+            console.error('Parse error:', parseError);
+            showToast('Response tidak valid dari server.', 'error');
+            return;
+        }
+        
+        // CEK RESULT
+        if (result && result.success === true) {
+            showToast('Data berhasil diupdate!', 'success');
+            closeEditModal();
+            performSearch();
+        } else {
+            const errorMsg = result && result.message ? result.message : 'Gagal mengupdate data.';
+            showToast(errorMsg, 'error');
+        }
+        
+    } catch (error) {
+        console.error('Update error:', error);
+        if (error.name === 'AbortError') {
+            showToast('Waktu koneksi habis. Silakan coba lagi.', 'error');
+        } else {
+            showToast('Terjadi kesalahan koneksi. Silakan coba lagi.', 'error');
+        }
+    } finally {
+        isSubmitting = false;
+        editSaveBtn.disabled = false;
+        editSaveBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Perubahan';
+    }
+});
+
+// ============================================
+// ADD FORM - Jenis Layanan Toggle
+// ============================================
+addJenisLayanan.addEventListener('change', function() {
+    const type = this.value;
+    if (type === 'UMKM') {
+        addUmkmFields.style.display = 'block';
+        addBadanUsahaFields.style.display = 'none';
+    } else if (type === 'BADAN_USAHA') {
+        addUmkmFields.style.display = 'none';
+        addBadanUsahaFields.style.display = 'block';
+    } else {
+        addUmkmFields.style.display = 'none';
+        addBadanUsahaFields.style.display = 'none';
+    }
+});
+
+// ============================================
+// ADD FORM - Auto-fill Petugas
+// ============================================
+addRt.addEventListener('input', function() {
+    autoFillPetugas(addRt, addRw, addNamaPetugas, addPetugasInfo);
+});
+addRw.addEventListener('input', function() {
+    autoFillPetugas(addRt, addRw, addNamaPetugas, addPetugasInfo);
+});
+
+// ============================================
+// ADD FORM - Submit
+// ============================================
+addForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (isSubmitting) return;
+    
+    const namaPeserta = addNamaPeserta.value.trim();
+    const alamat = addAlamat.value.trim();
+    const jenisLayanan = addJenisLayanan.value;
+    const status = addStatus.value;
+    
+    if (!namaPeserta || !alamat) {
+        showToast('Nama peserta dan alamat wajib diisi.', 'warning');
+        return;
+    }
+    if (!status) {
+        showToast('Status wajib dipilih.', 'warning');
+        return;
+    }
+    const noTelp = addNoTelp.value.trim();
+    if (noTelp && !noTelp.startsWith('62')) {
+        showToast('Nomor telepon harus diawali dengan 62.', 'warning');
+        return;
+    }
+    if (jenisLayanan === 'UMKM') {
+        const namaUmkm = addNamaUmkm.value.trim();
+        if (!namaUmkm) {
+            showToast('Nama UMKM wajib diisi untuk jenis layanan UMKM.', 'warning');
+            return;
+        }
+    }
+    if (jenisLayanan === 'BADAN_USAHA') {
+        const namaBadanUsaha = addNamaBadanUsaha.value.trim();
+        if (!namaBadanUsaha) {
+            showToast('Nama Badan Usaha wajib diisi untuk jenis layanan Badan Usaha.', 'warning');
+            return;
+        }
+    }
+    const namaPetugas = addNamaPetugas.value.trim();
+    if (!namaPetugas) {
+        showToast('Nama petugas wajib diisi. Isi RT dan RW untuk auto-fill.', 'warning');
+        return;
+    }
+    
+    const confirmMsg = 'Yakin ingin menambahkan data peserta baru?\n\n' +
+                       'Nama: ' + namaPeserta + '\n' +
+                       'Jenis Layanan: ' + jenisLayanan + '\n' +
+                       'Status: ' + status + '\n' +
+                       'Petugas: ' + namaPetugas + '\n\n' +
+                       'Pastikan data sudah benar sebelum menyimpan.';
+    
+    const confirmed = await showConfirm(confirmMsg);
+    if (!confirmed) return;
+    
+    isSubmitting = true;
+    addSubmitBtn.disabled = true;
+    addSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+    
+    try {
+        const params = new URLSearchParams();
+        params.append('action', 'add');
+        params.append('nama_peserta', namaPeserta);
+        params.append('no_nik', addNik.value.trim());
+        params.append('no_kk', addNoKK.value.trim());
+        params.append('alamat', alamat);
+        params.append('rt', addRt.value.trim());
+        params.append('rw', addRw.value.trim());
+        params.append('kelurahan', addKelurahan.value.trim());
+        params.append('kecamatan', addKecamatan.value.trim());
+        params.append('kota', addKota.value.trim());
+        params.append('provinsi', addProvinsi.value.trim());
+        params.append('no_telp', noTelp);
+        params.append('status', status);
+        params.append('tarif_iuran', addTarif.value.trim());
+        params.append('nama_umkm', addNamaUmkm.value.trim());
+        params.append('no_surat_umkm', addNoSuratUmkm.value.trim());
+        params.append('nama_badan_usaha', addNamaBadanUsaha.value.trim());
+        params.append('bo_surat_izin_usaha', addNoSuratIzin.value.trim());
+        params.append('nama_petugas', namaPetugas);
+        params.append('jenis_layanan', jenisLayanan);
+        
+        const url = `${API_URL}?${params.toString()}&t=${Date.now()}`;
+        
+        // FETCH DENGAN TIMEOUT
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
+        
+        const response = await fetch(url, { 
+            method: 'GET', 
+            mode: 'cors', 
+            cache: 'no-cache',
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+            throw new Error('HTTP error! status: ' + response.status);
+        }
+        
+        const textResponse = await response.text();
+        console.log('Raw response:', textResponse);
+        
+        let result;
+        try {
+            result = JSON.parse(textResponse);
+        } catch (parseError) {
+            console.error('Parse error:', parseError);
+            showToast('Response tidak valid dari server.', 'error');
+            return;
+        }
+        
+        if (result && result.success === true) {
+            showToast('Data berhasil ditambahkan!', 'success');
+            addForm.reset();
+            addUmkmFields.style.display = 'none';
+            addBadanUsahaFields.style.display = 'none';
+            addNamaPetugas.value = '';
+            addPetugasInfo.innerHTML = '<i class="fas fa-info-circle"></i> Isi RT dan RW untuk mengisi nama petugas secara otomatis';
+            addPetugasInfo.style.color = 'var(--accent)';
+            performSearch();
+        } else {
+            const errorMsg = result && result.message ? result.message : 'Gagal menambahkan data.';
+            showToast(errorMsg, 'error');
+        }
+        
+    } catch (error) {
+        console.error('Add error:', error);
+        if (error.name === 'AbortError') {
+            showToast('Waktu koneksi habis. Silakan coba lagi.', 'error');
+        } else {
+            showToast('Terjadi kesalahan koneksi. Silakan coba lagi.', 'error');
+        }
+    } finally {
+        isSubmitting = false;
+        addSubmitBtn.disabled = false;
+        addSubmitBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Data Peserta';
+    }
+});
+
+// ============================================
+// TOAST
+// ============================================
+function showToast(message, type = 'info') {
+    toast.className = 'toast active ' + type;
+    toastMessage.textContent = message;
+    const icon = toast.querySelector('i');
+    const iconMap = {
+        'success': 'fas fa-check-circle',
+        'error': 'fas fa-times-circle',
+        'warning': 'fas fa-exclamation-triangle',
+        'info': 'fas fa-info-circle'
+    };
+    icon.className = iconMap[type] || 'fas fa-info-circle';
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(hideToast, 5000);
+}
+
+function hideToast() {
+    toast.classList.remove('active');
+    if (toastTimeout) {
+        clearTimeout(toastTimeout);
+        toastTimeout = null;
+    }
+}
+toastClose.addEventListener('click', hideToast);
+
+// ============================================
+// INIT
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('input[type="text"], textarea').forEach(setupUppercase);
+    const session = getSession();
+    if (session && session.username) {
+        showDashboard(session.username);
+    } else {
+        loginPage.style.display = 'flex';
+    }
+    searchInput.placeholder = getPlaceholder('nama');
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && editModal.classList.contains('active')) {
+            closeEditModal();
+        }
+        if (e.key === 'Escape' && confirmModal.classList.contains('active')) {
+            confirmModal.classList.remove('active');
+            document.body.style.overflow = '';
+            if (confirmResolve) {
+                confirmResolve(false);
+                confirmResolve = null;
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

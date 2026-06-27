@@ -230,6 +230,8 @@
             transition: var(--transition);
             font-size: 0.9rem;
             border-bottom: none;
+            text-decoration: none;
+            background: transparent;
         }
         
         .dropdown-content a:hover {
@@ -244,15 +246,16 @@
             background: none;
             border: none;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             position: relative;
             z-index: 1002;
             background: linear-gradient(135deg, var(--accent), var(--secondary));
             border-radius: 8px;
-            padding: 8px;
+            padding: 10px;
             box-shadow: 0 4px 12px rgba(87, 197, 182, 0.2);
             transition: var(--transition);
+            flex-shrink: 0;
         }
         
         .mobile-nav-toggle:hover {
@@ -263,29 +266,29 @@
         .mobile-nav-toggle span {
             display: block;
             width: 24px;
-            height: 2px;
+            height: 2.5px;
             background-color: white;
             border-radius: 2px;
             transition: var(--transition);
             position: absolute;
-            left: 8px;
+            left: 10px;
         }
         
         .mobile-nav-toggle span:nth-child(1) {
-            top: 12px;
+            top: 13px;
         }
         
         .mobile-nav-toggle span:nth-child(2) {
-            top: 19px;
+            top: 20px;
         }
         
         .mobile-nav-toggle span:nth-child(3) {
-            top: 26px;
+            top: 27px;
         }
         
         .mobile-nav-toggle.active span:nth-child(1) {
             transform: rotate(45deg);
-            top: 19px;
+            top: 20px;
         }
         
         .mobile-nav-toggle.active span:nth-child(2) {
@@ -294,7 +297,7 @@
         
         .mobile-nav-toggle.active span:nth-child(3) {
             transform: rotate(-45deg);
-            top: 19px;
+            top: 20px;
         }
         
         @media (max-width: 1100px) {
@@ -313,7 +316,7 @@
             background: linear-gradient(135deg, #ffffff, #f1f8e9);
             box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
             z-index: 1001;
-            transition: var(--transition);
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 90px 25px 25px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
@@ -326,14 +329,14 @@
         
         .mobile-nav a {
             display: block;
-            padding: 18px 20px;
+            padding: 16px 20px;
             border-radius: 10px;
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
             transition: var(--transition);
-            font-size: 1.05rem;
-            margin-bottom: 8px;
+            font-size: 1rem;
+            margin-bottom: 6px;
             border: 1px solid transparent;
             background: rgba(255, 255, 255, 0.7);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
@@ -350,11 +353,22 @@
             padding-left: 15px;
             max-height: 0;
             overflow: hidden;
-            transition: var(--transition);
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .mobile-dropdown-content.active {
-            max-height: 500px;
+            max-height: 600px;
+        }
+        
+        .mobile-dropdown-content a {
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .mobile-dropdown-content a:hover {
+            background: linear-gradient(90deg, rgba(232, 245, 233, 0.5), rgba(200, 230, 201, 0.3));
         }
         
         .mobile-dropdown-toggle {
@@ -365,7 +379,7 @@
         }
         
         .mobile-dropdown-toggle i {
-            transition: var(--transition);
+            transition: transform 0.3s ease;
             font-size: 0.9rem;
             color: var(--accent);
         }
@@ -382,10 +396,10 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
+            z-index: 999;
             opacity: 0;
             visibility: hidden;
-            transition: var(--transition);
+            transition: opacity 0.35s ease, visibility 0.35s ease;
             backdrop-filter: blur(3px);
         }
         
@@ -584,6 +598,18 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-5px) scale(1.05);
             border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            color: var(--white);
+            box-shadow: 0 8px 20px rgba(247, 147, 30, 0.4);
+        }
+        
+        .btn-check:hover {
+            background: linear-gradient(135deg, #E55A2B, #D9821A);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(247, 147, 30, 0.6);
         }
         
         /* Stats Section */
@@ -1851,7 +1877,7 @@
                 </div>
             </div>
             
-            <!-- Desktop Navigation - DENGAN MENU BANK SAMPAH BARU -->
+            <!-- Desktop Navigation -->
             <nav class="nav-desktop">
                 <a href="#home">Beranda</a>
                 <div class="dropdown">
@@ -1862,7 +1888,8 @@
                         <a href="#peta">Peta Wilayah</a>
                         <a href="https://lpspadangterubukasri.github.io/Home/dataangkutan.html">Data Angkutan</a>
                         <a href="https://lpspadangterubukasri.github.io/Home/potensi/datapesertalps.html">Data Peserta LPS</a>
-                        <a href="https://lpspadangterubukasri.github.io/Home/potensi/formpendaftaranpesert.html" style="background: linear-gradient(90deg, rgba(87, 197, 182, 0.15), rgba(21, 152, 149, 0.1)); border-left: 3px solid var(--accent); font-weight: 600; color: var(--primary);">📋 Form Pendaftaran Peserta</a>
+                        <a href="https://lpspadangterubukasri.github.io/Home/potensi/formpendaftaranpesert.html">📋 Form Pendaftaran Peserta</a>
+                        <a href="https://lpspadangterubukasri.github.io/Home/potensi/cekpesertalps.html">🔍 Cek Peserta LPS</a>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -1874,7 +1901,6 @@
                         <a href="maintenance.html">Video Kegiatan</a>
                     </div>
                 </div>
-                <!-- MENU BANK SAMPAH BARU dengan Sub Menu -->
                 <div class="dropdown">
                     <a href="#">Bank Sampah <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: 3px;"></i></a>
                     <div class="dropdown-content">
@@ -1883,7 +1909,6 @@
                         <a href="https://senapelan.github.io/Home/publik/senapelankencana/daftarhargabarangbanksampah.html">Harga Sampah</a>
                     </div>
                 </div>
-                <!-- PROGRAM tetap di samping kanan Bank Sampah -->
                 <a href="https://senapelan.github.io/Home/publik/senapelankencana/kaderpemilahansampah/dasboardpemilaksampah.html">Program</a>
                 <a href="#about">Kontak</a>  
             </nav>
@@ -1896,11 +1921,10 @@
             </button>
         </div>
         
-        <!-- Mobile Navigation - UPDATE DENGAN MENU BANK SAMPAH -->
+        <!-- Mobile Navigation -->
         <div class="mobile-nav" id="mobileNav">
             <a href="#home">Beranda</a>
             
-            <!-- Dropdown Informasi -->
             <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggleInformasi">
                 Informasi
                 <i class="fas fa-chevron-down"></i>
@@ -1911,10 +1935,10 @@
                 <a href="#peta">Peta Wilayah</a>
                 <a href="https://lpspadangterubukasri.github.io/Home/dataangkutan.html">Data Angkutan</a>
                 <a href="https://lpspadangterubukasri.github.io/Home/potensi/datapesertalps.html">Data Peserta LPS</a>
-                <a href="https://lpspadangterubukasri.github.io/Home/potensi/formpendaftaranpesert.html" style="background: linear-gradient(90deg, rgba(87, 197, 182, 0.15), rgba(21, 152, 149, 0.1)); border-left: 3px solid var(--accent); font-weight: 600; color: var(--primary);">📋 Form Pendaftaran Peserta</a>
+                <a href="https://lpspadangterubukasri.github.io/Home/potensi/formpendaftaranpesert.html">📋 Form Pendaftaran Peserta</a>
+                <a href="https://lpspadangterubukasri.github.io/Home/potensi/cekpesertalps.html">🔍 Cek Peserta LPS</a>
             </div>
             
-            <!-- Dropdown Dokumentasi -->
             <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggleDokumentasi"> 
                 Dokumentasi
                 <i class="fas fa-chevron-down"></i>
@@ -1926,7 +1950,6 @@
                 <a href="maintenance.html">Video Kegiatan</a>
             </div>
             
-            <!-- Dropdown Bank Sampah MOBILE -->
             <a href="#" class="mobile-dropdown-toggle" id="mobileDropdownToggleBankSampah">
                 Bank Sampah
                 <i class="fas fa-chevron-down"></i>
@@ -1962,11 +1985,12 @@
             <div class="hero-buttons">
                 <a href="https://lpspadangterubukasri.github.io/Home/potensi/v-2-halamanpostinganlps.html" class="btn btn-primary">Lihat Berita LPS</a>
                 <a href="#about" class="btn btn-secondary">Kenali Kami</a>
+                <a href="https://lpspadangterubukasri.github.io/Home/potensi/cekpesertalps.html" class="btn btn-check">🔍 Cek Peserta LPS</a>
             </div>
         </div>
     </section>
     
-    <!-- Stats Section (konten sama seperti sebelumnya, dipersingkat karena panjang) -->
+    <!-- Stats Section -->
     <section class="stats-section" id="stats">
         <div class="container">
             <div class="section-header">
@@ -2188,29 +2212,39 @@
         const mobileNav = document.getElementById('mobileNav');
         const overlay = document.getElementById('overlay');
         if(mobileToggle && mobileNav && overlay) {
-            mobileToggle.addEventListener('click', (e) => { e.stopPropagation(); mobileToggle.classList.toggle('active'); mobileNav.classList.toggle('active'); overlay.classList.toggle('active'); document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto'; });
-            overlay.addEventListener('click', () => { mobileToggle.classList.remove('active'); mobileNav.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = 'auto'; });
+            mobileToggle.addEventListener('click', (e) => { 
+                e.stopPropagation(); 
+                mobileToggle.classList.toggle('active'); 
+                mobileNav.classList.toggle('active'); 
+                overlay.classList.toggle('active'); 
+                document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto'; 
+            });
+            
+            overlay.addEventListener('click', () => { 
+                mobileToggle.classList.remove('active'); 
+                mobileNav.classList.remove('active'); 
+                overlay.classList.remove('active'); 
+                document.body.style.overflow = 'auto'; 
+            });
         }
         
-        // MOBILE DROPDOWNS (Informasi + Dokumentasi + BANK SAMPAH)
-        const dropdownInformasi = document.getElementById('mobileDropdownToggleInformasi');
-        const dropdownContentInformasi = document.getElementById('mobileDropdownContentInformasi');
-        if(dropdownInformasi && dropdownContentInformasi) {
-            dropdownInformasi.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); dropdownInformasi.classList.toggle('active'); dropdownContentInformasi.classList.toggle('active'); });
+        // MOBILE DROPDOWNS
+        function setupMobileDropdown(toggleId, contentId) {
+            const toggle = document.getElementById(toggleId);
+            const content = document.getElementById(contentId);
+            if(toggle && content) {
+                toggle.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    e.stopPropagation(); 
+                    toggle.classList.toggle('active'); 
+                    content.classList.toggle('active'); 
+                });
+            }
         }
         
-        const dropdownDokumentasi = document.getElementById('mobileDropdownToggleDokumentasi');
-        const dropdownContentDokumentasi = document.getElementById('mobileDropdownContentDokumentasi');
-        if(dropdownDokumentasi && dropdownContentDokumentasi) {
-            dropdownDokumentasi.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); dropdownDokumentasi.classList.toggle('active'); dropdownContentDokumentasi.classList.toggle('active'); });
-        }
-        
-        // BANK SAMPAH MOBILE DROPDOWN
-        const dropdownBankSampah = document.getElementById('mobileDropdownToggleBankSampah');
-        const dropdownContentBankSampah = document.getElementById('mobileDropdownContentBankSampah');
-        if(dropdownBankSampah && dropdownContentBankSampah) {
-            dropdownBankSampah.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); dropdownBankSampah.classList.toggle('active'); dropdownContentBankSampah.classList.toggle('active'); });
-        }
+        setupMobileDropdown('mobileDropdownToggleInformasi', 'mobileDropdownContentInformasi');
+        setupMobileDropdown('mobileDropdownToggleDokumentasi', 'mobileDropdownContentDokumentasi');
+        setupMobileDropdown('mobileDropdownToggleBankSampah', 'mobileDropdownContentBankSampah');
         
         // SMOOTH SCROLL
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2219,26 +2253,101 @@
                 const href = this.getAttribute('href');
                 if(href === '#') return;
                 e.preventDefault();
-                if(href === '#home') window.scrollTo({ top: 0, behavior: 'smooth' });
-                else { const target = document.querySelector(href); if(target) { const headerHeight = document.querySelector('header').offsetHeight; window.scrollTo({ top: target.offsetTop - headerHeight, behavior: 'smooth' }); } }
-                if(mobileNav && mobileNav.contains(this)) { mobileToggle.classList.remove('active'); mobileNav.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = 'auto'; }
+                if(href === '#home') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else { 
+                    const target = document.querySelector(href); 
+                    if(target) { 
+                        const headerHeight = document.querySelector('header').offsetHeight; 
+                        window.scrollTo({ top: target.offsetTop - headerHeight, behavior: 'smooth' }); 
+                    } 
+                }
+                // Close mobile menu
+                if(mobileNav && mobileNav.contains(this)) { 
+                    mobileToggle.classList.remove('active'); 
+                    mobileNav.classList.remove('active'); 
+                    overlay.classList.remove('active'); 
+                    document.body.style.overflow = 'auto'; 
+                }
             });
         });
         
         // MAP DRAG & LEGEND TOGGLE
         const mapWrapper = document.getElementById('mapWrapper');
-        if(mapWrapper) { let isDragging = false, startX, startY, scrollLeft, scrollTop; mapWrapper.addEventListener('mousedown', (e) => { isDragging = true; startX = e.pageX - mapWrapper.offsetLeft; startY = e.pageY - mapWrapper.offsetTop; scrollLeft = mapWrapper.scrollLeft; scrollTop = mapWrapper.scrollTop; mapWrapper.style.cursor = 'grabbing'; }); mapWrapper.addEventListener('mousemove', (e) => { if(!isDragging) return; e.preventDefault(); const x = e.pageX - mapWrapper.offsetLeft; const y = e.pageY - mapWrapper.offsetTop; mapWrapper.scrollLeft = scrollLeft - (x - startX) * 2; mapWrapper.scrollTop = scrollTop - (y - startY) * 2; }); mapWrapper.addEventListener('mouseup', () => { isDragging = false; mapWrapper.style.cursor = 'grab'; }); mapWrapper.addEventListener('mouseleave', () => { isDragging = false; mapWrapper.style.cursor = 'grab'; }); }
+        if(mapWrapper) { 
+            let isDragging = false, startX, startY, scrollLeft, scrollTop; 
+            mapWrapper.addEventListener('mousedown', (e) => { 
+                isDragging = true; 
+                startX = e.pageX - mapWrapper.offsetLeft; 
+                startY = e.pageY - mapWrapper.offsetTop; 
+                scrollLeft = mapWrapper.scrollLeft; 
+                scrollTop = mapWrapper.scrollTop; 
+                mapWrapper.style.cursor = 'grabbing'; 
+            }); 
+            mapWrapper.addEventListener('mousemove', (e) => { 
+                if(!isDragging) return; 
+                e.preventDefault(); 
+                const x = e.pageX - mapWrapper.offsetLeft; 
+                const y = e.pageY - mapWrapper.offsetTop; 
+                mapWrapper.scrollLeft = scrollLeft - (x - startX) * 2; 
+                mapWrapper.scrollTop = scrollTop - (y - startY) * 2; 
+            }); 
+            mapWrapper.addEventListener('mouseup', () => { 
+                isDragging = false; 
+                mapWrapper.style.cursor = 'grab'; 
+            }); 
+            mapWrapper.addEventListener('mouseleave', () => { 
+                isDragging = false; 
+                mapWrapper.style.cursor = 'grab'; 
+            }); 
+        }
         
-        const toggleLegend = document.getElementById('toggleLegend'); const legendContent = document.getElementById('legendContent');
-        if(toggleLegend && legendContent) { const icon = toggleLegend.querySelector('i'); toggleLegend.addEventListener('click', () => { legendContent.classList.toggle('collapsed'); legendContent.classList.toggle('expanded'); if(icon) icon.className = legendContent.classList.contains('collapsed') ? 'fas fa-chevron-down' : 'fas fa-chevron-up'; }); }
+        const toggleLegend = document.getElementById('toggleLegend'); 
+        const legendContent = document.getElementById('legendContent');
+        if(toggleLegend && legendContent) { 
+            const icon = toggleLegend.querySelector('i'); 
+            toggleLegend.addEventListener('click', () => { 
+                legendContent.classList.toggle('collapsed'); 
+                legendContent.classList.toggle('expanded'); 
+                if(icon) icon.className = legendContent.classList.contains('collapsed') ? 'fas fa-chevron-down' : 'fas fa-chevron-up'; 
+            }); 
+        }
         
-        const bgVideo = document.getElementById('bgVideo'); const bgImage = document.getElementById('bgImage');
-        if(bgVideo) { bgVideo.addEventListener('error', () => { bgVideo.style.display = 'none'; if(bgImage) bgImage.style.display = 'block'; }); bgVideo.play().catch(() => { bgVideo.style.display = 'none'; if(bgImage) bgImage.style.display = 'block'; }); }
+        const bgVideo = document.getElementById('bgVideo'); 
+        const bgImage = document.getElementById('bgImage');
+        if(bgVideo) { 
+            bgVideo.addEventListener('error', () => { 
+                bgVideo.style.display = 'none'; 
+                if(bgImage) bgImage.style.display = 'block'; 
+            }); 
+            bgVideo.play().catch(() => { 
+                bgVideo.style.display = 'none'; 
+                if(bgImage) bgImage.style.display = 'block'; 
+            }); 
+        }
         
-        const installBanner = document.getElementById('installBanner'); const closeBanner = document.getElementById('closeBanner'); const installBtn = document.getElementById('installBtn');
-        if(installBanner && closeBanner && installBtn) { setTimeout(() => { if(!localStorage.getItem('lpsBannerDismissed')) installBanner.classList.add('active'); }, 3000); closeBanner.addEventListener('click', () => { installBanner.classList.remove('active'); localStorage.setItem('lpsBannerDismissed', 'true'); }); installBtn.addEventListener('click', (e) => { e.preventDefault(); alert('Aplikasi LPS akan dipasang di perangkat Anda'); installBanner.classList.remove('active'); localStorage.setItem('lpsBannerDismissed', 'true'); }); }
+        const installBanner = document.getElementById('installBanner'); 
+        const closeBanner = document.getElementById('closeBanner'); 
+        const installBtn = document.getElementById('installBtn');
+        if(installBanner && closeBanner && installBtn) { 
+            setTimeout(() => { 
+                if(!localStorage.getItem('lpsBannerDismissed')) installBanner.classList.add('active'); 
+            }, 3000); 
+            closeBanner.addEventListener('click', () => { 
+                installBanner.classList.remove('active'); 
+                localStorage.setItem('lpsBannerDismissed', 'true'); 
+            }); 
+            installBtn.addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                alert('Aplikasi LPS akan dipasang di perangkat Anda'); 
+                installBanner.classList.remove('active'); 
+                localStorage.setItem('lpsBannerDismissed', 'true'); 
+            }); 
+        }
         
-        window.addEventListener('load', () => { document.body.style.overflowX = 'hidden'; });
+        window.addEventListener('load', () => { 
+            document.body.style.overflowX = 'hidden'; 
+        });
     </script>
 </body>
 </html>

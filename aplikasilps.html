@@ -52,19 +52,76 @@
             --gold: #ffd700;
             --dark: #0a2d3e;
             --light-bg: #f0f7f4;
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
+            --card-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.1);
             --shadow-glow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: radial-gradient(ellipse at 10% 20%, #0a1a2a, #030b12);
+            background: linear-gradient(135deg, #0a1a2a 0%, #0d2b3a 40%, #1a4a5a 100%);
             min-height: 100vh;
             color: #ffffff;
             overflow-x: hidden;
             padding: 0;
             margin: 0;
+        }
+
+        /* ========== TOMBOL KEMBALI ========== */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50px;
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background: rgba(87, 197, 182, 0.2);
+            border-color: var(--accent);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 12px 32px rgba(87, 197, 182, 0.2);
+        }
+
+        .back-button i {
+            font-size: 1.1rem;
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-4px);
+        }
+
+        @media (max-width: 480px) {
+            .back-button {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                top: 12px;
+                right: 12px;
+            }
+            .back-button span {
+                display: none;
+            }
+            .back-button i {
+                font-size: 1.2rem;
+            }
         }
 
         /* ========== HEADER ========== */
@@ -132,7 +189,7 @@
             margin: 0 auto;
             padding: 2rem 1.5rem 3rem;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
             gap: 1.8rem;
             justify-items: center;
             align-items: start;
@@ -157,7 +214,6 @@
             overflow: hidden;
         }
 
-        /* ===== Efek Kilap / Shine ===== */
         .program-card::before {
             content: '';
             position: absolute;
@@ -166,12 +222,12 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle at 30% 30%, 
-                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.08) 0%, 
                 rgba(255, 255, 255, 0) 60%);
             transform: rotate(25deg);
             transition: all 0.6s ease;
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.3;
         }
 
         .program-card:hover::before {
@@ -210,18 +266,18 @@
             background: rgba(255, 255, 255, 0.07);
         }
 
-        /* ===== Icon Wrapper 3D ===== */
+        /* ===== Icon Wrapper ===== */
         .icon-wrapper {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             margin: 0 auto 1rem;
             background: linear-gradient(145deg, #152235, #0a111f);
-            border-radius: 28px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.5), 
-                        -6px -6px 16px rgba(87, 197, 182, 0.08),
+                        -6px -6px 16px rgba(87, 197, 182, 0.06),
                         inset 1px 1px 0px rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
             position: relative;
@@ -230,14 +286,14 @@
 
         .program-card:hover .icon-wrapper {
             box-shadow: 8px 8px 24px rgba(0, 0, 0, 0.6), 
-                        -6px -6px 20px rgba(87, 197, 182, 0.15),
+                        -6px -6px 20px rgba(87, 197, 182, 0.12),
                         inset 1px 1px 0px rgba(255, 255, 255, 0.08);
             transform: scale(1.02);
         }
 
         .icon-wrapper img {
-            width: 75%;
-            height: 75%;
+            width: 70%;
+            height: 70%;
             object-fit: contain;
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
             transition: transform 0.3s ease;
@@ -250,15 +306,15 @@
         /* ===== Nama Program ===== */
         .program-name {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
             letter-spacing: -0.2px;
             background: linear-gradient(135deg, #f0f7ff, #a8d8ea);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin: 0.5rem 0 0.3rem;
+            margin: 0.3rem 0 0.3rem;
             line-height: 1.3;
-            min-height: 3rem;
+            min-height: 2.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -306,11 +362,11 @@
 
         /* ===== Hint Click ===== */
         .click-hint {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: rgba(255, 255, 255, 0.3);
-            margin-top: 0.5rem;
+            color: rgba(255, 255, 255, 0.25);
+            margin-top: 0.4rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -319,11 +375,11 @@
         }
 
         .program-card:hover .click-hint {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
         }
 
         .click-hint i {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
         }
 
         /* ===== Loading, Error, Empty ===== */
@@ -435,7 +491,6 @@
             transform: scale(1) translateY(0);
         }
 
-        /* ===== Modal Glow Effect ===== */
         .modal-container::before {
             content: '';
             position: absolute;
@@ -486,7 +541,6 @@
             border-radius: 4px;
         }
 
-        /* ===== Modal Info Box ===== */
         .modal-info {
             background: rgba(0, 0, 0, 0.35);
             border-radius: 16px;
@@ -541,7 +595,6 @@
             font-size: 0.9rem;
         }
 
-        /* ===== Modal Buttons ===== */
         .modal-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -613,7 +666,7 @@
                 font-size: 0.85rem;
             }
             .program-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
                 gap: 1.2rem;
                 padding: 1.5rem 1rem 2rem;
             }
@@ -627,7 +680,7 @@
                 border-radius: 20px;
             }
             .program-name {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 min-height: 2.5rem;
             }
             .badge-category {
@@ -661,7 +714,7 @@
 
         @media (max-width: 480px) {
             .program-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 gap: 1rem;
                 padding: 1rem 0.8rem 1.5rem;
             }
@@ -675,7 +728,7 @@
                 border-radius: 16px;
             }
             .program-name {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
                 min-height: 2.2rem;
             }
             .divider-premium {
@@ -711,6 +764,12 @@
 </head>
 <body>
 
+    <!-- ==================== TOMBOL KEMBALI ==================== -->
+    <a href="https://lpspadangterubukasri.github.io/Home/" class="back-button" id="backButton">
+        <i class="fas fa-arrow-left"></i>
+        <span>Kembali</span>
+    </a>
+
     <!-- ==================== HEADER ==================== -->
     <header class="page-header">
         <div class="logo-badge">
@@ -734,7 +793,6 @@
             <div class="modal-title" id="modalTitle">Nama Program</div>
             <div class="modal-divider"></div>
 
-            <!-- Info Container -->
             <div class="modal-info" id="modalInfo">
                 <div class="info-label">
                     <i class="fas fa-info-circle"></i>
@@ -743,7 +801,6 @@
                 <div class="info-desc" id="modalDesc">Deskripsi program akan ditampilkan di sini.</div>
             </div>
 
-            <!-- Buttons -->
             <div class="modal-buttons">
                 <button class="modal-btn btn-share" id="modalShareBtn">
                     <i class="fab fa-whatsapp"></i> Share ke WA
@@ -761,10 +818,9 @@
     <!-- ==================== JAVASCRIPT ==================== -->
     <script>
         // ============================================================
-        // KONFIGURASI APPS SCRIPT
+        // KONFIGURASI
         // ============================================================
         const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyrF2rf0juePaie-Tiq5Gf94sMkArNbaVJM8Z6A5d5Vj-Cj_i9cNV1TJU_bvH3rV75z/exec';
-        // GANTI dengan URL Web App milik Anda jika berbeda
 
         // ============================================================
         // STATE
@@ -829,7 +885,7 @@
         }
 
         // ============================================================
-        // FETCH DATA DARI APPS SCRIPT
+        // FETCH DATA
         // ============================================================
         async function fetchPrograms() {
             try {
@@ -846,7 +902,6 @@
                 const result = await response.json();
 
                 if (result.status === 'success' && result.data && result.data.length > 0) {
-                    // Filter: hanya tampilkan yang memiliki URL_LINK valid
                     const validPrograms = result.data.filter(prog => {
                         const hasValidUrl = prog.link &&
                             prog.link.trim() !== '' &&
@@ -854,20 +909,16 @@
                             prog.link !== 'null' &&
                             prog.link !== 'undefined';
 
-                        if (!hasValidUrl) {
-                            console.log(`⚠️ Program "${prog.name}" tidak ditampilkan (URL_LINK kosong)`);
-                        }
                         return hasValidUrl;
                     });
 
-                    console.log(`✅ Total program dari server: ${result.data.length}`);
-                    console.log(`✅ Program valid (dengan link): ${validPrograms.length}`);
+                    console.log(`✅ Total program: ${result.data.length}`);
+                    console.log(`✅ Program valid: ${validPrograms.length}`);
 
                     if (validPrograms.length === 0) {
                         throw new Error('Tidak ada program dengan URL_LINK yang valid');
                     }
 
-                    // Tambahkan data kategori
                     validPrograms.forEach(prog => {
                         prog.category = getCategoryInfo(prog.informasi);
                         prog.infoMessage = getInfoMessage(prog.informasi);
@@ -884,7 +935,7 @@
         }
 
         // ============================================================
-        // RENDER PROGRAM CARDS
+        // RENDER
         // ============================================================
         function renderPrograms(programs) {
             const grid = document.getElementById('programGrid');
@@ -937,7 +988,6 @@
 
             grid.innerHTML = cardsHtml;
 
-            // Event listener untuk setiap card
             document.querySelectorAll('.program-card').forEach(card => {
                 card.addEventListener('click', function(e) {
                     const idx = this.getAttribute('data-index');
@@ -949,12 +999,11 @@
         }
 
         // ============================================================
-        // MODAL FUNCTIONS
+        // MODAL
         // ============================================================
         function openModal(program) {
             currentProgram = program;
 
-            // Isi data
             document.getElementById('modalIcon').src = program.iconUrl;
             document.getElementById('modalIcon').onerror = function() {
                 this.src = 'https://placehold.co/200x200/1a2a40/57c5b6?text=' + encodeURIComponent(program.name.charAt(0));
@@ -962,7 +1011,6 @@
 
             document.getElementById('modalTitle').textContent = program.name;
 
-            // Info
             const infoContainer = document.getElementById('modalInfo');
             const cat = program.category;
 
@@ -976,7 +1024,6 @@
                 ${program.deskripsi ? `<div class="info-desc" style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.05);">${program.deskripsi}</div>` : ''}
             `;
 
-            // Tampilkan modal
             document.getElementById('programModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -998,7 +1045,6 @@
             message += `📝 ${currentProgram.infoMessage}%0A%0A`;
             message += `🔗 Link: ${currentProgram.link}`;
 
-            // Tambahan catatan khusus
             if (currentProgram.category.type === 'petugas') {
                 message += `%0A%0A🔒 *Catatan:* Khusus Petugas LPS. Tidak untuk publik.`;
             } else if (currentProgram.category.type === 'publik') {
@@ -1027,24 +1073,30 @@
         }
 
         // ============================================================
-        // EVENT LISTENERS MODAL
+        // EVENT LISTENERS
         // ============================================================
         document.getElementById('modalShareBtn').addEventListener('click', shareToWhatsApp);
         document.getElementById('modalOpenBtn').addEventListener('click', openInBrowser);
         document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
 
-        // Tutup modal saat klik overlay
         document.getElementById('programModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
-        // Tutup modal dengan tombol ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
             }
+        });
+
+        // ============================================================
+        // BACK BUTTON
+        // ============================================================
+        document.getElementById('backButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'https://lpspadangterubukasri.github.io/Home/';
         });
 
         // ============================================================
@@ -1053,7 +1105,6 @@
         async function init() {
             const grid = document.getElementById('programGrid');
 
-            // Tampilkan loading
             grid.innerHTML = `
                 <div class="loading-state">
                     <div class="spinner"></div>
@@ -1081,17 +1132,10 @@
             }
         }
 
-        // Jalankan
         document.addEventListener('DOMContentLoaded', init);
 
-        // ============================================================
-        // LOG UNTUK DEBUG
-        // ============================================================
         console.log('🚀 Program LPS Padang Terubuk Asri');
         console.log('📡 Web App URL:', WEB_APP_URL);
-        console.log('📋 Spreadsheet ID: 1_33xra7TAVf04gkf2k7aR1dPB4fr29bHvlPPNkmEUuk');
-        console.log('📊 Sheet: DAFTAR_APLIKASI');
-        console.log('📌 Header: NAMA_APLIKASI | LINK_FOTO | URL_LINK | INFORMASI');
     </script>
 
 </body>

@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Login - LPS Padang Terubuk Asri">
+    <title>Login - LPS Padang Terubuk Asri</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/">
+    <meta property="og:title" content="Login - Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
+    <meta property="og:description" content="Lembaga Pengelola Sampah yang berkomitmen mewujudkan lingkungan bersih, sehat, dan berkelanjutan">
+    <meta property="og:site_name" content="LPS PADANG TERUBUK ASRI">
+    <meta property="og:image" content="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
+    <meta property="og:image:secure_url" content="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Logo LPS Padang Terubuk Asri">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Login - LPS Padang Terubuk Asri">
+    <meta name="twitter:description" content="Login ke sistem LPS Padang Terubuk Asri">
+    <meta name="twitter:image" content="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
+    <meta name="twitter:image:alt" content="Logo LPS Padang Terubuk Asri">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --dark: #0a2d3e;
+            --green-dark: #388e3c;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a5f7a 0%, #159895 50%, #57c5b6 100%);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+        }
+        
+        /* Background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(87, 197, 182, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(26, 95, 122, 0.15) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* ===== CONTAINER ===== */
+        .container {
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #1a5f7a, #57c5b6, #159895, #1a5f7a);
+            background-size: 300% 100%;
+            animation: gradientMove 4s ease infinite;
+            border-radius: 30px 30px 0 0;
+        }
+        
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* ===== LOGO ===== */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: contain;
+            box-shadow: 0 10px 30px rgba(26, 95, 122, 0.2);
+            transition: var(--transition);
+            background: white;
+            padding: 12px;
+            border: 3px solid rgba(87, 197, 182, 0.3);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05) rotate(-3deg);
+            box-shadow: 0 15px 40px rgba(26, 95, 122, 0.3);
+        }
+        
+        .brand-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a5f7a;
+            margin-top: 12px;
+            letter-spacing: -0.5px;
+        }
+        
+        .brand-subtitle {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 2px;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .brand-subtitle span {
+            color: #159895;
+            font-weight: 600;
+        }
+        
+        /* ===== ALERT ===== */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            display: none;
+            font-weight: 500;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .alert.show {
+            display: block;
+        }
+        .alert-success {
+            background: #e6f7e6;
+            color: #1a7a3a;
+            border: 1px solid #b8e6b8;
+        }
+        .alert-error {
+            background: #fde8e8;
+            color: #b33c3c;
+            border: 1px solid #f5c6c6;
+        }
+        .alert-info {
+            background: #e3f2fd;
+            color: #1a5f7a;
+            border: 1px solid #b8d4e6;
+        }
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffc107;
+        }
+        
+        /* ===== FORM ===== */
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 6px;
+        }
+        
+        .form-group label i {
+            color: #159895;
+            margin-right: 6px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: var(--transition);
+            background: #f7fafc;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #159895;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(21, 152, 149, 0.1);
+        }
+        
+        .form-group input.error {
+            border-color: #fc8181;
+            background: #fff5f5;
+        }
+        
+        .form-group input:disabled {
+            background: #edf2f7;
+            cursor: not-allowed;
+        }
+        
+        /* ===== PASSWORD TOGGLE ===== */
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .password-wrapper input {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #a0aec0;
+            padding: 4px 8px;
+            transition: var(--transition);
+            border-radius: 8px;
+            z-index: 2;
+            line-height: 1;
+        }
+        
+        .password-toggle:hover {
+            color: #159895;
+            background: rgba(21, 152, 149, 0.1);
+        }
+        
+        .password-toggle.active {
+            color: #159895;
+        }
+        
+        /* ===== OPTIONS ===== */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #4a5568;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #159895;
+            cursor: pointer;
+        }
+        
+        .link {
+            color: #159895;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .link:hover {
+            color: #1a5f7a;
+            text-decoration: underline;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1a5f7a, #159895);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(21, 152, 149, 0.4);
+        }
+        
+        .btn-login:active {
+            transform: translateY(0);
+        }
+        
+        .btn-login.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-login:hover::before {
+            left: 100%;
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .register-link a {
+            color: #159895;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .register-link a:hover {
+            color: #1a5f7a;
+            text-decoration: underline;
+        }
+        
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 24px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 35px 30px;
+            position: relative;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-close {
+            position: sticky;
+            top: 0;
+            float: right;
+            background: #f7fafc;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            color: #4a5568;
+        }
+        
+        .modal-close:hover {
+            background: #fed7d7;
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a5f7a;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .modal-subtitle {
+            font-size: 14px;
+            color: #718096;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1a5f7a, #159895);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(21, 152, 149, 0.3);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-success {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #388e3c, #2e7d32);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(56, 142, 60, 0.3);
+        }
+        
+        .btn-success:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-wa {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-wa:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+        
+        .btn-warning {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #4a5568;
+            margin: 15px 0;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            margin-top: 2px;
+            accent-color: #159895;
+            cursor: pointer;
+        }
+        
+        /* ===== DATA DISPLAY ===== */
+        .data-display {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 15px 0;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 7px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+        
+        .data-item:last-child {
+            border-bottom: none;
+        }
+        
+        .data-item .label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .data-item .value {
+            color: #2d3748;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-word;
+        }
+        
+        .nik-sensor {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+        }
+        
+        /* ===== NIK SUDAH TERDAFTAR ===== */
+        .nik-registered-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .nik-registered-box .icon {
+            font-size: 40px;
+            color: #f59e0b;
+            margin-bottom: 10px;
+        }
+        
+        .nik-registered-box h4 {
+            color: #92400e;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .nik-registered-box p {
+            color: #78350f;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .nik-registered-box .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nik-registered-box .btn-group .btn-sm {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nik-registered-box .btn-group .btn-login-sm {
+            background: linear-gradient(135deg, #1a5f7a, #159895);
+            color: white;
+        }
+        
+        .nik-registered-box .btn-group .btn-login-sm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(21, 152, 149, 0.3);
+        }
+        
+        .nik-registered-box .btn-group .btn-reset-sm {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+        
+        .nik-registered-box .btn-group .btn-reset-sm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .modal {
+                padding: 25px 18px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                width: 85px;
+                height: 85px;
+                padding: 10px;
+            }
+            
+            .brand-title {
+                font-size: 20px;
+            }
+            
+            .modal-title {
+                font-size: 19px;
+            }
+        }
+        
+        /* ===== SCROLLBAR ===== */
+        .modal::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal::-webkit-scrollbar-track {
+            background: #f7fafc;
+            border-radius: 10px;
+        }
+        .modal::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 10px;
+        }
+        .modal::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+        
+        /* ===== SELECT STYLING ===== */
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: var(--transition);
+            background: #f7fafc;
+            font-family: 'Poppins', sans-serif;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a5568' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+        
+        .form-group select:focus {
+            outline: none;
+            border-color: #159895;
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(21, 152, 149, 0.1);
+        }
+        
+        .form-group select option {
+            padding: 10px;
+        }
+        
+        /* ===== FIX FONT AWESOME ===== */
+        .fas, .far, .fab {
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+        }
+        
+        /* ===== LOADING SPINNER ===== */
+        .fa-spinner {
+            animation: fa-spin 2s infinite linear;
+        }
+        
+        @keyframes fa-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== MAIN CONTAINER ===== -->
+    <div class="container">
+        <div class="logo-container">
+            <img src="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" alt="LPS Logo" class="logo">
+            <h1 class="brand-title">LPS Pemilah Sampah</h1>
+            <p class="brand-subtitle">Padang <span>Terubuk</span> Asri</p>
+        </div>
+
+        <div id="loginAlert" class="alert"></div>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label for="username"><i class="fas fa-user"></i>Username</label>
+                <input type="text" id="username" placeholder="Masukkan username" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Masukkan password" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('password', this)" aria-label="Toggle password visibility">👁️</button>
+                </div>
+            </div>
+            <div class="form-options">
+                <label class="checkbox-group">
+                    <input type="checkbox" id="rememberMe"> Ingat saya
+                </label>
+                <button type="button" class="link" onclick="openModal('forgotModal')">Lupa password?</button>
+            </div>
+            <button type="submit" class="btn-login" id="loginBtn"><i class="fas fa-sign-in-alt" style="margin-right:8px;"></i>Masuk</button>
+        </form>
+
+        <div class="register-link">
+            Belum punya akun? <a onclick="openModal('registerModal')">Daftar sekarang</a>
+        </div>
+    </div>
+
+    <!-- ===== MODAL REGISTER ===== -->
+    <div class="modal-overlay" id="registerModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('registerModal')">✕</button>
+            <h2 class="modal-title">📋 Pendaftaran Anggota</h2>
+            <p class="modal-subtitle">Masukkan NIK untuk verifikasi data kepesertaan</p>
+
+            <div id="registerAlert" class="alert"></div>
+
+            <div class="form-group">
+                <label for="nikCheck">NIK</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="nikCheck" placeholder="16 digit NIK" maxlength="16" style="flex:1;">
+                    <button class="btn-primary" onclick="checkNIK()" style="width:auto; padding:14px 25px; margin:0; white-space:nowrap;" id="btnCheckNik">Cek</button>
+                </div>
+            </div>
+
+            <!-- ===== DATA DARI DATA_BASE ===== -->
+            <div id="userDataDisplay" style="display:none;">
+                <div class="data-display">
+                    <div class="data-item"><span class="label">Nama</span><span class="value" id="displayName">-</span></div>
+                    <div class="data-item"><span class="label">NIK</span><span class="value nik-sensor" id="displayNik">-</span></div>
+                    <div class="data-item"><span class="label">No. KK</span><span class="value nik-sensor" id="displayKk">-</span></div>
+                    <div class="data-item"><span class="label">Alamat</span><span class="value" id="displayAlamat">-</span></div>
+                    <div class="data-item"><span class="label">RT/RW</span><span class="value" id="displayRtRw">-</span></div>
+                    <div class="data-item"><span class="label">Kelurahan</span><span class="value" id="displayKelurahan">-</span></div>
+                    <div class="data-item"><span class="label">Kecamatan</span><span class="value" id="displayKecamatan">-</span></div>
+                    <div class="data-item"><span class="label">Kota</span><span class="value" id="displayKota">-</span></div>
+                    <div class="data-item"><span class="label">No. Telepon</span><span class="value" id="displayTelp">-</span></div>
+                </div>
+            </div>
+
+            <!-- ===== NIK SUDAH TERDAFTAR DI AKUN ===== -->
+            <div id="nikAlreadyRegistered" style="display:none;">
+                <div class="nik-registered-box">
+                    <div class="icon">⚠️</div>
+                    <h4>NIK ini sudah pernah membuat akun!</h4>
+                    <p>NIK <strong id="registeredNikDisplay">-</strong> sudah terdaftar dengan username <strong id="registeredUsernameDisplay">-</strong>.<br>
+                    Silakan login menggunakan akun yang sudah ada, atau reset password jika lupa.</p>
+                    <div class="btn-group">
+                        <button class="btn-sm btn-login-sm" onclick="closeModal('registerModal'); document.getElementById('username').focus();">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                        <button class="btn-sm btn-reset-sm" onclick="closeModal('registerModal'); openModal('forgotModal');">
+                            <i class="fas fa-key"></i> Reset Password
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== FORM PENDAFTARAN ===== -->
+            <div id="registerFormFields" style="display:none;">
+                <div class="form-group"><label for="regUsername"><i class="fas fa-user"></i>Username *</label><input type="text" id="regUsername" placeholder="Buat username" required></div>
+                <div class="form-group"><label for="regEmail"><i class="fas fa-envelope"></i>Email Aktif *</label><input type="email" id="regEmail" placeholder="email@example.com" required></div>
+                <div class="form-group">
+                    <label for="regPassword"><i class="fas fa-lock"></i>Password *</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="regPassword" placeholder="Minimal 8 karakter" minlength="8" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('regPassword', this)">👁️</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirmPassword"><i class="fas fa-check-circle"></i>Konfirmasi Password *</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="regConfirmPassword" placeholder="Ulangi password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('regConfirmPassword', this)">👁️</button>
+                    </div>
+                </div>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="agreeRegister" required>
+                    Saya menyetujui pendaftaran ini dan saya bersedia menjadi Anggota Pemilah Sampah LPS Padang Terubuk Asri
+                </label>
+                <button class="btn-success" onclick="handleRegister()" id="btnRegister"><i class="fas fa-save" style="margin-right:8px;"></i>Simpan Pendaftaran</button>
+            </div>
+
+            <!-- ===== NIK TIDAK DITEMUKAN DI DATA_BASE ===== -->
+            <div id="nikNotFound" style="display:none; text-align:center; margin-top:15px;">
+                <p style="color:#718096; margin-bottom:15px;">NIK tidak terdaftar dalam database LPS</p>
+                <button class="btn-primary" onclick="openModal('registerProposalModal'); closeModal('registerModal');"><i class="fas fa-plus-circle" style="margin-right:8px;"></i>Daftarkan NIK Anda Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL PROPOSAL ===== -->
+    <div class="modal-overlay" id="registerProposalModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('registerProposalModal')">✕</button>
+            <h2 class="modal-title">📝 Ajukan Pendaftaran</h2>
+            <p class="modal-subtitle">Isi data diri Anda untuk pengajuan anggota LPS</p>
+
+            <div id="proposalAlert" class="alert"></div>
+
+            <div class="form-group"><label>Nama Peserta *</label><input type="text" id="propNama" placeholder="Nama lengkap" required></div>
+            <div class="form-group"><label>NIK *</label><input type="text" id="propNik" placeholder="16 digit NIK" maxlength="16" required></div>
+            <div class="form-group"><label>Nomor KK</label><input type="text" id="propKk" placeholder="16 digit KK" maxlength="16"></div>
+            <div class="form-group"><label>Alamat *</label><input type="text" id="propAlamat" placeholder="Alamat lengkap" required></div>
+            <div class="form-row">
+                <div class="form-group"><label>RT</label><input type="text" id="propRt" placeholder="RT"></div>
+                <div class="form-group"><label>RW</label><input type="text" id="propRw" placeholder="RW"></div>
+            </div>
+            <div class="form-group"><label>Kelurahan</label><input type="text" id="propKelurahan" placeholder="Kelurahan"></div>
+            <div class="form-group"><label>Kecamatan</label><input type="text" id="propKecamatan" value="SENAPELAN" readonly style="background:#f7fafc;"></div>
+            <div class="form-row">
+                <div class="form-group"><label>Kota</label><input type="text" id="propKota" value="PEKANBARU" readonly style="background:#f7fafc;"></div>
+                <div class="form-group"><label>Provinsi</label><input type="text" id="propProvinsi" value="RIAU" readonly style="background:#f7fafc;"></div>
+            </div>
+            <div class="form-group"><label>No. Telepon (contoh 6282170098484)</label><input type="tel" id="propTelp" placeholder="62xxxxxxxxxx"></div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="propStatus">
+                    <option value="PESERTA LPS">PESERTA LPS</option>
+                    <option value="PESERTA UMKM">PESERTA UMKM</option>
+                    <option value="PESERTA BADAN USAHA">PESERTA BADAN USAHA</option>
+                    <option value="PESERTA SUBSIDI SILANG">PESERTA SUBSIDI SILANG</option>
+                </select>
+            </div>
+            <div class="form-group"><label>Tarif Iuran (kosongkan jika tidak tahu)</label><input type="text" id="propTarif" placeholder="Kosongkan jika tidak tahu"></div>
+            <div class="form-group"><label>Nama Petugas (kosongkan jika tidak tahu)</label><input type="text" id="propPetugas" placeholder="Kosongkan jika tidak tahu"></div>
+
+            <label class="checkbox-label">
+                <input type="checkbox" id="agreeProposal" required>
+                Saya setuju dan bersedia merubah data kepesertaan saya sesuai dengan data yang saya isikan di atas.
+            </label>
+
+            <button class="btn-wa" onclick="handleProposal()"><i class="fab fa-whatsapp" style="margin-right:8px;"></i>Kirim ke Admin</button>
+        </div>
+    </div>
+
+    <!-- ===== MODAL FORGOT PASSWORD ===== -->
+    <div class="modal-overlay" id="forgotModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('forgotModal')">✕</button>
+            <h2 class="modal-title">🔑 Lupa Password</h2>
+            <p class="modal-subtitle">Masukkan email yang terdaftar untuk reset password</p>
+
+            <div id="forgotAlert" class="alert"></div>
+
+            <div class="form-group">
+                <label for="forgotEmail"><i class="fas fa-envelope"></i>Email Terdaftar</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="email" id="forgotEmail" placeholder="email@example.com" style="flex:1;" required>
+                    <button class="btn-primary" onclick="checkEmail()" style="width:auto; padding:14px 25px; margin:0; white-space:nowrap;" id="btnCheckEmail">Cek</button>
+                </div>
+            </div>
+
+            <div id="resetPasswordSection" style="display:none;">
+                <div class="data-display">
+                    <div class="data-item"><span class="label">Username</span><span class="value" id="resetUsername">-</span></div>
+                    <div class="data-item"><span class="label">Nama</span><span class="value" id="resetNama">-</span></div>
+                </div>
+                <div class="form-group">
+                    <label for="resetNewPassword"><i class="fas fa-lock"></i>Password Baru *</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="resetNewPassword" placeholder="Minimal 8 karakter" minlength="8" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('resetNewPassword', this)">👁️</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="resetConfirmPassword"><i class="fas fa-check-circle"></i>Konfirmasi Password Baru *</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="resetConfirmPassword" placeholder="Ulangi password baru" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('resetConfirmPassword', this)">👁️</button>
+                    </div>
+                </div>
+                <button class="btn-success" onclick="handleResetPassword()" id="btnResetPassword"><i class="fas fa-save" style="margin-right:8px;"></i>Simpan Password Baru</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ==================== JAVASCRIPT ============================= -->
+    <!-- ============================================================ -->
+    <script>
+        // ==================== KONFIGURASI ====================
+        // ⚠️ GANTI DENGAN URL WEB APP ANDA
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwQK3L7TyIVlzgcyH-DCnGSF9Vr25ry2UfsSqw66Fe0ycACJVVUX0KgR8B_kqXCHUrK/exec';
+        
+        // ==================== STATE ====================
+        let currentUserData = null;
+        let currentResetEmail = null;
+        let isNikRegistered = false;
+
+        // ==================== HELPER ====================
+        function sensorId(id) {
+            if (!id || id.length < 16) return id;
+            return id.substring(0, 4) + '********' + id.substring(12);
+        }
+
+        function showAlert(containerId, message, type) {
+            var alert = document.getElementById(containerId);
+            alert.className = 'alert alert-' + type + ' show';
+            alert.textContent = message;
+        }
+
+        function hideAlert(containerId) {
+            var alert = document.getElementById(containerId);
+            alert.className = 'alert';
+            alert.textContent = '';
+        }
+
+        function generateUniqueId() {
+            var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            var result = '';
+            for (var i = 0; i < 8; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // ==================== TOGGLE PASSWORD ====================
+        function togglePassword(inputId, button) {
+            var input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = '🙈';
+                button.classList.add('active');
+            } else {
+                input.type = 'password';
+                button.textContent = '👁️';
+                button.classList.remove('active');
+            }
+        }
+
+        // ==================== MODAL ====================
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = 'auto';
+            if (id === 'registerModal') {
+                document.getElementById('registerFormFields').style.display = 'none';
+                document.getElementById('userDataDisplay').style.display = 'none';
+                document.getElementById('nikNotFound').style.display = 'none';
+                document.getElementById('nikAlreadyRegistered').style.display = 'none';
+                document.getElementById('nikCheck').value = '';
+                hideAlert('registerAlert');
+                currentUserData = null;
+                isNikRegistered = false;
+            }
+            if (id === 'forgotModal') {
+                document.getElementById('resetPasswordSection').style.display = 'none';
+                document.getElementById('forgotEmail').value = '';
+                hideAlert('forgotAlert');
+                currentResetEmail = null;
+            }
+        }
+
+        // ==================== API CALL - JSONP ====================
+        function callAPI(action, data) {
+            return new Promise(function(resolve, reject) {
+                var callbackName = 'jsonp_callback_' + Date.now();
+                var params = new URLSearchParams({ action: action, callback: callbackName });
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) params.append(key, data[key]);
+                }
+                var url = API_URL + '?' + params.toString();
+
+                var script = document.createElement('script');
+                script.src = url;
+                script.async = true;
+
+                var timeout = setTimeout(function() {
+                    cleanup();
+                    reject(new Error('⏱️ Request timeout (15 detik)'));
+                }, 15000);
+
+                function cleanup() {
+                    clearTimeout(timeout);
+                    delete window[callbackName];
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                }
+
+                window[callbackName] = function(response) {
+                    cleanup();
+                    resolve(response);
+                };
+
+                script.onerror = function() {
+                    cleanup();
+                    reject(new Error('❌ Gagal terhubung ke server. Periksa URL Web App.'));
+                };
+
+                document.head.appendChild(script);
+            });
+        }
+
+        // ==================== TEST KONEKSI ====================
+        function testConnection() {
+            callAPI('ping', {}).then(function(result) {
+                console.log('✅ Server connected:', result);
+            }).catch(function(error) {
+                console.log('❌ Server connection failed:', error.message);
+            });
+        }
+
+        // ==================== LOGIN ====================
+        function handleLogin(e) {
+            e.preventDefault();
+            var username = document.getElementById('username').value.trim();
+            var password = document.getElementById('password').value.trim();
+            var rememberMe = document.getElementById('rememberMe').checked;
+
+            if (!username || !password) {
+                showAlert('loginAlert', 'Username dan password harus diisi!', 'error');
+                return false;
+            }
+
+            var btn = document.getElementById('loginBtn');
+            btn.classList.add('loading');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i>Memproses...';
+
+            callAPI('login', { username: username, password: password })
+                .then(function(result) {
+                    if (result.success) {
+                        showAlert('loginAlert', '✅ Login berhasil! Selamat datang.', 'success');
+                        if (rememberMe) localStorage.setItem('lps_user', username);
+                        sessionStorage.setItem('lps_session', JSON.stringify(result.user));
+                        setTimeout(function() {
+                            window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/lpspemilahsampah.html';
+                        }, 1500);
+                    } else {
+                        showAlert('loginAlert', result.message || 'Login gagal!', 'error');
+                    }
+                })
+                .catch(function(error) {
+                    showAlert('loginAlert', '❌ ' + error.message, 'error');
+                })
+                .finally(function() {
+                    btn.classList.remove('loading');
+                    btn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right:8px;"></i>Masuk';
+                });
+
+            return false;
+        }
+
+        // ==================== CEK NIK ====================
+        function checkNIK() {
+            var nik = document.getElementById('nikCheck').value.trim();
+            hideAlert('registerAlert');
+
+            if (!nik || nik.length !== 16) {
+                showAlert('registerAlert', 'Masukkan 16 digit NIK yang valid!', 'error');
+                return;
+            }
+
+            var btn = document.getElementById('btnCheckNik');
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memeriksa...';
+            btn.disabled = true;
+
+            // STEP 1: Cek NIK di DATA_BASE
+            callAPI('checkNIK', { nik: nik })
+                .then(function(result) {
+                    if (result.success && result.found) {
+                        currentUserData = result.data;
+                        document.getElementById('displayName').textContent = currentUserData.nama_peserta || '-';
+                        document.getElementById('displayNik').textContent = sensorId(currentUserData.no_nik || '');
+                        document.getElementById('displayKk').textContent = sensorId(currentUserData.no_kk || '-');
+                        document.getElementById('displayAlamat').textContent = currentUserData.alamat || '-';
+                        document.getElementById('displayRtRw').textContent = (currentUserData.rt || '-') + '/' + (currentUserData.rw || '-');
+                        document.getElementById('displayKelurahan').textContent = currentUserData.kelurahan || '-';
+                        document.getElementById('displayKecamatan').textContent = currentUserData.kecamatan || '-';
+                        document.getElementById('displayKota').textContent = currentUserData.kota || '-';
+                        document.getElementById('displayTelp').textContent = currentUserData.no_telp || '-';
+
+                        document.getElementById('userDataDisplay').style.display = 'block';
+                        
+                        // STEP 2: Cek apakah NIK sudah terdaftar di AKUN
+                        return callAPI('checkNIKAKUN', { nik: nik });
+                    } else {
+                        document.getElementById('userDataDisplay').style.display = 'none';
+                        document.getElementById('registerFormFields').style.display = 'none';
+                        document.getElementById('nikAlreadyRegistered').style.display = 'none';
+                        document.getElementById('nikNotFound').style.display = 'block';
+                        showAlert('registerAlert', result.message || 'NIK tidak ditemukan.', 'info');
+                        return null;
+                    }
+                })
+                .then(function(akunResult) {
+                    if (akunResult === null) return;
+                    
+                    if (akunResult.success && akunResult.found) {
+                        // NIK sudah terdaftar di AKUN
+                        isNikRegistered = true;
+                        document.getElementById('registerFormFields').style.display = 'none';
+                        document.getElementById('nikNotFound').style.display = 'none';
+                        document.getElementById('nikAlreadyRegistered').style.display = 'block';
+                        document.getElementById('registeredNikDisplay').textContent = sensorId(nik);
+                        document.getElementById('registeredUsernameDisplay').textContent = akunResult.data.username || '-';
+                        showAlert('registerAlert', '⚠️ NIK ini sudah memiliki akun!', 'warning');
+                    } else {
+                        // NIK belum terdaftar di AKUN, lanjutkan pendaftaran
+                        isNikRegistered = false;
+                        document.getElementById('nikAlreadyRegistered').style.display = 'none';
+                        document.getElementById('nikNotFound').style.display = 'none';
+                        document.getElementById('registerFormFields').style.display = 'block';
+                        showAlert('registerAlert', '✅ NIK terdaftar! Silakan lengkapi pendaftaran.', 'success');
+                    }
+                })
+                .catch(function(error) {
+                    showAlert('registerAlert', '❌ ' + error.message, 'error');
+                })
+                .finally(function() {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+        }
+
+        // ==================== REGISTER ====================
+        function handleRegister() {
+            var username = document.getElementById('regUsername').value.trim();
+            var email = document.getElementById('regEmail').value.trim();
+            var password = document.getElementById('regPassword').value;
+            var confirmPassword = document.getElementById('regConfirmPassword').value;
+            var agree = document.getElementById('agreeRegister').checked;
+
+            hideAlert('registerAlert');
+
+            if (!username || !email || !password || !confirmPassword) {
+                showAlert('registerAlert', 'Semua field harus diisi!', 'error');
+                return;
+            }
+            if (password !== confirmPassword) {
+                showAlert('registerAlert', 'Password dan konfirmasi tidak cocok!', 'error');
+                return;
+            }
+            if (password.length < 8) {
+                showAlert('registerAlert', 'Password minimal 8 karakter!', 'error');
+                return;
+            }
+            if (!agree) {
+                showAlert('registerAlert', 'Anda harus menyetujui syarat dan ketentuan!', 'error');
+                return;
+            }
+            if (!currentUserData) {
+                showAlert('registerAlert', 'Silakan cek NIK terlebih dahulu!', 'error');
+                return;
+            }
+            if (isNikRegistered) {
+                showAlert('registerAlert', 'NIK ini sudah terdaftar! Silakan login.', 'error');
+                return;
+            }
+
+            var id = generateUniqueId();
+            var akunData = {
+                id: id,
+                username: username,
+                nama_peserta: currentUserData.nama_peserta,
+                nik: currentUserData.no_nik,
+                pasword: password,
+                email: email
+            };
+
+            var btn = document.getElementById('btnRegister');
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+            btn.disabled = true;
+
+            callAPI('register', akunData)
+                .then(function(result) {
+                    if (result.success) {
+                        showAlert('registerAlert', '🎉 Pendaftaran berhasil! Silakan login.', 'success');
+                        setTimeout(function() {
+                            closeModal('registerModal');
+                            document.getElementById('regUsername').value = '';
+                            document.getElementById('regEmail').value = '';
+                            document.getElementById('regPassword').value = '';
+                            document.getElementById('regConfirmPassword').value = '';
+                            document.getElementById('agreeRegister').checked = false;
+                        }, 2000);
+                    } else {
+                        showAlert('registerAlert', result.message || 'Pendaftaran gagal!', 'error');
+                    }
+                })
+                .catch(function(error) {
+                    showAlert('registerAlert', '❌ ' + error.message, 'error');
+                })
+                .finally(function() {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+        }
+
+        // ==================== PROPOSAL ====================
+        function handleProposal() {
+            var data = {
+                nama: document.getElementById('propNama').value.trim(),
+                nik: document.getElementById('propNik').value.trim(),
+                kk: document.getElementById('propKk').value.trim(),
+                alamat: document.getElementById('propAlamat').value.trim(),
+                rt: document.getElementById('propRt').value.trim(),
+                rw: document.getElementById('propRw').value.trim(),
+                kelurahan: document.getElementById('propKelurahan').value.trim(),
+                kecamatan: document.getElementById('propKecamatan').value,
+                kota: document.getElementById('propKota').value,
+                provinsi: document.getElementById('propProvinsi').value,
+                telp: document.getElementById('propTelp').value.trim(),
+                status: document.getElementById('propStatus').value,
+                tarif: document.getElementById('propTarif').value.trim(),
+                petugas: document.getElementById('propPetugas').value.trim()
+            };
+
+            var agree = document.getElementById('agreeProposal').checked;
+            hideAlert('proposalAlert');
+
+            if (!data.nama || !data.nik || !data.alamat) {
+                showAlert('proposalAlert', 'Nama, NIK, dan Alamat harus diisi!', 'error');
+                return;
+            }
+            if (data.nik.length !== 16) {
+                showAlert('proposalAlert', 'NIK harus 16 digit!', 'error');
+                return;
+            }
+            if (!agree) {
+                showAlert('proposalAlert', 'Anda harus menyetujui syarat dan ketentuan!', 'error');
+                return;
+            }
+
+            var message = 'Assalamualaikum admin, saya ingin mengajukan pendaftaran sebagai anggota LPS Padang Terubuk Asri, berikut data saya:\n\n';
+            message += '📋 Nama: ' + data.nama + '\n';
+            message += '🆔 NIK: ' + data.nik + '\n';
+            if (data.kk) message += '📄 KK: ' + data.kk + '\n';
+            message += '📍 Alamat: ' + data.alamat + '\n';
+            if (data.rt) message += 'RT: ' + data.rt + '\n';
+            if (data.rw) message += 'RW: ' + data.rw + '\n';
+            if (data.kelurahan) message += 'Kelurahan: ' + data.kelurahan + '\n';
+            message += '🏛️ Kecamatan: ' + data.kecamatan + '\n';
+            message += '🏙️ Kota: ' + data.kota + '\n';
+            message += '🌏 Provinsi: ' + data.provinsi + '\n';
+            if (data.telp) message += '📱 No. Telepon: ' + data.telp + '\n';
+            message += '📌 Status: ' + data.status + '\n';
+            if (data.tarif) message += '💰 Tarif Iuran: ' + data.tarif + '\n';
+            if (data.petugas) message += '👤 Nama Petugas: ' + data.petugas + '\n';
+
+            var waUrl = 'https://wa.me/6282170089590?text=' + encodeURIComponent(message);
+            window.open(waUrl, '_blank');
+
+            showAlert('proposalAlert', '✅ Pendaftaran berhasil! Silakan tunggu konfirmasi dari admin.', 'success');
+
+            setTimeout(function() {
+                closeModal('registerProposalModal');
+                document.getElementById('propNama').value = '';
+                document.getElementById('propNik').value = '';
+                document.getElementById('propKk').value = '';
+                document.getElementById('propAlamat').value = '';
+                document.getElementById('propRt').value = '';
+                document.getElementById('propRw').value = '';
+                document.getElementById('propKelurahan').value = '';
+                document.getElementById('propTelp').value = '';
+                document.getElementById('propTarif').value = '';
+                document.getElementById('propPetugas').value = '';
+                document.getElementById('agreeProposal').checked = false;
+            }, 2000);
+        }
+
+        // ==================== FORGOT PASSWORD ====================
+        function checkEmail() {
+            var email = document.getElementById('forgotEmail').value.trim();
+            hideAlert('forgotAlert');
+
+            if (!email) {
+                showAlert('forgotAlert', 'Masukkan email yang terdaftar!', 'error');
+                return;
+            }
+
+            var btn = document.getElementById('btnCheckEmail');
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memeriksa...';
+            btn.disabled = true;
+
+            callAPI('checkEmail', { email: email })
+                .then(function(result) {
+                    if (result.success && result.found) {
+                        currentResetEmail = email;
+                        document.getElementById('resetUsername').textContent = result.data.username || '-';
+                        document.getElementById('resetNama').textContent = result.data.nama_peserta || '-';
+                        document.getElementById('resetPasswordSection').style.display = 'block';
+                        showAlert('forgotAlert', '✅ Email ditemukan! Silakan reset password Anda.', 'success');
+                    } else {
+                        showAlert('forgotAlert', result.message || 'Email tidak terdaftar!', 'error');
+                        document.getElementById('resetPasswordSection').style.display = 'none';
+                    }
+                })
+                .catch(function(error) {
+                    showAlert('forgotAlert', '❌ ' + error.message, 'error');
+                })
+                .finally(function() {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+        }
+
+        function handleResetPassword() {
+            var newPassword = document.getElementById('resetNewPassword').value;
+            var confirmPassword = document.getElementById('resetConfirmPassword').value;
+            hideAlert('forgotAlert');
+
+            if (!newPassword || !confirmPassword) {
+                showAlert('forgotAlert', 'Password baru dan konfirmasi harus diisi!', 'error');
+                return;
+            }
+            if (newPassword.length < 8) {
+                showAlert('forgotAlert', 'Password minimal 8 karakter!', 'error');
+                return;
+            }
+            if (newPassword !== confirmPassword) {
+                showAlert('forgotAlert', 'Password dan konfirmasi tidak cocok!', 'error');
+                return;
+            }
+
+            var btn = document.getElementById('btnResetPassword');
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+            btn.disabled = true;
+
+            callAPI('resetPassword', { email: currentResetEmail, newPassword: newPassword })
+                .then(function(result) {
+                    if (result.success) {
+                        showAlert('forgotAlert', '✅ Password berhasil direset! Silakan login.', 'success');
+                        setTimeout(function() {
+                            closeModal('forgotModal');
+                            document.getElementById('resetNewPassword').value = '';
+                            document.getElementById('resetConfirmPassword').value = '';
+                            document.getElementById('resetPasswordSection').style.display = 'none';
+                        }, 2000);
+                    } else {
+                        showAlert('forgotAlert', result.message || 'Gagal reset password!', 'error');
+                    }
+                })
+                .catch(function(error) {
+                    showAlert('forgotAlert', '❌ ' + error.message, 'error');
+                })
+                .finally(function() {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                });
+        }
+
+        // ==================== INIT ====================
+        (function() {
+            var savedUser = localStorage.getItem('lps_user');
+            if (savedUser) {
+                document.getElementById('username').value = savedUser;
+                document.getElementById('rememberMe').checked = true;
+            }
+
+            var session = sessionStorage.getItem('lps_session');
+            if (session) {
+                window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/lpspemilahsampah.html';
+            }
+
+            setTimeout(testConnection, 2000);
+        })();
+    </script>
+</body>
+</html>

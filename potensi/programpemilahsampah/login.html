@@ -1154,7 +1154,7 @@
                         if (rememberMe) localStorage.setItem('lps_user', username);
                         sessionStorage.setItem('lps_session', JSON.stringify(result.user));
                         setTimeout(function() {
-                            window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/lpspemilahsampah.html';
+                            window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/user.html';
                         }, 1500);
                     } else {
                         showAlert('loginAlert', result.message || 'Login gagal!', 'error');
@@ -1484,7 +1484,7 @@
 
             var session = sessionStorage.getItem('lps_session');
             if (session) {
-                window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/lpspemilahsampah.html';
+                window.location.href = 'https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/user.html';
             }
 
             setTimeout(testConnection, 2000);

@@ -7,7 +7,7 @@
     <title>Dashboard - LPS Padang Terubuk Asri</title>  
     
     <!-- Open Graph -->
-    <meta property="og:type" content="website">  
+    <meta property="og:type" content="website">
     <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/">
     <meta property="og:title" content="Dashboard - Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
     <meta property="og:description" content="Dashboard peserta LPS Padang Terubuk Asri">
@@ -596,7 +596,7 @@
         .qrcode-popup {
             background: white;
             border-radius: 24px;
-            max-width: 550px;
+            max-width: 420px;
             width: 100%;
             padding: 30px;
             text-align: center;
@@ -643,7 +643,7 @@
             transform: translate(-50%, -50%) rotate(-30deg);
             font-size: 28px;
             font-weight: 800;
-            color: rgba(26, 95, 122, 0.1);
+            color: rgba(26, 95, 122, 0.08);
             white-space: nowrap;
             pointer-events: none;
             letter-spacing: 4px;
@@ -728,24 +728,6 @@
             transform: translateY(-2px);
         }
         
-        .qrcode-popup .qrcode-data-preview {
-            margin: 15px 0;
-            padding: 12px;
-            background: #f7fafc;
-            border-radius: 10px;
-            text-align: left;
-            font-size: 11px;
-            color: #4a5568;
-            max-height: 120px;
-            overflow-y: auto;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .qrcode-popup .qrcode-data-preview code {
-            font-family: 'Courier New', monospace;
-            word-break: break-all;
-        }
-        
         @media (max-width: 480px) {
             .qrcode-popup {
                 padding: 20px;
@@ -757,10 +739,6 @@
             }
             .qrcode-container::before {
                 font-size: 18px;
-            }
-            .qrcode-popup .qrcode-data-preview {
-                font-size: 10px;
-                max-height: 80px;
             }
         }
         
@@ -1396,9 +1374,6 @@
                     <img src="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" alt="LPS Logo">
                 </div>
             </div>
-            <div class="qrcode-data-preview" id="qrcodeDataPreview">
-                <code id="qrcodeDataText">Loading...</code>
-            </div>
             <div style="margin-top:15px;">
                 <button class="btn-download-qrcode" onclick="downloadQRCode()">
                     <i class="fas fa-download"></i> Download
@@ -1890,7 +1865,7 @@
             html += '  <div class="field full-width" style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:16px;">';
             html += '    <span class="label">QR Code Peserta</span>';
             html += '    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">';
-            html += '      <span style="font-size:13px;color:#718096;flex:1;">Generate QR Code berisi data profil peserta</span>';
+            html += '      <span style="font-size:13px;color:#718096;flex:1;">QR Code berisi data profil untuk scan petugas</span>';
             html += '      <button class="btn-save" onclick="showQrCode()" style="background:linear-gradient(135deg, #159895, #1a5f7a);">';
             html += '        <i class="fas fa-qrcode"></i> Generate QR Code';
             html += '      </button>';
@@ -1949,7 +1924,7 @@
                 return;
             }
             
-            // Siapkan data profil untuk QR Code
+            // Siapkan data profil untuk QR Code (RAW DATA, tanpa format JSON yang terlihat)
             var profileData = {
                 id: data.id || '',
                 username: data.username || '',
@@ -1959,12 +1934,11 @@
                 url_foto: data.url_foto || ''
             };
             
-            // Konversi ke JSON string
+            // Konversi ke JSON string - ini akan di-scan oleh petugas
             var jsonData = JSON.stringify(profileData);
             
-            // Tampilkan di preview
+            // Tampilkan ID di subtitle
             document.getElementById('qrcodeIdDisplay').textContent = data.id || data.username || '-';
-            document.getElementById('qrcodeDataText').textContent = jsonData;
             
             // Buka popup
             document.getElementById('qrcodePopup').classList.add('active');
@@ -1981,7 +1955,7 @@
                 var qrContainer = document.getElementById('qrcode');
                 qrContainer.innerHTML = '';
                 
-                // Buat QR Code baru dengan ukuran yang lebih besar agar logo muat
+                // Buat QR Code standar dengan ukuran optimal
                 var qr = new QRCode(qrContainer, {
                     text: data,
                     width: 280,
@@ -2007,13 +1981,11 @@
             var img = qrContainer.querySelector('img');
             
             if (canvas) {
-                // Jika menggunakan canvas (QRCode.js versi lama)
                 var link = document.createElement('a');
                 link.download = 'qrcode_' + (userData.detail?.id || 'peserta') + '.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             } else if (img) {
-                // Jika menggunakan img (QRCode.js versi baru)
                 var link = document.createElement('a');
                 link.download = 'qrcode_' + (userData.detail?.id || 'peserta') + '.png';
                 link.href = img.src;

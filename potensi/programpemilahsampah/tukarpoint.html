@@ -1176,7 +1176,8 @@ function loadProducts() {
 function renderProducts() {
     var container = document.getElementById('productContainer');
     
-    console.log('🎨 Render products, allProducts:', allProducts.length);
+    console.log('🎨 Render products, allProducts:', allProducts);
+    console.log('🎨 allProducts length:', allProducts ? allProducts.length : 0);
     
     // CEK: Pastikan allProducts adalah array dan tidak kosong
     if (!allProducts || !Array.isArray(allProducts) || allProducts.length === 0) {
@@ -1191,6 +1192,11 @@ function renderProducts() {
         return;
     }
     
+    // ===== DEBUG: Tampilkan data barang di console =====
+    console.log('📦 Data barang pertama:', allProducts[0]);
+    console.log('📦 Nama barang pertama:', allProducts[0].nama_barang);
+    
+    // Filter berdasarkan kategori
     var filtered = allProducts;
     if (currentCategory !== 'all') {
         filtered = allProducts.filter(function(p) {
@@ -1211,110 +1217,81 @@ function renderProducts() {
         return;
     }
     
-    // Group by level akses
-    var grouped = {};
-    var levelOrder = ['Pemula', 'Veteran', 'Master', 'Grand Master'];
+    // ===== SIMPLE RENDER (tanpa grouping) =====
+    var html = '<div class="product-grid">';
     
-    filtered.forEach(function(product) {
+    filtered.forEach(function(product, index) {
         // PASTIKAN product valid
         if (!product || typeof product !== 'object') {
-            console.warn('⚠️ Invalid product:', product);
+            console.warn('⚠️ Invalid product at index', index, product);
             return;
         }
         
-        var level = product.level_akses || 'Pemula';
-        if (!grouped[level]) grouped[level] = [];
-        grouped[level].push(product);
-    });
-    
-    var html = '';
-    var userLevel = ROLE_HIERARCHY[userRole] || 1;
-    
-    levelOrder.forEach(function(level) {
-        var products = grouped[level] || [];
-        if (products.length === 0) return;
-        
-        var isLocked = ROLE_HIERARCHY[level] > userLevel;
-        var levelClass = getRoleClass(level);
-        var levelLabel = getRoleLabel(level);
-        
-        html += '<div class="shop-section">';
-        html += '  <div class="section-title">';
-        html += '    <i class="fas ' + (isLocked ? 'fa-lock' : 'fa-store') + '"></i>';
-        html += '    Toko ' + levelLabel;
-        html += '    <span class="badge-role ' + levelClass + '">' + levelLabel + '</span>';
-        if (isLocked) {
-            html += '    <span style="font-size:12px;color:#dc2626;font-weight:500;">🔒 Terkunci</span>';
+        if (!product.nama_barang) {
+            console.warn('⚠️ Product tanpa nama_barang:', product);
+            return;
         }
-        html += '  </div>';
-        html += '  <div class="product-grid">';
         
-        products.forEach(function(product) {
-            // PASTIKAN product tidak null dan punya nama_barang
-            if (!product || !product.nama_barang) {
-                console.warn('⚠️ Product without nama_barang:', product);
-                return;
-            }
-            
-            var isOutOfStock = product.stok <= 0;
-            var isLockedProduct = userLevel < ROLE_HIERARCHY[product.level_akses];
-            var isPoinCukup = userPoin >= product.harga_barang;
-            
-            var btnClass = 'btn-tukar ';
-            var btnText = '';
-            var btnDisabled = true;
-            
-            if (isOutOfStock) {
-                btnClass += 'stok-habis';
-                btnText = 'Stok Habis';
-            } else if (isLockedProduct) {
-                btnClass += 'terkunci';
-                btnText = '🔒 Terkunci';
-            } else if (!isPoinCukup) {
-                btnClass += 'poin-tidak-cukup';
-                btnText = 'Poin Tidak Cukup';
-            } else {
-                btnClass += 'beli';
-                btnText = '🛒 Beli';
-                btnDisabled = false;
-            }
-            
-            var badgeHtml = '';
-            if (isOutOfStock) {
-                badgeHtml = '<span class="badge-stok-habis">Stok Habis</span>';
-            } else if (isLockedProduct) {
-                badgeHtml = '<span class="badge-locked">🔒 Terkunci</span>';
-            }
-            
-            var fotoHtml = product.url_foto && product.url_foto.trim() !== '' 
-                ? '<img src="' + product.url_foto + '" alt="' + product.nama_barang + '" loading="lazy">' 
-                : '<span class="placeholder"><i class="fas fa-box"></i></span>';
-            
-            // ESCAPE nama_barang untuk JavaScript
-            var safeName = product.nama_barang.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-            
-            html += '  <div class="product-card">';
-            html += '    ' + badgeHtml;
-            html += '    <div class="product-image">' + fotoHtml + '</div>';
-            html += '    <div class="product-name">' + product.nama_barang + '</div>';
-            html += '    <div class="product-level">';
-            html += '      <i class="fas fa-shield-alt"></i> Level: ';
-            html += '      <span class="level-badge ' + getRoleClass(product.level_akses) + '">' + getRoleLabel(product.level_akses) + '</span>';
-            html += '    </div>';
-            html += '    <div class="product-price">' + formatNumber(product.harga_barang) + ' <span>poin</span></div>';
-            html += '    <div class="product-stock">📦 Stok: ' + product.stok + '</div>';
-            html += '    <button class="' + btnClass + '" onclick="openConfirmModal(\'' + safeName + '\')" ' + (btnDisabled ? 'disabled' : '') + '>';
-            html += '      ' + btnText;
-            html += '    </button>';
-            html += '  </div>';
-        });
+        console.log('✅ Render product:', product.nama_barang);
         
+        var isOutOfStock = product.stok <= 0;
+        var userLevel = ROLE_HIERARCHY[userRole] || 1;
+        var isLockedProduct = userLevel < ROLE_HIERARCHY[product.level_akses];
+        var isPoinCukup = userPoin >= product.harga_barang;
+        
+        var btnClass = 'btn-tukar ';
+        var btnText = '';
+        var btnDisabled = true;
+        
+        if (isOutOfStock) {
+            btnClass += 'stok-habis';
+            btnText = 'Stok Habis';
+        } else if (isLockedProduct) {
+            btnClass += 'terkunci';
+            btnText = '🔒 Terkunci';
+        } else if (!isPoinCukup) {
+            btnClass += 'poin-tidak-cukup';
+            btnText = 'Poin Tidak Cukup';
+        } else {
+            btnClass += 'beli';
+            btnText = '🛒 Beli';
+            btnDisabled = false;
+        }
+        
+        var badgeHtml = '';
+        if (isOutOfStock) {
+            badgeHtml = '<span class="badge-stok-habis">Stok Habis</span>';
+        } else if (isLockedProduct) {
+            badgeHtml = '<span class="badge-locked">🔒 Terkunci</span>';
+        }
+        
+        var fotoHtml = product.url_foto && product.url_foto.trim() !== '' 
+            ? '<img src="' + product.url_foto + '" alt="' + product.nama_barang + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' 
+            : '<span class="placeholder"><i class="fas fa-box" style="font-size:48px;color:#a0aec0;"></i></span>';
+        
+        // ESCAPE nama_barang untuk JavaScript
+        var safeName = product.nama_barang.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        
+        html += '  <div class="product-card">';
+        html += '    ' + badgeHtml;
+        html += '    <div class="product-image" style="width:100%;height:180px;border-radius:12px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:12px;">' + fotoHtml + '</div>';
+        html += '    <div class="product-name" style="font-size:16px;font-weight:600;color:var(--primary);margin-bottom:4px;">' + product.nama_barang + '</div>';
+        html += '    <div class="product-level" style="font-size:12px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px;">';
+        html += '      <i class="fas fa-shield-alt"></i> Level: ';
+        html += '      <span class="level-badge ' + getRoleClass(product.level_akses) + '" style="padding:2px 12px;border-radius:20px;font-size:11px;background:rgba(34,197,94,0.15);color:#22c55e;">' + getRoleLabel(product.level_akses) + '</span>';
+        html += '    </div>';
+        html += '    <div class="product-price" style="font-size:20px;font-weight:700;color:var(--secondary);margin-bottom:4px;">' + formatNumber(product.harga_barang) + ' <span style="font-size:12px;font-weight:400;color:#a0aec0;">poin</span></div>';
+        html += '    <div class="product-stock" style="font-size:12px;color:#a0aec0;margin-bottom:12px;">📦 Stok: ' + product.stok + '</div>';
+        html += '    <button class="' + btnClass + '" onclick="openConfirmModal(\'' + safeName + '\')" ' + (btnDisabled ? 'disabled' : '') + ' style="width:100%;padding:10px;border:none;border-radius:10px;font-weight:600;font-family:Poppins,sans-serif;cursor:pointer;transition:all 0.3s ease;font-size:14px;margin-top:auto;">';
+        html += '      ' + btnText;
+        html += '    </button>';
         html += '  </div>';
-        html += '</div>';
     });
+    
+    html += '</div>';
     
     container.innerHTML = html;
-    console.log('✅ Render complete');
+    console.log('✅ Render complete, total cards:', filtered.length);
 }
 
 // ==================== FILTER PRODUCTS ====================

@@ -29,6 +29,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- JsBarcode Library -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+    
     <style>
         /* ===== RESET ===== */
         * {
@@ -570,6 +573,160 @@
             transform: none;
         }
         
+        /* ===== BARCODE MODAL ===== */
+        .barcode-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9997;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .barcode-popup-overlay.active {
+            display: flex;
+        }
+        
+        .barcode-popup {
+            background: white;
+            border-radius: 24px;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin: 20px;
+        }
+        
+        .barcode-popup h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .barcode-popup .barcode-subtitle {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 20px;
+        }
+        
+        .barcode-popup .barcode-container {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Watermark transparan di belakang barcode */
+        .barcode-container::before {
+            content: 'LPS PADANG TERUBUK ASRI';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 28px;
+            font-weight: 800;
+            color: rgba(26, 95, 122, 0.1);
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: 4px;
+            width: 200%;
+            text-align: center;
+            z-index: 0;
+        }
+        
+        .barcode-container svg,
+        .barcode-container canvas {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: auto;
+        }
+        
+        /* Logo di tengah barcode - menggunakan CSS overlay */
+        .barcode-container .barcode-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            padding: 6px;
+            z-index: 2;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            border: 2px solid var(--accent);
+            pointer-events: none;
+        }
+        
+        .barcode-container .barcode-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+        
+        .barcode-popup .btn-close-barcode {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .barcode-popup .btn-close-barcode:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .barcode-popup .btn-download-barcode {
+            margin-top: 10px;
+            padding: 10px 30px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            margin-right: 10px;
+        }
+        
+        .barcode-popup .btn-download-barcode:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 480px) {
+            .barcode-popup {
+                padding: 20px;
+                margin: 10px;
+            }
+            .barcode-container .barcode-logo {
+                width: 40px;
+                height: 40px;
+            }
+            .barcode-container::before {
+                font-size: 18px;
+            }
+        }
+        
         /* ===== POPUP BONUS ===== */
         .bonus-popup-overlay {
             display: none;
@@ -767,7 +924,7 @@
             border: 1px solid #b8d4e6;
         }
         
-        /* ===== SIDEBAR TOGGLE (HIDDEN DI MOBILE) ===== */
+        /* ===== SIDEBAR TOGGLE ===== */
         .sidebar-toggle {
             display: none;
             position: fixed;
@@ -1045,7 +1202,7 @@
 </head>
 <body>
 
-    <!-- ===== SIDEBAR TOGGLE (TIDAK MUNCUL DI MOBILE) ===== -->
+    <!-- ===== SIDEBAR TOGGLE ===== -->
     <button class="sidebar-toggle" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
     </button>
@@ -1191,6 +1348,28 @@
         </div>
     </main>
 
+    <!-- ===== BARCODE POPUP ===== -->
+    <div class="barcode-popup-overlay" id="barcodePopup">
+        <div class="barcode-popup">
+            <h3>📱 Barcode Peserta</h3>
+            <p class="barcode-subtitle">ID: <strong id="barcodeIdDisplay">-</strong></p>
+            <div class="barcode-container" id="barcodeContainer">
+                <svg id="barcodeSvg"></svg>
+                <div class="barcode-logo">
+                    <img src="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" alt="LPS Logo">
+                </div>
+            </div>
+            <div style="margin-top:15px;">
+                <button class="btn-download-barcode" onclick="downloadBarcode()">
+                    <i class="fas fa-download"></i> Download
+                </button>
+                <button class="btn-close-barcode" onclick="closeBarcodePopup()">
+                    <i class="fas fa-times"></i> Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- ===== BONUS POPUP ===== -->
     <div class="bonus-popup-overlay" id="bonusPopup">
         <div class="bonus-popup">
@@ -1229,6 +1408,7 @@
         let isBonusClaimed = false;
         let isLoadingMembership = false;
         let pendingRolePopup = null;
+        let barcodeData = '';
         
         // ==================== HELPER ====================
         function sensorId(id) {
@@ -1368,21 +1548,17 @@
                 document.getElementById('sidebarName').textContent = userData.nama_peserta || userData.username;
                 document.getElementById('headerName').textContent = userData.nama_peserta || userData.username;
                 
-                // Gunakan endpoint baru: getUserDataWithRole (auto-update role)
                 callAPI('getUserDataWithRole', { nik: userData.nik })
                     .then(function(result) {
                         if (result.success && result.found) {
                             userData.detail = result.data;
                             updateUserUI(result.data);
                             
-                            // Cek apakah ada perubahan role
                             if (result.roleChanged) {
                                 showRolePopup(result.oldRole, result.newRole);
                             }
                             
-                            // Cek daily login bonus
                             checkDailyLoginBonus();
-                            
                             loadMemberships();
                         }
                     })
@@ -1397,7 +1573,6 @@
         
         // ==================== UPDATE USER UI ====================
         function updateUserUI(data) {
-            // Sidebar avatar
             var avatarEl = document.getElementById('sidebarAvatar');
             if (data.url_foto && data.url_foto.trim() !== '') {
                 avatarEl.innerHTML = '<img src="' + data.url_foto + '">';
@@ -1436,7 +1611,6 @@
             document.getElementById('newRoleDisplay').textContent = newRole || 'Veteran';
             document.getElementById('rolePopup').classList.add('active');
             
-            // Efek confetti sederhana
             setTimeout(function() {
                 var icon = document.querySelector('.role-popup .icon');
                 icon.style.transform = 'scale(1.2)';
@@ -1485,9 +1659,7 @@
                         updateUserUI(userData.detail);
                     }
                     
-                    // Jika role berubah karena bonus
                     if (result.roleChanged) {
-                        // Tutup bonus popup dulu, lalu tampilkan role popup
                         setTimeout(function() {
                             closeBonusPopup();
                             showRolePopup(result.oldRole, result.role);
@@ -1674,6 +1846,17 @@
             html += '    </div>';
             html += '  </div>';
             
+            // Tombol Tampilkan Barcode
+            html += '  <div class="field full-width" style="margin-top:10px;">';
+            html += '    <span class="label">ID Peserta</span>';
+            html += '    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">';
+            html += '      <span class="value" style="flex:1;">' + (data.id || data.username || '-') + '</span>';
+            html += '      <button class="btn-save" onclick="showBarcode(\'' + (data.id || data.username) + '\')" style="background:linear-gradient(135deg, #159895, #1a5f7a);">';
+            html += '        <i class="fas fa-qrcode"></i> Tampilkan Barcode';
+            html += '      </button>';
+            html += '    </div>';
+            html += '  </div>';
+            
             body.innerHTML = html;
         }
         
@@ -1717,6 +1900,105 @@
                 btn.disabled = false;
             });
         }
+        
+        // ==================== BARCODE ====================
+        function showBarcode(id) {
+            if (!id) {
+                showAlert('settingsAlert', 'ID Peserta tidak ditemukan!', 'error');
+                return;
+            }
+            
+            barcodeData = id;
+            document.getElementById('barcodeIdDisplay').textContent = id;
+            document.getElementById('barcodePopup').classList.add('active');
+            
+            setTimeout(function() {
+                generateBarcode(id);
+            }, 300);
+        }
+        
+        function generateBarcode(id) {
+            try {
+                var svg = document.getElementById('barcodeSvg');
+                if (!svg) return;
+                
+                JsBarcode(svg, id, {
+                    format: "CODE128",
+                    width: 2,
+                    height: 100,
+                    displayValue: true,
+                    fontSize: 18,
+                    font: "Poppins",
+                    textMargin: 10,
+                    margin: 10,
+                    background: "#ffffff",
+                    lineColor: "#1a5f7a"
+                });
+                
+            } catch (error) {
+                console.error('Error generating barcode:', error);
+                var container = document.getElementById('barcodeContainer');
+                container.innerHTML = '<p style="color:red;padding:20px;">Gagal generate barcode: ' + error.message + '</p>';
+            }
+        }
+        
+        function downloadBarcode() {
+            var svg = document.getElementById('barcodeSvg');
+            if (!svg) return;
+            
+            try {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                
+                var bbox = svg.getBBox();
+                var width = bbox.width || 400;
+                var height = bbox.height || 150;
+                
+                canvas.width = width + 40;
+                canvas.height = height + 40;
+                
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                var svgData = new XMLSerializer().serializeToString(svg);
+                var img = new Image();
+                var svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                var url = URL.createObjectURL(svgBlob);
+                
+                img.onload = function() {
+                    ctx.drawImage(img, 20, 20);
+                    URL.revokeObjectURL(url);
+                    
+                    var link = document.createElement('a');
+                    link.download = 'barcode_' + barcodeData + '.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                };
+                
+                img.onerror = function() {
+                    var link = document.createElement('a');
+                    link.download = 'barcode_' + barcodeData + '.svg';
+                    link.href = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgData);
+                    link.click();
+                };
+                
+                img.src = url;
+                
+            } catch (error) {
+                console.error('Error downloading barcode:', error);
+                showAlert('settingsAlert', 'Gagal download barcode!', 'error');
+            }
+        }
+        
+        function closeBarcodePopup() {
+            document.getElementById('barcodePopup').classList.remove('active');
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeBarcodePopup();
+            }
+        });
         
         // ==================== LOGOUT ====================
         function handleLogout() {

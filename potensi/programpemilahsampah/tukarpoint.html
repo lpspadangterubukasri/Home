@@ -1,1 +1,1043 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Tukar Point - LPS Padang Terubuk Asri">
+    <title>Tukar Point - LPS Padang Terubuk Asri</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #57c5b6;
+            --light: #f5f9fa;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 24px 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .header h1 i {
+            font-size: 28px;
+        }
+        
+        .header .poin-display {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 24px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        
+        .header .poin-display .label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .header .poin-display .value {
+            font-size: 28px;
+            font-weight: 800;
+        }
+        
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .tabs .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            color: #718096;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tabs .tab-btn.active {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+        }
+        
+        .tabs .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* ===== PRODUCT GRID ===== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: fadeIn 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-card .product-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #e2e8f0;
+            margin-bottom: 12px;
+        }
+        
+        .product-card .product-image i {
+            font-size: 48px;
+            color: #a0aec0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .product-card .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        
+        .product-card .product-desc {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-card .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .product-card .product-price span {
+            font-size: 12px;
+            font-weight: 400;
+            color: #a0aec0;
+        }
+        
+        .product-card .product-stock {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-bottom: 12px;
+        }
+        
+        .product-card .btn-tukar {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            font-size: 14px;
+        }
+        
+        .product-card .btn-tukar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(21, 152, 149, 0.3);
+        }
+        
+        .product-card .btn-tukar:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .product-card .btn-tukar.out-of-stock {
+            background: #e2e8f0;
+            color: #a0aec0;
+        }
+        
+        .product-card .badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .product-card .badge.populer {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .product-card .badge.terbatas {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .product-card .badge.baru {
+            background: #d1fae5;
+            color: #059669;
+        }
+        
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+        
+        .empty-state i {
+            font-size: 64px;
+            opacity: 0.3;
+            margin-bottom: 16px;
+        }
+        
+        .empty-state h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .empty-state p {
+            font-size: 14px;
+        }
+        
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-box {
+            background: white;
+            border-radius: 24px;
+            max-width: 480px;
+            width: 100%;
+            padding: 30px 35px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin: 20px;
+        }
+        
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-box .modal-icon {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .modal-box h3 {
+            font-size: 20px;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .modal-box .modal-sub {
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-box .modal-detail {
+            background: #f7fafc;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-box .modal-detail .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 14px;
+        }
+        
+        .modal-box .modal-detail .row .label {
+            color: #718096;
+        }
+        
+        .modal-box .modal-detail .row .value {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .modal-box .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .modal-box .modal-actions .btn-modal {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+        
+        .modal-box .modal-actions .btn-modal.cancel {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        
+        .modal-box .modal-actions .btn-modal.cancel:hover {
+            background: #cbd5e0;
+        }
+        
+        .modal-box .modal-actions .btn-modal.confirm {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+        }
+        
+        .modal-box .modal-actions .btn-modal.confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(21, 152, 149, 0.3);
+        }
+        
+        .modal-box .modal-actions .btn-modal.confirm:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* ===== SUCCESS POPUP ===== */
+        .success-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .success-popup-overlay.active {
+            display: flex;
+        }
+        
+        .success-popup {
+            background: white;
+            border-radius: 24px;
+            max-width: 420px;
+            width: 100%;
+            padding: 40px 35px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin: 20px;
+        }
+        
+        .success-popup .icon {
+            font-size: 72px;
+            margin-bottom: 15px;
+        }
+        
+        .success-popup h3 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .success-popup p {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .success-popup .btn-ok {
+            margin-top: 20px;
+            padding: 12px 40px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .success-popup .btn-ok:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(21, 152, 149, 0.3);
+        }
+        
+        /* ===== ALERT ===== */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            display: none;
+            font-weight: 500;
+        }
+        
+        .alert.show {
+            display: block;
+        }
+        .alert-success {
+            background: #e6f7e6;
+            color: #1a7a3a;
+            border: 1px solid #b8e6b8;
+        }
+        .alert-error {
+            background: #fde8e8;
+            color: #b33c3c;
+            border: 1px solid #f5c6c6;
+        }
+        .alert-info {
+            background: #e3f2fd;
+            color: #1a5f7a;
+            border: 1px solid #b8d4e6;
+        }
+        
+        /* ===== LOADING SKELETON ===== */
+        .skeleton {
+            background: #e2e8f0;
+            border-radius: 8px;
+            animation: shimmer 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            
+            .header {
+                padding: 18px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header h1 {
+                font-size: 18px;
+                justify-content: center;
+            }
+            
+            .header .poin-display .value {
+                font-size: 24px;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 15px;
+            }
+            
+            .tabs .tab-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+            
+            .modal-box {
+                padding: 24px 20px;
+                margin: 12px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tabs .tab-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
 
+    <div class="container">
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <h1>
+                <i class="fas fa-gift"></i>
+                Tukar Poin Sampah
+            </h1>
+            <div class="poin-display">
+                <div class="label">Poin Sampah Anda</div>
+                <div class="value" id="userPoin">0</div>
+            </div>
+        </div>
+        
+        <!-- ===== ALERT ===== -->
+        <div id="alert" class="alert"></div>
+        
+        <!-- ===== TABS ===== -->
+        <div class="tabs" id="tabsContainer">
+            <button class="tab-btn active" data-category="all" onclick="filterProducts('all')">
+                <i class="fas fa-th-list"></i> Semua
+            </button>
+            <button class="tab-btn" data-category="voucher" onclick="filterProducts('voucher')">
+                <i class="fas fa-ticket-alt"></i> Voucher
+            </button>
+            <button class="tab-btn" data-category="merchandise" onclick="filterProducts('merchandise')">
+                <i class="fas fa-tshirt"></i> Merchandise
+            </button>
+            <button class="tab-btn" data-category="donasi" onclick="filterProducts('donasi')">
+                <i class="fas fa-hand-holding-heart"></i> Donasi
+            </button>
+            <button class="tab-btn" data-category="lainnya" onclick="filterProducts('lainnya')">
+                <i class="fas fa-ellipsis-h"></i> Lainnya
+            </button>
+        </div>
+        
+        <!-- ===== PRODUCT GRID ===== -->
+        <div class="product-grid" id="productGrid">
+            <div class="empty-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <h3>Memuat produk...</h3>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ===== MODAL KONFIRMASI ===== -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-box">
+            <div class="modal-icon">🛍️</div>
+            <h3>Konfirmasi Tukar Poin</h3>
+            <p class="modal-sub">Apakah Anda yakin ingin menukarkan poin Anda?</p>
+            <div class="modal-detail" id="confirmDetail">
+                <div class="row">
+                    <span class="label">Produk</span>
+                    <span class="value" id="confirmProduct">-</span>
+                </div>
+                <div class="row">
+                    <span class="label">Harga</span>
+                    <span class="value" id="confirmPrice">-</span>
+                </div>
+                <div class="row">
+                    <span class="label">Poin Anda</span>
+                    <span class="value" id="confirmPoin">-</span>
+                </div>
+                <div class="row">
+                    <span class="label">Sisa Poin</span>
+                    <span class="value" id="confirmSisa">-</span>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal cancel" onclick="closeConfirmModal()">Batal</button>
+                <button class="btn-modal confirm" id="confirmBtn" onclick="confirmTukar()">
+                    <i class="fas fa-check"></i> Tukar Sekarang
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ===== SUCCESS POPUP ===== -->
+    <div class="success-popup-overlay" id="successPopup">
+        <div class="success-popup">
+            <div class="icon">🎉</div>
+            <h3>Berhasil!</h3>
+            <p id="successMessage">Poin berhasil ditukarkan.</p>
+            <button class="btn-ok" onclick="closeSuccessPopup()"><i class="fas fa-check"></i> Oke</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ==================== JAVASCRIPT ============================= -->
+    <!-- ============================================================ -->
+    <script>
+        // ==================== KONFIGURASI ====================
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwJkT3U6Z2OL_2xJv6GLI9VeDi7R7E5untFu35ps3rNdZKez8t4Ckruv2w7efcnkcY/exec';
+        
+        // ==================== DATA PRODUK ====================
+        // Data produk bisa diambil dari spreadsheet atau static
+        // Untuk demo, kita pakai data static dulu
+        // Nantinya bisa diintegrasikan dengan spreadsheet
+        const PRODUCTS = [
+            {
+                id: 1,
+                name: 'Voucher Belanja Rp 10.000',
+                desc: 'Voucher belanja senilai Rp 10.000 yang bisa digunakan di mitra LPS',
+                price: 1000,
+                category: 'voucher',
+                stock: 50,
+                image: '🎫',
+                badge: 'populer'
+            },
+            {
+                id: 2,
+                name: 'Voucher Belanja Rp 25.000',
+                desc: 'Voucher belanja senilai Rp 25.000 yang bisa digunakan di mitra LPS',
+                price: 2500,
+                category: 'voucher',
+                stock: 30,
+                image: '🎫',
+                badge: ''
+            },
+            {
+                id: 3,
+                name: 'Voucher Belanja Rp 50.000',
+                desc: 'Voucher belanja senilai Rp 50.000 yang bisa digunakan di mitra LPS',
+                price: 5000,
+                category: 'voucher',
+                stock: 20,
+                image: '🎫',
+                badge: 'terbatas'
+            },
+            {
+                id: 4,
+                name: 'Kaos LPS Eksklusif',
+                desc: 'Kaos berkualitas tinggi dengan desain eksklusif LPS Padang Terubuk Asri',
+                price: 3000,
+                category: 'merchandise',
+                stock: 15,
+                image: '👕',
+                badge: 'baru'
+            },
+            {
+                id: 5,
+                name: 'Tumbler Ramah Lingkungan',
+                desc: 'Tumbler stainless steel ramah lingkungan, cocok untuk gaya hidup zero waste',
+                price: 2000,
+                category: 'merchandise',
+                stock: 25,
+                image: '🥤',
+                badge: 'populer'
+            },
+            {
+                id: 6,
+                name: 'Totebag LPS',
+                desc: 'Totebag kanvas ramah lingkungan dengan logo LPS Padang Terubuk Asri',
+                price: 1500,
+                category: 'merchandise',
+                stock: 40,
+                image: '🛍️',
+                badge: ''
+            },
+            {
+                id: 7,
+                name: 'Donasi Pendidikan',
+                desc: 'Donasi untuk program pendidikan lingkungan di Padang Terubuk Asri',
+                price: 500,
+                category: 'donasi',
+                stock: 999,
+                image: '📚',
+                badge: ''
+            },
+            {
+                id: 8,
+                name: 'Donasi Penghijauan',
+                desc: 'Donasi untuk program penghijauan dan penanaman pohon di lingkungan',
+                price: 300,
+                category: 'donasi',
+                stock: 999,
+                image: '🌳',
+                badge: ''
+            },
+            {
+                id: 9,
+                name: 'Donasi Bank Sampah',
+                desc: 'Donasi untuk pengembangan bank sampah dan edukasi pemilahan',
+                price: 200,
+                category: 'donasi',
+                stock: 999,
+                image: '♻️',
+                badge: ''
+            },
+            {
+                id: 10,
+                name: 'Stiker Edukasi Sampah',
+                desc: 'Paket stiker edukasi tentang pemilahan sampah untuk anak-anak',
+                price: 100,
+                category: 'lainnya',
+                stock: 100,
+                image: '📝',
+                badge: 'baru'
+            }
+        ];
+        
+        // ==================== STATE ====================
+        let userPoin = 0;
+        let currentCategory = 'all';
+        let selectedProduct = null;
+        let userNik = '';
+        let userData = null;
+        
+        // ==================== HELPER ====================
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        
+        function showAlert(message, type) {
+            var alert = document.getElementById('alert');
+            alert.className = 'alert alert-' + type + ' show';
+            alert.textContent = message;
+            setTimeout(function() {
+                alert.className = 'alert';
+            }, 5000);
+        }
+        
+        function hideAlert() {
+            document.getElementById('alert').className = 'alert';
+        }
+        
+        // ==================== API CALL ====================
+        function callAPI(action, data) {
+            return new Promise(function(resolve, reject) {
+                var callbackName = 'jsonp_callback_' + Date.now();
+                var params = new URLSearchParams({ action: action, callback: callbackName });
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) params.append(key, data[key]);
+                }
+                var url = API_URL + '?' + params.toString();
+                
+                var script = document.createElement('script');
+                script.src = url;
+                script.async = true;
+                
+                var timeout = setTimeout(function() {
+                    cleanup();
+                    reject(new Error('⏱️ Request timeout (15 detik)'));
+                }, 15000);
+                
+                function cleanup() {
+                    clearTimeout(timeout);
+                    delete window[callbackName];
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                }
+                
+                window[callbackName] = function(response) {
+                    cleanup();
+                    resolve(response);
+                };
+                
+                script.onerror = function() {
+                    cleanup();
+                    reject(new Error('❌ Gagal terhubung ke server.'));
+                };
+                
+                document.head.appendChild(script);
+            });
+        }
+        
+        // ==================== LOAD USER DATA ====================
+        function loadUserData() {
+            var session = sessionStorage.getItem('lps_session');
+            if (!session) {
+                // Coba dari localStorage
+                var localUser = localStorage.getItem('lps_user');
+                if (localUser) {
+                    try {
+                        userData = JSON.parse(localUser);
+                        userNik = userData.nik || '';
+                        loadUserPoin();
+                        return;
+                    } catch(e) {}
+                }
+                showAlert('Sesi tidak ditemukan, silahkan login kembali', 'error');
+                setTimeout(function() {
+                    window.location.href = 'login.html';
+                }, 2000);
+                return;
+            }
+            
+            try {
+                var sessionData = JSON.parse(session);
+                userData = sessionData;
+                userNik = userData.nik || '';
+                loadUserPoin();
+            } catch (e) {
+                showAlert('Error loading session data', 'error');
+            }
+        }
+        
+        function loadUserPoin() {
+            if (!userNik) {
+                showAlert('NIK tidak ditemukan', 'error');
+                return;
+            }
+            
+            callAPI('getUserDataWithRole', { nik: userNik })
+                .then(function(result) {
+                    if (result.success && result.found) {
+                        var data = result.data;
+                        userPoin = Number(data.point_hadiah) || 0;
+                        document.getElementById('userPoin').textContent = formatNumber(userPoin);
+                        renderProducts();
+                    } else {
+                        showAlert('Gagal memuat data user: ' + (result.message || ''), 'error');
+                    }
+                })
+                .catch(function(error) {
+                    showAlert('Error: ' + error.message, 'error');
+                });
+        }
+        
+        // ==================== RENDER PRODUCTS ====================
+        function renderProducts() {
+            var grid = document.getElementById('productGrid');
+            
+            var filtered = PRODUCTS;
+            if (currentCategory !== 'all') {
+                filtered = PRODUCTS.filter(function(p) {
+                    return p.category === currentCategory;
+                });
+            }
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <h3>Belum Ada Produk</h3>
+                        <p>Belum ada produk di kategori ini. Silahkan cek kategori lain.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            var html = '';
+            filtered.forEach(function(product) {
+                var isOutOfStock = product.stock <= 0;
+                var canBuy = userPoin >= product.price && !isOutOfStock;
+                var badgeHtml = product.badge ? `<span class="badge ${product.badge}">${product.badge.toUpperCase()}</span>` : '';
+                
+                html += `
+                    <div class="product-card">
+                        ${badgeHtml}
+                        <div class="product-image">
+                            <i class="fas fa-2x" style="font-size:48px;display:flex;align-items:center;justify-content:center;height:100%;">${product.image}</i>
+                        </div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-desc">${product.desc}</div>
+                        <div class="product-price">${formatNumber(product.price)} <span>poin</span></div>
+                        <div class="product-stock">${isOutOfStock ? 'Stok Habis' : 'Stok: ' + product.stock}</div>
+                        <button class="btn-tukar ${isOutOfStock ? 'out-of-stock' : ''}" 
+                                onclick="openConfirmModal(${product.id})"
+                                ${!canBuy ? 'disabled' : ''}>
+                            ${isOutOfStock ? 'Stok Habis' : canBuy ? 'Tukar Sekarang' : 'Poin Tidak Cukup'}
+                        </button>
+                    </div>
+                `;
+            });
+            
+            grid.innerHTML = html;
+        }
+        
+        // ==================== FILTER PRODUCTS ====================
+        function filterProducts(category) {
+            currentCategory = category;
+            
+            // Update tabs
+            document.querySelectorAll('.tab-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            renderProducts();
+        }
+        
+        // ==================== CONFIRM MODAL ====================
+        function openConfirmModal(productId) {
+            var product = PRODUCTS.find(function(p) { return p.id === productId; });
+            if (!product) return;
+            
+            if (product.stock <= 0) {
+                showAlert('Maaf, stok produk ini habis!', 'error');
+                return;
+            }
+            
+            if (userPoin < product.price) {
+                showAlert('Poin Anda tidak cukup!', 'error');
+                return;
+            }
+            
+            selectedProduct = product;
+            
+            document.getElementById('confirmProduct').textContent = product.name;
+            document.getElementById('confirmPrice').textContent = formatNumber(product.price) + ' poin';
+            document.getElementById('confirmPoin').textContent = formatNumber(userPoin) + ' poin';
+            document.getElementById('confirmSisa').textContent = formatNumber(userPoin - product.price) + ' poin';
+            
+            document.getElementById('confirmModal').classList.add('active');
+        }
+        
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('active');
+            selectedProduct = null;
+        }
+        
+        function confirmTukar() {
+            if (!selectedProduct) return;
+            
+            var btn = document.getElementById('confirmBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            btn.disabled = true;
+            
+            // Proses tukar poin
+            callAPI('giveReward', {
+                nik: userNik,
+                type: 'sampah', // Mengurangi poin sampah
+                amount: -selectedProduct.price, // Negatif untuk mengurangi
+                keterangan: 'Tukar poin untuk ' + selectedProduct.name,
+                dari: 'Sistem'
+            })
+            .then(function(result) {
+                if (result.success) {
+                    // Kurangi stok produk (untuk demo, tidak disimpan ke DB)
+                    var product = PRODUCTS.find(function(p) { return p.id === selectedProduct.id; });
+                    if (product) {
+                        product.stock = Math.max(0, product.stock - 1);
+                    }
+                    
+                    // Update poin user
+                    userPoin = userPoin - selectedProduct.price;
+                    document.getElementById('userPoin').textContent = formatNumber(userPoin);
+                    
+                    closeConfirmModal();
+                    showSuccessPopup('Berhasil menukarkan poin untuk <strong>' + selectedProduct.name + '</strong>!');
+                    renderProducts();
+                } else {
+                    showAlert('Gagal menukarkan poin: ' + (result.message || ''), 'error');
+                }
+            })
+            .catch(function(error) {
+                showAlert('Error: ' + error.message, 'error');
+            })
+            .finally(function() {
+                btn.innerHTML = '<i class="fas fa-check"></i> Tukar Sekarang';
+                btn.disabled = false;
+            });
+        }
+        
+        // ==================== SUCCESS POPUP ====================
+        function showSuccessPopup(message) {
+            document.getElementById('successMessage').innerHTML = message;
+            document.getElementById('successPopup').classList.add('active');
+        }
+        
+        function closeSuccessPopup() {
+            document.getElementById('successPopup').classList.remove('active');
+        }
+        
+        // ==================== INIT ====================
+        (function() {
+            loadUserData();
+            
+            // Refresh poin setiap 30 detik
+            setInterval(function() {
+                loadUserPoin();
+            }, 30000);
+        })();
+    </script>
+</body>
+</html>

@@ -1384,16 +1384,25 @@ function filterProducts(category) {
 function openConfirmModal(productName) {
     console.log('🔍 Cari produk:', productName);
     console.log('📦 allProducts:', allProducts);
+    console.log('📦 allProducts length:', allProducts ? allProducts.length : 0);
     
-    if (!allProducts || allProducts.length === 0) {
+    // CEK: Pastikan allProducts ada dan tidak kosong
+    if (!allProducts || !Array.isArray(allProducts) || allProducts.length === 0) {
         showAlert('Data produk belum dimuat, coba refresh halaman', 'error');
         return;
     }
     
-    var product = allProducts.find(function(p) { 
-        return p.nama_barang === productName; 
-    });
+    // CARI produk dengan nama yang sama (case sensitive)
+    var product = null;
+    for (var i = 0; i < allProducts.length; i++) {
+        var p = allProducts[i];
+        if (p && p.nama_barang && p.nama_barang === productName) {
+            product = p;
+            break;
+        }
+    }
     
+    // CEK: Apakah produk ditemukan?
     if (!product) {
         console.error('❌ Produk tidak ditemukan:', productName);
         showAlert('Produk tidak ditemukan: ' + productName, 'error');
@@ -1402,23 +1411,28 @@ function openConfirmModal(productName) {
     
     console.log('✅ Produk ditemukan:', product);
     
+    // CEK: Stok
     if (product.stok <= 0) {
         showAlert('Maaf, stok produk ini habis!', 'error');
         return;
     }
     
+    // CEK: Level akses
     if (ROLE_HIERARCHY[userRole] < ROLE_HIERARCHY[product.level_akses]) {
         showAlert('Level Anda tidak cukup! Dibutuhkan: ' + product.level_akses, 'error');
         return;
     }
     
+    // CEK: Poin
     if (userPoin < product.harga_barang) {
         showAlert('Poin Anda tidak cukup!', 'error');
         return;
     }
     
+    // Simpan produk yang dipilih
     selectedProduct = product;
     
+    // Update modal
     document.getElementById('confirmProduct').textContent = product.nama_barang;
     document.getElementById('confirmLevel').textContent = getRoleLabel(product.level_akses);
     document.getElementById('confirmPrice').textContent = formatNumber(product.harga_barang) + ' poin';
@@ -1427,14 +1441,12 @@ function openConfirmModal(productName) {
     document.getElementById('confirmModal').classList.add('active');
 }
 
-function closeConfirmModal() {
-    document.getElementById('confirmModal').classList.remove('active');
-    selectedProduct = null;
-}
-
 // ==================== CONFIRM BELI + STRUK ====================
 function confirmBeli() {
-    if (!selectedProduct) return;
+    if (!selectedProduct) {
+        showAlert('Tidak ada produk yang dipilih', 'error');
+        return;
+    }
     
     var btn = document.getElementById('confirmBtn');
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
@@ -1448,15 +1460,19 @@ function confirmBeli() {
         level_akses: selectedProduct.level_akses
     })
     .then(function(result) {
+        console.log('📦 beliBarang result:', result);
+        
         if (result.success) {
             // Update poin user
             userPoin = result.sisa_poin || (userPoin - selectedProduct.harga_barang);
             document.getElementById('userPoinDisplay').textContent = formatNumber(userPoin);
             
-            // Update stok
-            var product = allProducts.find(function(p) { return p.nama_barang === selectedProduct.nama_barang; });
-            if (product) {
-                product.stok = result.sisa_stok || (product.stok - 1);
+            // Update stok di allProducts
+            for (var i = 0; i < allProducts.length; i++) {
+                if (allProducts[i] && allProducts[i].nama_barang === selectedProduct.nama_barang) {
+                    allProducts[i].stok = result.sisa_stok || (allProducts[i].stok - 1);
+                    break;
+                }
             }
             
             closeConfirmModal();
@@ -1470,6 +1486,7 @@ function confirmBeli() {
                 level_akses: selectedProduct.level_akses
             })
             .then(function(strukResult) {
+                console.log('📦 generateStruk result:', strukResult);
                 if (strukResult.success) {
                     showStruk(strukResult.data);
                     renderProducts();
@@ -1479,6 +1496,7 @@ function confirmBeli() {
                 }
             })
             .catch(function(error) {
+                console.error('❌ Error generate struk:', error);
                 showAlert('Pembelian berhasil, tapi gagal generate struk: ' + error.message, 'error');
                 renderProducts();
             });
@@ -1490,6 +1508,7 @@ function confirmBeli() {
         }
     })
     .catch(function(error) {
+        console.error('❌ Error beli barang:', error);
         showAlert('Error: ' + error.message, 'error');
         btn.innerHTML = '<i class="fas fa-check"></i> Beli Sekarang';
         btn.disabled = false;

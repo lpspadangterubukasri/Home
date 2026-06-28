@@ -605,6 +605,11 @@
             margin: 20px;
         }
         
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
         .qrcode-popup h3 {
             font-size: 20px;
             color: var(--primary);
@@ -772,11 +777,6 @@
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
             animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             margin: 20px;
-        }
-        
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
         }
         
         .bonus-popup .icon {
@@ -1367,7 +1367,7 @@
     <div class="qrcode-popup-overlay" id="qrcodePopup">
         <div class="qrcode-popup">
             <h3>📱 QR Code Peserta</h3>
-            <p class="qrcode-subtitle">ID: <strong id="qrcodeIdDisplay">-</strong></p>
+            <p class="qrcode-subtitle">ID Peserta: <strong id="qrcodeIdDisplay">-</strong></p>
             <div class="qrcode-container" id="qrcodeContainer">
                 <div id="qrcode"></div>
                 <div class="qrcode-logo">
@@ -1865,7 +1865,7 @@
             html += '  <div class="field full-width" style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:16px;">';
             html += '    <span class="label">QR Code Peserta</span>';
             html += '    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">';
-            html += '      <span style="font-size:13px;color:#718096;flex:1;">QR Code berisi data profil untuk scan petugas</span>';
+            html += '      <span style="font-size:13px;color:#718096;flex:1;">QR Code berisi ID Peserta untuk scan petugas</span>';
             html += '      <button class="btn-save" onclick="showQrCode()" style="background:linear-gradient(135deg, #159895, #1a5f7a);">';
             html += '        <i class="fas fa-qrcode"></i> Generate QR Code';
             html += '      </button>';
@@ -1924,28 +1924,18 @@
                 return;
             }
             
-            // Siapkan data profil untuk QR Code (RAW DATA, tanpa format JSON yang terlihat)
-            var profileData = {
-                id: data.id || '',
-                username: data.username || '',
-                nama_peserta: data.nama_peserta || '',
-                nik: data.nik || '',
-                email: data.email || '',
-                url_foto: data.url_foto || ''
-            };
-            
-            // Konversi ke JSON string - ini akan di-scan oleh petugas
-            var jsonData = JSON.stringify(profileData);
+            // Hanya gunakan ID Peserta untuk QR Code
+            var participantId = data.id || data.username || '-';
             
             // Tampilkan ID di subtitle
-            document.getElementById('qrcodeIdDisplay').textContent = data.id || data.username || '-';
+            document.getElementById('qrcodeIdDisplay').textContent = participantId;
             
             // Buka popup
             document.getElementById('qrcodePopup').classList.add('active');
             
             // Generate QR Code setelah popup terbuka
             setTimeout(function() {
-                generateQRCode(jsonData);
+                generateQRCode(participantId);
             }, 300);
         }
         
@@ -1955,13 +1945,13 @@
                 var qrContainer = document.getElementById('qrcode');
                 qrContainer.innerHTML = '';
                 
-                // Buat QR Code standar dengan ukuran optimal
+                // Buat QR Code standar hitam-putih dengan ukuran optimal
                 var qr = new QRCode(qrContainer, {
                     text: data,
                     width: 280,
                     height: 280,
-                    colorDark: "#1a5f7a",
-                    colorLight: "#ffffff",
+                    colorDark: "#000000",  // Hitam pekat seperti QR code pada umumnya
+                    colorLight: "#ffffff",  // Putih bersih
                     correctLevel: QRCode.CorrectLevel.H // High error correction agar logo tidak merusak scan
                 });
                 

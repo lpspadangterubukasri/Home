@@ -1172,17 +1172,16 @@ function loadProducts() {
         });
 }
 
-// ==================== RENDER PRODUCTS (FIXED) ====================
+// ==================== RENDER PRODUCTS (FIXED 2) ====================
 function renderProducts() {
     var container = document.getElementById('productContainer');
     
-    console.log('🎨 Render products, allProducts:', allProducts);
-    console.log('🎨 allProducts type:', typeof allProducts);
-    console.log('🎨 allProducts is array:', Array.isArray(allProducts));
+    console.log('🎨 Render products');
+    console.log('📦 allProducts:', allProducts);
+    console.log('📦 allProducts length:', allProducts ? allProducts.length : 0);
     
     // ===== CEK 1: Pastikan allProducts adalah array =====
     if (!allProducts || !Array.isArray(allProducts)) {
-        console.warn('⚠️ allProducts is not array');
         container.innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-exclamation-triangle"></i>
@@ -1193,17 +1192,12 @@ function renderProducts() {
         return;
     }
     
-    console.log('📦 Total items from API:', allProducts.length);
-    
-    // ===== CEK 2: Filter data null/undefined =====
+    // ===== CEK 2: Filter data null/undefined dengan for loop =====
     var validProducts = [];
     var nullCount = 0;
     
     for (var i = 0; i < allProducts.length; i++) {
         var p = allProducts[i];
-        
-        // Log setiap item untuk debug
-        console.log('📦 Item ' + i + ':', p);
         
         // CEK: apakah item null/undefined?
         if (p === null || p === undefined) {
@@ -1212,24 +1206,40 @@ function renderProducts() {
             continue;
         }
         
-        // CEK: apakah item punya properti nama_barang?
-        if (typeof p === 'object' && p.nama_barang && p.nama_barang.trim() !== '') {
-            validProducts.push(p);
-        } else {
-            console.warn('⚠️ Item invalid di index', i, p);
+        // CEK: apakah item bertipe object?
+        if (typeof p !== 'object') {
             nullCount++;
+            console.warn('⚠️ Bukan object di index', i, 'type:', typeof p);
+            continue;
         }
+        
+        // CEK: apakah ada properti nama_barang?
+        if (!p.hasOwnProperty('nama_barang')) {
+            nullCount++;
+            console.warn('⚠️ Tidak ada nama_barang di index', i, p);
+            continue;
+        }
+        
+        // CEK: apakah nama_barang tidak kosong?
+        if (!p.nama_barang || p.nama_barang.trim() === '') {
+            nullCount++;
+            console.warn('⚠️ nama_barang kosong di index', i);
+            continue;
+        }
+        
+        // Lolos semua pengecekan!
+        validProducts.push(p);
     }
     
+    console.log('📦 Total from API:', allProducts.length);
     console.log('📦 Valid products:', validProducts.length);
-    console.log('📦 Null/invalid items:', nullCount);
+    console.log('📦 Invalid items:', nullCount);
     
-    // ===== CEK 3: Jika tidak ada produk valid =====
     if (validProducts.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-box-open"></i>
-                <h3>Tidak Ada Produk</h3>
+                <h3>Tidak Ada Produk Valid</h3>
                 <p>${nullCount > 0 ? 'Data produk rusak (' + nullCount + ' item tidak valid). ' : ''}</p>
                 <p style="font-size:12px;color:#a0aec0;margin-top:10px;">Cek spreadsheet DAFTAR_BARANG</p>
             </div>
@@ -1240,9 +1250,12 @@ function renderProducts() {
     // ===== FILTER BERDASARKAN KATEGORI =====
     var filtered = validProducts;
     if (currentCategory !== 'all') {
-        filtered = validProducts.filter(function(p) {
-            return p.level_akses === currentCategory;
-        });
+        filtered = [];
+        for (var i = 0; i < validProducts.length; i++) {
+            if (validProducts[i].level_akses === currentCategory) {
+                filtered.push(validProducts[i]);
+            }
+        }
     }
     
     console.log('📊 Filtered:', filtered.length, 'items');
@@ -1272,18 +1285,12 @@ function renderProducts() {
     // Grid
     html += '<div class="product-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">';
     
-    filtered.forEach(function(product) {
-        // VALIDASI: Pastikan product tidak null
-        if (!product || typeof product !== 'object') {
-            console.warn('⚠️ Skip invalid product:', product);
-            return;
-        }
+    for (var i = 0; i < filtered.length; i++) {
+        var product = filtered[i];
         
-        // VALIDASI: Pastikan ada nama_barang
-        if (!product.nama_barang || product.nama_barang.trim() === '') {
-            console.warn('⚠️ Skip product tanpa nama_barang:', product);
-            return;
-        }
+        // VALIDASI: Pastikan product valid
+        if (!product || typeof product !== 'object') continue;
+        if (!product.nama_barang || product.nama_barang.trim() === '') continue;
         
         // Status
         var isLocked = userLevel < ROLE_HIERARCHY[product.level_akses];
@@ -1345,12 +1352,12 @@ function renderProducts() {
         html += '<div style="font-size:12px;color:#a0aec0;margin-bottom:12px;">📦 Stok: ' + product.stok + '</div>';
         html += '<button ' + btnClick + ' ' + (btnDisabled ? 'disabled' : '') + ' style="width:100%;padding:10px;border:none;border-radius:10px;font-weight:600;font-family:Poppins,sans-serif;transition:all 0.3s ease;font-size:14px;margin-top:auto;' + btnColor + '">' + btnText + '</button>';
         html += '</div>';
-    });
+    };
     
     html += '</div>';
     
     container.innerHTML = html;
-    console.log('✅ Render complete, total cards:', filtered.length);
+    console.log('✅ Render complete');
 }
 
 // ==================== FILTER PRODUCTS ====================

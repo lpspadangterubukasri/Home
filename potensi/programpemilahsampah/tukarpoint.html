@@ -68,24 +68,6 @@
             font-size: 28px;
         }
         
-        .header .poin-display {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 10px 24px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            text-align: center;
-        }
-        
-        .header .poin-display .label {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-        
-        .header .poin-display .value {
-            font-size: 28px;
-            font-weight: 800;
-        }
-        
         /* ===== TABS ===== */
         .tabs {
             display: flex;
@@ -149,15 +131,14 @@
             object-fit: cover;
             background: #e2e8f0;
             margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .product-card .product-image i {
             font-size: 48px;
             color: #a0aec0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
         }
         
         .product-card .product-name {
@@ -358,6 +339,10 @@
             color: #2d3748;
         }
         
+        .modal-box .modal-detail .row .value.negative {
+            color: #dc2626;
+        }
+        
         .modal-box .modal-actions {
             display: flex;
             gap: 10px;
@@ -526,10 +511,6 @@
                 justify-content: center;
             }
             
-            .header .poin-display .value {
-                font-size: 24px;
-            }
-            
             .product-grid {
                 grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
                 gap: 15px;
@@ -570,10 +551,7 @@
                 <i class="fas fa-gift"></i>
                 Tukar Poin Sampah
             </h1>
-            <div class="poin-display">
-                <div class="label">Poin Sampah Anda</div>
-                <div class="value" id="userPoin">0</div>
-            </div>
+            <!-- TIDAK ADA TAMPILAN POIN DI HEADER! -->
         </div>
         
         <!-- ===== ALERT ===== -->
@@ -623,10 +601,6 @@
                     <span class="value" id="confirmPrice">-</span>
                 </div>
                 <div class="row">
-                    <span class="label">Poin Anda</span>
-                    <span class="value" id="confirmPoin">-</span>
-                </div>
-                <div class="row">
                     <span class="label">Sisa Poin</span>
                     <span class="value" id="confirmSisa">-</span>
                 </div>
@@ -655,12 +629,10 @@
     <!-- ============================================================ -->
     <script>
         // ==================== KONFIGURASI ====================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwJkT3U6Z2OL_2xJv6GLI9VeDi7R7E5untFu35ps3rNdZKez8t4Ckruv2w7efcnkcY/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzottltgkebNPFrqwmOFKLJtw1rHo6ZaYM9aI4sLMxjqjxvCft9eTthghw1yNGIsGo/exec';
         
         // ==================== DATA PRODUK ====================
         // Data produk bisa diambil dari spreadsheet atau static
-        // Untuk demo, kita pakai data static dulu
-        // Nantinya bisa diintegrasikan dengan spreadsheet
         const PRODUCTS = [
             {
                 id: 1,
@@ -765,11 +737,11 @@
         ];
         
         // ==================== STATE ====================
-        let userPoin = 0;
         let currentCategory = 'all';
         let selectedProduct = null;
         let userNik = '';
         let userData = null;
+        let userPoin = 0;
         
         // ==================== HELPER ====================
         function formatNumber(num) {
@@ -832,7 +804,6 @@
         function loadUserData() {
             var session = sessionStorage.getItem('lps_session');
             if (!session) {
-                // Coba dari localStorage
                 var localUser = localStorage.getItem('lps_user');
                 if (localUser) {
                     try {
@@ -843,9 +814,6 @@
                     } catch(e) {}
                 }
                 showAlert('Sesi tidak ditemukan, silahkan login kembali', 'error');
-                setTimeout(function() {
-                    window.location.href = 'login.html';
-                }, 2000);
                 return;
             }
             
@@ -870,7 +838,6 @@
                     if (result.success && result.found) {
                         var data = result.data;
                         userPoin = Number(data.point_hadiah) || 0;
-                        document.getElementById('userPoin').textContent = formatNumber(userPoin);
                         renderProducts();
                     } else {
                         showAlert('Gagal memuat data user: ' + (result.message || ''), 'error');
@@ -913,7 +880,7 @@
                     <div class="product-card">
                         ${badgeHtml}
                         <div class="product-image">
-                            <i class="fas fa-2x" style="font-size:48px;display:flex;align-items:center;justify-content:center;height:100%;">${product.image}</i>
+                            <i class="fas fa-2x">${product.image}</i>
                         </div>
                         <div class="product-name">${product.name}</div>
                         <div class="product-desc">${product.desc}</div>
@@ -935,7 +902,6 @@
         function filterProducts(category) {
             currentCategory = category;
             
-            // Update tabs
             document.querySelectorAll('.tab-btn').forEach(function(btn) {
                 btn.classList.remove('active');
                 if (btn.dataset.category === category) {
@@ -965,7 +931,6 @@
             
             document.getElementById('confirmProduct').textContent = product.name;
             document.getElementById('confirmPrice').textContent = formatNumber(product.price) + ' poin';
-            document.getElementById('confirmPoin').textContent = formatNumber(userPoin) + ' poin';
             document.getElementById('confirmSisa').textContent = formatNumber(userPoin - product.price) + ' poin';
             
             document.getElementById('confirmModal').classList.add('active');
@@ -983,17 +948,17 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
             btn.disabled = true;
             
-            // Proses tukar poin
-            callAPI('giveReward', {
+            // Proses tukar poin - panggil API tukarPoint
+            callAPI('tukarPoint', {
                 nik: userNik,
-                type: 'sampah', // Mengurangi poin sampah
-                amount: -selectedProduct.price, // Negatif untuk mengurangi
-                keterangan: 'Tukar poin untuk ' + selectedProduct.name,
-                dari: 'Sistem'
+                username: userData.username || '',
+                productId: selectedProduct.id,
+                productName: selectedProduct.name,
+                price: selectedProduct.price
             })
             .then(function(result) {
                 if (result.success) {
-                    // Kurangi stok produk (untuk demo, tidak disimpan ke DB)
+                    // Kurangi stok produk (untuk demo)
                     var product = PRODUCTS.find(function(p) { return p.id === selectedProduct.id; });
                     if (product) {
                         product.stock = Math.max(0, product.stock - 1);
@@ -1001,7 +966,6 @@
                     
                     // Update poin user
                     userPoin = userPoin - selectedProduct.price;
-                    document.getElementById('userPoin').textContent = formatNumber(userPoin);
                     
                     closeConfirmModal();
                     showSuccessPopup('Berhasil menukarkan poin untuk <strong>' + selectedProduct.name + '</strong>!');

@@ -239,6 +239,18 @@
             margin-top: 1px;
         }
         
+        /* Poin Sampah di Sidebar */
+        .sidebar-user .user-info .poin-sampah-badge {
+            font-size: 10px;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-top: 2px;
+            font-weight: 600;
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
         /* ===== SIDEBAR MENU ===== */
         .sidebar-menu {
             flex: 1;
@@ -563,6 +575,56 @@
         .sampah-card .card-info-btn:hover {
             background: #f0f0f0;
             color: var(--primary);
+        }
+        
+        .sampah-card .card-action-btn {
+            display: block;
+            width: 100%;
+            margin-top: 12px;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            font-size: 14px;
+        }
+        
+        .sampah-card .card-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+        
+        .sampah-card .card-action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .sampah-card .card-action-btn .btn-icon {
+            margin-right: 8px;
+        }
+        
+        .sampah-card .btn-historis {
+            display: inline-block;
+            margin-top: 8px;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 12px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .sampah-card .btn-historis:hover {
+            color: var(--primary);
+            text-decoration: underline;
         }
         
         .sampah-card.profile-card {
@@ -1514,6 +1576,102 @@
             background: var(--secondary);
         }
         
+        /* ===== POPUP HISTORI CLAIM ===== */
+        .histori-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 9997;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .histori-popup-overlay.active {
+            display: flex;
+        }
+        
+        .histori-popup {
+            background: white;
+            border-radius: 24px;
+            max-width: 550px;
+            width: 100%;
+            padding: 30px 35px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .histori-popup h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .histori-popup .histori-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .histori-popup .histori-item:last-child {
+            border-bottom: none;
+        }
+        
+        .histori-popup .histori-item .date {
+            font-size: 12px;
+            color: #a0aec0;
+        }
+        
+        .histori-popup .histori-item .point {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .histori-popup .histori-item .point.positive {
+            color: var(--role-pemula);
+        }
+        
+        .histori-popup .histori-empty {
+            text-align: center;
+            padding: 30px 20px;
+            color: #718096;
+        }
+        
+        .histori-popup .histori-empty i {
+            font-size: 40px;
+            opacity: 0.3;
+            margin-bottom: 10px;
+        }
+        
+        .histori-popup .btn-close-histori {
+            margin-top: 15px;
+            padding: 10px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+            transition: var(--transition);
+        }
+        
+        .histori-popup .btn-close-histori:hover {
+            background: var(--secondary);
+        }
+        
         /* ===== ALERT ===== */
         .alert {
             padding: 12px 16px;
@@ -1869,6 +2027,7 @@
                 <div class="name" id="sidebarName">Loading...</div>
                 <div class="role-badge" id="sidebarRole">Pemula</div>
                 <span class="level-badge" id="sidebarLevel">Level 1</span>
+                <span class="poin-sampah-badge" id="sidebarPoinSampah">🪙 Poin Sampah: 0</span>
             </div>
         </div>
         
@@ -1933,7 +2092,7 @@
         <!-- ===== PAGE: EXCHANGE ===== -->
         <div class="page-content hidden" id="page-exchange">
             <div class="iframe-container">
-                <iframe src="https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/tukarpoint.html" loading="lazy"></iframe>
+                <iframe src="tukarpoint.html" loading="lazy" id="tukarPointIframe"></iframe>
             </div>
         </div>
         
@@ -1979,6 +2138,10 @@
                             <p style="font-size:13px;color:#718096;margin-top:5px;">
                                 <i class="fas fa-star" style="color:var(--accent);"></i> 
                                 Level: <strong id="profileLevel">1</strong>
+                            </p>
+                            <p style="font-size:13px;color:#718096;margin-top:2px;">
+                                <i class="fas fa-coins" style="color:#f59e0b;"></i> 
+                                Poin Sampah: <strong id="profilePoinSampah">0</strong>
                             </p>
                         </div>
                     </div>
@@ -2080,6 +2243,20 @@
         </div>
     </div>
 
+    <!-- ===== HISTORI CLAIM POPUP ===== -->
+    <div class="histori-popup-overlay" id="historiPopup">
+        <div class="histori-popup">
+            <h3>📜 Histori Claim Poin Sampah</h3>
+            <div id="historiContainer">
+                <div class="histori-empty">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Memuat histori...</p>
+                </div>
+            </div>
+            <button class="btn-close-histori" onclick="closeHistoriPopup()">Tutup</button>
+        </div>
+    </div>
+
     <!-- ===== MODAL REWARD ===== -->
     <div class="modal-overlay" id="rewardModal">
         <div class="modal-box">
@@ -2145,7 +2322,7 @@
     <!-- ============================================================ -->
     <script>
         // ==================== KONFIGURASI ====================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzQfs0ukeAml-mDcQtyeM62u_maxsFGli913N6eGBIV58b2CWiiseB7dfC3lqdG1ag/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzottltgkebNPFrqwmOFKLJtw1rHo6ZaYM9aI4sLMxjqjxvCft9eTthghw1yNGIsGo/exec';
         const MENU_CONFIG = {
             membership: { label: 'Kepesertaan LPS', icon: 'fa-id-card', page: 'membership' },
             sortir: { label: 'Pemilahan Sampah', icon: 'fa-recycle', page: 'sortir' },
@@ -2166,6 +2343,8 @@
         let roleBefore = 'Pemula';
         let isProcessingBonus = false;
         let inboxCount = 0;
+        let poinSampahTersedia = 0;
+        let poinSampahUser = 0;
         
         // ==================== HELPER ====================
         function sensorId(id) {
@@ -2273,8 +2452,8 @@
                 return;
             }
             
-            // Bonus klik menu (jika berbeda)
-            if (page !== currentPage && page !== lastMenu && page !== 'settings') {
+            // Bonus klik menu (jika berbeda) - kecuali settings
+            if (page !== currentPage && page !== lastMenu && page !== 'settings' && page !== 'exchange') {
                 lastMenu = page;
                 addMenuClickBonus(page);
             }
@@ -2328,6 +2507,13 @@
             if (page === 'settings') {
                 loadSettings();
             }
+            if (page === 'exchange') {
+                // Refresh iframe dengan poin terbaru
+                var iframe = document.getElementById('tukarPointIframe');
+                if (iframe) {
+                    iframe.src = iframe.src;
+                }
+            }
             
             if (window.innerWidth <= 768) {
                 var sidebar = document.getElementById('sidebar');
@@ -2345,7 +2531,6 @@
             if (roleKey === 'pendiri' || roleKey === 'admin') return true;
             if (hakAkses[roleKey] && hakAkses[roleKey][menu] === true) return true;
             if (hakAkses['peserta'] && hakAkses['peserta'][menu] === true) return true;
-            // Default akses
             var defaultAccess = ['membership', 'sortir', 'settings', 'inbox'];
             if (defaultAccess.includes(menu)) return true;
             return false;
@@ -2374,12 +2559,8 @@
             var bottomHtml = '';
             var menuOrder = ['membership', 'sortir', 'exchange', 'inbox', 'editor', 'settings'];
             
-            // Cek apakah user adalah Pendiri atau Admin
             var isPendiri = roleKey === 'pendiri';
             var isAdmin = roleKey === 'admin';
-            
-            // Untuk Pendiri dan Admin, semua menu terlihat
-            // Untuk Peserta, cek hak akses
             
             menuOrder.forEach(function(key) {
                 var config = MENU_CONFIG[key];
@@ -2388,16 +2569,13 @@
                 var show = false;
                 if (isPendiri || isAdmin) {
                     show = true;
-                    // Editor hanya untuk Pendiri
                     if (key === 'editor' && !isPendiri) show = false;
                 } else {
-                    // Peserta
                     var roleAkses = hakAkses[roleKey] || {};
                     var pesertaAkses = hakAkses['peserta'] || {};
                     if (roleAkses[key] === true || pesertaAkses[key] === true) {
                         show = true;
                     }
-                    // Default untuk peserta
                     if (['membership', 'sortir', 'settings', 'inbox'].includes(key)) {
                         show = true;
                     }
@@ -2412,7 +2590,6 @@
                     menuHtml += '<i class="fas ' + config.icon + '"></i> ' + config.label + badge;
                     menuHtml += '</button>';
                     
-                    // Bottom nav
                     var isAvatar = false;
                     if (key === 'settings') {
                         isAvatar = true;
@@ -2435,7 +2612,6 @@
                 }
             });
             
-            // Tambahkan logout di bottom nav
             bottomHtml += '<button class="nav-item" onclick="handleLogout()" data-page="logout">';
             bottomHtml += '<i class="fas fa-sign-out-alt"></i>';
             bottomHtml += '<span>Keluar</span>';
@@ -2444,7 +2620,6 @@
             menuContainer.innerHTML = menuHtml;
             bottomNav.innerHTML = bottomHtml;
             
-            // Update avatar di bottom nav
             if (userData) {
                 updateBottomAvatar();
             }
@@ -2480,7 +2655,6 @@
                 document.getElementById('sidebarName').textContent = userData.nama_peserta || userData.username;
                 document.getElementById('headerName').textContent = userData.nama_peserta || userData.username;
                 
-                // Load hak akses dulu
                 loadHakAkses().then(function() {
                     callAPI('getUserDataWithRole', { nik: userData.nik })
                         .then(function(result) {
@@ -2488,32 +2662,27 @@
                                 userData.detail = result.data;
                                 userData.role = result.data.role || 'Pemula';
                                 userData.point_role = Number(result.data.point_role) || 0;
+                                userData.point_hadiah = Number(result.data.point_hadiah) || 0;
                                 userData.level = result.level || 1;
                                 
-                                // Simpan level sebelum untuk cek level up
                                 levelBefore = userData.level;
                                 roleBefore = userData.role;
+                                poinSampahUser = userData.point_hadiah;
                                 
                                 updateUserUI(result.data);
                                 renderMenu();
+                                updatePoinUI();
                                 
-                                // Cek level up
                                 if (result.level > levelBefore) {
                                     showLevelupPopup(result.level);
                                 }
                                 
-                                // Cek role change
                                 if (result.roleChanged) {
                                     showRolePopup(result.oldRole, result.newRole);
                                 }
                                 
-                                // Cek daily login bonus
                                 checkDailyLoginBonus();
-                                
-                                // Load memberships
                                 loadMemberships();
-                                
-                                // Load inbox count
                                 loadInboxCount();
                             }
                         })
@@ -2557,7 +2726,19 @@
             
             document.getElementById('headerLevel').textContent = 'Lv.' + level;
             
+            // Poin sampah
+            poinSampahUser = Number(data.point_hadiah) || 0;
+            updatePoinUI();
+            
             updateBottomAvatar();
+        }
+        
+        function updatePoinUI() {
+            document.getElementById('sidebarPoinSampah').textContent = '🪙 Poin Sampah: ' + formatNumber(poinSampahUser);
+            var profilePoin = document.getElementById('profilePoinSampah');
+            if (profilePoin) {
+                profilePoin.textContent = formatNumber(poinSampahUser);
+            }
         }
         
         // ==================== LEVEL UP POPUP ====================
@@ -2641,7 +2822,6 @@
                     var oldLevel = userData.level || 1;
                     var newLevel = result.level || 1;
                     
-                    // Update user data
                     if (userData.detail) {
                         userData.detail.point_role = result.point;
                         userData.detail.role = result.role;
@@ -2651,10 +2831,8 @@
                         updateUserUI(userData.detail);
                     }
                     
-                    // Show bonus popup
                     showBonusPopup(userData.nama_peserta || userData.username, result.bonus, newLevel);
                     
-                    // Cek level up
                     if (newLevel > oldLevel) {
                         setTimeout(function() {
                             closeBonusPopup();
@@ -2662,7 +2840,6 @@
                         }, 2000);
                     }
                     
-                    // Cek role change
                     if (result.roleChanged) {
                         setTimeout(function() {
                             closeBonusPopup();
@@ -2693,7 +2870,6 @@
                     var oldLevel = userData.level || 1;
                     var newLevel = result.level || 1;
                     
-                    // Update user data
                     if (userData.detail) {
                         userData.detail.point_role = result.point;
                         userData.detail.role = result.role;
@@ -2703,12 +2879,10 @@
                         updateUserUI(userData.detail);
                     }
                     
-                    // Cek level up
                     if (newLevel > oldLevel) {
                         showLevelupPopup(newLevel);
                     }
                     
-                    // Cek role change
                     if (result.roleChanged) {
                         setTimeout(function() {
                             showRolePopup(result.oldRole, result.role);
@@ -2835,6 +3009,8 @@
             callAPI('getUserSampahData', { nik: userData.nik })
                 .then(function(result) {
                     if (result.success) {
+                        // Simpan poin tersedia untuk claim
+                        poinSampahTersedia = result.data.total_poin_sampah || 0;
                         renderSampahData(result.data);
                     } else {
                         showAlert('sortirAlert', result.message || 'Gagal memuat data sampah', 'error');
@@ -2854,8 +3030,8 @@
             var totalAnOrganik = data.total_an_organik || 0;
             var totalResidu = data.total_residu || 0;
             var totalPoin = data.total_poin_sampah || 0;
+            var found = data.found || false;
             
-            // Format satuan
             var formatSampah = function(val) {
                 if (val >= 1000000) return (val / 1000000).toFixed(2) + ' ton';
                 if (val >= 1000) return (val / 1000).toFixed(2) + ' kg';
@@ -2897,18 +3073,127 @@
             html += '  <div class="card-sub">Total setoran sampah residu</div>';
             html += '</div>';
             
-            // Card 5: Poin Sampah
+            // Card 5: Poin Sampah + Claim Button + Histori
+            var canClaim = totalPoin > 0;
+            var poinDisplay = totalPoin > 0 ? formatNumber(Math.round(totalPoin * 100) / 100) : '0';
+            
             html += '<div class="sampah-card poin">';
             html += '  <div class="card-icon">🪙</div>';
-            html += '  <div class="card-title">Poin Sampah</div>';
-            html += '  <div class="card-value">' + formatNumber(Math.round(totalPoin * 100) / 100) + '</div>';
-            html += '  <div class="card-sub">Total poin dari setoran sampah</div>';
+            html += '  <div class="card-title">Poin Sampah Tersedia</div>';
+            html += '  <div class="card-value">' + poinDisplay + '</div>';
+            html += '  <div class="card-sub">' + (found ? 'Total poin yang bisa di-claim' : 'Belum ada data sampah') + '</div>';
             html += '  <button class="card-info-btn" onclick="showInfoPopup()" title="Cara mendapatkan poin">';
             html += '    <i class="fas fa-info-circle"></i>';
+            html += '  </button>';
+            html += '  <button class="card-action-btn" id="claimBtn" onclick="claimPoinSampah()" ' + (!canClaim ? 'disabled' : '') + '>';
+            html += '    <i class="fas ' + (canClaim ? 'fa-hand-holding-heart' : 'fa-lock') + ' btn-icon"></i>';
+            html += '    ' + (canClaim ? 'Claim Point Sampah' : 'Tidak Ada Poin');
+            html += '  </button>';
+            html += '  <button class="btn-historis" onclick="showHistoriPopup()">';
+            html += '    <i class="fas fa-history"></i> Lihat Histori Claim';
             html += '  </button>';
             html += '</div>';
             
             grid.innerHTML = html;
+        }
+        
+        // ==================== CLAIM POIN SAMPAH ====================
+        function claimPoinSampah() {
+            if (!userData || !userData.nik) return;
+            if (poinSampahTersedia <= 0) {
+                showAlert('sortirAlert', 'Tidak ada poin yang bisa di-claim!', 'error');
+                return;
+            }
+            
+            var btn = document.getElementById('claimBtn');
+            if (!btn) return;
+            var originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin btn-icon"></i> Memproses...';
+            btn.disabled = true;
+            
+            callAPI('claimPoinSampah', {
+                nik: userData.nik,
+                username: userData.username
+            })
+            .then(function(result) {
+                if (result.success) {
+                    showAlert('sortirAlert', '✅ ' + result.message, 'success');
+                    
+                    // Update poin user
+                    poinSampahUser = result.total_hadiah || 0;
+                    poinSampahTersedia = 0;
+                    
+                    // Update UI
+                    updatePoinUI();
+                    
+                    // Reload data sampah untuk reset tampilan
+                    setTimeout(function() {
+                        loadSampahData();
+                    }, 500);
+                    
+                    // Reload iframe tukar point jika terbuka
+                    var iframe = document.getElementById('tukarPointIframe');
+                    if (iframe && document.getElementById('page-exchange').classList.contains('hidden') === false) {
+                        iframe.src = iframe.src;
+                    }
+                } else {
+                    showAlert('sortirAlert', '❌ ' + result.message, 'error');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            })
+            .catch(function(error) {
+                showAlert('sortirAlert', '❌ ' + error.message, 'error');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+        
+        // ==================== HISTORI CLAIM ====================
+        function showHistoriPopup() {
+            var container = document.getElementById('historiContainer');
+            container.innerHTML = '<div class="histori-empty"><i class="fas fa-spinner fa-spin"></i><p>Memuat histori...</p></div>';
+            document.getElementById('historiPopup').classList.add('active');
+            
+            callAPI('getHistoriClaim', { nik: userData.nik })
+                .then(function(result) {
+                    if (result.success) {
+                        renderHistori(result.data);
+                    } else {
+                        container.innerHTML = '<div class="histori-empty"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat histori</p></div>';
+                    }
+                })
+                .catch(function(error) {
+                    container.innerHTML = '<div class="histori-empty"><i class="fas fa-exclamation-triangle"></i><p>Error: ' + error.message + '</p></div>';
+                });
+        }
+        
+        function renderHistori(data) {
+            var container = document.getElementById('historiContainer');
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="histori-empty"><i class="fas fa-inbox"></i><p>Belum ada histori claim</p></div>';
+                return;
+            }
+            
+            var html = '';
+            data.forEach(function(item) {
+                var date = new Date(item.timestamp);
+                var dateStr = date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                var timeStr = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                var point = Number(item.point) || 0;
+                
+                html += '<div class="histori-item">';
+                html += '  <div class="date">' + dateStr + ' ' + timeStr + '</div>';
+                html += '  <div class="point positive">+' + formatNumber(point) + ' poin</div>';
+                html += '</div>';
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function closeHistoriPopup() {
+            document.getElementById('historiPopup').classList.remove('active');
         }
         
         // ==================== INFO POPUP ====================
@@ -2982,7 +3267,6 @@
                 .then(function(result) {
                     if (result.success) {
                         inboxCount = result.count || 0;
-                        // Update badge di menu
                         var inboxBadge = document.querySelector('.sidebar-menu .menu-item[data-page="inbox"] .badge-inbox');
                         if (inboxBadge) {
                             if (inboxCount > 0) {
@@ -3186,8 +3470,11 @@
                             userData.detail = result.data;
                             userData.role = result.data.role || 'Pemula';
                             userData.point_role = Number(result.data.point_role) || 0;
+                            userData.point_hadiah = Number(result.data.point_hadiah) || 0;
                             userData.level = result.level || 1;
+                            poinSampahUser = userData.point_hadiah;
                             renderSettings(result.data);
+                            updatePoinUI();
                             if (result.roleChanged) {
                                 showRolePopup(result.oldRole, result.newRole);
                             }
@@ -3198,6 +3485,7 @@
                     });
             } else {
                 renderSettings(userData.detail);
+                updatePoinUI();
             }
         }
         
@@ -3220,6 +3508,7 @@
             
             var level = Math.min(Math.floor((Number(data.point_role) || 0) / 1000) + 1, 100);
             document.getElementById('profileLevel').textContent = level;
+            document.getElementById('profilePoinSampah').textContent = formatNumber(poinSampahUser);
             
             var fields = [
                 { key: 'id', label: 'ID Peserta' },
@@ -3281,7 +3570,6 @@
             
             body.innerHTML = html;
             
-            // Load hak akses jika Pendiri atau Admin
             if (roleKey === 'pendiri' || roleKey === 'admin') {
                 loadHakAksesSettings(roleKey);
             }
@@ -3333,7 +3621,6 @@
                 
                 menus.forEach(function(menu) {
                     var checked = akses[menu.key] === true;
-                    // Default untuk menu tertentu
                     if (roleKey === 'peserta') {
                         if (['membership', 'sortir', 'settings', 'inbox'].includes(menu.key)) {
                             checked = true;
@@ -3366,7 +3653,6 @@
             .then(function(result) {
                 if (result.success) {
                     showAlert('settingsAlert', '✅ Hak akses berhasil diupdate!', 'success');
-                    // Reload hak akses
                     loadHakAksesSettings(userData.role.toLowerCase());
                 } else {
                     showAlert('settingsAlert', '❌ ' + result.message, 'error');
@@ -3505,12 +3791,10 @@
             
             loadUserData();
             
-            // Refresh inbox count setiap 30 detik
             setInterval(function() {
                 loadInboxCount();
             }, 30000);
             
-            // Cache cleanup
             setInterval(function() {
                 var keys = Object.keys(sessionStorage);
                 keys.forEach(function(key) {
@@ -3524,11 +3808,11 @@
                 });
             }, 300000);
             
-            // Keyboard shortcut untuk QR Code
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     closeQrCodePopup();
                     closeInfoPopup();
+                    closeHistoriPopup();
                     closeRewardModal();
                     closeNotifModal();
                 }

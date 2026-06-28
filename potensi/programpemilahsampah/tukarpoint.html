@@ -27,6 +27,11 @@
             --white: #ffffff;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
+            
+            --role-pemula: #22c55e;
+            --role-veteran: #f97316;
+            --role-master: #3b82f6;
+            --role-grandmaster: #f59e0b;
         }
         
         body {
@@ -45,7 +50,7 @@
         .header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 24px 30px;
+            padding: 20px 30px;
             border-radius: 16px;
             margin-bottom: 25px;
             display: flex;
@@ -68,7 +73,89 @@
             font-size: 28px;
         }
         
-        /* ===== TABS ===== */
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 18px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header .user-info .name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .header .user-info .role-badge {
+            font-size: 11px;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .header .user-info .role-badge.pemula {
+            background: rgba(34, 197, 94, 0.3);
+            color: var(--role-pemula);
+        }
+        .header .user-info .role-badge.veteran {
+            background: rgba(249, 115, 22, 0.3);
+            color: var(--role-veteran);
+            animation: glowOrange 2s ease-in-out infinite;
+        }
+        .header .user-info .role-badge.master {
+            background: rgba(59, 130, 246, 0.3);
+            color: var(--role-master);
+            animation: glowBlue 2s ease-in-out infinite;
+        }
+        .header .user-info .role-badge.grandmaster {
+            background: rgba(245, 158, 11, 0.3);
+            color: var(--role-grandmaster);
+            animation: glowGold 1.5s ease-in-out infinite;
+        }
+        .header .user-info .role-badge.admin {
+            background: rgba(30, 64, 175, 0.3);
+            color: #1e40af;
+            animation: glowDarkBlue 2s ease-in-out infinite;
+        }
+        .header .user-info .role-badge.pendiri {
+            background: rgba(212, 175, 55, 0.3);
+            color: #d4af37;
+            animation: glowGold 1.5s ease-in-out infinite;
+        }
+        
+        .header .user-info .poin-sampah {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .header .user-info .poin-sampah i {
+            color: #f59e0b;
+        }
+        
+        @keyframes glowOrange {
+            0%, 100% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6); }
+        }
+        @keyframes glowBlue {
+            0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
+        }
+        @keyframes glowGold {
+            0%, 100% { box-shadow: 0 0 5px rgba(245, 158, 11, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.8); }
+        }
+        @keyframes glowDarkBlue {
+            0%, 100% { box-shadow: 0 0 5px rgba(30, 64, 175, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(30, 64, 175, 0.6); }
+        }
+        
+        /* ===== TABS KATEGORI ===== */
         .tabs {
             display: flex;
             gap: 10px;
@@ -87,7 +174,7 @@
             font-family: 'Poppins', sans-serif;
             transition: var(--transition);
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -102,10 +189,63 @@
             transform: translateY(-2px);
         }
         
+        .tabs .tab-btn .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .tabs .tab-btn .dot.pemula { background: var(--role-pemula); }
+        .tabs .tab-btn .dot.veteran { background: var(--role-veteran); }
+        .tabs .tab-btn .dot.master { background: var(--role-master); }
+        .tabs .tab-btn .dot.grandmaster { background: var(--role-grandmaster); }
+        
+        /* ===== SECTION TOKO ===== */
+        .shop-section {
+            margin-bottom: 30px;
+        }
+        
+        .shop-section .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(26, 95, 122, 0.1);
+        }
+        
+        .shop-section .section-title .badge-role {
+            font-size: 12px;
+            padding: 2px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .shop-section .section-title .badge-role.pemula {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--role-pemula);
+        }
+        .shop-section .section-title .badge-role.veteran {
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--role-veteran);
+        }
+        .shop-section .section-title .badge-role.master {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--role-master);
+        }
+        .shop-section .section-title .badge-role.grandmaster {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--role-grandmaster);
+        }
+        
         /* ===== PRODUCT GRID ===== */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 20px;
         }
         
@@ -117,6 +257,8 @@
             transition: var(--transition);
             animation: fadeIn 0.3s ease;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         .product-card:hover {
@@ -134,9 +276,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
         
-        .product-card .product-image i {
+        .product-card .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-card .product-image .placeholder {
             font-size: 48px;
             color: #a0aec0;
         }
@@ -156,13 +305,46 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            flex: 1;
+        }
+        
+        .product-card .product-level {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .product-card .product-level .level-badge {
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+        }
+        
+        .product-card .product-level .level-badge.pemula {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--role-pemula);
+        }
+        .product-card .product-level .level-badge.veteran {
+            background: rgba(249, 115, 22, 0.15);
+            color: var(--role-veteran);
+        }
+        .product-card .product-level .level-badge.master {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--role-master);
+        }
+        .product-card .product-level .level-badge.grandmaster {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--role-grandmaster);
         }
         
         .product-card .product-price {
             font-size: 20px;
             font-weight: 700;
             color: var(--secondary);
-            margin-bottom: 10px;
+            margin-bottom: 4px;
         }
         
         .product-card .product-price span {
@@ -186,28 +368,39 @@
             font-family: 'Poppins', sans-serif;
             cursor: pointer;
             transition: var(--transition);
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white;
             font-size: 14px;
+            margin-top: auto;
         }
         
-        .product-card .btn-tukar:hover {
+        .product-card .btn-tukar.beli {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+        }
+        
+        .product-card .btn-tukar.beli:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(21, 152, 149, 0.3);
         }
         
-        .product-card .btn-tukar:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .product-card .btn-tukar.out-of-stock {
+        .product-card .btn-tukar.terkunci {
             background: #e2e8f0;
             color: #a0aec0;
+            cursor: not-allowed;
         }
         
-        .product-card .badge {
+        .product-card .btn-tukar.poin-tidak-cukup {
+            background: #fee2e2;
+            color: #dc2626;
+            cursor: not-allowed;
+        }
+        
+        .product-card .btn-tukar.stok-habis {
+            background: #e2e8f0;
+            color: #a0aec0;
+            cursor: not-allowed;
+        }
+        
+        .product-card .badge-locked {
             position: absolute;
             top: 12px;
             right: 12px;
@@ -215,21 +408,20 @@
             border-radius: 20px;
             font-size: 11px;
             font-weight: 600;
-        }
-        
-        .product-card .badge.populer {
-            background: #fef3c7;
-            color: #d97706;
-        }
-        
-        .product-card .badge.terbatas {
             background: #fee2e2;
             color: #dc2626;
         }
         
-        .product-card .badge.baru {
-            background: #d1fae5;
-            color: #059669;
+        .product-card .badge-stok-habis {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            background: #e2e8f0;
+            color: #718096;
         }
         
         /* ===== EMPTY STATE ===== */
@@ -337,10 +529,6 @@
         .modal-box .modal-detail .row .value {
             font-weight: 600;
             color: #2d3748;
-        }
-        
-        .modal-box .modal-detail .row .value.negative {
-            color: #dc2626;
         }
         
         .modal-box .modal-actions {
@@ -482,18 +670,6 @@
             border: 1px solid #b8d4e6;
         }
         
-        /* ===== LOADING SKELETON ===== */
-        .skeleton {
-            background: #e2e8f0;
-            border-radius: 8px;
-            animation: shimmer 1.5s ease-in-out infinite;
-        }
-        
-        @keyframes shimmer {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             body {
@@ -501,7 +677,7 @@
             }
             
             .header {
-                padding: 18px 20px;
+                padding: 16px 18px;
                 flex-direction: column;
                 text-align: center;
             }
@@ -511,14 +687,19 @@
                 justify-content: center;
             }
             
+            .header .user-info {
+                justify-content: center;
+                width: 100%;
+            }
+            
             .product-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
                 gap: 15px;
             }
             
             .tabs .tab-btn {
-                padding: 10px 16px;
-                font-size: 13px;
+                padding: 8px 14px;
+                font-size: 12px;
             }
             
             .modal-box {
@@ -549,35 +730,42 @@
         <div class="header">
             <h1>
                 <i class="fas fa-gift"></i>
-                Tukar Poin Sampah
+                Toko LPS
             </h1>
-            <!-- TIDAK ADA TAMPILAN POIN DI HEADER! -->
+            <div class="user-info" id="userInfo">
+                <span class="name" id="userName">Loading...</span>
+                <span class="role-badge" id="userRoleBadge">Pemula</span>
+                <span class="poin-sampah">
+                    <i class="fas fa-coins"></i>
+                    <span id="userPoinDisplay">0</span>
+                </span>
+            </div>
         </div>
         
         <!-- ===== ALERT ===== -->
         <div id="alert" class="alert"></div>
         
-        <!-- ===== TABS ===== -->
+        <!-- ===== TABS KATEGORI ===== -->
         <div class="tabs" id="tabsContainer">
             <button class="tab-btn active" data-category="all" onclick="filterProducts('all')">
                 <i class="fas fa-th-list"></i> Semua
             </button>
-            <button class="tab-btn" data-category="voucher" onclick="filterProducts('voucher')">
-                <i class="fas fa-ticket-alt"></i> Voucher
+            <button class="tab-btn" data-category="Pemula" onclick="filterProducts('Pemula')">
+                <span class="dot pemula"></span> Pemula
             </button>
-            <button class="tab-btn" data-category="merchandise" onclick="filterProducts('merchandise')">
-                <i class="fas fa-tshirt"></i> Merchandise
+            <button class="tab-btn" data-category="Veteran" onclick="filterProducts('Veteran')">
+                <span class="dot veteran"></span> Veteran
             </button>
-            <button class="tab-btn" data-category="donasi" onclick="filterProducts('donasi')">
-                <i class="fas fa-hand-holding-heart"></i> Donasi
+            <button class="tab-btn" data-category="Master" onclick="filterProducts('Master')">
+                <span class="dot master"></span> Master
             </button>
-            <button class="tab-btn" data-category="lainnya" onclick="filterProducts('lainnya')">
-                <i class="fas fa-ellipsis-h"></i> Lainnya
+            <button class="tab-btn" data-category="Grand Master" onclick="filterProducts('Grand Master')">
+                <span class="dot grandmaster"></span> Grand Master
             </button>
         </div>
         
         <!-- ===== PRODUCT GRID ===== -->
-        <div class="product-grid" id="productGrid">
+        <div id="productContainer">
             <div class="empty-state">
                 <i class="fas fa-spinner fa-spin"></i>
                 <h3>Memuat produk...</h3>
@@ -589,12 +777,16 @@
     <div class="modal-overlay" id="confirmModal">
         <div class="modal-box">
             <div class="modal-icon">🛍️</div>
-            <h3>Konfirmasi Tukar Poin</h3>
-            <p class="modal-sub">Apakah Anda yakin ingin menukarkan poin Anda?</p>
+            <h3>Konfirmasi Pembelian</h3>
+            <p class="modal-sub">Apakah Anda yakin ingin membeli produk ini?</p>
             <div class="modal-detail" id="confirmDetail">
                 <div class="row">
                     <span class="label">Produk</span>
                     <span class="value" id="confirmProduct">-</span>
+                </div>
+                <div class="row">
+                    <span class="label">Level Akses</span>
+                    <span class="value" id="confirmLevel">-</span>
                 </div>
                 <div class="row">
                     <span class="label">Harga</span>
@@ -607,8 +799,8 @@
             </div>
             <div class="modal-actions">
                 <button class="btn-modal cancel" onclick="closeConfirmModal()">Batal</button>
-                <button class="btn-modal confirm" id="confirmBtn" onclick="confirmTukar()">
-                    <i class="fas fa-check"></i> Tukar Sekarang
+                <button class="btn-modal confirm" id="confirmBtn" onclick="confirmBeli()">
+                    <i class="fas fa-check"></i> Beli Sekarang
                 </button>
             </div>
         </div>
@@ -619,7 +811,7 @@
         <div class="success-popup">
             <div class="icon">🎉</div>
             <h3>Berhasil!</h3>
-            <p id="successMessage">Poin berhasil ditukarkan.</p>
+            <p id="successMessage">Produk berhasil dibeli.</p>
             <button class="btn-ok" onclick="closeSuccessPopup()"><i class="fas fa-check"></i> Oke</button>
         </div>
     </div>
@@ -629,112 +821,7 @@
     <!-- ============================================================ -->
     <script>
         // ==================== KONFIGURASI ====================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzottltgkebNPFrqwmOFKLJtw1rHo6ZaYM9aI4sLMxjqjxvCft9eTthghw1yNGIsGo/exec';
-        
-        // ==================== DATA PRODUK ====================
-        // Data produk bisa diambil dari spreadsheet atau static
-        const PRODUCTS = [
-            {
-                id: 1,
-                name: 'Voucher Belanja Rp 10.000',
-                desc: 'Voucher belanja senilai Rp 10.000 yang bisa digunakan di mitra LPS',
-                price: 1000,
-                category: 'voucher',
-                stock: 50,
-                image: '🎫',
-                badge: 'populer'
-            },
-            {
-                id: 2,
-                name: 'Voucher Belanja Rp 25.000',
-                desc: 'Voucher belanja senilai Rp 25.000 yang bisa digunakan di mitra LPS',
-                price: 2500,
-                category: 'voucher',
-                stock: 30,
-                image: '🎫',
-                badge: ''
-            },
-            {
-                id: 3,
-                name: 'Voucher Belanja Rp 50.000',
-                desc: 'Voucher belanja senilai Rp 50.000 yang bisa digunakan di mitra LPS',
-                price: 5000,
-                category: 'voucher',
-                stock: 20,
-                image: '🎫',
-                badge: 'terbatas'
-            },
-            {
-                id: 4,
-                name: 'Kaos LPS Eksklusif',
-                desc: 'Kaos berkualitas tinggi dengan desain eksklusif LPS Padang Terubuk Asri',
-                price: 3000,
-                category: 'merchandise',
-                stock: 15,
-                image: '👕',
-                badge: 'baru'
-            },
-            {
-                id: 5,
-                name: 'Tumbler Ramah Lingkungan',
-                desc: 'Tumbler stainless steel ramah lingkungan, cocok untuk gaya hidup zero waste',
-                price: 2000,
-                category: 'merchandise',
-                stock: 25,
-                image: '🥤',
-                badge: 'populer'
-            },
-            {
-                id: 6,
-                name: 'Totebag LPS',
-                desc: 'Totebag kanvas ramah lingkungan dengan logo LPS Padang Terubuk Asri',
-                price: 1500,
-                category: 'merchandise',
-                stock: 40,
-                image: '🛍️',
-                badge: ''
-            },
-            {
-                id: 7,
-                name: 'Donasi Pendidikan',
-                desc: 'Donasi untuk program pendidikan lingkungan di Padang Terubuk Asri',
-                price: 500,
-                category: 'donasi',
-                stock: 999,
-                image: '📚',
-                badge: ''
-            },
-            {
-                id: 8,
-                name: 'Donasi Penghijauan',
-                desc: 'Donasi untuk program penghijauan dan penanaman pohon di lingkungan',
-                price: 300,
-                category: 'donasi',
-                stock: 999,
-                image: '🌳',
-                badge: ''
-            },
-            {
-                id: 9,
-                name: 'Donasi Bank Sampah',
-                desc: 'Donasi untuk pengembangan bank sampah dan edukasi pemilahan',
-                price: 200,
-                category: 'donasi',
-                stock: 999,
-                image: '♻️',
-                badge: ''
-            },
-            {
-                id: 10,
-                name: 'Stiker Edukasi Sampah',
-                desc: 'Paket stiker edukasi tentang pemilahan sampah untuk anak-anak',
-                price: 100,
-                category: 'lainnya',
-                stock: 100,
-                image: '📝',
-                badge: 'baru'
-            }
-        ];
+        const API_URL = 'https://script.google.com/macros/s/AKfycbztFhDgpA5-Mm4lbyoENHhXN2YvqD4Dqvn-yKr99Vmcch2fJxtSyT_QkEwFBeDVJhY/exec';
         
         // ==================== STATE ====================
         let currentCategory = 'all';
@@ -742,6 +829,27 @@
         let userNik = '';
         let userData = null;
         let userPoin = 0;
+        let userRole = 'Pemula';
+        let allProducts = [];
+        
+        // ==================== ROLE HIERARCHY ====================
+        const ROLE_HIERARCHY = {
+            'Pemula': 1,
+            'Veteran': 2,
+            'Master': 3,
+            'Grand Master': 4,
+            'Admin': 5,
+            'Pendiri': 6
+        };
+        
+        const ROLE_COLORS = {
+            'Pemula': 'pemula',
+            'Veteran': 'veteran',
+            'Master': 'master',
+            'Grand Master': 'grandmaster',
+            'Admin': 'admin',
+            'Pendiri': 'pendiri'
+        };
         
         // ==================== HELPER ====================
         function formatNumber(num) {
@@ -759,6 +867,14 @@
         
         function hideAlert() {
             document.getElementById('alert').className = 'alert';
+        }
+        
+        function getRoleClass(role) {
+            return ROLE_COLORS[role] || 'pemula';
+        }
+        
+        function getRoleLabel(role) {
+            return role || 'Pemula';
         }
         
         // ==================== API CALL ====================
@@ -809,7 +925,7 @@
                     try {
                         userData = JSON.parse(localUser);
                         userNik = userData.nik || '';
-                        loadUserPoin();
+                        loadUserPoinAndRole();
                         return;
                     } catch(e) {}
                 }
@@ -821,13 +937,13 @@
                 var sessionData = JSON.parse(session);
                 userData = sessionData;
                 userNik = userData.nik || '';
-                loadUserPoin();
+                loadUserPoinAndRole();
             } catch (e) {
                 showAlert('Error loading session data', 'error');
             }
         }
         
-        function loadUserPoin() {
+        function loadUserPoinAndRole() {
             if (!userNik) {
                 showAlert('NIK tidak ditemukan', 'error');
                 return;
@@ -838,7 +954,17 @@
                     if (result.success && result.found) {
                         var data = result.data;
                         userPoin = Number(data.point_hadiah) || 0;
-                        renderProducts();
+                        userRole = data.role || 'Pemula';
+                        
+                        // Update header
+                        document.getElementById('userName').textContent = data.nama_peserta || userData.username;
+                        var roleBadge = document.getElementById('userRoleBadge');
+                        roleBadge.textContent = getRoleLabel(userRole);
+                        roleBadge.className = 'role-badge ' + getRoleClass(userRole);
+                        document.getElementById('userPoinDisplay').textContent = formatNumber(userPoin);
+                        
+                        // Load products
+                        loadProducts();
                     } else {
                         showAlert('Gagal memuat data user: ' + (result.message || ''), 'error');
                     }
@@ -848,19 +974,50 @@
                 });
         }
         
+        // ==================== LOAD PRODUCTS ====================
+        function loadProducts() {
+            var container = document.getElementById('productContainer');
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><h3>Memuat produk...</h3></div>';
+            
+            callAPI('getDaftarBarang', {})
+                .then(function(result) {
+                    if (result.success) {
+                        allProducts = result.data || [];
+                        renderProducts();
+                    } else {
+                        container.innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-box-open"></i>
+                                <h3>Gagal Memuat Produk</h3>
+                                <p>${result.message || 'Coba refresh halaman'}</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(function(error) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Error</h3>
+                            <p>${error.message}</p>
+                        </div>
+                    `;
+                });
+        }
+        
         // ==================== RENDER PRODUCTS ====================
         function renderProducts() {
-            var grid = document.getElementById('productGrid');
+            var container = document.getElementById('productContainer');
             
-            var filtered = PRODUCTS;
+            var filtered = allProducts;
             if (currentCategory !== 'all') {
-                filtered = PRODUCTS.filter(function(p) {
-                    return p.category === currentCategory;
+                filtered = allProducts.filter(function(p) {
+                    return p.level_akses === currentCategory;
                 });
             }
             
             if (filtered.length === 0) {
-                grid.innerHTML = `
+                container.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-box-open"></i>
                         <h3>Belum Ada Produk</h3>
@@ -870,32 +1027,98 @@
                 return;
             }
             
-            var html = '';
+            // Group by level akses
+            var grouped = {};
+            var levelOrder = ['Pemula', 'Veteran', 'Master', 'Grand Master'];
+            
             filtered.forEach(function(product) {
-                var isOutOfStock = product.stock <= 0;
-                var canBuy = userPoin >= product.price && !isOutOfStock;
-                var badgeHtml = product.badge ? `<span class="badge ${product.badge}">${product.badge.toUpperCase()}</span>` : '';
-                
-                html += `
-                    <div class="product-card">
-                        ${badgeHtml}
-                        <div class="product-image">
-                            <i class="fas fa-2x">${product.image}</i>
-                        </div>
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-desc">${product.desc}</div>
-                        <div class="product-price">${formatNumber(product.price)} <span>poin</span></div>
-                        <div class="product-stock">${isOutOfStock ? 'Stok Habis' : 'Stok: ' + product.stock}</div>
-                        <button class="btn-tukar ${isOutOfStock ? 'out-of-stock' : ''}" 
-                                onclick="openConfirmModal(${product.id})"
-                                ${!canBuy ? 'disabled' : ''}>
-                            ${isOutOfStock ? 'Stok Habis' : canBuy ? 'Tukar Sekarang' : 'Poin Tidak Cukup'}
-                        </button>
-                    </div>
-                `;
+                var level = product.level_akses || 'Pemula';
+                if (!grouped[level]) grouped[level] = [];
+                grouped[level].push(product);
             });
             
-            grid.innerHTML = html;
+            var html = '';
+            var userLevel = ROLE_HIERARCHY[userRole] || 1;
+            
+            levelOrder.forEach(function(level) {
+                var products = grouped[level] || [];
+                if (products.length === 0) return;
+                
+                var isLocked = ROLE_HIERARCHY[level] > userLevel;
+                var levelClass = getRoleClass(level);
+                var levelLabel = getRoleLabel(level);
+                
+                html += '<div class="shop-section">';
+                html += '  <div class="section-title">';
+                html += '    <i class="fas ' + (isLocked ? 'fa-lock' : 'fa-store') + '"></i>';
+                html += '    Toko ' + levelLabel;
+                html += '    <span class="badge-role ' + levelClass + '">' + levelLabel + '</span>';
+                if (isLocked) {
+                    html += '    <span style="font-size:12px;color:#dc2626;font-weight:500;">🔒 Terkunci</span>';
+                }
+                html += '  </div>';
+                html += '  <div class="product-grid">';
+                
+                products.forEach(function(product) {
+                    var canBuy = userLevel >= ROLE_HIERARCHY[product.level_akses] && 
+                                 userPoin >= product.harga_barang && 
+                                 product.stok > 0;
+                    
+                    var isOutOfStock = product.stok <= 0;
+                    var isLockedProduct = userLevel < ROLE_HIERARCHY[product.level_akses];
+                    var isPoinCukup = userPoin >= product.harga_barang;
+                    
+                    var btnClass = 'btn-tukar ';
+                    var btnText = '';
+                    var btnDisabled = true;
+                    
+                    if (isOutOfStock) {
+                        btnClass += 'stok-habis';
+                        btnText = 'Stok Habis';
+                    } else if (isLockedProduct) {
+                        btnClass += 'terkunci';
+                        btnText = '🔒 Terkunci';
+                    } else if (!isPoinCukup) {
+                        btnClass += 'poin-tidak-cukup';
+                        btnText = 'Poin Tidak Cukup';
+                    } else {
+                        btnClass += 'beli';
+                        btnText = '🛒 Beli';
+                        btnDisabled = false;
+                    }
+                    
+                    var badgeHtml = '';
+                    if (isOutOfStock) {
+                        badgeHtml = '<span class="badge-stok-habis">Stok Habis</span>';
+                    } else if (isLockedProduct) {
+                        badgeHtml = '<span class="badge-locked">🔒 Terkunci</span>';
+                    }
+                    
+                    var fotoHtml = product.url_foto && product.url_foto.trim() !== '' 
+                        ? '<img src="' + product.url_foto + '" alt="' + product.nama_barang + '">' 
+                        : '<span class="placeholder"><i class="fas fa-box"></i></span>';
+                    
+                    html += '  <div class="product-card">';
+                    html += '    ' + badgeHtml;
+                    html += '    <div class="product-image">' + fotoHtml + '</div>';
+                    html += '    <div class="product-name">' + product.nama_barang + '</div>';
+                    html += '    <div class="product-level">';
+                    html += '      <i class="fas fa-shield-alt"></i> Level: ';
+                    html += '      <span class="level-badge ' + getRoleClass(product.level_akses) + '">' + getRoleLabel(product.level_akses) + '</span>';
+                    html += '    </div>';
+                    html += '    <div class="product-price">' + formatNumber(product.harga_barang) + ' <span>poin</span></div>';
+                    html += '    <div class="product-stock">📦 Stok: ' + product.stok + '</div>';
+                    html += '    <button class="' + btnClass + '" onclick="openConfirmModal(\'' + product.nama_barang + '\')" ' + (btnDisabled ? 'disabled' : '') + '>';
+                    html += '      ' + btnText;
+                    html += '    </button>';
+                    html += '  </div>';
+                });
+                
+                html += '  </div>';
+                html += '</div>';
+            });
+            
+            container.innerHTML = html;
         }
         
         // ==================== FILTER PRODUCTS ====================
@@ -913,25 +1136,31 @@
         }
         
         // ==================== CONFIRM MODAL ====================
-        function openConfirmModal(productId) {
-            var product = PRODUCTS.find(function(p) { return p.id === productId; });
+        function openConfirmModal(productName) {
+            var product = allProducts.find(function(p) { return p.nama_barang === productName; });
             if (!product) return;
             
-            if (product.stock <= 0) {
+            if (product.stok <= 0) {
                 showAlert('Maaf, stok produk ini habis!', 'error');
                 return;
             }
             
-            if (userPoin < product.price) {
+            if (ROLE_HIERARCHY[userRole] < ROLE_HIERARCHY[product.level_akses]) {
+                showAlert('Level Anda tidak cukup! Dibutuhkan: ' + product.level_akses, 'error');
+                return;
+            }
+            
+            if (userPoin < product.harga_barang) {
                 showAlert('Poin Anda tidak cukup!', 'error');
                 return;
             }
             
             selectedProduct = product;
             
-            document.getElementById('confirmProduct').textContent = product.name;
-            document.getElementById('confirmPrice').textContent = formatNumber(product.price) + ' poin';
-            document.getElementById('confirmSisa').textContent = formatNumber(userPoin - product.price) + ' poin';
+            document.getElementById('confirmProduct').textContent = product.nama_barang;
+            document.getElementById('confirmLevel').textContent = getRoleLabel(product.level_akses);
+            document.getElementById('confirmPrice').textContent = formatNumber(product.harga_barang) + ' poin';
+            document.getElementById('confirmSisa').textContent = formatNumber(userPoin - product.harga_barang) + ' poin';
             
             document.getElementById('confirmModal').classList.add('active');
         }
@@ -941,44 +1170,44 @@
             selectedProduct = null;
         }
         
-        function confirmTukar() {
+        function confirmBeli() {
             if (!selectedProduct) return;
             
             var btn = document.getElementById('confirmBtn');
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
             btn.disabled = true;
             
-            // Proses tukar poin - panggil API tukarPoint
-            callAPI('tukarPoint', {
+            callAPI('beliBarang', {
                 nik: userNik,
                 username: userData.username || '',
-                productId: selectedProduct.id,
-                productName: selectedProduct.name,
-                price: selectedProduct.price
+                nama_barang: selectedProduct.nama_barang,
+                harga: selectedProduct.harga_barang,
+                level_akses: selectedProduct.level_akses
             })
             .then(function(result) {
                 if (result.success) {
-                    // Kurangi stok produk (untuk demo)
-                    var product = PRODUCTS.find(function(p) { return p.id === selectedProduct.id; });
+                    // Update poin user
+                    userPoin = result.sisa_poin || (userPoin - selectedProduct.harga_barang);
+                    document.getElementById('userPoinDisplay').textContent = formatNumber(userPoin);
+                    
+                    // Update stok
+                    var product = allProducts.find(function(p) { return p.nama_barang === selectedProduct.nama_barang; });
                     if (product) {
-                        product.stock = Math.max(0, product.stock - 1);
+                        product.stok = result.sisa_stok || (product.stok - 1);
                     }
                     
-                    // Update poin user
-                    userPoin = userPoin - selectedProduct.price;
-                    
                     closeConfirmModal();
-                    showSuccessPopup('Berhasil menukarkan poin untuk <strong>' + selectedProduct.name + '</strong>!');
+                    showSuccessPopup('Berhasil membeli <strong>' + selectedProduct.nama_barang + '</strong>!');
                     renderProducts();
                 } else {
-                    showAlert('Gagal menukarkan poin: ' + (result.message || ''), 'error');
+                    showAlert('Gagal membeli: ' + (result.message || ''), 'error');
                 }
             })
             .catch(function(error) {
                 showAlert('Error: ' + error.message, 'error');
             })
             .finally(function() {
-                btn.innerHTML = '<i class="fas fa-check"></i> Tukar Sekarang';
+                btn.innerHTML = '<i class="fas fa-check"></i> Beli Sekarang';
                 btn.disabled = false;
             });
         }
@@ -999,7 +1228,7 @@
             
             // Refresh poin setiap 30 detik
             setInterval(function() {
-                loadUserPoin();
+                loadUserPoinAndRole();
             }, 30000);
         })();
     </script>

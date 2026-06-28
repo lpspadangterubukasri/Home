@@ -950,171 +950,190 @@
     <!-- ============================================================ -->
     <script>
         // ==================== KONFIGURASI ====================
-        // ===== UPDATE API_URL DENGAN URL DEPLOY APPS SCRIPT ANDA =====
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzNvYTO26tzzOp1E6CXl5BiXSZxvphU9l7VYqKXUoOhyo5pN1Iw1JLgMmN3FVEG7QgF/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzNvYTO26tzzOp1E6CXl5BiXSZxvphU9l7VYqKXUoOhyo5pN1Iw1JLgMmN3FVEG7QgF/exec';
+
+// ==================== STATE ====================
+let currentCategory = 'all';
+let selectedProduct = null;
+let userNik = '';
+let userData = null;
+let userPoin = 0;
+let userRole = 'Pemula';
+let allProducts = [];
+let isLoading = false;
+
+// ==================== ROLE HIERARCHY ====================
+const ROLE_HIERARCHY = {
+    'Pemula': 1,
+    'Veteran': 2,
+    'Master': 3,
+    'Grand Master': 4,
+    'Admin': 5,
+    'Pendiri': 6
+};
+
+const ROLE_COLORS = {
+    'Pemula': 'pemula',
+    'Veteran': 'veteran',
+    'Master': 'master',
+    'Grand Master': 'grandmaster',
+    'Admin': 'admin',
+    'Pendiri': 'pendiri'
+};
+
+// ==================== HELPER ====================
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function showAlert(message, type) {
+    var alert = document.getElementById('alert');
+    alert.className = 'alert alert-' + type + ' show';
+    alert.textContent = message;
+    setTimeout(function() {
+        alert.className = 'alert';
+    }, 5000);
+}
+
+function hideAlert() {
+    document.getElementById('alert').className = 'alert';
+}
+
+function getRoleClass(role) {
+    return ROLE_COLORS[role] || 'pemula';
+}
+
+function getRoleLabel(role) {
+    return role || 'Pemula';
+}
+
+// ==================== API CALL ====================
+function callAPI(action, data) {
+    return new Promise(function(resolve, reject) {
+        var callbackName = 'jsonp_callback_' + Date.now();
+        var params = new URLSearchParams({ action: action, callback: callbackName });
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) params.append(key, data[key]);
+        }
+        var url = API_URL + '?' + params.toString();
         
-        // ==================== STATE ====================
-        let currentCategory = 'all';
-        let selectedProduct = null;
-        let userNik = '';
-        let userData = null;
-        let userPoin = 0;
-        let userRole = 'Pemula';
-        let allProducts = [];
+        console.log('📡 Call API:', url);
         
-        // ==================== ROLE HIERARCHY ====================
-        const ROLE_HIERARCHY = {
-            'Pemula': 1,
-            'Veteran': 2,
-            'Master': 3,
-            'Grand Master': 4,
-            'Admin': 5,
-            'Pendiri': 6
+        var script = document.createElement('script');
+        script.src = url;
+        script.async = true;
+        
+        var timeout = setTimeout(function() {
+            cleanup();
+            reject(new Error('⏱️ Request timeout (15 detik)'));
+        }, 15000);
+        
+        function cleanup() {
+            clearTimeout(timeout);
+            delete window[callbackName];
+            if (script.parentNode) script.parentNode.removeChild(script);
+        }
+        
+        window[callbackName] = function(response) {
+            console.log('📡 Response:', response);
+            cleanup();
+            resolve(response);
         };
         
-        const ROLE_COLORS = {
-            'Pemula': 'pemula',
-            'Veteran': 'veteran',
-            'Master': 'master',
-            'Grand Master': 'grandmaster',
-            'Admin': 'admin',
-            'Pendiri': 'pendiri'
+        script.onerror = function() {
+            cleanup();
+            reject(new Error('❌ Gagal terhubung ke server.'));
         };
         
-        // ==================== HELPER ====================
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-        
-        function showAlert(message, type) {
-            var alert = document.getElementById('alert');
-            alert.className = 'alert alert-' + type + ' show';
-            alert.textContent = message;
-            setTimeout(function() {
-                alert.className = 'alert';
-            }, 5000);
-        }
-        
-        function hideAlert() {
-            document.getElementById('alert').className = 'alert';
-        }
-        
-        function getRoleClass(role) {
-            return ROLE_COLORS[role] || 'pemula';
-        }
-        
-        function getRoleLabel(role) {
-            return role || 'Pemula';
-        }
-        
-        // ==================== API CALL ====================
-        function callAPI(action, data) {
-            return new Promise(function(resolve, reject) {
-                var callbackName = 'jsonp_callback_' + Date.now();
-                var params = new URLSearchParams({ action: action, callback: callbackName });
-                for (var key in data) {
-                    if (data.hasOwnProperty(key)) params.append(key, data[key]);
-                }
-                var url = API_URL + '?' + params.toString();
-                
-                var script = document.createElement('script');
-                script.src = url;
-                script.async = true;
-                
-                var timeout = setTimeout(function() {
-                    cleanup();
-                    reject(new Error('⏱️ Request timeout (15 detik)'));
-                }, 15000);
-                
-                function cleanup() {
-                    clearTimeout(timeout);
-                    delete window[callbackName];
-                    if (script.parentNode) script.parentNode.removeChild(script);
-                }
-                
-                window[callbackName] = function(response) {
-                    cleanup();
-                    resolve(response);
-                };
-                
-                script.onerror = function() {
-                    cleanup();
-                    reject(new Error('❌ Gagal terhubung ke server.'));
-                };
-                
-                document.head.appendChild(script);
-            });
-        }
-        
-        // ==================== LOAD USER DATA ====================
-        function loadUserData() {
-            var session = sessionStorage.getItem('lps_session');
-            if (!session) {
-                var localUser = localStorage.getItem('lps_user');
-                if (localUser) {
-                    try {
-                        userData = JSON.parse(localUser);
-                        userNik = userData.nik || '';
-                        loadUserPoinAndRole();
-                        return;
-                    } catch(e) {}
-                }
-                showAlert('Sesi tidak ditemukan, silahkan login kembali', 'error');
-                return;
-            }
-            
+        document.head.appendChild(script);
+    });
+}
+
+// ==================== LOAD USER DATA ====================
+function loadUserData() {
+    console.log('👤 Load user data...');
+    var session = sessionStorage.getItem('lps_session');
+    if (!session) {
+        var localUser = localStorage.getItem('lps_user');
+        if (localUser) {
             try {
-                var sessionData = JSON.parse(session);
-                userData = sessionData;
+                userData = JSON.parse(localUser);
                 userNik = userData.nik || '';
+                console.log('👤 User from localStorage:', userData);
                 loadUserPoinAndRole();
-            } catch (e) {
-                showAlert('Error loading session data', 'error');
-            }
-        }
-        
-        function loadUserPoinAndRole() {
-            if (!userNik) {
-                showAlert('NIK tidak ditemukan', 'error');
                 return;
-            }
-            
-            callAPI('getUserDataWithRole', { nik: userNik })
-                .then(function(result) {
-                    if (result.success && result.found) {
-                        var data = result.data;
-                        userPoin = Number(data.point_hadiah) || 0;
-                        userRole = data.role || 'Pemula';
-                        
-                        // Update header
-                        document.getElementById('userName').textContent = data.nama_peserta || userData.username;
-                        var roleBadge = document.getElementById('userRoleBadge');
-                        roleBadge.textContent = getRoleLabel(userRole);
-                        roleBadge.className = 'role-badge ' + getRoleClass(userRole);
-                        document.getElementById('userPoinDisplay').textContent = formatNumber(userPoin);
-                        
-                        // Load products
-                        loadProducts();
-                    } else {
-                        showAlert('Gagal memuat data user: ' + (result.message || ''), 'error');
-                    }
-                })
-                .catch(function(error) {
-                    showAlert('Error: ' + error.message, 'error');
-                });
+            } catch(e) {}
         }
-        
+        showAlert('Sesi tidak ditemukan, silahkan login kembali', 'error');
+        return;
+    }
+    
+    try {
+        var sessionData = JSON.parse(session);
+        userData = sessionData;
+        userNik = userData.nik || '';
+        console.log('👤 User from session:', userData);
+        loadUserPoinAndRole();
+    } catch (e) {
+        showAlert('Error loading session data', 'error');
+    }
+}
+
+function loadUserPoinAndRole() {
+    if (!userNik) {
+        showAlert('NIK tidak ditemukan', 'error');
+        return;
+    }
+    
+    console.log('🔄 Load user poin & role for NIK:', userNik);
+    
+    callAPI('getUserDataWithRole', { nik: userNik })
+        .then(function(result) {
+            console.log('📊 User data result:', result);
+            if (result.success && result.found) {
+                var data = result.data;
+                userPoin = Number(data.point_hadiah) || 0;
+                userRole = data.role || 'Pemula';
+                
+                console.log('✅ User:', { name: data.nama_peserta, role: userRole, poin: userPoin });
+                
+                // Update header
+                document.getElementById('userName').textContent = data.nama_peserta || userData.username;
+                var roleBadge = document.getElementById('userRoleBadge');
+                roleBadge.textContent = getRoleLabel(userRole);
+                roleBadge.className = 'role-badge ' + getRoleClass(userRole);
+                document.getElementById('userPoinDisplay').textContent = formatNumber(userPoin);
+                
+                // Load products
+                loadProducts();
+            } else {
+                showAlert('Gagal memuat data user: ' + (result.message || ''), 'error');
+            }
+        })
+        .catch(function(error) {
+            console.error('❌ Error load user:', error);
+            showAlert('Error: ' + error.message, 'error');
+        });
+}
+
 // ==================== LOAD PRODUCTS ====================
 function loadProducts() {
+    if (isLoading) return;
+    isLoading = true;
+    
     var container = document.getElementById('productContainer');
     container.innerHTML = '<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><h3>Memuat produk...</h3></div>';
     
+    console.log('🔄 Load products...');
+    
     callAPI('getDaftarBarang', {})
         .then(function(result) {
-            console.log('📦 Result dari API:', result); // DEBUG
+            console.log('📦 API getDaftarBarang result:', result);
+            
             if (result.success) {
                 allProducts = result.data || [];
-                console.log('✅ allProducts:', allProducts); // DEBUG
+                console.log('✅ allProducts loaded:', allProducts.length, 'items');
+                
                 if (allProducts.length === 0) {
                     container.innerHTML = `
                         <div class="empty-state">
@@ -1124,10 +1143,11 @@ function loadProducts() {
                         </div>
                     `;
                 } else {
-                    // Panggil renderProducts SETELAH data siap
+                    // Render setelah data siap
                     renderProducts();
                 }
             } else {
+                console.error('❌ Failed to load products:', result.message);
                 container.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-exclamation-triangle"></i>
@@ -1137,9 +1157,10 @@ function loadProducts() {
                     </div>
                 `;
             }
+            isLoading = false;
         })
         .catch(function(error) {
-            console.error('❌ Error:', error);
+            console.error('❌ Error load products:', error);
             container.innerHTML = `
                 <div class="empty-state">
                     <i class="fas fa-exclamation-triangle"></i>
@@ -1147,6 +1168,7 @@ function loadProducts() {
                     <p>${error.message}</p>
                 </div>
             `;
+            isLoading = false;
         });
 }
 
@@ -1154,8 +1176,11 @@ function loadProducts() {
 function renderProducts() {
     var container = document.getElementById('productContainer');
     
-    // CEK: Pastikan allProducts adalah array
+    console.log('🎨 Render products, allProducts:', allProducts.length);
+    
+    // CEK: Pastikan allProducts adalah array dan tidak kosong
     if (!allProducts || !Array.isArray(allProducts) || allProducts.length === 0) {
+        console.warn('⚠️ allProducts empty or invalid');
         container.innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-box-open"></i>
@@ -1166,8 +1191,6 @@ function renderProducts() {
         return;
     }
     
-    console.log('📦 Render products, total:', allProducts.length); // DEBUG
-    
     var filtered = allProducts;
     if (currentCategory !== 'all') {
         filtered = allProducts.filter(function(p) {
@@ -1175,7 +1198,7 @@ function renderProducts() {
         });
     }
     
-    console.log('📦 Filtered:', filtered.length); // DEBUG
+    console.log('📊 Filtered:', filtered.length, 'items');
     
     if (filtered.length === 0) {
         container.innerHTML = `
@@ -1193,6 +1216,12 @@ function renderProducts() {
     var levelOrder = ['Pemula', 'Veteran', 'Master', 'Grand Master'];
     
     filtered.forEach(function(product) {
+        // PASTIKAN product valid
+        if (!product || typeof product !== 'object') {
+            console.warn('⚠️ Invalid product:', product);
+            return;
+        }
+        
         var level = product.level_akses || 'Pemula';
         if (!grouped[level]) grouped[level] = [];
         grouped[level].push(product);
@@ -1221,9 +1250,9 @@ function renderProducts() {
         html += '  <div class="product-grid">';
         
         products.forEach(function(product) {
-            // PASTIKAN product tidak null/undefined
+            // PASTIKAN product tidak null dan punya nama_barang
             if (!product || !product.nama_barang) {
-                console.warn('⚠️ Product invalid:', product);
+                console.warn('⚠️ Product without nama_barang:', product);
                 return;
             }
             
@@ -1258,11 +1287,11 @@ function renderProducts() {
             }
             
             var fotoHtml = product.url_foto && product.url_foto.trim() !== '' 
-                ? '<img src="' + product.url_foto + '" alt="' + product.nama_barang + '">' 
+                ? '<img src="' + product.url_foto + '" alt="' + product.nama_barang + '" loading="lazy">' 
                 : '<span class="placeholder"><i class="fas fa-box"></i></span>';
             
             // ESCAPE nama_barang untuk JavaScript
-            var safeName = product.nama_barang.replace(/'/g, "\\'");
+            var safeName = product.nama_barang.replace(/'/g, "\\'").replace(/"/g, '&quot;');
             
             html += '  <div class="product-card">';
             html += '    ' + badgeHtml;
@@ -1285,26 +1314,38 @@ function renderProducts() {
     });
     
     container.innerHTML = html;
+    console.log('✅ Render complete');
 }
-        
-        // ==================== FILTER PRODUCTS ====================
-        function filterProducts(category) {
-            currentCategory = category;
-            
-            document.querySelectorAll('.tab-btn').forEach(function(btn) {
-                btn.classList.remove('active');
-                if (btn.dataset.category === category) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            renderProducts();
+
+// ==================== FILTER PRODUCTS ====================
+function filterProducts(category) {
+    console.log('🔍 Filter:', category);
+    currentCategory = category;
+    
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+        if (btn.dataset.category === category) {
+            btn.classList.add('active');
         }
-        
- // ==================== CONFIRM MODAL ====================
+    });
+    
+    // Pastikan allProducts sudah ada sebelum render
+    if (allProducts && allProducts.length > 0) {
+        renderProducts();
+    } else {
+        loadProducts();
+    }
+}
+
+// ==================== CONFIRM MODAL ====================
 function openConfirmModal(productName) {
-    console.log('🔍 Mencari produk:', productName); // DEBUG
-    console.log('📦 allProducts:', allProducts); // DEBUG
+    console.log('🔍 Cari produk:', productName);
+    console.log('📦 allProducts:', allProducts);
+    
+    if (!allProducts || allProducts.length === 0) {
+        showAlert('Data produk belum dimuat, coba refresh halaman', 'error');
+        return;
+    }
     
     var product = allProducts.find(function(p) { 
         return p.nama_barang === productName; 
@@ -1342,209 +1383,212 @@ function openConfirmModal(productName) {
     
     document.getElementById('confirmModal').classList.add('active');
 }
-        
-        function closeConfirmModal() {
-            document.getElementById('confirmModal').classList.remove('active');
-            selectedProduct = null;
-        }
-        
-        // ==================== CONFIRM BELI + STRUK ====================
-        function confirmBeli() {
-            if (!selectedProduct) return;
+
+function closeConfirmModal() {
+    document.getElementById('confirmModal').classList.remove('active');
+    selectedProduct = null;
+}
+
+// ==================== CONFIRM BELI + STRUK ====================
+function confirmBeli() {
+    if (!selectedProduct) return;
+    
+    var btn = document.getElementById('confirmBtn');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+    btn.disabled = true;
+    
+    callAPI('beliBarang', {
+        nik: userNik,
+        username: userData.username || '',
+        nama_barang: selectedProduct.nama_barang,
+        harga: selectedProduct.harga_barang,
+        level_akses: selectedProduct.level_akses
+    })
+    .then(function(result) {
+        if (result.success) {
+            // Update poin user
+            userPoin = result.sisa_poin || (userPoin - selectedProduct.harga_barang);
+            document.getElementById('userPoinDisplay').textContent = formatNumber(userPoin);
             
-            var btn = document.getElementById('confirmBtn');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-            btn.disabled = true;
+            // Update stok
+            var product = allProducts.find(function(p) { return p.nama_barang === selectedProduct.nama_barang; });
+            if (product) {
+                product.stok = result.sisa_stok || (product.stok - 1);
+            }
             
-            callAPI('beliBarang', {
+            closeConfirmModal();
+            
+            // ===== GENERATE STRUK =====
+            callAPI('generateStruk', {
                 nik: userNik,
                 username: userData.username || '',
                 nama_barang: selectedProduct.nama_barang,
                 harga: selectedProduct.harga_barang,
                 level_akses: selectedProduct.level_akses
             })
-            .then(function(result) {
-                if (result.success) {
-                    // Update poin user
-                    userPoin = result.sisa_poin || (userPoin - selectedProduct.harga_barang);
-                    document.getElementById('userPoinDisplay').textContent = formatNumber(userPoin);
-                    
-                    // Update stok
-                    var product = allProducts.find(function(p) { return p.nama_barang === selectedProduct.nama_barang; });
-                    if (product) {
-                        product.stok = result.sisa_stok || (product.stok - 1);
-                    }
-                    
-                    closeConfirmModal();
-                    
-                    // ===== GENERATE STRUK =====
-                    callAPI('generateStruk', {
-                        nik: userNik,
-                        username: userData.username || '',
-                        nama_barang: selectedProduct.nama_barang,
-                        harga: selectedProduct.harga_barang,
-                        level_akses: selectedProduct.level_akses
-                    })
-                    .then(function(strukResult) {
-                        if (strukResult.success) {
-                            showStruk(strukResult.data);
-                            renderProducts();
-                        } else {
-                            showAlert('Pembelian berhasil, tapi gagal generate struk: ' + (strukResult.message || ''), 'error');
-                            renderProducts();
-                        }
-                    })
-                    .catch(function(error) {
-                        showAlert('Pembelian berhasil, tapi gagal generate struk: ' + error.message, 'error');
-                        renderProducts();
-                    });
-                    
+            .then(function(strukResult) {
+                if (strukResult.success) {
+                    showStruk(strukResult.data);
+                    renderProducts();
                 } else {
-                    showAlert('Gagal membeli: ' + (result.message || ''), 'error');
-                    btn.innerHTML = '<i class="fas fa-check"></i> Beli Sekarang';
-                    btn.disabled = false;
+                    showAlert('Pembelian berhasil, tapi gagal generate struk: ' + (strukResult.message || ''), 'error');
+                    renderProducts();
                 }
             })
             .catch(function(error) {
-                showAlert('Error: ' + error.message, 'error');
-                btn.innerHTML = '<i class="fas fa-check"></i> Beli Sekarang';
-                btn.disabled = false;
+                showAlert('Pembelian berhasil, tapi gagal generate struk: ' + error.message, 'error');
+                renderProducts();
             });
-        }
-        
-        // ==================== FUNGSI STRUK ====================
-        function showStruk(strukData) {
-            var popup = document.getElementById('strukPopup');
-            var container = document.getElementById('strukContent');
             
-            var html = `
-                <div class="struk-header">
-                    <div class="logo">🪙 LPS PADANG TERUBUK ASRI</div>
-                    <div class="sub">Program Pemilahan Sampah</div>
-                    <div class="sub">${strukData.tanggal} - ${strukData.jam}</div>
-                </div>
-                <div class="struk-body">
-                    <div class="row">
-                        <span class="label">No. Struk</span>
-                        <span class="value">${strukData.no_struk}</span>
-                    </div>
-                    <div class="row">
-                        <span class="label">Peserta</span>
-                        <span class="value">${strukData.nama_peserta}</span>
-                    </div>
-                    <div class="row">
-                        <span class="label">Username</span>
-                        <span class="value">${strukData.username}</span>
-                    </div>
-                    <div class="row">
-                        <span class="label">Role</span>
-                        <span class="value">${strukData.role}</span>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="row">
-                        <span class="label">Produk</span>
-                        <span class="value">${strukData.nama_barang}</span>
-                    </div>
-                    <div class="row">
-                        <span class="label">Level Akses</span>
-                        <span class="value">${strukData.level_akses}</span>
-                    </div>
-                    <div class="row">
-                        <span class="label">Harga</span>
-                        <span class="value">${formatNumber(strukData.harga)} poin</span>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="total">💰 ${formatNumber(strukData.harga)} Poin</div>
-                </div>
-                <div class="struk-footer">
-                    <div>📱 Tunjukkan struk ini ke Petugas LPS</div>
-                    <div style="margin-top:4px;">Struk berlaku 1x penukaran</div>
-                </div>
-                <button class="btn-download-struk" onclick="downloadStruk()">
-                    <i class="fas fa-download"></i> Download Struk
-                </button>
-                <button class="btn-close-struk" onclick="closeStrukPopup()">
-                    <i class="fas fa-times"></i> Tutup
-                </button>
-            `;
-            
-            container.innerHTML = html;
-            popup.classList.add('active');
+        } else {
+            showAlert('Gagal membeli: ' + (result.message || ''), 'error');
+            btn.innerHTML = '<i class="fas fa-check"></i> Beli Sekarang';
+            btn.disabled = false;
         }
-        
-        function closeStrukPopup() {
-            document.getElementById('strukPopup').classList.remove('active');
+    })
+    .catch(function(error) {
+        showAlert('Error: ' + error.message, 'error');
+        btn.innerHTML = '<i class="fas fa-check"></i> Beli Sekarang';
+        btn.disabled = false;
+    });
+}
+
+// ==================== FUNGSI STRUK ====================
+function showStruk(strukData) {
+    var popup = document.getElementById('strukPopup');
+    var container = document.getElementById('strukContent');
+    
+    var html = `
+        <div class="struk-header">
+            <div class="logo">🪙 LPS PADANG TERUBUK ASRI</div>
+            <div class="sub">Program Pemilahan Sampah</div>
+            <div class="sub">${strukData.tanggal} - ${strukData.jam}</div>
+        </div>
+        <div class="struk-body">
+            <div class="row">
+                <span class="label">No. Struk</span>
+                <span class="value">${strukData.no_struk}</span>
+            </div>
+            <div class="row">
+                <span class="label">Peserta</span>
+                <span class="value">${strukData.nama_peserta}</span>
+            </div>
+            <div class="row">
+                <span class="label">Username</span>
+                <span class="value">${strukData.username}</span>
+            </div>
+            <div class="row">
+                <span class="label">Role</span>
+                <span class="value">${strukData.role}</span>
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+                <span class="label">Produk</span>
+                <span class="value">${strukData.nama_barang}</span>
+            </div>
+            <div class="row">
+                <span class="label">Level Akses</span>
+                <span class="value">${strukData.level_akses}</span>
+            </div>
+            <div class="row">
+                <span class="label">Harga</span>
+                <span class="value">${formatNumber(strukData.harga)} poin</span>
+            </div>
+            <div class="divider"></div>
+            <div class="total">💰 ${formatNumber(strukData.harga)} Poin</div>
+        </div>
+        <div class="struk-footer">
+            <div>📱 Tunjukkan struk ini ke Petugas LPS</div>
+            <div style="margin-top:4px;">Struk berlaku 1x penukaran</div>
+        </div>
+        <button class="btn-download-struk" onclick="downloadStruk()">
+            <i class="fas fa-download"></i> Download Struk
+        </button>
+        <button class="btn-close-struk" onclick="closeStrukPopup()">
+            <i class="fas fa-times"></i> Tutup
+        </button>
+    `;
+    
+    container.innerHTML = html;
+    popup.classList.add('active');
+}
+
+function closeStrukPopup() {
+    document.getElementById('strukPopup').classList.remove('active');
+}
+
+function downloadStruk() {
+    var content = document.getElementById('strukContent');
+    var strukHTML = content.innerHTML;
+    
+    var downloadHTML = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Struk Pembelian LPS</title>
+            <style>
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body { font-family: 'Courier New', monospace; background: white; padding: 20px; }
+                .struk { max-width: 350px; margin: 0 auto; border: 2px dashed #333; padding: 20px; }
+                .header { text-align: center; border-bottom: 2px dashed #333; padding-bottom: 10px; margin-bottom: 10px; }
+                .header h2 { font-size: 18px; }
+                .header p { font-size: 12px; color: #666; }
+                .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 13px; }
+                .divider { border-top: 1px dashed #ccc; margin: 8px 0; }
+                .total { text-align: center; font-size: 20px; font-weight: 700; padding: 10px 0; }
+                .footer { text-align: center; border-top: 2px dashed #333; padding-top: 10px; margin-top: 10px; font-size: 11px; color: #666; }
+                .print-btn { display: block; margin: 15px auto; padding: 10px 30px; background: #1a5f7a; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+                @media print { .print-btn { display: none; } }
+            </style>
+        </head>
+        <body>
+            <div class="struk">
+                ${strukHTML}
+            </div>
+            <button class="print-btn" onclick="window.print()">🖨️ Print / Simpan PDF</button>
+            <script>
+                setTimeout(function() {
+                    window.print();
+                }, 500);
+            <\/script>
+        </body>
+        </html>
+    `;
+    
+    var blob = new Blob([downloadHTML], { type: 'text/html' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'struk_pembelian_LPS.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// ==================== SUCCESS POPUP ====================
+function showSuccessPopup(message) {
+    document.getElementById('successMessage').innerHTML = message;
+    document.getElementById('successPopup').classList.add('active');
+}
+
+function closeSuccessPopup() {
+    document.getElementById('successPopup').classList.remove('active');
+}
+
+// ==================== INIT ====================
+(function() {
+    console.log('🚀 LPS Toko initialized');
+    loadUserData();
+    
+    // Refresh poin setiap 30 detik
+    setInterval(function() {
+        if (userNik) {
+            loadUserPoinAndRole();
         }
-        
-        function downloadStruk() {
-            var content = document.getElementById('strukContent');
-            var strukHTML = content.innerHTML;
-            
-            var downloadHTML = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <title>Struk Pembelian LPS</title>
-                    <style>
-                        * { margin: 0; padding: 0; box-sizing: border-box; }
-                        body { font-family: 'Courier New', monospace; background: white; padding: 20px; }
-                        .struk { max-width: 350px; margin: 0 auto; border: 2px dashed #333; padding: 20px; }
-                        .header { text-align: center; border-bottom: 2px dashed #333; padding-bottom: 10px; margin-bottom: 10px; }
-                        .header h2 { font-size: 18px; }
-                        .header p { font-size: 12px; color: #666; }
-                        .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 13px; }
-                        .divider { border-top: 1px dashed #ccc; margin: 8px 0; }
-                        .total { text-align: center; font-size: 20px; font-weight: 700; padding: 10px 0; }
-                        .footer { text-align: center; border-top: 2px dashed #333; padding-top: 10px; margin-top: 10px; font-size: 11px; color: #666; }
-                        .print-btn { display: block; margin: 15px auto; padding: 10px 30px; background: #1a5f7a; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
-                        @media print { .print-btn { display: none; } }
-                    </style>
-                </head>
-                <body>
-                    <div class="struk">
-                        ${strukHTML}
-                    </div>
-                    <button class="print-btn" onclick="window.print()">🖨️ Print / Simpan PDF</button>
-                    <script>
-                        setTimeout(function() {
-                            window.print();
-                        }, 500);
-                    <\/script>
-                </body>
-                </html>
-            `;
-            
-            var blob = new Blob([downloadHTML], { type: 'text/html' });
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = 'struk_pembelian_LPS.html';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-        
-        // ==================== SUCCESS POPUP ====================
-        function showSuccessPopup(message) {
-            document.getElementById('successMessage').innerHTML = message;
-            document.getElementById('successPopup').classList.add('active');
-        }
-        
-        function closeSuccessPopup() {
-            document.getElementById('successPopup').classList.remove('active');
-        }
-        
-        // ==================== INIT ====================
-        (function() {
-            loadUserData();
-            
-            // Refresh poin setiap 30 detik
-            setInterval(function() {
-                loadUserPoinAndRole();
-            }, 30000);
-        })();
+    }, 30000);
+})();
     </script>
 </body>
 </html>

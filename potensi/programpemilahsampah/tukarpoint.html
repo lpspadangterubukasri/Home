@@ -950,7 +950,7 @@
     <!-- ============================================================ -->
     <script>
         // ==================== KONFIGURASI ====================
-const API_URL = 'https://script.google.com/macros/s/AKfycbzNvYTO26tzzOp1E6CXl5BiXSZxvphU9l7VYqKXUoOhyo5pN1Iw1JLgMmN3FVEG7QgF/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycby1Q9joIcamOQ7qf3vT60xwuPDLipsPuSwDNge3UfLdFmEJDm9LTAB1DLDJQalfWMM4/exec';
 
 // ==================== STATE ====================
 let currentCategory = 'all';
@@ -1172,35 +1172,14 @@ function loadProducts() {
         });
 }
 
-// ==================== RENDER PRODUCTS (DENGAN FILTER NULL) ====================
+// ==================== RENDER PRODUCTS ====================
 function renderProducts() {
     var container = document.getElementById('productContainer');
     
     console.log('🎨 Render products, allProducts:', allProducts);
-    console.log('🎨 allProducts length:', allProducts ? allProducts.length : 0);
     
-    // CEK: Pastikan allProducts adalah array
-    if (!allProducts || !Array.isArray(allProducts)) {
-        console.warn('⚠️ allProducts is not array');
-        container.innerHTML = `
-            <div class="empty-state">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h3>Error Data</h3>
-                <p>Data produk tidak valid</p>
-            </div>
-        `;
-        return;
-    }
-    
-    // ===== FILTER DATA NULL =====
-    var validProducts = allProducts.filter(function(p) {
-        return p && typeof p === 'object' && p.nama_barang && p.nama_barang.trim() !== '';
-    });
-    
-    console.log('📦 Total products:', allProducts.length);
-    console.log('📦 Valid products:', validProducts.length);
-    
-    if (validProducts.length === 0) {
+    // PASTIKAN allProducts adalah array
+    if (!allProducts || !Array.isArray(allProducts) || allProducts.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
                 <i class="fas fa-box-open"></i>
@@ -1211,7 +1190,33 @@ function renderProducts() {
         return;
     }
     
-    // ===== FILTER BERDASARKAN KATEGORI =====
+    // ===== FILTER DATA NULL =====
+    var validProducts = [];
+    for (var i = 0; i < allProducts.length; i++) {
+        var p = allProducts[i];
+        // CEK: pastikan p tidak null/undefined dan punya nama_barang
+        if (p && typeof p === 'object' && p.nama_barang && p.nama_barang.trim() !== '') {
+            validProducts.push(p);
+        } else {
+            console.warn('⚠️ Data null terdeteksi di index', i, p);
+        }
+    }
+    
+    console.log('📦 Total products:', allProducts.length);
+    console.log('📦 Valid products:', validProducts.length);
+    
+    if (validProducts.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-box-open"></i>
+                <h3>Tidak Ada Produk Valid</h3>
+                <p>Data produk mungkin rusak. Cek spreadsheet DAFTAR_BARANG.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Filter berdasarkan kategori
     var filtered = validProducts;
     if (currentCategory !== 'all') {
         filtered = validProducts.filter(function(p) {
@@ -1245,21 +1250,13 @@ function renderProducts() {
     // Grid
     html += '<div class="product-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">';
     
-    filtered.forEach(function(product, index) {
-        // Validasi lagi
-        if (!product || !product.nama_barang) {
-            console.warn('⚠️ Skip invalid product at index', index);
-            return;
-        }
+    filtered.forEach(function(product) {
+        if (!product || !product.nama_barang) return;
         
-        console.log('✅ Render product ' + (index+1) + ':', product.nama_barang);
-        
-        // Status
         var isLocked = userLevel < ROLE_HIERARCHY[product.level_akses];
         var isOutOfStock = product.stok <= 0;
         var isPoinCukup = userPoin >= product.harga_barang;
         
-        // Tombol
         var btnText = '🛒 Beli';
         var btnDisabled = false;
         var btnColor = 'background:linear-gradient(135deg,#159895,#1a5f7a);color:white;cursor:pointer;';
@@ -1282,18 +1279,15 @@ function renderProducts() {
             btnClick = '';
         }
         
-        // Level color
         var levelColor = '#22c55e';
         if (product.level_akses === 'Veteran') levelColor = '#f97316';
         else if (product.level_akses === 'Master') levelColor = '#3b82f6';
         else if (product.level_akses === 'Grand Master') levelColor = '#f59e0b';
         
-        // Foto
         var fotoHtml = (product.url_foto && product.url_foto.trim() !== '') 
             ? '<img src="' + product.url_foto + '" alt="' + product.nama_barang + '" style="width:100%;height:100%;object-fit:cover;">' 
             : '<span style="font-size:48px;color:#a0aec0;"><i class="fas fa-box"></i></span>';
         
-        // Badge
         var badgeHtml = '';
         if (isOutOfStock) {
             badgeHtml = '<span style="position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;background:#e2e8f0;color:#718096;">Stok Habis</span>';
@@ -1301,7 +1295,6 @@ function renderProducts() {
             badgeHtml = '<span style="position:absolute;top:12px;right:12px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;background:#fee2e2;color:#dc2626;">🔒 Terkunci</span>';
         }
         
-        // Card
         html += '<div class="product-card" style="background:white;border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:all 0.3s ease;position:relative;display:flex;flex-direction:column;border:1px solid #f0f0f0;">';
         html += badgeHtml;
         html += '<div style="width:100%;height:180px;border-radius:12px;background:#f7fafc;margin-bottom:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid #e2e8f0;">' + fotoHtml + '</div>';
@@ -1319,7 +1312,7 @@ function renderProducts() {
     html += '</div>';
     
     container.innerHTML = html;
-    console.log('✅ Render complete, total cards:', filtered.length);
+    console.log('✅ Render complete');
 }
 
 // ==================== FILTER PRODUCTS ====================

@@ -1,1688 +1,635 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>EcoPoint - Input Data Sampah</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pemilahan Sampah - LPS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
-        /* ============================================
-                   ROOT VARIABLES
-                   ============================================ */
-        :root {
-            --primary: #4F46E5;  
-            --primary-dark: #4338CA;   
-            --primary-light: #818CF8;
-            --secondary: #10B981;
-            --secondary-dark: #059669;
-            --danger: #EF4444;
-            --warning: #F59E0B;
-            --info: #3B82F6;
-            --bg: #F3F4F6;
-            --card: #FFFFFF;
-            --text: #1F2937;
-            --text-light: #6B7280;
-            --border: #E5E7EB;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.12);
-            --radius: 16px;
-            --radius-sm: 10px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            min-height: 100vh;
-            padding: 16px;
-            color: var(--text);
-        }
-
-        .app-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* ============================================
-                   HEADER
-                   ============================================ */
-        .app-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: 20px 24px;
-            border-radius: var(--radius); 
-            color: white;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
-        }
-
-        .app-header .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .app-header .logo i {
-            font-size: 28px;
-        }
-
-        .app-header .logo h1 {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .app-header .logo span {
-            font-size: 12px;
-            opacity: 0.85;
-            font-weight: 400;
-            display: block;
-        }
-
-        .header-status {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .header-status .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #34D399;
-            animation: pulse-dot 2s infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(0.8);
-            }
-        }
-
-        /* ============================================
-                   CARDS
-                   ============================================ */
-        .card {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 20px 24px;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid var(--border);
-        }
-
-        .card:hover {
-            box-shadow: var(--shadow-hover);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--bg);
-        }
-
-        .card-header .icon {
-            width: 38px;
-            height: 38px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .card-header .icon.primary {
-            background: var(--primary);
-        }
-        .card-header .icon.success {
-            background: var(--secondary);
-        }
-        .card-header .icon.warning {
-            background: var(--warning);
-        }
-        .card-header .icon.info {
-            background: var(--info);
-        }
-        .card-header .icon.danger {
-            background: var(--danger);
-        }
-
-        .card-header h2 {
-            font-size: 17px;
-            font-weight: 600;
-        }
-
-        .card-header .sub {
-            font-size: 12px;
-            color: var(--text-light);
-            font-weight: 400;
-        }
-
-        /* ============================================
-                   FORM ELEMENTS
-                   ============================================ */
-        .form-group {
-            margin-bottom: 14px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
-
-        .form-group label .required {
-            color: var(--danger);
-            margin-left: 2px;
-        }
-
-        .form-group .helper {
-            font-size: 11px;
-            color: var(--text-light);
-            margin-top: 4px;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .input-wrapper .icon-left {
-            position: absolute;
-            left: 12px;
-            color: var(--text-light);
-            font-size: 14px;
-        }
-
-        .input-wrapper input,
-        .input-wrapper select,
-        .input-wrapper textarea {
-            width: 100%;
-            padding: 10px 14px 10px 40px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 14px;
-            transition: var(--transition);
-            background: white;
-            color: var(--text);
-            font-family: inherit;
-        }
-
-        .input-wrapper input:focus,
-        .input-wrapper select:focus,
-        .input-wrapper textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-        }
-
-        .input-wrapper input:disabled {
-            background: var(--bg);
-            cursor: not-allowed;
-        }
-
-        .input-wrapper input::placeholder {
-            color: var(--text-light);
-            opacity: 0.7;
-        }
-
-        .input-group-action {
-            display: flex;
-            gap: 8px;
-        }
-
-        .input-group-action .input-wrapper {
-            flex: 1;
-        }
-
-        /* ============================================
-                   BUTTONS
-                   ============================================ */
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            justify-content: center;
-            font-family: inherit;
-            white-space: nowrap;
-        }
-
-        .btn:active {
-            transform: scale(0.97);
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: var(--secondary);
-            color: white;
-        }
-        .btn-success:hover {
-            background: var(--secondary-dark);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn-warning {
-            background: var(--warning);
-            color: white;
-        }
-        .btn-warning:hover {
-            background: #D97706;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-        }
-        .btn-danger:hover {
-            background: #DC2626;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--border);
-        }
-        .btn-outline:hover {
-            background: var(--bg);
-            border-color: var(--text-light);
-        }
-
-        .btn-sm {
-            padding: 6px 14px;
-            font-size: 12px;
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        /* ============================================
-                   QR SCANNER
-                   ============================================ */
-        .qr-scanner-container {
-            background: #0A0A0A;
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            position: relative;
-            min-height: 300px;
-            display: none;
-        }
-
-        .qr-scanner-container.active {
-            display: block;
-        }
-
-        .qr-scanner-container #qr-reader {
-            width: 100%;
-            min-height: 300px;
-        }
-
-        .qr-scanner-container #qr-reader video {
-            width: 100%;
-            height: auto;
-            min-height: 300px;
-            object-fit: cover;
-        }
-
-        .qr-scanner-container .qr-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-        }
-
-        .qr-scanner-container .qr-overlay .frame {
-            width: 220px;
-            height: 220px;
-            border: 3px solid var(--primary);
-            border-radius: 12px;
-            position: relative;
-            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
-        }
-
-        .qr-scanner-container .qr-overlay .frame::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            width: 30px;
-            height: 30px;
-            border-top: 4px solid var(--primary);
-            border-left: 4px solid var(--primary);
-            border-radius: 4px 0 0 0;
-        }
-
-        .qr-scanner-container .qr-overlay .frame::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            right: -3px;
-            width: 30px;
-            height: 30px;
-            border-bottom: 4px solid var(--primary);
-            border-right: 4px solid var(--primary);
-            border-radius: 0 0 4px 0;
-        }
-
-        .qr-scanner-container .qr-status {
-            position: absolute;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 13px;
-            pointer-events: none;
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .qr-scanner-container .qr-status .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        .qr-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-
-        .qr-actions .btn {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        /* ============================================
-                   GRID
-                   ============================================ */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 14px;
-        }
-
-        .grid-4 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 12px;
-        }
-
-        /* ============================================
-                   ALERT
-                   ============================================ */
-        .alert {
-            padding: 12px 16px;
-            border-radius: var(--radius-sm);
-            margin-bottom: 14px;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            animation: slideDown 0.3s ease;
-        }
-
-        .alert.show {
-            display: flex;
-        }
-
-        .alert i {
-            font-size: 16px;
-        }
-
-        .alert-success {
-            background: #ECFDF5;
-            color: #065F46;
-            border: 1px solid #A7F3D0;
-        }
-
-        .alert-danger {
-            background: #FEF2F2;
-            color: #991B1B;
-            border: 1px solid #FECACA;
-        }
-
-        .alert-info {
-            background: #EFF6FF;
-            color: #1E40AF;
-            border: 1px solid #BFDBFE;
-        }
-
-        .alert-warning {
-            background: #FFFBEB;
-            color: #92400E;
-            border: 1px solid #FDE68A;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ============================================
-                   PESERTA INFO
-                   ============================================ */
-        .peserta-info {
-            background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
-            border-radius: var(--radius-sm);
-            padding: 14px 18px;
-            margin-top: 12px;
-            display: none;
-            border: 1px solid #C7D2FE;
-            animation: slideDown 0.3s ease;
-        }
-
-        .peserta-info.show {
-            display: block;
-        }
-
-        .peserta-info .row-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2px 20px;
-        }
-
-        .peserta-info .item {
-            display: flex;
-            gap: 6px;
-            padding: 2px 0;
-            font-size: 13px;
-        }
-
-        .peserta-info .item .label {
-            color: var(--text-light);
-            font-weight: 500;
-            min-width: 72px;
-        }
-
-        .peserta-info .item .value {
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .peserta-info .badge-found {
-            display: inline-block;
-            background: var(--secondary);
-            color: white;
-            padding: 2px 10px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-
-        /* ============================================
-                   POINT PREVIEW
-                   ============================================ */
-        .point-preview {
-            background: linear-gradient(135deg, #1F2937 0%, #111827 100%);
-            border-radius: var(--radius-sm);
-            padding: 14px 16px;
-            margin-top: 12px;
-            color: white;
-            display: none;
-        }
-
-        .point-preview.show {
-            display: block;
-        }
-
-        .point-preview .grid-4 {
-            gap: 10px;
-        }
-
-        .point-preview .point-item {
-            text-align: center;
-            padding: 6px;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .point-preview .point-item .label {
-            font-size: 10px;
-            opacity: 0.7;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .point-preview .point-item .number {
-            font-size: 22px;
-            font-weight: 700;
-            margin-top: 2px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .point-preview .point-item .number.org {
-            color: #34D399;
-        }
-        .point-preview .point-item .number.anorg {
-            color: #60A5FA;
-        }
-        .point-preview .point-item .number.res {
-            color: #FBBF24;
-        }
-        .point-preview .point-item .number.total {
-            color: #F472B6;
-        }
-
-        .point-preview .point-item .sub {
-            font-size: 9px;
-            opacity: 0.5;
-        }
-
-        /* ============================================
-                   LOADING
-                   ============================================ */
-        .loading-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .loading-overlay.show {
-            display: flex;
-            animation: fadeIn 0.2s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .loading-spinner {
-            width: 44px;
-            height: 44px;
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .loading-text {
-            color: white;
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        /* ============================================
-                   FILE UPLOAD
-                   ============================================ */
-        .file-upload {
-            border: 2px dashed var(--border);
-            border-radius: var(--radius-sm);
-            padding: 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .file-upload:hover {
-            border-color: var(--primary);
-            background: #F8FAFF;
-        }
-
-        .file-upload input[type="file"] {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .file-upload .icon {
-            font-size: 28px;
-            color: var(--text-light);
-            margin-bottom: 6px;
-        }
-
-        .file-upload .text {
-            font-size: 13px;
-            color: var(--text-light);
-        }
-
-        .file-upload .text strong {
-            color: var(--primary);
-        }
-
-        .file-upload .file-name {
-            font-size: 12px;
-            color: var(--secondary);
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        /* ============================================
-                   ACTION BUTTONS
-                   ============================================ */
-        .action-bar {
-            display: flex;
-            gap: 10px;
-            margin-top: 8px;
-            flex-wrap: wrap;
-        }
-
-        .action-bar .btn {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        /* ============================================
-                   STATUS BAR
-                   ============================================ */
-        .status-bar {
-            background: var(--bg);
-            border-radius: var(--radius-sm);
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 12px;
-            color: var(--text-light);
-            border: 1px solid var(--border);
-            margin-top: 14px;
-        }
-
-        .status-bar .status-text {
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        .status-bar .status-icon {
-            font-size: 14px;
-        }
-
-        /* ============================================
-                   RESPONSIVE
-                   ============================================ */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .app-header {
-                padding: 16px 18px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .app-header .logo h1 {
-                font-size: 18px;
-            }
-
-            .card {
-                padding: 14px 16px;
-            }
-
-            .grid-2,
-            .grid-3,
-            .grid-4 {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .peserta-info .row-info {
-                grid-template-columns: 1fr;
-            }
-
-            .input-group-action {
-                flex-direction: column;
-            }
-
-            .action-bar .btn {
-                flex: 1 1 100%;
-            }
-
-            .point-preview .grid-4 {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .header-status {
-                font-size: 11px;
-                padding: 4px 12px;
-            }
-
-            .qr-actions .btn {
-                min-width: 80px;
-                font-size: 12px;
-                padding: 8px 12px;
-            }
-
-            .status-bar {
-                flex-wrap: wrap;
-                font-size: 11px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .point-preview .grid-4 {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .point-preview .point-item .number {
-                font-size: 18px;
-            }
-
-            .qr-scanner-container {
-                min-height: 220px;
-            }
-
-            .qr-scanner-container #qr-reader {
-                min-height: 220px;
-            }
-
-            .qr-scanner-container .qr-overlay .frame {
-                width: 160px;
-                height: 160px;
-            }
-        }
-
-        /* ============================================
-                   SCROLLBAR
-                   ============================================ */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-light);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
-        }
-
-        /* ============================================
-                   MISC
-                   ============================================ */
-        .text-center {
-            text-align: center;
-        }
-        .text-muted {
-            color: var(--text-light);
-        }
-        .mt-8 {
-            margin-top: 8px;
-        }
-        .mt-12 {
-            margin-top: 12px;
-        }
-        .gap-8 {
-            gap: 8px;
-        }
-        .flex-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hidden {
-            display: none !important;
-        }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .scan-area { border: 3px dashed #667eea; border-radius: 12px; padding: 20px; background: #f8f9fa; }
+        .waste-card { border-left: 4px solid; transition: all 0.3s ease; }
+        .waste-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .organik { border-color: #10b981; }
+        .an-organik { border-color: #3b82f6; }
+        .residu { border-color: #ef4444; }
+        .btn-scan-gallery { background: #6b7280; color: white; padding: 8px 16px; border-radius: 8px; transition: all 0.3s ease; }
+        .btn-scan-gallery:hover { background: #4b5563; transform: scale(1.05); }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .status-connected { background: #10b981; color: white; }
+        .status-disconnected { background: #ef4444; color: white; }
+        #reader video { border-radius: 8px; width: 100% !important; height: auto !important; }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 24px; border-radius: 8px; transition: all 0.3s ease; }
+        .btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
     </style>
 </head>
 <body>
-
-    <!-- LOADING OVERLAY -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Memproses data...</div>
-    </div>
-
-    <!-- APP CONTAINER -->
-    <div class="app-container">
-
-        <!-- HEADER -->
-        <header class="app-header">
-            <div class="logo">
-                <i class="fas fa-leaf"></i>
-                <div>
-                    <h1>EcoPoint <span style="font-size:13px;opacity:0.7;">| Input Data</span></h1>
-                    <span>Sistem Manajemen Sampah Terintegrasi</span>
+    <nav class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-wrap justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-recycle text-2xl"></i>
+                    <span class="font-bold text-xl">LPS Pemilahan</span>
                 </div>
-            </div>
-            <div class="header-status">
-                <span class="dot"></span>
-                <span>Online · <span id="headerTime">--:--</span></span>
-            </div>
-        </header>
-
-        <!-- ALERT -->
-        <div id="alert" class="alert"></div>
-
-        <!-- CARD 1: SCAN QR CODE -->
-        <div class="card">
-            <div class="card-header">
-                <div class="icon primary"><i class="fas fa-qrcode"></i></div>
-                <div>
-                    <h2>Scan QR Code / Barcode</h2>
-                    <span class="sub">Scan menggunakan kamera atau pilih dari galeri</span>
-                </div>
-            </div>
-
-            <!-- QR Scanner -->
-            <div class="qr-scanner-container" id="qrScannerContainer">
-                <div id="qr-reader"></div>
-                <div class="qr-overlay">
-                    <div class="frame"></div>
-                </div>
-                <div class="qr-status">
-                    <span class="spinner"></span>
-                    Arahkan ke QR Code / Barcode
-                </div>
-            </div>
-
-            <!-- QR Actions -->
-            <div class="qr-actions">
-                <button class="btn btn-primary" id="btnStartScan" onclick="startScanner()">
-                    <i class="fas fa-camera"></i> Buka Kamera
-                </button>
-                <button class="btn btn-danger" id="btnStopScan" onclick="stopScanner()" style="display:none;">
-                    <i class="fas fa-stop"></i> Stop Scan
-                </button>
-                <button class="btn btn-warning" onclick="document.getElementById('qrFileInput').click()">
-                    <i class="fas fa-images"></i> Pilih dari Galeri
-                </button>
-                <input type="file" id="qrFileInput" accept="image/*" style="display:none" onchange="handleQRFile(this)" />
-            </div>
-
-            <!-- Atau Input Manual -->
-            <div style="margin-top:14px; border-top:1px solid var(--border); padding-top:14px;">
-                <div class="form-group" style="margin-bottom:0;">
-                    <label>Atau Masukkan ID Peserta Manual</label>
-                    <div class="input-group-action">
-                        <div class="input-wrapper">
-                            <i class="fas fa-id-card icon-left"></i>
-                            <input type="text" id="pesertaId" placeholder="Contoh: P001" />
-                        </div>
-                        <button class="btn btn-primary" onclick="cariPeserta()">
-                            <i class="fas fa-search"></i> Cari
-                        </button>
-                    </div>
-                    <div class="helper">
-                        <i class="fas fa-info-circle"></i> Tekan Enter untuk mencari
-                    </div>
-                </div>
-            </div>
-
-            <!-- Peserta Info -->
-            <div class="peserta-info" id="pesertaInfo">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                    <span style="font-weight:600;font-size:14px;">
-                        <i class="fas fa-user-check" style="color:var(--secondary);"></i>
-                        Data Peserta Ditemukan
-                        <span class="badge-found">Valid</span>
+                <div class="flex items-center space-x-4">
+                    <span id="connectionStatus" class="status-badge status-disconnected">
+                        <i class="fas fa-circle"></i> Offline
                     </span>
-                    <button class="btn btn-sm btn-outline" onclick="resetPeserta()" style="padding:4px 12px; font-size:11px;">
-                        <i class="fas fa-times"></i>
+                    <span id="userDisplay" class="hidden">
+                        <i class="fas fa-user-circle text-xl"></i>
+                        <span id="userName" class="ml-1"></span>
+                    </span>
+                    <button onclick="logout()" class="bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition flex items-center space-x-2">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
                     </button>
                 </div>
-                <div class="row-info">
-                    <div class="item"><span class="label">Nama</span><span class="value" id="displayNama">-</span></div>
-                    <div class="item"><span class="label">Username</span><span class="value" id="displayUsername">-</span></div>
-                    <div class="item"><span class="label">NIK</span><span class="value" id="displayNik">-</span></div>
-                    <div class="item"><span class="label">Email</span><span class="value" id="displayEmail">-</span></div>
-                </div>
             </div>
         </div>
+    </nav>
 
-        <!-- CARD 2: INPUT DATA SAMPAH -->
-        <div class="card">
-            <div class="card-header">
-                <div class="icon success"><i class="fas fa-recycle"></i></div>
-                <div>
-                    <h2>Input Data Sampah</h2>
-                    <span class="sub">Isi berat sampah dalam kilogram (kg)</span>
-                </div>
-            </div>
-
-            <div class="grid-3">
-                <div class="form-group">
-                    <label><i class="fas fa-seedling" style="color:#34D399;"></i> Organik (kg)</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-weight-scale icon-left"></i>
-                        <input type="number" id="organikKg" step="0.01" min="0" placeholder="0.00" oninput="hitungTotal()" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-flask" style="color:#60A5FA;"></i> An-Organik (kg)</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-weight-scale icon-left"></i>
-                        <input type="number" id="anOrganikKg" step="0.01" min="0" placeholder="0.00" oninput="hitungTotal()" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-trash" style="color:#FBBF24;"></i> Residu (kg)</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-weight-scale icon-left"></i>
-                        <input type="number" id="residuKg" step="0.01" min="0" placeholder="0.00" oninput="hitungTotal()" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="form-group">
-                    <label>Total Berat (kg)</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-calculator icon-left"></i>
-                        <input type="text" id="totalKg" disabled placeholder="0.00" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Kode Transaksi</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-hashtag icon-left"></i>
-                        <input type="text" id="kodeTransaksi" disabled placeholder="Otomatis" />
-                    </div>
-                </div>
-            </div>
-
-            <!-- Point Preview -->
-            <div class="point-preview" id="pointPreview">
-                <div class="grid-4">
-                    <div class="point-item">
-                        <div class="label">Poin Organik</div>
-                        <div class="number org" id="pointOrganik">0</div>
-                        <div class="sub">poin</div>
-                    </div>
-                    <div class="point-item">
-                        <div class="label">Poin An-Organik</div>
-                        <div class="number anorg" id="pointAnOrganik">0</div>
-                        <div class="sub">poin</div>
-                    </div>
-                    <div class="point-item">
-                        <div class="label">Poin Residu</div>
-                        <div class="number res" id="pointResidu">0</div>
-                        <div class="sub">poin</div>
-                    </div>
-                    <div class="point-item">
-                        <div class="label">Total Poin</div>
-                        <div class="number total" id="totalPoint">0</div>
-                        <div class="sub">poin</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD 3: FOTO BUKTI -->
-        <div class="card">
-            <div class="card-header">
-                <div class="icon info"><i class="fas fa-camera"></i></div>
-                <div>
-                    <h2>Foto Bukti</h2>
-                    <span class="sub">Upload foto bukti penimbangan</span>
-                </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="form-group">
-                    <label>Upload Foto Bukti <span class="required">*</span></label>
-                    <div class="file-upload" id="fileUpload">
-                        <input type="file" id="fotoBukti" accept="image/*" onchange="handleFileUpload(this)" />
-                        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                        <div class="text">
-                            <strong>Klik</strong> atau seret file ke sini
-                        </div>
-                        <div class="file-name" id="fileNameDisplay">Belum ada file</div>
-                    </div>
-                    <div class="helper">
-                        <i class="fas fa-info-circle"></i> Foto akan otomatis diupload ke Google Drive
-                    </div>
-                </div>
-                <div>
-                    <div class="form-group">
-                        <label>Nama File Foto</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-file-image icon-left"></i>
-                            <input type="text" id="namaFileFoto" placeholder="Otomatis dari nama file" />
-                        </div>
-                        <div class="helper">Kosongkan untuk menggunakan nama file asli</div>
-                    </div>
-                    <div class="form-group">
-                        <label>Folder Drive</label>
-                        <div class="input-wrapper">
-                            <i class="fas fa-folder icon-left"></i>
-                            <input type="text" id="folderDrive" placeholder="Folder otomatis" disabled />
-                        </div>
-                        <div class="helper">Folder: <strong id="folderDisplay">Belum ada</strong></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Preview Foto -->
-            <div id="fotoPreview" style="display:none; margin-top:10px;">
-                <img id="previewImg" src="" alt="Preview Foto" style="max-width:180px; max-height:180px; border-radius:8px; border:2px solid var(--border);" />
-            </div>
-        </div>
-
-        <!-- CARD 4: ACTION -->
-        <div class="card">
-            <div class="action-bar">
-                <button class="btn btn-success" onclick="simpanData()" id="btnSimpan">
-                    <i class="fas fa-save"></i> Simpan Data
-                </button>
-                <button class="btn btn-warning" onclick="resetForm()">
-                    <i class="fas fa-undo"></i> Reset
+    <div class="container mx-auto px-4 py-8">
+        <!-- Scanner Section -->
+        <div id="scanSection" class="bg-white rounded-xl shadow-lg p-6 mb-8 fade-in">
+            <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
+                <h2 class="text-2xl font-bold text-gray-800">
+                    <i class="fas fa-qrcode text-purple-600"></i> Scan Barcode Peserta
+                </h2>
+                <button onclick="testConnection()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition flex items-center space-x-2">
+                    <i class="fas fa-plug"></i>
+                    <span>Test Koneksi</span>
                 </button>
             </div>
-
-            <!-- Status Bar -->
-            <div class="status-bar">
-                <span class="status-icon"><i class="fas fa-circle" style="color:var(--secondary);font-size:8px;"></i></span>
-                <span>Status:</span>
-                <span class="status-text" id="statusText">Siap untuk input data</span>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="scan-area">
+                    <div id="reader"></div>
+                    <div class="mt-4 flex flex-wrap justify-center gap-2">
+                        <button onclick="startScanner()" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition flex items-center space-x-2">
+                            <i class="fas fa-camera"></i>
+                            <span>Buka Kamera</span>
+                        </button>
+                        <button onclick="stopScanner()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition flex items-center space-x-2">
+                            <i class="fas fa-stop"></i>
+                            <span>Stop</span>
+                        </button>
+                        <button onclick="scanFromGallery()" class="btn-scan-gallery flex items-center space-x-2">
+                            <i class="fas fa-images"></i>
+                            <span>Galeri</span>
+                        </button>
+                    </div>
+                    <div class="mt-2 text-center text-gray-500 text-sm">
+                        <i class="fas fa-info-circle"></i> Arahkan kamera ke barcode atau upload gambar
+                    </div>
+                </div>
+                <div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="font-semibold text-lg mb-2">Atau masukkan ID Peserta</h3>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="text" id="manualId" placeholder="Masukkan ID Peserta" 
+                                   class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                            <button onclick="getUserById()" class="btn-primary flex items-center justify-center space-x-2">
+                                <i class="fas fa-search"></i>
+                                <span>Cari</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="userInfo" class="mt-4 hidden fade-in">
+                        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg">
+                            <div class="flex items-start space-x-4">
+                                <img id="userPhoto" src="" alt="Foto" class="w-20 h-20 rounded-full object-cover border-2 border-green-500">
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-lg" id="userNameDisplay"></h4>
+                                    <p class="text-gray-600 text-sm"><i class="fas fa-id-card"></i> <span id="userIdDisplay"></span></p>
+                                    <p class="text-gray-600 text-sm"><i class="fas fa-envelope"></i> <span id="userEmailDisplay"></span></p>
+                                    <p class="text-gray-600 text-sm"><i class="fas fa-id-badge"></i> NIK: <span id="userNikDisplay"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- FOOTER -->
-        <div style="text-align:center; padding:16px 0 8px; color:var(--text-light); font-size:12px;">
-            <i class="fas fa-leaf" style="color:var(--primary);"></i>
-            EcoPoint System v2.0 &bull; Terintegrasi Google Drive &amp; Sheets
+        <!-- Waste Input Section -->
+        <div id="wasteSection" class="hidden bg-white rounded-xl shadow-lg p-6 mb-8 fade-in">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                <i class="fas fa-trash-alt text-green-600"></i> Input Pemilahan Sampah
+                <span class="text-sm font-normal text-gray-500 ml-2" id="wasteUserLabel"></span>
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <!-- Organik -->
+                <div class="waste-card organik bg-white rounded-lg p-4 shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg text-gray-800">🌿 Organik</h3>
+                        <span class="text-sm bg-green-100 text-green-700 px-2 py-1 rounded">100 Poin/kg</span>
+                    </div>
+                    <input type="number" id="organikWeight" placeholder="Berat (kg)" step="0.01" min="0"
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <div class="mt-2 text-sm text-gray-500">
+                        Poin: <span id="organikPoints" class="font-semibold text-green-600">0</span>
+                    </div>
+                </div>
+
+                <!-- An Organik -->
+                <div class="waste-card an-organik bg-white rounded-lg p-4 shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg text-gray-800">🔧 An Organik</h3>
+                        <span class="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded">500 Poin/kg</span>
+                    </div>
+                    <input type="number" id="anOrganikWeight" placeholder="Berat (kg)" step="0.01" min="0"
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="mt-2 text-sm text-gray-500">
+                        Poin: <span id="anOrganikPoints" class="font-semibold text-blue-600">0</span>
+                    </div>
+                </div>
+
+                <!-- Residu -->
+                <div class="waste-card residu bg-white rounded-lg p-4 shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg text-gray-800">🗑️ Residu</h3>
+                        <span class="text-sm bg-red-100 text-red-700 px-2 py-1 rounded">10 Poin/kg</span>
+                    </div>
+                    <input type="number" id="residuWeight" placeholder="Berat (kg)" step="0.01" min="0"
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <div class="mt-2 text-sm text-gray-500">
+                        Poin: <span id="residuPoints" class="font-semibold text-red-600">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Catatan & Total -->
+            <div class="grid md:grid-cols-3 gap-4 mb-4">
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Catatan</label>
+                    <textarea id="notes" rows="2" placeholder="Tambahkan catatan jika diperlukan..." 
+                              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 flex flex-col justify-center items-center">
+                    <p class="text-sm text-gray-600">Total Poin</p>
+                    <p class="text-3xl font-bold text-purple-600" id="totalPointsDisplay">0</p>
+                </div>
+            </div>
+
+            <!-- Tombol Simpan -->
+            <div class="flex justify-end">
+                <button onclick="submitWaste()" id="submitBtn" class="btn-primary flex items-center space-x-2 text-lg px-8 py-3">
+                    <i class="fas fa-save"></i>
+                    <span>Simpan Data</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboardSection" class="hidden bg-white rounded-xl shadow-lg p-6 fade-in">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                <i class="fas fa-chart-bar text-purple-600"></i> Dashboard Peserta
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-green-50 p-4 rounded-lg text-center">
+                    <p class="text-sm text-gray-600">Total Organik</p>
+                    <p class="text-2xl font-bold text-green-600" id="dashOrganik">0 kg</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg text-center">
+                    <p class="text-sm text-gray-600">Total An Organik</p>
+                    <p class="text-2xl font-bold text-blue-600" id="dashAnOrganik">0 kg</p>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg text-center">
+                    <p class="text-sm text-gray-600">Total Residu</p>
+                    <p class="text-2xl font-bold text-red-600" id="dashResidu">0 kg</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                    <p class="text-sm text-gray-600">Total Poin</p>
+                    <p class="text-2xl font-bold text-yellow-600" id="dashPoints">0</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-lg mb-3">
+                    <i class="fas fa-history text-gray-600"></i> Riwayat Pemilahan
+                </h3>
+                <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                    <table class="min-w-full bg-white border rounded-lg">
+                        <thead class="bg-gray-50 sticky top-0">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Tanggal</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Organik</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">An Organik</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Residu</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Poin</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logTableBody">
+                            <tr><td colspan="6" class="text-center py-4 text-gray-500">Belum ada data</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- ============================================
-    JAVASCRIPT
-    ============================================ -->
     <script>
-        // ============================================
-        // KONFIGURASI
-        // ============================================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbxl7lF6azV-Z9m8VrNPPndm5h7Q6nxJKny7uMW-gOvQEzrf12VQKMyK-GdKzy8rSg/exec';
-
-        // ============================================
-        // STATE
-        // ============================================
+        // ==================== KONFIGURASI ====================
+        // GANTI URL INI DENGAN URL APPSSCRIPT ANDA
+        const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyi2RUeOJ9H3mc84OFwg8BlIQy1PZO11KzUoM96KXTxpnOskTIIVHuYSSuhuu762hg/exec';
+        
+        let currentUser = null;
         let html5QrCode = null;
-        let pesertaData = null;
-        let fotoBase64 = null;
-        let fotoMimeType = null;
-        let fotoFileName = null;
-        let isScanning = false;
+        let isScannerRunning = false;
 
-        // ============================================
-        // CLOCK
-        // ============================================
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('headerTime').textContent =
-                now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // ============================================
-        // GENERATE KODE TRANSAKSI
-        // ============================================
-        function generateKodeTransaksi() {
-            const now = new Date();
-            const d = String(now.getFullYear()) +
-                String(now.getMonth() + 1).padStart(2, '0') +
-                String(now.getDate()).padStart(2, '0');
-            const t = String(now.getHours()).padStart(2, '0') +
-                String(now.getMinutes()).padStart(2, '0') +
-                String(now.getSeconds()).padStart(2, '0');
-            const r = String(Math.floor(Math.random() * 1000)).padStart(3, '0');
-            return `TRX-${d}-${t}-${r}`;
-        }
-        document.getElementById('kodeTransaksi').value = generateKodeTransaksi();
-
-        // ============================================
-        // ALERT
-        // ============================================
-        function showAlert(message, type = 'info') {
-            const el = document.getElementById('alert');
-            el.className = `alert show alert-${type}`;
-            const icons = {
-                success: 'fa-check-circle',
-                danger: 'fa-exclamation-circle',
-                warning: 'fa-exclamation-triangle',
-                info: 'fa-info-circle'
-            };
-            el.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i> ${message}`;
-            clearTimeout(el._timeout);
-            el._timeout = setTimeout(() => hideAlert(), 6000);
-        }
-
-        function hideAlert() {
-            const el = document.getElementById('alert');
-            el.className = 'alert';
-            el.innerHTML = '';
-        }
-
-        // ============================================
-        // LOADING
-        // ============================================
-        function showLoading(show) {
-            document.getElementById('loadingOverlay').classList.toggle('show', show);
-            document.getElementById('btnSimpan').disabled = show;
-        }
-
-        // ============================================
-        // QR SCANNER - LANGSUNG BUKA KAMERA
-        // ============================================
-        async function startScanner() {
-            try {
-                const container = document.getElementById('qrScannerContainer');
-                container.classList.add('active');
-                document.getElementById('btnStartScan').style.display = 'none';
-                document.getElementById('btnStopScan').style.display = 'inline-flex';
-
-                if (html5QrCode) {
-                    try {
-                        await html5QrCode.stop();
-                    } catch (e) {}
-                    html5QrCode.clear();
-                }
-
-                html5QrCode = new Html5Qrcode("qr-reader");
-
-                const config = {
-                    fps: 15,
-                    qrbox: { width: 240, height: 240 },
-                    aspectRatio: 1.0,
-                };
-
-                await html5QrCode.start(
-                    { facingMode: "environment" },
-                    config,
-                    onScanSuccess,
-                    onScanError
-                );
-
-                isScanning = true;
-                showAlert('📷 Kamera aktif, arahkan ke QR Code / Barcode', 'info');
-
-            } catch (error) {
-                console.error('Scanner error:', error);
-                if (error.message.includes('NotAllowedError')) {
-                    showAlert('❌ Izin kamera ditolak. Izinkan akses kamera di browser.', 'danger');
-                } else if (error.message.includes('NotFoundError')) {
-                    showAlert('❌ Kamera tidak ditemukan. Pastikan perangkat memiliki kamera.', 'danger');
-                } else {
-                    showAlert('❌ Gagal membuka kamera: ' + error.message, 'danger');
-                }
-                stopScanner();
-            }
-        }
-
-        function onScanSuccess(decodedText, decodedResult) {
-            // Stop scanner setelah berhasil
-            stopScanner();
-
-            // Set ID
-            document.getElementById('pesertaId').value = decodedText;
-            showAlert(`✅ QR Code / Barcode terdeteksi: ${decodedText}`, 'success');
-
-            // Cari peserta
-            cariPeserta();
-        }
-
-        function onScanError(errorMessage) {
-            // Ignore - hanya log
-            console.log('Scan error:', errorMessage);
-        }
-
-        async function stopScanner() {
-            try {
-                if (html5QrCode) {
-                    await html5QrCode.stop();
-                    html5QrCode.clear();
-                }
-            } catch (e) {
-                console.log('Stop scanner error:', e);
-            }
-
-            document.getElementById('qrScannerContainer').classList.remove('active');
-            document.getElementById('btnStartScan').style.display = 'inline-flex';
-            document.getElementById('btnStopScan').style.display = 'none';
-            isScanning = false;
-        }
-
-        // ============================================
-        // HANDLE QR FILE DARI GALERI
-        // ============================================
-        function handleQRFile(input) {
-            const file = input.files[0];
-            if (!file) return;
-
-            showLoading(true);
-
-            const reader = new FileReader();
-            reader.onload = async function(e) {
-                try {
-                    // Gunakan Html5Qrcode untuk scan dari gambar
-                    const tempScanner = new Html5Qrcode("temp-scanner");
-                    const result = await tempScanner.scanFile(file, false);
-
-                    if (result) {
-                        document.getElementById('pesertaId').value = result;
-                        showAlert(`✅ Barcode dari gambar: ${result}`, 'success');
-                        cariPeserta();
-                    } else {
-                        showAlert('❌ Tidak ada barcode/QR Code terdeteksi dalam gambar', 'warning');
-                    }
-
-                    tempScanner.clear();
-                    input.value = '';
-
-                } catch (error) {
-                    showAlert('❌ Gagal membaca barcode: ' + error.message, 'danger');
-                    console.error('Barcode scan error:', error);
-                }
-
-                showLoading(false);
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // ============================================
-        // CARI PESERTA (via API)
-        // ============================================
-        async function cariPeserta() {
-            const id = document.getElementById('pesertaId').value.trim();
-            if (!id) {
-                showAlert('Silakan masukkan ID Peserta!', 'warning');
-                return;
-            }
-
-            showLoading(true);
-
-            try {
-                const url = `${API_URL}?action=cariPeserta&id=${encodeURIComponent(id)}`;
-                const response = await fetch(url);
-                const result = await response.json();
-
-                if (result.success && result.data) {
-                    pesertaData = result.data;
-                    displayPesertaInfo(pesertaData);
-                    showAlert(`✅ Peserta ditemukan: ${pesertaData.nama_peserta}`, 'success');
-                    document.getElementById('statusText').textContent =
-                        `Peserta: ${pesertaData.nama_peserta} (${pesertaData.id})`;
-
-                    // Generate folder name
-                    const folderName = `${pesertaData.id}_${pesertaData.nama_peserta}`;
-                    document.getElementById('folderDisplay').textContent = folderName;
-                    document.getElementById('folderDrive').value = `13UlCUb65r7iJsKSSBjFIrlZF00mnuNj3/${folderName}`;
-                } else {
-                    pesertaData = null;
-                    document.getElementById('pesertaInfo').classList.remove('show');
-                    showAlert(`❌ ${result.message || 'Peserta tidak ditemukan!'}`, 'danger');
-                    document.getElementById('statusText').textContent = 'Peserta tidak ditemukan';
-                }
-            } catch (error) {
-                showAlert('❌ Error koneksi: ' + error.message, 'danger');
-                console.error('Cari peserta error:', error);
-            }
-
-            showLoading(false);
-        }
-
-        // Enter key untuk cari peserta
-        document.getElementById('pesertaId').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') cariPeserta();
+        // ==================== INISIALISASI ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('manualId').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') getUserById();
+            });
+            
+            ['organik', 'anOrganik', 'residu'].forEach(type => {
+                document.getElementById(type + 'Weight').addEventListener('input', calculatePoints);
+            });
+            
+            initializeScanner();
+            testConnection();
         });
 
-        // ============================================
-        // DISPLAY PESERTA INFO
-        // ============================================
-        function displayPesertaInfo(data) {
-            document.getElementById('displayNama').textContent = data.nama_peserta || '-';
-            document.getElementById('displayUsername').textContent = data.username || '-';
-            document.getElementById('displayNik').textContent = data.nik || '-';
-            document.getElementById('displayEmail').textContent = data.email || '-';
-            document.getElementById('pesertaInfo').classList.add('show');
+        // ==================== SCANNER ====================
+        function initializeScanner() {
+            if (typeof Html5Qrcode === 'undefined') {
+                console.error('QR Scanner library not loaded');
+                return;
+            }
+            html5QrCode = new Html5Qrcode("reader");
         }
 
-        // ============================================
-        // RESET PESERTA
-        // ============================================
-        function resetPeserta() {
-            document.getElementById('pesertaId').value = '';
-            document.getElementById('pesertaInfo').classList.remove('show');
-            pesertaData = null;
-            document.getElementById('statusText').textContent = 'Siap untuk input data';
-            document.getElementById('folderDisplay').textContent = 'Belum ada';
-            document.getElementById('folderDrive').value = '';
-            hideAlert();
-        }
+        function startScanner() {
+            if (isScannerRunning) {
+                stopScanner();
+                return;
+            }
 
-        // ============================================
-        // HANDLE FILE UPLOAD FOTO BUKTI
-        // ============================================
-        function handleFileUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-
-            const display = document.getElementById('fileNameDisplay');
-            display.textContent = file.name;
-
-            // Preview
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const preview = document.getElementById('fotoPreview');
-                const img = document.getElementById('previewImg');
-                img.src = e.target.result;
-                preview.style.display = 'block';
-
-                // Simpan base64 untuk upload
-                fotoBase64 = e.target.result.split(',')[1];
-                fotoMimeType = file.type;
-                fotoFileName = file.name;
-
-                // Auto fill nama file
-                if (!document.getElementById('namaFileFoto').value) {
-                    const ext = file.name.split('.').pop();
-                    const base = file.name.replace(`.${ext}`, '');
-                    document.getElementById('namaFileFoto').value =
-                        `${base}_${new Date().toISOString().slice(0,10)}.${ext}`;
-                }
+            const config = {
+                fps: 10,
+                qrbox: { width: 250, height: 250 },
+                formats: [
+                    Html5QrcodeSupportedFormats.QR_CODE,
+                    Html5QrcodeSupportedFormats.CODE_128,
+                    Html5QrcodeSupportedFormats.CODE_39
+                ]
             };
-            reader.readAsDataURL(file);
+
+            html5QrCode.start(
+                { facingMode: "environment" },
+                config,
+                onScanSuccess,
+                onScanError
+            ).then(() => {
+                isScannerRunning = true;
+                document.querySelector('#reader').innerHTML = '';
+                document.querySelector('#reader').appendChild(html5QrCode.getScannerContainer());
+            }).catch(err => {
+                console.error('Failed to start scanner:', err);
+                Swal.fire('Error', 'Gagal mengakses kamera. Silakan gunakan scan dari galeri atau input manual.', 'error');
+            });
         }
 
-        // ============================================
-        // HITUNG TOTAL & POIN
-        // ============================================
-        function hitungTotal() {
-            const organik = parseFloat(document.getElementById('organikKg').value) || 0;
-            const anOrganik = parseFloat(document.getElementById('anOrganikKg').value) || 0;
-            const residu = parseFloat(document.getElementById('residuKg').value) || 0;
-
-            const total = organik + anOrganik + residu;
-            document.getElementById('totalKg').value = total.toFixed(2);
-
-            // Hitung poin (1kg = 100 poin organik, 500 anorganik, 10 residu)
-            const pointOrg = organik * 100;
-            const pointAnOrg = anOrganik * 500;
-            const pointRes = residu * 10;
-
-            document.getElementById('pointOrganik').textContent = pointOrg.toFixed(0);
-            document.getElementById('pointAnOrganik').textContent = pointAnOrg.toFixed(0);
-            document.getElementById('pointResidu').textContent = pointRes.toFixed(0);
-            document.getElementById('totalPoint').textContent = (pointOrg + pointAnOrg + pointRes).toFixed(0);
-
-            // Show preview jika ada data
-            const hasData = organik > 0 || anOrganik > 0 || residu > 0;
-            document.getElementById('pointPreview').classList.toggle('show', hasData);
+        function stopScanner() {
+            if (html5QrCode && isScannerRunning) {
+                html5QrCode.stop().then(() => {
+                    isScannerRunning = false;
+                    document.getElementById('reader').innerHTML = '<div id="reader"></div>';
+                    initializeScanner();
+                });
+            }
         }
 
-        // ============================================
-        // SIMPAN DATA - PERBAIKAN UTAMA
-        // ============================================
-        async function simpanData() {
-            // Validasi peserta
-            if (!pesertaData) {
-                showAlert('❌ Silakan cari peserta terlebih dahulu!', 'danger');
-                return;
-            }
+        function scanFromGallery() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
 
-            // Validasi input
-            const organik = parseFloat(document.getElementById('organikKg').value) || 0;
-            const anOrganik = parseFloat(document.getElementById('anOrganikKg').value) || 0;
-            const residu = parseFloat(document.getElementById('residuKg').value) || 0;
-
-            if (organik === 0 && anOrganik === 0 && residu === 0) {
-                showAlert('❌ Minimal satu jenis sampah harus diisi!', 'danger');
-                return;
-            }
-
-            // Validasi foto
-            if (!fotoBase64) {
-                showAlert('❌ Silakan upload foto bukti!', 'danger');
-                return;
-            }
-
-            showLoading(true);
-
-            try {
-                // Build data
-                const totalKg = organik + anOrganik + residu;
-                const pointOrg = organik * 100;
-                const pointAnOrg = anOrganik * 500;
-                const pointRes = residu * 10;
-                const totalPoint = pointOrg + pointAnOrg + pointRes;
-
-                const now = new Date();
-                const timestamp = now.toISOString();
-                const tanggal = now.toLocaleDateString('id-ID');
-                const jam = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                const kodeTransaksi = generateKodeTransaksi();
-
-                const logEntries = [];
-
-                if (organik > 0) {
-                    logEntries.push({
-                        timestamp,
-                        tanggal,
-                        jam,
-                        jenis_sampah: 'organik',
-                        berat_kg: organik,
-                        poin_didapat: pointOrg,
-                        metode_input: 'manual'
-                    });
-                }
-                if (anOrganik > 0) {
-                    logEntries.push({
-                        timestamp,
-                        tanggal,
-                        jam,
-                        jenis_sampah: 'an_organik',
-                        berat_kg: anOrganik,
-                        poin_didapat: pointAnOrg,
-                        metode_input: 'manual'
-                    });
-                }
-                if (residu > 0) {
-                    logEntries.push({
-                        timestamp,
-                        tanggal,
-                        jam,
-                        jenis_sampah: 'residu',
-                        berat_kg: residu,
-                        poin_didapat: pointRes,
-                        metode_input: 'manual'
-                    });
-                }
-
-                // Data lengkap untuk dikirim
-                const data = {
-                    id_peserta: pesertaData.id,
-                    organik_kg: organik,
-                    an_organik_kg: anOrganik,
-                    residu_kg: residu,
-                    total_kg: totalKg,
-                    point_organik: pointOrg,
-                    point_an_organik: pointAnOrg,
-                    point_residu: pointRes,
-                    total_point: totalPoint,
-                    foto_base64: fotoBase64,
-                    foto_mimeType: fotoMimeType || 'image/jpeg',
-                    nama_file_foto: document.getElementById('namaFileFoto').value || fotoFileName,
-                    log_entries: logEntries,
-                    kode_transaksi: kodeTransaksi
-                };
-
-                console.log('📦 Data yang akan dikirim:', data);
-
-                // Kirim ke API menggunakan FormData
-                const formData = new FormData();
-                formData.append('action', 'simpanData');
-                formData.append('data', JSON.stringify(data));
-
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    body: formData
+                Swal.fire({
+                    title: 'Memproses gambar...',
+                    text: 'Mohon tunggu',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading()
                 });
 
-                const result = await response.json();
-                console.log('📥 Response dari server:', result);
-
-                if (result.success) {
-                    showAlert(`✅ ${result.message} | Total Poin: ${totalPoint.toFixed(0)}`, 'success');
-                    document.getElementById('statusText').textContent =
-                        `✅ Data tersimpan - ${pesertaData.nama_peserta} | Poin: ${totalPoint.toFixed(0)}`;
-                    resetFormData();
-                } else {
-                    showAlert('❌ ' + result.message, 'danger');
+                if (html5QrCode) {
+                    html5QrCode.scanFile(file, true)
+                        .then(decodedText => {
+                            Swal.close();
+                            onScanSuccess(decodedText);
+                        })
+                        .catch(err => {
+                            Swal.close();
+                            console.error('Failed to scan image:', err);
+                            Swal.fire('Error', 'Gagal membaca barcode dari gambar. Pastikan gambar jelas.', 'error');
+                        });
                 }
+            };
+            input.click();
+        }
 
-            } catch (error) {
-                showAlert('❌ Gagal menyimpan data: ' + error.message, 'danger');
-                console.error('❌ Simpan data error:', error);
+        function onScanSuccess(decodedText) {
+            if (isScannerRunning) stopScanner();
+            Swal.fire({
+                title: 'Barcode Terdeteksi!',
+                text: `ID: ${decodedText}`,
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
+            getUserByBarcode(decodedText);
+        }
+
+        function onScanError(err) {}
+
+        // ==================== KONEKSI ====================
+        function testConnection() {
+            const statusEl = document.getElementById('connectionStatus');
+            statusEl.className = 'status-badge status-disconnected';
+            statusEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengecek...';
+            
+            fetch(`${APPSCRIPT_URL}?action=testConnection&t=${Date.now()}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        statusEl.className = 'status-badge status-connected';
+                        statusEl.innerHTML = '<i class="fas fa-circle"></i> Online';
+                        Swal.fire('Berhasil!', 'Koneksi ke server berhasil', 'success');
+                    } else {
+                        statusEl.className = 'status-badge status-disconnected';
+                        statusEl.innerHTML = '<i class="fas fa-circle"></i> Offline';
+                        Swal.fire('Gagal', 'Koneksi ke server gagal. Periksa URL AppScript.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Connection error:', error);
+                    statusEl.className = 'status-badge status-disconnected';
+                    statusEl.innerHTML = '<i class="fas fa-circle"></i> Offline';
+                    Swal.fire('Error', 'Tidak dapat terhubung ke server. Periksa koneksi internet dan URL AppScript.', 'error');
+                });
+        }
+
+        // ==================== USER FUNCTIONS ====================
+        function getUserByBarcode(barcode) {
+            Swal.fire({
+                title: 'Mencari data...',
+                text: 'Mohon tunggu',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            fetch(`${APPSCRIPT_URL}?action=getUserByBarcode&barcode=${barcode}`)
+                .then(response => response.json())
+                .then(data => {
+                    Swal.close();
+                    if (data.status === 'success') {
+                        displayUser(data.data);
+                    } else {
+                        Swal.fire('Error', 'User tidak ditemukan', 'error');
+                    }
+                })
+                .catch(error => {
+                    Swal.close();
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Gagal mengambil data user', 'error');
+                });
+        }
+
+        function getUserById() {
+            const id = document.getElementById('manualId').value.trim();
+            if (!id) {
+                Swal.fire('Peringatan', 'Masukkan ID peserta terlebih dahulu', 'warning');
+                return;
+            }
+            
+            Swal.fire({
+                title: 'Mencari data...',
+                text: 'Mohon tunggu',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+            
+            fetch(`${APPSCRIPT_URL}?action=getUser&id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    Swal.close();
+                    if (data.status === 'success') {
+                        displayUser(data.data);
+                    } else {
+                        Swal.fire('Error', 'User tidak ditemukan', 'error');
+                    }
+                })
+                .catch(error => {
+                    Swal.close();
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Gagal mengambil data user', 'error');
+                });
+        }
+
+        function displayUser(user) {
+            currentUser = user;
+            
+            document.getElementById('userInfo').classList.remove('hidden');
+            document.getElementById('userNameDisplay').textContent = user.nama_peserta || 'Nama tidak tersedia';
+            document.getElementById('userIdDisplay').textContent = user.id || '-';
+            document.getElementById('userEmailDisplay').textContent = user.email || '-';
+            document.getElementById('userNikDisplay').textContent = user.nik || '-';
+            
+            if (user.url_foto) {
+                document.getElementById('userPhoto').src = user.url_foto;
+            }
+            
+            document.getElementById('wasteSection').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            document.getElementById('userDisplay').classList.remove('hidden');
+            document.getElementById('userName').textContent = user.nama_peserta;
+            document.getElementById('wasteUserLabel').textContent = `- ${user.nama_peserta}`;
+            
+            loadDashboard(user.id);
+            document.getElementById('manualId').value = '';
+            
+            Swal.fire({
+                title: 'Berhasil!',
+                text: `Data peserta ${user.nama_peserta} ditemukan`,
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+
+        // ==================== WASTE SUBMISSION ====================
+        function calculatePoints() {
+            const organik = parseFloat(document.getElementById('organikWeight').value) || 0;
+            const anOrganik = parseFloat(document.getElementById('anOrganikWeight').value) || 0;
+            const residu = parseFloat(document.getElementById('residuWeight').value) || 0;
+            
+            const organikPoints = organik * 100;
+            const anOrganikPoints = anOrganik * 500;
+            const residuPoints = residu * 10;
+            const total = organikPoints + anOrganikPoints + residuPoints;
+            
+            document.getElementById('organikPoints').textContent = organikPoints.toFixed(0);
+            document.getElementById('anOrganikPoints').textContent = anOrganikPoints.toFixed(0);
+            document.getElementById('residuPoints').textContent = residuPoints.toFixed(0);
+            document.getElementById('totalPointsDisplay').textContent = total.toFixed(0);
+        }
+
+        function submitWaste() {
+    if (!currentUser) {
+        Swal.fire('Error', 'Silakan scan barcode peserta terlebih dahulu', 'warning');
+        return;
+    }
+
+    const organik_kg = parseFloat(document.getElementById('organikWeight').value) || 0;
+    const an_organik_kg = parseFloat(document.getElementById('anOrganikWeight').value) || 0;
+    const residu_kg = parseFloat(document.getElementById('residuWeight').value) || 0;
+    
+    if (organik_kg === 0 && an_organik_kg === 0 && residu_kg === 0) {
+        Swal.fire('Peringatan', 'Minimal satu jenis sampah harus diisi', 'warning');
+        return;
+    }
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+    // BUAT FORM DATA (bukan JSON)
+    const formData = new FormData();
+    formData.append('action', 'submitWaste');
+    formData.append('id_peserta', currentUser.id);
+    formData.append('organik_kg', organik_kg);
+    formData.append('an_organik_kg', an_organik_kg);
+    formData.append('residu_kg', residu_kg);
+    formData.append('catatan', document.getElementById('notes').value || '');
+
+    // KIRIM PAKAI FORM DATA, TANPA PARAMETER DI URL
+    fetch(APPSCRIPT_URL, {
+        method: 'POST',
+        body: formData  // <-- PAKAI FORM DATA, BUKAN JSON
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.text(); // Ambil sebagai text dulu untuk debug
+    })
+    .then(text => {
+        console.log('Raw response:', text);
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error('Failed to parse JSON:', e);
+            throw new Error('Respons dari server tidak valid: ' + text.substring(0, 100));
+        }
+    })
+    .then(data => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Data';
+        
+        if (data.status === 'success') {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: `Data berhasil disimpan. Total Poin: ${data.data.total_point}`,
+                icon: 'success',
+                timer: 3000,
+                showConfirmButton: false
+            });
+            
+            document.getElementById('organikWeight').value = '';
+            document.getElementById('anOrganikWeight').value = '';
+            document.getElementById('residuWeight').value = '';
+            document.getElementById('notes').value = '';
+            calculatePoints();
+            loadDashboard(currentUser.id);
+        } else {
+            Swal.fire('Error', data.message || 'Gagal menyimpan data', 'error');
+        }
+    })
+    .catch(error => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Data';
+        console.error('Error detail:', error);
+        Swal.fire('Error', `Gagal mengirim data: ${error.message}`, 'error');
+    });
+}
+
+        // ==================== DASHBOARD ====================
+        function loadDashboard(id_peserta) {
+            fetch(`${APPSCRIPT_URL}?action=getDashboard&id=${id_peserta}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        updateDashboard(data.data);
+                    }
+                })
+                .catch(error => console.error('Error loading dashboard:', error));
+        }
+
+        function updateDashboard(data) {
+            const summary = data.summary;
+            if (summary) {
+                document.getElementById('dashOrganik').textContent = (summary.total_organik_kg || 0).toFixed(2) + ' kg';
+                document.getElementById('dashAnOrganik').textContent = (summary.total_an_organik_kg || 0).toFixed(2) + ' kg';
+                document.getElementById('dashResidu').textContent = (summary.total_residu_kg || 0).toFixed(2) + ' kg';
+                document.getElementById('dashPoints').textContent = summary.total_point || 0;
             }
 
-            showLoading(false);
-        }
-
-        // ============================================
-        // RESET FORM
-        // ============================================
-        function resetForm() {
-            if (confirm('Reset semua data? Data yang belum disimpan akan hilang.')) {
-                resetFormData();
-                resetPeserta();
-                document.getElementById('kodeTransaksi').value = generateKodeTransaksi();
-                showAlert('🔄 Form telah direset', 'info');
+            const logs = data.logs || [];
+            const tableBody = document.getElementById('logTableBody');
+            
+            if (logs.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-gray-500">Belum ada riwayat pemilahan</td></tr>';
+                return;
             }
+
+            tableBody.innerHTML = logs.slice().reverse().map(log => `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-2 text-sm">${new Date(log.timestamp).toLocaleDateString('id-ID')} ${new Date(log.timestamp).toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'})}</td>
+                    <td class="px-4 py-2 text-sm">${(log.organik_kg || 0).toFixed(2)}</td>
+                    <td class="px-4 py-2 text-sm">${(log.an_organik_kg || 0).toFixed(2)}</td>
+                    <td class="px-4 py-2 text-sm">${(log.residu_kg || 0).toFixed(2)}</td>
+                    <td class="px-4 py-2 text-sm">${(log.total_kg || 0).toFixed(2)}</td>
+                    <td class="px-4 py-2 text-sm font-semibold">${log.total_point || 0}</td>
+                </tr>
+            `).join('');
         }
 
-        function resetFormData() {
-            document.getElementById('organikKg').value = '';
-            document.getElementById('anOrganikKg').value = '';
-            document.getElementById('residuKg').value = '';
-            document.getElementById('totalKg').value = '';
-            document.getElementById('namaFileFoto').value = '';
-            document.getElementById('fotoBukti').value = '';
-            document.getElementById('fileNameDisplay').textContent = 'Belum ada file';
-            document.getElementById('fotoPreview').style.display = 'none';
-            document.getElementById('previewImg').src = '';
-            document.getElementById('pointPreview').classList.remove('show');
-            document.getElementById('pointOrganik').textContent = '0';
-            document.getElementById('pointAnOrganik').textContent = '0';
-            document.getElementById('pointResidu').textContent = '0';
-            document.getElementById('totalPoint').textContent = '0';
-            fotoBase64 = null;
-            fotoMimeType = null;
-            fotoFileName = null;
+        // ==================== LOGOUT ====================
+        function logout() {
+            if (isScannerRunning) stopScanner();
+            
+            currentUser = null;
+            document.getElementById('userInfo').classList.add('hidden');
+            document.getElementById('wasteSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+            document.getElementById('userDisplay').classList.add('hidden');
+            document.getElementById('manualId').value = '';
+            
+            ['organik', 'anOrganik', 'residu'].forEach(type => {
+                document.getElementById(type + 'Weight').value = '';
+            });
+            document.getElementById('notes').value = '';
+            calculatePoints();
+            
+            Swal.fire('Logout', 'Anda telah logout', 'success');
         }
 
-        // ============================================
-        // INIT
-        // ============================================
-        console.log('🌱 EcoPoint System v2.0 - QR Scanner');
-        console.log('📌 Fitur:');
-        console.log('  ✅ Scan QR Code/Barcode real-time');
-        console.log('  ✅ Pilih barcode dari galeri');
-        console.log('  ✅ Cari peserta manual');
-        console.log('  ✅ Input 3 jenis sampah');
-        console.log('  ✅ Hitung poin otomatis');
-        console.log('  ✅ Upload foto ke Google Drive');
-        console.log('  ✅ Simpan ke spreadsheet');
-        console.log('');
-        console.log(`🔗 API URL: ${API_URL}`);
+        // ==================== CLEANUP ====================
+        window.addEventListener('beforeunload', function() {
+            if (isScannerRunning) stopScanner();
+        });
     </script>
 </body>
 </html>

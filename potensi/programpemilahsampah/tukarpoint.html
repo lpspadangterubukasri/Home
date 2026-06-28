@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        * { 
-            margin: 0; 
+        * {
+            margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
@@ -297,17 +297,6 @@
             margin-bottom: 4px;
         }
         
-        .product-card .product-desc {
-            font-size: 13px;
-            color: #718096;
-            margin-bottom: 10px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            flex: 1;
-        }
-        
         .product-card .product-level {
             font-size: 12px;
             font-weight: 600;
@@ -447,7 +436,7 @@
             font-size: 14px;
         }
         
-        /* ===== MODAL ===== */
+        /* ===== MODAL KONFIRMASI ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -571,6 +560,134 @@
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
+        }
+        
+        /* ===== STRUK POPUP ===== */
+        .struk-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .struk-popup-overlay.active {
+            display: flex;
+        }
+        
+        .struk-popup {
+            background: white;
+            border-radius: 16px;
+            max-width: 420px;
+            width: 100%;
+            padding: 30px 25px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            margin: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .struk-popup .struk-header {
+            text-align: center;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .struk-popup .struk-header .logo {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .struk-popup .struk-header .sub {
+            font-size: 11px;
+            color: #a0aec0;
+        }
+        
+        .struk-popup .struk-body .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 13px;
+        }
+        
+        .struk-popup .struk-body .row .label {
+            color: #718096;
+        }
+        
+        .struk-popup .struk-body .row .value {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .struk-popup .struk-body .divider {
+            border-top: 1px dashed #e2e8f0;
+            margin: 10px 0;
+        }
+        
+        .struk-popup .struk-body .total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-align: center;
+            padding: 10px 0;
+        }
+        
+        .struk-popup .struk-footer {
+            border-top: 2px dashed #e2e8f0;
+            padding-top: 15px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 11px;
+            color: #a0aec0;
+        }
+        
+        .struk-popup .btn-download-struk {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        .struk-popup .btn-download-struk:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(21, 152, 149, 0.3);
+        }
+        
+        .struk-popup .btn-close-struk {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            background: #e2e8f0;
+            color: #2d3748;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        
+        .struk-popup .btn-close-struk:hover {
+            background: #cbd5e0;
         }
         
         /* ===== SUCCESS POPUP ===== */
@@ -706,6 +823,11 @@
                 padding: 24px 20px;
                 margin: 12px;
             }
+            
+            .struk-popup {
+                padding: 20px 15px;
+                margin: 10px;
+            }
         }
         
         @media (max-width: 400px) {
@@ -806,6 +928,13 @@
         </div>
     </div>
     
+    <!-- ===== STRUK POPUP ===== -->
+    <div class="struk-popup-overlay" id="strukPopup">
+        <div class="struk-popup" id="strukContent">
+            <!-- Isi akan di-generate oleh JS -->
+        </div>
+    </div>
+    
     <!-- ===== SUCCESS POPUP ===== -->
     <div class="success-popup-overlay" id="successPopup">
         <div class="success-popup">
@@ -821,7 +950,8 @@
     <!-- ============================================================ -->
     <script>
         // ==================== KONFIGURASI ====================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbx01mERBhf2zFQAsK_JzmnyXbQLpjF4eUL2Y8RHb3BwaE7atDX9vTGuDxmmr465ZEmd/exec';
+        // ===== UPDATE API_URL DENGAN URL DEPLOY APPS SCRIPT ANDA =====
+        const API_URL = 'https://script.google.com/macros/s/AKfycbw_pJp2BgClaQMkjny5b99GkhWI7k1Y2bnFkP97AIeO9eNMGvl_tFmbQ4jq0thvZem5/exec';
         
         // ==================== STATE ====================
         let currentCategory = 'all';
@@ -983,13 +1113,24 @@
                 .then(function(result) {
                     if (result.success) {
                         allProducts = result.data || [];
-                        renderProducts();
+                        if (allProducts.length === 0) {
+                            container.innerHTML = `
+                                <div class="empty-state">
+                                    <i class="fas fa-box-open"></i>
+                                    <h3>Belum Ada Produk</h3>
+                                    <p>Silahkan tambahkan produk di spreadsheet DAFTAR_BARANG</p>
+                                </div>
+                            `;
+                        } else {
+                            renderProducts();
+                        }
                     } else {
                         container.innerHTML = `
                             <div class="empty-state">
-                                <i class="fas fa-box-open"></i>
+                                <i class="fas fa-exclamation-triangle"></i>
                                 <h3>Gagal Memuat Produk</h3>
                                 <p>${result.message || 'Coba refresh halaman'}</p>
+                                <p style="font-size:12px;color:#a0aec0;margin-top:10px;">Pastikan spreadsheet DAFTAR_BARANG sudah terisi</p>
                             </div>
                         `;
                     }
@@ -1060,10 +1201,6 @@
                 html += '  <div class="product-grid">';
                 
                 products.forEach(function(product) {
-                    var canBuy = userLevel >= ROLE_HIERARCHY[product.level_akses] && 
-                                 userPoin >= product.harga_barang && 
-                                 product.stok > 0;
-                    
                     var isOutOfStock = product.stok <= 0;
                     var isLockedProduct = userLevel < ROLE_HIERARCHY[product.level_akses];
                     var isPoinCukup = userPoin >= product.harga_barang;
@@ -1108,7 +1245,7 @@
                     html += '    </div>';
                     html += '    <div class="product-price">' + formatNumber(product.harga_barang) + ' <span>poin</span></div>';
                     html += '    <div class="product-stock">📦 Stok: ' + product.stok + '</div>';
-                    html += '    <button class="' + btnClass + '" onclick="openConfirmModal(\'' + product.nama_barang + '\')" ' + (btnDisabled ? 'disabled' : '') + '>';
+                    html += '    <button class="' + btnClass + '" onclick="openConfirmModal(\'' + product.nama_barang.replace(/'/g, "\\'") + '\')" ' + (btnDisabled ? 'disabled' : '') + '>';
                     html += '      ' + btnText;
                     html += '    </button>';
                     html += '  </div>';
@@ -1138,7 +1275,10 @@
         // ==================== CONFIRM MODAL ====================
         function openConfirmModal(productName) {
             var product = allProducts.find(function(p) { return p.nama_barang === productName; });
-            if (!product) return;
+            if (!product) {
+                showAlert('Produk tidak ditemukan', 'error');
+                return;
+            }
             
             if (product.stok <= 0) {
                 showAlert('Maaf, stok produk ini habis!', 'error');
@@ -1170,6 +1310,7 @@
             selectedProduct = null;
         }
         
+        // ==================== CONFIRM BELI + STRUK ====================
         function confirmBeli() {
             if (!selectedProduct) return;
             
@@ -1197,19 +1338,154 @@
                     }
                     
                     closeConfirmModal();
-                    showSuccessPopup('Berhasil membeli <strong>' + selectedProduct.nama_barang + '</strong>!');
-                    renderProducts();
+                    
+                    // ===== GENERATE STRUK =====
+                    callAPI('generateStruk', {
+                        nik: userNik,
+                        username: userData.username || '',
+                        nama_barang: selectedProduct.nama_barang,
+                        harga: selectedProduct.harga_barang,
+                        level_akses: selectedProduct.level_akses
+                    })
+                    .then(function(strukResult) {
+                        if (strukResult.success) {
+                            showStruk(strukResult.data);
+                            renderProducts();
+                        } else {
+                            showAlert('Pembelian berhasil, tapi gagal generate struk: ' + (strukResult.message || ''), 'error');
+                            renderProducts();
+                        }
+                    })
+                    .catch(function(error) {
+                        showAlert('Pembelian berhasil, tapi gagal generate struk: ' + error.message, 'error');
+                        renderProducts();
+                    });
+                    
                 } else {
                     showAlert('Gagal membeli: ' + (result.message || ''), 'error');
+                    btn.innerHTML = '<i class="fas fa-check"></i> Beli Sekarang';
+                    btn.disabled = false;
                 }
             })
             .catch(function(error) {
                 showAlert('Error: ' + error.message, 'error');
-            })
-            .finally(function() {
                 btn.innerHTML = '<i class="fas fa-check"></i> Beli Sekarang';
                 btn.disabled = false;
             });
+        }
+        
+        // ==================== FUNGSI STRUK ====================
+        function showStruk(strukData) {
+            var popup = document.getElementById('strukPopup');
+            var container = document.getElementById('strukContent');
+            
+            var html = `
+                <div class="struk-header">
+                    <div class="logo">🪙 LPS PADANG TERUBUK ASRI</div>
+                    <div class="sub">Program Pemilahan Sampah</div>
+                    <div class="sub">${strukData.tanggal} - ${strukData.jam}</div>
+                </div>
+                <div class="struk-body">
+                    <div class="row">
+                        <span class="label">No. Struk</span>
+                        <span class="value">${strukData.no_struk}</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Peserta</span>
+                        <span class="value">${strukData.nama_peserta}</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Username</span>
+                        <span class="value">${strukData.username}</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Role</span>
+                        <span class="value">${strukData.role}</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <span class="label">Produk</span>
+                        <span class="value">${strukData.nama_barang}</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Level Akses</span>
+                        <span class="value">${strukData.level_akses}</span>
+                    </div>
+                    <div class="row">
+                        <span class="label">Harga</span>
+                        <span class="value">${formatNumber(strukData.harga)} poin</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="total">💰 ${formatNumber(strukData.harga)} Poin</div>
+                </div>
+                <div class="struk-footer">
+                    <div>📱 Tunjukkan struk ini ke Petugas LPS</div>
+                    <div style="margin-top:4px;">Struk berlaku 1x penukaran</div>
+                </div>
+                <button class="btn-download-struk" onclick="downloadStruk()">
+                    <i class="fas fa-download"></i> Download Struk
+                </button>
+                <button class="btn-close-struk" onclick="closeStrukPopup()">
+                    <i class="fas fa-times"></i> Tutup
+                </button>
+            `;
+            
+            container.innerHTML = html;
+            popup.classList.add('active');
+        }
+        
+        function closeStrukPopup() {
+            document.getElementById('strukPopup').classList.remove('active');
+        }
+        
+        function downloadStruk() {
+            var content = document.getElementById('strukContent');
+            var strukHTML = content.innerHTML;
+            
+            var downloadHTML = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Struk Pembelian LPS</title>
+                    <style>
+                        * { margin: 0; padding: 0; box-sizing: border-box; }
+                        body { font-family: 'Courier New', monospace; background: white; padding: 20px; }
+                        .struk { max-width: 350px; margin: 0 auto; border: 2px dashed #333; padding: 20px; }
+                        .header { text-align: center; border-bottom: 2px dashed #333; padding-bottom: 10px; margin-bottom: 10px; }
+                        .header h2 { font-size: 18px; }
+                        .header p { font-size: 12px; color: #666; }
+                        .row { display: flex; justify-content: space-between; padding: 3px 0; font-size: 13px; }
+                        .divider { border-top: 1px dashed #ccc; margin: 8px 0; }
+                        .total { text-align: center; font-size: 20px; font-weight: 700; padding: 10px 0; }
+                        .footer { text-align: center; border-top: 2px dashed #333; padding-top: 10px; margin-top: 10px; font-size: 11px; color: #666; }
+                        .print-btn { display: block; margin: 15px auto; padding: 10px 30px; background: #1a5f7a; color: white; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+                        @media print { .print-btn { display: none; } }
+                    </style>
+                </head>
+                <body>
+                    <div class="struk">
+                        ${strukHTML}
+                    </div>
+                    <button class="print-btn" onclick="window.print()">🖨️ Print / Simpan PDF</button>
+                    <script>
+                        setTimeout(function() {
+                            window.print();
+                        }, 500);
+                    <\/script>
+                </body>
+                </html>
+            `;
+            
+            var blob = new Blob([downloadHTML], { type: 'text/html' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'struk_pembelian_LPS.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
         
         // ==================== SUCCESS POPUP ====================

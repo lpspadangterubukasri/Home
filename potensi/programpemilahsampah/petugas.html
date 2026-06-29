@@ -2,2308 +2,634 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Dashboard - LPS Padang Terubuk Asri">
-    <title>Dashboard - LPS Padang Terubuk Asri</title>  
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">  
-    <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/">
-    <meta property="og:title" content="Dashboard - Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
-    <meta property="og:description" content="Dashboard peserta LPS Padang Terubuk Asri">
-    <meta property="og:site_name" content="LPS PADANG TERUBUK ASRI">
-    <meta property="og:image" content="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
-    <meta property="og:image:secure_url" content="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:alt" content="Logo LPS Padang Terubuk Asri">    
-    
-    <!-- Favicon -->
-    <link rel="icon" href="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" type="image/png">
-    <link rel="apple-touch-icon" href="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Pemilahan Sampah - LPS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- QRCode.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
-        /* ===== RESET & VARIABLES ===== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --primary: #1a5f7a;
-            --secondary: #159895;
-            --accent: #57c5b6;
-            --light: #f5f9fa;
-            --white: #ffffff;
-            --dark: #0a2d3e;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
-            --sidebar-width: 260px;
-            --bottom-nav-height: 72px;
-            --role-pemula: #22c55e;
-            --role-veteran: #f97316;
-            --role-master: #3b82f6;
-            --role-grandmaster: #f59e0b;
-            --role-admin: #1e40af;
-            --role-pendiri: #d4af37;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--light);
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: var(--sidebar-width);
-            height: 100vh;
-            background: linear-gradient(180deg, #1a5f7a 0%, #0d3d52 100%);
-            color: white;
-            padding: 20px 0;
-            z-index: 100;
-            transition: transform 0.3s ease;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            border-right: 2px solid rgba(87, 197, 182, 0.3);
-        }
-        
-        .sidebar::-webkit-scrollbar { width: 4px; }
-        .sidebar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
-        .sidebar::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
-        
-        .sidebar-brand {
-            text-align: center;
-            padding: 10px 15px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 20px;
-        }
-        
-        .sidebar-brand .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: contain;
-            background: white;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 2px solid var(--accent);
-        }
-        
-        .sidebar-brand h2 { font-size: 16px; font-weight: 700; color: white; line-height: 1.2; }
-        .sidebar-brand small { font-size: 10px; opacity: 0.7; font-weight: 300; }
-        
-        .sidebar-user {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            margin: 0 15px 20px;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-        
-        .sidebar-user .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--accent);
-            background: #2d3748;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: white;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-        .sidebar-user .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .sidebar-user .user-info { flex: 1; min-width: 0; }
-        .sidebar-user .user-info .name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .sidebar-user .user-info .role-badge { font-size: 10px; display: inline-block; padding: 2px 12px; border-radius: 20px; margin-top: 2px; font-weight: 600; }
-        .sidebar-user .user-info .role-badge.pemula { background: rgba(34,197,94,0.3); color: var(--role-pemula); }
-        .sidebar-user .user-info .role-badge.veteran { background: rgba(249,115,22,0.3); color: var(--role-veteran); animation: glowOrange 2s ease-in-out infinite; }
-        .sidebar-user .user-info .role-badge.master { background: rgba(59,130,246,0.3); color: var(--role-master); animation: glowBlue 2s ease-in-out infinite; }
-        .sidebar-user .user-info .role-badge.grandmaster { background: rgba(245,158,11,0.3); color: var(--role-grandmaster); animation: glowGold 1.5s ease-in-out infinite; }
-        .sidebar-user .user-info .role-badge.admin { background: rgba(30,64,175,0.3); color: var(--role-admin); animation: glowDarkBlue 2s ease-in-out infinite; }
-        .sidebar-user .user-info .role-badge.pendiri { background: rgba(212,175,55,0.3); color: var(--role-pendiri); animation: glowGold 1.5s ease-in-out infinite; }
-        
-        @keyframes glowOrange { 0%,100% { box-shadow: 0 0 5px rgba(249,115,22,0.3); } 50% { box-shadow: 0 0 20px rgba(249,115,22,0.6); } }
-        @keyframes glowBlue { 0%,100% { box-shadow: 0 0 5px rgba(59,130,246,0.3); } 50% { box-shadow: 0 0 20px rgba(59,130,246,0.6); } }
-        @keyframes glowGold { 0%,100% { box-shadow: 0 0 5px rgba(245,158,11,0.3); } 50% { box-shadow: 0 0 25px rgba(245,158,11,0.8); } }
-        @keyframes glowDarkBlue { 0%,100% { box-shadow: 0 0 5px rgba(30,64,175,0.3); } 50% { box-shadow: 0 0 20px rgba(30,64,175,0.6); } }
-        
-        .sidebar-user .user-info .level-badge { font-size: 9px; opacity: 0.6; display: block; margin-top: 1px; }
-        .sidebar-user .user-info .poin-sampah-badge { font-size: 10px; display: inline-block; padding: 2px 10px; border-radius: 20px; margin-top: 2px; font-weight: 600; background: rgba(245,158,11,0.2); color: #f59e0b; }
-        
-        /* ===== PROGRESS BAR LEVEL ===== */
-        .level-progress {
-            margin: 10px 15px 15px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 10px;
-            padding: 10px 14px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .level-progress .progress-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 4px;
-        }
-        .level-progress .progress-header .level-label { font-weight: 600; color: var(--accent); }
-        .level-progress .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-        .level-progress .progress-bar .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--secondary));
-            border-radius: 10px;
-            transition: width 0.8s ease;
-            width: 0%;
-        }
-        .level-progress .progress-text {
-            font-size: 9px;
-            color: rgba(255,255,255,0.4);
-            margin-top: 3px;
-            text-align: right;
-        }
-        
-        /* ===== SIDEBAR MENU ===== */
-        .sidebar-menu { flex: 1; padding: 0 10px; }
-        .sidebar-menu .menu-label { font-size: 10px; text-transform: uppercase; opacity: 0.4; padding: 10px 15px 5px; letter-spacing: 1px; font-weight: 600; }
-        .sidebar-menu .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            margin-bottom: 2px;
-            font-size: 14px;
-            font-weight: 500;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-family: 'Poppins', sans-serif;
-        }
-        .sidebar-menu .menu-item:hover { background: rgba(255,255,255,0.08); color: white; }
-        .sidebar-menu .menu-item.active { background: rgba(87,197,182,0.2); color: white; border-left: 3px solid var(--accent); }
-        .sidebar-menu .menu-item i { width: 22px; font-size: 16px; text-align: center; flex-shrink: 0; }
-        .sidebar-menu .menu-item .badge-inbox { background: #ef4444; color: white; font-size: 10px; padding: 1px 8px; border-radius: 20px; margin-left: auto; font-weight: 600; }
-        
-        .sidebar-footer { padding: 15px 20px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto; }
-        .sidebar-footer .logout-btn {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            color: rgba(255,255,255,0.7);
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        .sidebar-footer .logout-btn:hover { background: rgba(255,0,0,0.15); color: #ff6b6b; }
-        .sidebar-footer .logout-btn i { width: 22px; font-size: 16px; }
-        
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            margin-left: var(--sidebar-width);
-            flex: 1;
-            padding: 20px 30px 90px;
-            min-height: 100vh;
-            transition: margin-left 0.3s ease;
-        }
-        
-        .main-content .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(26,95,122,0.1);
-        }
-        
-        .main-content .page-header h1 {
-            font-size: 22px;
-            color: var(--primary);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .main-content .page-header h1 .header-logo { display: none; width: 36px; height: 36px; border-radius: 50%; object-fit: contain; background: white; padding: 4px; border: 2px solid var(--accent); }
-        .main-content .page-header .header-right { display: flex; align-items: center; gap: 15px; }
-        .main-content .page-header .header-right .user-badge {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: white;
-            padding: 6px 16px 6px 10px;
-            border-radius: 30px;
-            box-shadow: var(--shadow);
-        }
-        .main-content .page-header .header-right .user-badge .avatar-sm { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
-        .main-content .page-header .header-right .user-badge .level-badge-sm { background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; padding: 2px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-        
-        /* ===== PAGE CONTENT ===== */
-        .page-content { display: block; animation: fadeIn 0.3s ease; }
-        .page-content.hidden { display: none; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .scan-area { border: 3px dashed #667eea; border-radius: 12px; padding: 20px; background: #f8f9fa; }
+        .waste-card { border-left: 4px solid; transition: all 0.3s ease; }
+        .waste-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        .organik { border-color: #10b981; }
+        .an-organik { border-color: #3b82f6; }
+        .residu { border-color: #ef4444; }
+        .btn-scan-gallery { background: #6b7280; color: white; padding: 8px 16px; border-radius: 8px; transition: all 0.3s ease; }
+        .btn-scan-gallery:hover { background: #4b5563; transform: scale(1.05); }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* ===== CARDS ===== */
-        .membership-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        .membership-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px 24px;
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--accent);
-            transition: var(--transition);
-            animation: fadeIn 0.3s ease;
-        }
-        .membership-card:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
-        .membership-card .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
-        .membership-card .card-header .status-badge { font-size: 11px; padding: 3px 14px; border-radius: 20px; font-weight: 600; }
-        .membership-card .card-header .status-badge.active { background: #c6f6d5; color: #22543d; }
-        .membership-card .card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
-        .membership-card .card-body .field { display: flex; flex-direction: column; padding: 4px 0; }
-        .membership-card .card-body .field .label { font-size: 10px; text-transform: uppercase; color: #a0aec0; font-weight: 600; letter-spacing: 0.5px; }
-        .membership-card .card-body .field .value { font-size: 13px; font-weight: 500; color: #2d3748; word-break: break-word; }
-        .membership-card .card-body .field .value.nik-sensor { font-family: 'Courier New', monospace; letter-spacing: 1px; }
-        
-        /* ===== SAMPAH GRID ===== */
-        .sampah-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .sampah-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px 24px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            animation: fadeIn 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .sampah-card:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
-        .sampah-card .card-icon { font-size: 28px; margin-bottom: 8px; }
-        .sampah-card .card-title { font-size: 13px; color: #718096; font-weight: 500; }
-        .sampah-card .card-value { font-size: 24px; font-weight: 700; color: var(--primary); }
-        .sampah-card .card-sub { font-size: 11px; color: #a0aec0; }
-        .sampah-card .card-info-btn { position: absolute; top: 12px; right: 12px; background: none; border: none; color: #a0aec0; cursor: pointer; font-size: 16px; transition: var(--transition); padding: 4px 8px; border-radius: 8px; }
-        .sampah-card .card-info-btn:hover { background: #f0f0f0; color: var(--primary); }
-        .sampah-card .card-action-btn { display: block; width: 100%; margin-top: 12px; padding: 10px; border: none; border-radius: 10px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; transition: var(--transition); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; font-size: 14px; }
-        .sampah-card .card-action-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,158,11,0.3); }
-        .sampah-card .card-action-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-        .sampah-card .card-action-btn .btn-icon { margin-right: 8px; }
-        .sampah-card .btn-historis { display: inline-block; margin-top: 8px; background: none; border: none; color: var(--secondary); font-size: 12px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 500; transition: var(--transition); }
-        .sampah-card .btn-historis:hover { color: var(--primary); text-decoration: underline; }
-        .sampah-card.profile-card { display: flex; align-items: center; gap: 16px; padding: 16px 20px; }
-        .sampah-card.profile-card .profile-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); flex-shrink: 0; }
-        .sampah-card.profile-card .profile-info .name { font-size: 16px; font-weight: 600; color: var(--primary); }
-        .sampah-card.profile-card .profile-info .id { font-size: 12px; color: #a0aec0; }
-        .sampah-card.organik { border-left: 4px solid #22c55e; }
-        .sampah-card.anorganik { border-left: 4px solid #3b82f6; }
-        .sampah-card.residu { border-left: 4px solid #8b5cf6; }
-        .sampah-card.poin { border-left: 4px solid #f59e0b; }
-        
-        /* ===== IFRAME ===== */
-        .iframe-container { width: 100%; height: calc(100vh - 180px); min-height: 500px; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); background: white; }
-        .iframe-container iframe { width: 100%; height: 100%; border: none; }
-        
-        /* ===== PROFILE SETTINGS ===== */
-        .profile-settings { max-width: 800px; margin: 0 auto; }
-        .profile-settings .profile-card { background: white; border-radius: 16px; padding: 30px; box-shadow: var(--shadow); }
-        .profile-settings .profile-card .profile-header { display: flex; align-items: center; gap: 24px; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0; }
-        .profile-settings .profile-card .profile-header .profile-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); background: #e2e8f0; }
-        .profile-settings .profile-card .profile-header .profile-info h3 { font-size: 20px; color: var(--primary); }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge { display: inline-block; padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-top: 4px; }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.pemula { background: rgba(34,197,94,0.2); color: var(--role-pemula); }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.veteran { background: rgba(249,115,22,0.2); color: var(--role-veteran); animation: glowOrange 2s ease-in-out infinite; }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.master { background: rgba(59,130,246,0.2); color: var(--role-master); animation: glowBlue 2s ease-in-out infinite; }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.grandmaster { background: rgba(245,158,11,0.2); color: var(--role-grandmaster); animation: glowGold 1.5s ease-in-out infinite; }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.admin { background: rgba(30,64,175,0.2); color: var(--role-admin); animation: glowDarkBlue 2s ease-in-out infinite; }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.pendiri { background: rgba(212,175,55,0.2); color: var(--role-pendiri); animation: glowGold 1.5s ease-in-out infinite; }
-        
-        .profile-settings .profile-card .profile-body { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 30px; }
-        .profile-settings .profile-card .profile-body .field { display: flex; flex-direction: column; }
-        .profile-settings .profile-card .profile-body .field .label { font-size: 11px; text-transform: uppercase; color: #a0aec0; font-weight: 600; letter-spacing: 0.5px; }
-        .profile-settings .profile-card .profile-body .field .value { font-size: 14px; font-weight: 500; color: #2d3748; padding: 6px 0; }
-        .profile-settings .profile-card .profile-body .field.full-width { grid-column: 1 / -1; }
-        .profile-settings .profile-card .profile-body .field .form-control { padding: 10px 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 14px; transition: var(--transition); font-family: 'Poppins', sans-serif; width: 100%; }
-        .profile-settings .profile-card .profile-body .field .form-control:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(21,152,149,0.1); }
-        .profile-settings .profile-card .profile-body .field .btn-save { padding: 10px 30px; background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: var(--transition); font-family: 'Poppins', sans-serif; font-size: 14px; align-self: flex-start; }
-        .profile-settings .profile-card .profile-body .field .btn-save:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(21,152,149,0.3); }
-        .profile-settings .profile-card .profile-body .field .btn-save:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        
-        /* ===== INBOX ===== */
-        .inbox-container { max-width: 800px; margin: 0 auto; }
-        .inbox-item { background: white; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; box-shadow: var(--shadow); border-left: 4px solid var(--accent); transition: var(--transition); }
-        .inbox-item:hover { transform: translateX(4px); }
-        .inbox-item .inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .inbox-item .inbox-header .from { font-weight: 600; color: var(--primary); font-size: 14px; }
-        .inbox-item .inbox-header .date { font-size: 11px; color: #a0aec0; }
-        .inbox-item .inbox-subject { font-weight: 600; color: #2d3748; font-size: 15px; margin-bottom: 4px; }
-        .inbox-item .inbox-pesan { color: #718096; font-size: 14px; line-height: 1.5; }
-        .inbox-empty { text-align: center; padding: 40px 20px; color: #718096; }
-        .inbox-empty i { font-size: 48px; opacity: 0.3; margin-bottom: 15px; }
-        
-        /* ===== TAS / BAG ===== */
-        .tas-container { max-width: 900px; margin: 0 auto; }
-        .tas-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .tas-stats .stat-card { background: white; border-radius: 12px; padding: 15px; box-shadow: var(--shadow); text-align: center; }
-        .tas-stats .stat-card .stat-number { font-size: 28px; font-weight: 700; color: var(--primary); }
-        .tas-stats .stat-card .stat-label { font-size: 11px; color: #a0aec0; }
-        .tas-item { background: white; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-left: 4px solid var(--accent); }
-        .tas-item .item-info { flex: 1; min-width: 150px; }
-        .tas-item .item-info .item-name { font-weight: 600; color: var(--primary); font-size: 15px; }
-        .tas-item .item-info .item-detail { font-size: 12px; color: #718096; }
-        .tas-item .item-qty { font-size: 18px; font-weight: 700; color: var(--secondary); padding: 0 15px; }
-        .tas-item .item-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-        .tas-item .item-actions .btn-tas { padding: 6px 14px; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: var(--transition); }
-        .tas-item .item-actions .btn-tas.qr { background: var(--accent); color: white; }
-        .tas-item .item-actions .btn-tas.qr:hover { background: var(--secondary); }
-        .tas-item .item-actions .btn-tas.claim { background: #f59e0b; color: white; }
-        .tas-item .item-actions .btn-tas.claim:hover { background: #d97706; }
-        .tas-empty { text-align: center; padding: 40px 20px; color: #718096; }
-        .tas-empty i { font-size: 48px; opacity: 0.3; margin-bottom: 15px; }
-        
-        /* ===== EDITOR PESERTA ===== */
-        .editor-container { max-width: 1200px; margin: 0 auto; }
-        .editor-container .editor-tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .editor-container .editor-tabs .tab-btn { padding: 10px 20px; border: none; border-radius: 10px; background: white; box-shadow: var(--shadow); cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; transition: var(--transition); color: #718096; }
-        .editor-container .editor-tabs .tab-btn.active { background: var(--primary); color: white; }
-        .editor-container .editor-tabs .tab-btn:hover { transform: translateY(-2px); }
-        .editor-peserta-list { background: white; border-radius: 16px; padding: 20px; box-shadow: var(--shadow); overflow-x: auto; }
-        .editor-peserta-list table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .editor-peserta-list table th { text-align: left; padding: 10px 12px; background: #f7fafc; font-weight: 600; color: #2d3748; border-bottom: 2px solid #e2e8f0; }
-        .editor-peserta-list table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-        .editor-peserta-list table tr:hover { background: #f7fafc; }
-        .editor-peserta-list .btn-action { padding: 4px 12px; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: var(--transition); margin: 2px; }
-        .editor-peserta-list .btn-action.reward { background: #f59e0b; color: white; }
-        .editor-peserta-list .btn-action.reward:hover { background: #d97706; }
-        .editor-peserta-list .btn-action.notif { background: #3b82f6; color: white; }
-        .editor-peserta-list .btn-action.notif:hover { background: #2563eb; }
-        .editor-peserta-list .role-pemula { color: var(--role-pemula); font-weight: 600; }
-        .editor-peserta-list .role-veteran { color: var(--role-veteran); font-weight: 600; }
-        .editor-peserta-list .role-master { color: var(--role-master); font-weight: 600; }
-        .editor-peserta-list .role-grandmaster { color: var(--role-grandmaster); font-weight: 600; }
-        .editor-peserta-list .role-admin { color: var(--role-admin); font-weight: 600; }
-        .editor-peserta-list .role-pendiri { color: var(--role-pendiri); font-weight: 600; }
-        
-        /* ===== SCAN BARCODE ===== */
-        .scan-container { max-width: 600px; margin: 0 auto; }
-        .scan-container .scan-box { background: white; border-radius: 16px; padding: 30px; box-shadow: var(--shadow); text-align: center; }
-        .scan-container .scan-box .scan-icon { font-size: 80px; color: var(--accent); margin-bottom: 15px; }
-        .scan-container .scan-box input { width: 100%; padding: 14px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; font-family: 'Poppins', sans-serif; text-align: center; letter-spacing: 2px; }
-        .scan-container .scan-box input:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(21,152,149,0.1); }
-        .scan-container .scan-box .btn-scan { margin-top: 15px; padding: 12px 40px; background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; border: none; border-radius: 12px; font-weight: 600; font-size: 16px; cursor: pointer; transition: var(--transition); font-family: 'Poppins', sans-serif; }
-        .scan-container .scan-box .btn-scan:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(21,152,149,0.3); }
-        .scan-result { margin-top: 20px; padding: 20px; border-radius: 12px; background: #f7fafc; display: none; }
-        .scan-result.show { display: block; }
-        .scan-result .result-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
-        .scan-result .result-item .label { color: #718096; }
-        .scan-result .result-item .value { font-weight: 600; color: var(--primary); }
-        
-        /* ===== MODALS ===== */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 9999; align-items: center; justify-content: center; animation: fadeIn 0.3s ease; }
-        .modal-overlay.active { display: flex; }
-        .modal-box { background: white; border-radius: 24px; max-width: 480px; width: 100%; padding: 30px 35px; box-shadow: 0 25px 60px rgba(0,0,0,0.3); animation: popIn 0.5s cubic-bezier(0.68,-0.55,0.265,1.55); margin: 20px; }
-        @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        .modal-box h3 { font-size: 20px; color: var(--primary); margin-bottom: 5px; }
-        .modal-box .modal-sub { font-size: 13px; color: #718096; margin-bottom: 20px; }
-        .modal-box .form-group { margin-bottom: 15px; }
-        .modal-box .form-group label { display: block; font-size: 13px; font-weight: 600; color: #2d3748; margin-bottom: 4px; }
-        .modal-box .form-group input, .modal-box .form-group select, .modal-box .form-group textarea { width: 100%; padding: 10px 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 14px; font-family: 'Poppins', sans-serif; transition: var(--transition); }
-        .modal-box .form-group input:focus, .modal-box .form-group select:focus, .modal-box .form-group textarea:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(21,152,149,0.1); }
-        .modal-box .form-group textarea { resize: vertical; min-height: 80px; }
-        .modal-box .modal-actions { display: flex; gap: 10px; margin-top: 15px; justify-content: flex-end; }
-        .modal-box .modal-actions .btn-modal { padding: 10px 24px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; transition: var(--transition); }
-        .modal-box .modal-actions .btn-modal.cancel { background: #e2e8f0; color: #2d3748; }
-        .modal-box .modal-actions .btn-modal.cancel:hover { background: #cbd5e0; }
-        .modal-box .modal-actions .btn-modal.submit { background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; }
-        .modal-box .modal-actions .btn-modal.submit:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(21,152,149,0.3); }
-        
-        /* ===== QR CODE MODAL ===== */
-        .qrcode-popup-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 9997; align-items: center; justify-content: center; animation: fadeIn 0.3s ease; }
-        .qrcode-popup-overlay.active { display: flex; }
-        .qrcode-popup { background: white; border-radius: 24px; max-width: 420px; width: 100%; padding: 30px; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.3); animation: popIn 0.5s cubic-bezier(0.68,-0.55,0.265,1.55); margin: 20px; }
-        .qrcode-popup h3 { font-size: 20px; color: var(--primary); margin-bottom: 5px; }
-        .qrcode-popup .qrcode-subtitle { font-size: 13px; color: #718096; margin-bottom: 20px; }
-        .qrcode-popup .qrcode-container { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; min-height: 280px; }
-        .qrcode-container::before { content: 'LPS PADANG TERUBUK ASRI'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(-30deg); font-size: 28px; font-weight: 800; color: rgba(26,95,122,0.08); white-space: nowrap; pointer-events: none; letter-spacing: 4px; width: 200%; text-align: center; z-index: 0; }
-        .qrcode-container #qrcode { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; }
-        .qrcode-container .qrcode-logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 60px; height: 60px; border-radius: 50%; background: white; padding: 6px; z-index: 2; box-shadow: 0 2px 10px rgba(0,0,0,0.15); border: 2px solid var(--accent); pointer-events: none; }
-        .qrcode-container .qrcode-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
-        .qrcode-popup .btn-close-qrcode { margin-top: 20px; padding: 10px 30px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: var(--transition); font-family: 'Poppins', sans-serif; }
-        .qrcode-popup .btn-close-qrcode:hover { background: var(--secondary); transform: translateY(-2px); }
-        .qrcode-popup .btn-download-qrcode { margin-top: 10px; padding: 10px 30px; background: var(--accent); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: var(--transition); font-family: 'Poppins', sans-serif; margin-right: 10px; }
-        .qrcode-popup .btn-download-qrcode:hover { background: var(--secondary); transform: translateY(-2px); }
-        
-        /* ===== POPUPS ===== */
-        .bonus-popup-overlay, .levelup-popup-overlay, .role-popup-overlay, .info-popup-overlay, .histori-popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(8px);
-            z-index: 9998;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-        .bonus-popup-overlay.active, .levelup-popup-overlay.active, .role-popup-overlay.active, .info-popup-overlay.active, .histori-popup-overlay.active { display: flex; }
-        
-        .bonus-popup, .levelup-popup, .role-popup, .info-popup, .histori-popup {
-            background: white;
-            border-radius: 24px;
-            max-width: 420px;
-            width: 100%;
-            padding: 40px 35px;
-            text-align: center;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-            animation: popIn 0.5s cubic-bezier(0.68,-0.55,0.265,1.55);
-            margin: 20px;
-        }
-        .levelup-popup, .role-popup { border-top: 6px solid var(--accent); }
-        .bonus-popup .icon, .levelup-popup .icon, .role-popup .icon { font-size: 60px; margin-bottom: 15px; }
-        .bonus-popup h3, .levelup-popup h3, .role-popup h3 { font-size: 24px; color: var(--primary); margin-bottom: 8px; }
-        .bonus-popup p, .levelup-popup p, .role-popup p { color: #718096; font-size: 14px; line-height: 1.6; }
-        .bonus-popup .bonus-amount { font-size: 36px; font-weight: 800; color: var(--accent); margin: 15px 0; }
-        .levelup-popup .level-display { font-size: 48px; font-weight: 800; color: var(--accent); margin: 10px 0; }
-        .role-popup .old-role { font-size: 14px; color: #a0aec0; text-decoration: line-through; }
-        .role-popup .new-role { font-size: 32px; font-weight: 800; margin: 10px 0; padding: 10px 20px; border-radius: 12px; display: inline-block; }
-        .role-popup .new-role.pemula { color: var(--role-pemula); background: rgba(34,197,94,0.1); }
-        .role-popup .new-role.veteran { color: var(--role-veteran); background: rgba(249,115,22,0.1); animation: glowOrange 2s ease-in-out infinite; }
-        .role-popup .new-role.master { color: var(--role-master); background: rgba(59,130,246,0.1); animation: glowBlue 2s ease-in-out infinite; }
-        .role-popup .new-role.grandmaster { color: var(--role-grandmaster); background: rgba(245,158,11,0.1); animation: glowGold 1.5s ease-in-out infinite; }
-        .role-popup .new-role.admin { color: var(--role-admin); background: rgba(30,64,175,0.1); animation: glowDarkBlue 2s ease-in-out infinite; }
-        .role-popup .new-role.pendiri { color: var(--role-pendiri); background: rgba(212,175,55,0.1); animation: glowGold 1.5s ease-in-out infinite; }
-        
-        .btn-claim, .btn-celebrate { padding: 12px 40px; background: linear-gradient(135deg, var(--accent), var(--secondary)); color: white; border: none; border-radius: 50px; font-weight: 600; font-size: 16px; cursor: pointer; transition: var(--transition); font-family: 'Poppins', sans-serif; margin-top: 10px; }
-        .btn-claim:hover, .btn-celebrate:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(87,197,182,0.3); }
-        
-        .info-popup { max-width: 480px; padding: 30px 35px; }
-        .info-popup h3 { font-size: 20px; color: var(--primary); margin-bottom: 15px; text-align: center; }
-        .info-popup table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .info-popup table th { text-align: left; padding: 8px 10px; background: #f7fafc; font-weight: 600; color: #2d3748; border-bottom: 2px solid #e2e8f0; }
-        .info-popup table td { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; }
-        .info-popup table tr:hover { background: #f7fafc; }
-        .info-popup .btn-close-info { margin-top: 15px; padding: 10px 30px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; width: 100%; transition: var(--transition); }
-        .info-popup .btn-close-info:hover { background: var(--secondary); }
-        
-        .histori-popup { max-width: 550px; max-height: 80vh; overflow-y: auto; padding: 30px 35px; }
-        .histori-popup h3 { font-size: 20px; color: var(--primary); margin-bottom: 15px; text-align: center; }
-        .histori-popup .histori-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-bottom: 1px solid #f0f0f0; }
-        .histori-popup .histori-item:last-child { border-bottom: none; }
-        .histori-popup .histori-item .date { font-size: 12px; color: #a0aec0; }
-        .histori-popup .histori-item .point { font-weight: 700; color: var(--secondary); }
-        .histori-popup .histori-item .point.positive { color: var(--role-pemula); }
-        .histori-popup .histori-empty { text-align: center; padding: 30px 20px; color: #718096; }
-        .histori-popup .histori-empty i { font-size: 40px; opacity: 0.3; margin-bottom: 10px; }
-        .histori-popup .btn-close-histori { margin-top: 15px; padding: 10px 30px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; width: 100%; transition: var(--transition); }
-        .histori-popup .btn-close-histori:hover { background: var(--secondary); }
-        
-        /* ===== ALERT ===== */
-        .alert { padding: 12px 16px; border-radius: 12px; margin-bottom: 18px; font-size: 13px; display: none; font-weight: 500; animation: slideDown 0.3s ease; }
-        .alert.show { display: block; }
-        .alert-success { background: #e6f7e6; color: #1a7a3a; border: 1px solid #b8e6b8; }
-        .alert-error { background: #fde8e8; color: #b33c3c; border: 1px solid #f5c6c6; }
-        .alert-info { background: #e3f2fd; color: #1a5f7a; border: 1px solid #b8d4e6; }
-        
-        /* ===== SIDEBAR TOGGLE ===== */
-        .sidebar-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 101; background: var(--primary); color: white; border: none; width: 44px; height: 44px; border-radius: 12px; font-size: 20px; cursor: pointer; transition: var(--transition); box-shadow: var(--shadow); align-items: center; justify-content: center; }
-        .sidebar-toggle:hover { background: var(--secondary); }
-        .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 99; }
-        .sidebar-overlay.active { display: block; }
-        
-        /* ===== BOTTOM NAVIGATION ===== */
-        .bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); z-index: 50; height: var(--bottom-nav-height); border-top: 1px solid rgba(0,0,0,0.05); padding-bottom: env(safe-area-inset-bottom); }
-        .bottom-nav .nav-items { display: flex; justify-content: space-around; align-items: center; height: 100%; max-width: 500px; margin: 0 auto; position: relative; }
-        .bottom-nav .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; background: none; border: none; cursor: pointer; padding: 6px 12px; font-family: 'Poppins', sans-serif; color: #a0aec0; transition: var(--transition); position: relative; flex: 1; height: 100%; font-size: 10px; font-weight: 500; text-decoration: none; }
-        .bottom-nav .nav-item i { font-size: 22px; transition: var(--transition); }
-        .bottom-nav .nav-item span { font-size: 9px; font-weight: 500; letter-spacing: 0.3px; }
-        .bottom-nav .nav-item.active { color: var(--secondary); }
-        .bottom-nav .nav-item.active i { transform: translateY(-2px); }
-        .bottom-nav .nav-item.active::after { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 30px; height: 3px; background: var(--secondary); border-radius: 0 0 3px 3px; }
-        .bottom-nav .nav-item .badge-inbox { background: #ef4444; color: white; font-size: 9px; padding: 0 6px; border-radius: 20px; font-weight: 600; position: absolute; top: 2px; right: 4px; }
-        
-        .bottom-nav .nav-item.nav-avatar { position: relative; margin-top: -18px; }
-        .bottom-nav .nav-item.nav-avatar .avatar-wrapper { width: 52px; height: 52px; border-radius: 50%; border: 3px solid var(--accent); overflow: hidden; background: #2d3748; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: var(--transition); }
-        .bottom-nav .nav-item.nav-avatar .avatar-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        .bottom-nav .nav-item.nav-avatar .avatar-wrapper i { font-size: 24px; color: white; }
-        .bottom-nav .nav-item.nav-avatar .avatar-wrapper:hover { transform: scale(1.05); border-color: var(--secondary); }
-        .bottom-nav .nav-item.nav-avatar span { margin-top: 4px; font-size: 9px; font-weight: 500; color: var(--secondary); }
-        .bottom-nav .nav-item.nav-avatar.active .avatar-wrapper { border-color: var(--secondary); box-shadow: 0 4px 20px rgba(21,152,149,0.3); }
-        .bottom-nav .nav-item.nav-avatar.active::after { display: none; }
-        
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); width: 280px; }
-            .sidebar.open { transform: translateX(0); }
-            .main-content { margin-left: 0; padding: 15px 15px 90px; }
-            .membership-grid, .sampah-grid { grid-template-columns: 1fr; }
-            .profile-settings .profile-card .profile-body { grid-template-columns: 1fr; }
-            .profile-settings .profile-card .profile-header { flex-direction: column; text-align: center; }
-            .main-content .page-header { flex-direction: column; gap: 10px; align-items: stretch; }
-            .main-content .page-header .header-right { justify-content: space-between; }
-            .main-content .page-header h1 { font-size: 18px; gap: 10px; }
-            .main-content .page-header h1 .header-logo { display: block; width: 60px; height: 60px; }
-            .iframe-container { height: calc(100vh - 200px); min-height: 350px; }
-            .bottom-nav { display: block !important; }
-            .main-content .page-header .header-right .user-badge { display: none; }
-            .editor-peserta-list table { font-size: 11px; }
-            .editor-peserta-list table th, .editor-peserta-list table td { padding: 6px 8px; }
-            .tas-stats { grid-template-columns: 1fr 1fr; }
-            .tas-item { flex-direction: column; align-items: stretch; }
-            .tas-item .item-actions { justify-content: center; }
-        }
-        @media (max-width: 400px) {
-            .bottom-nav .nav-item i { font-size: 18px; }
-            .bottom-nav .nav-item span { font-size: 8px; }
-            .bottom-nav .nav-item.nav-avatar .avatar-wrapper { width: 44px; height: 44px; }
-            .bottom-nav .nav-item.nav-avatar { margin-top: -14px; }
-            .main-content .page-header h1 { font-size: 16px; }
-            .main-content .page-header h1 .header-logo { width: 32px; height: 32px; }
-        }
-        @media (min-width: 769px) {
-            .sidebar-toggle { display: none !important; }
-            .bottom-nav { display: none !important; }
-            .main-content .page-header h1 .header-logo { display: none !important; }
-        }
-        
-        /* ===== NO DATA ===== */
-        .no-data { text-align: center; padding: 40px 20px; color: #718096; grid-column: 1 / -1; }
-        .no-data i { font-size: 48px; opacity: 0.3; margin-bottom: 15px; display: block; }
-        
-        /* ===== TOMBOL AMBIL SAMPAH ===== */
-        .btn-ambil-sampah {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: 'Poppins', sans-serif;
-            text-decoration: none;
-            margin-top: 10px;
-        }
-        .btn-ambil-sampah:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(34,197,94,0.3); }
-        .btn-ambil-sampah i { font-size: 18px; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .status-connected { background: #10b981; color: white; }
+        .status-disconnected { background: #ef4444; color: white; }
+        #reader video { border-radius: 8px; width: 100% !important; height: auto !important; }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 24px; border-radius: 8px; transition: all 0.3s ease; }
+        .btn-primary:hover { opacity: 0.9; transform: scale(1.02); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
     </style>
 </head>
 <body>
-
-    <!-- ===== SIDEBAR TOGGLE ===== -->
-    <button class="sidebar-toggle" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-    </button>
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-    <!-- ===== SIDEBAR ===== -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <img src="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" alt="LPS Logo" class="logo">
-            <h2>PROGRAM<br>PEMILAHAN SAMPAH</h2>
-            <small>Padang Terubuk Asri</small>
-        </div>
-        
-        <div class="sidebar-user" id="sidebarUser">
-            <div class="user-avatar" id="sidebarAvatar">
-                <i class="fas fa-user"></i>
+    <nav class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-wrap justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-recycle text-2xl"></i>
+                    <span class="font-bold text-xl">LPS Pemilahan</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="connectionStatus" class="status-badge status-disconnected">
+                        <i class="fas fa-circle"></i> Offline
+                    </span>
+                    <span id="userDisplay" class="hidden">
+                        <i class="fas fa-user-circle text-xl"></i>
+                        <span id="userName" class="ml-1"></span>
+                    </span>
+                    <button onclick="logout()" class="bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition flex items-center space-x-2">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
             </div>
-            <div class="user-info">
-                <div class="name" id="sidebarName">Loading...</div>
-                <div class="role-badge" id="sidebarRole">Pemula</div>
-                <span class="level-badge" id="sidebarLevel">Level 1</span>
-                <span class="poin-sampah-badge" id="sidebarPoinSampah">🪙 Poin Sampah: 0</span>
-            </div>
-        </div>
-        
-        <!-- ===== LEVEL PROGRESS ===== -->
-        <div class="level-progress" id="levelProgress">
-            <div class="progress-header">
-                <span class="level-label">Level <span id="progressCurrentLevel">1</span></span>
-                <span>→ Level <span id="progressNextLevel">2</span></span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
-            </div>
-            <div class="progress-text">
-                <span id="progressExpText">0 / 1000 EXP</span>
-            </div>
-        </div>
-        
-        <nav class="sidebar-menu" id="sidebarMenu">
-            <div class="menu-label">Menu Utama</div>
-            <!-- Menu items akan di-generate oleh JS -->
-        </nav>
-        
-        <div class="sidebar-footer">
-            <button class="logout-btn" onclick="handleLogout()">
-                <i class="fas fa-sign-out-alt"></i> Keluar
-            </button>
-        </div>
-    </aside>
-
-    <!-- ===== BOTTOM NAVIGATION ===== -->
-    <nav class="bottom-nav" id="bottomNav">
-        <div class="nav-items" id="bottomNavItems">
-            <!-- Nav items akan di-generate oleh JS -->
         </div>
     </nav>
 
-    <!-- ===== MAIN CONTENT ===== -->
-    <main class="main-content">
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1 id="pageTitle">
-                <img src="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" alt="LPS Logo" class="header-logo" id="headerLogo">
-                <span id="pageTitleText">Kepesertaan LPS</span>
-            </h1>
-            <div class="header-right">
-                <div class="user-badge" id="userBadge">
-                    <img src="" alt="Avatar" class="avatar-sm" id="headerAvatar" style="display:none;">
-                    <span id="headerName">Loading...</span>
-                    <span class="level-badge-sm" id="headerLevel">Lv.1</span>
-                </div>
+    <div class="container mx-auto px-4 py-8">
+        <!-- Scanner Section -->
+        <div id="scanSection" class="bg-white rounded-xl shadow-lg p-6 mb-8 fade-in">
+            <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
+                <h2 class="text-2xl font-bold text-gray-800">
+                    <i class="fas fa-qrcode text-purple-600"></i> Scan Barcode Peserta
+                </h2>
+                <button onclick="testConnection()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition flex items-center space-x-2">
+                    <i class="fas fa-plug"></i>
+                    <span>Test Koneksi</span>
+                </button>
             </div>
-        </div>
-        
-        <!-- ===== PAGE: MEMBERSHIP ===== -->
-        <div class="page-content" id="page-membership">
-            <div id="membershipAlert" class="alert"></div>
-            <div class="membership-grid" id="membershipGrid">
-                <div class="no-data"><i class="fas fa-spinner fa-spin"></i><p>Memuat data kepesertaan...</p></div>
-            </div>
-        </div>
-        
-        <!-- ===== PAGE: SORTIR ===== -->
-        <div class="page-content hidden" id="page-sortir">
-            <div id="sortirAlert" class="alert"></div>
-            <div class="sampah-grid" id="sampahGrid">
-                <div class="no-data"><i class="fas fa-spinner fa-spin"></i><p>Memuat data sampah...</p></div>
-            </div>
-        </div>
-        
-        <!-- ===== PAGE: EXCHANGE ===== -->
-        <div class="page-content hidden" id="page-exchange">
-            <div class="iframe-container">
-                <iframe src="tukarpoint.html" loading="lazy" id="tukarPointIframe"></iframe>
-            </div>
-        </div>
-        
-        <!-- ===== PAGE: INBOX ===== -->
-        <div class="page-content hidden" id="page-inbox">
-            <div id="inboxAlert" class="alert"></div>
-            <div class="inbox-container" id="inboxContainer">
-                <div class="inbox-empty"><i class="fas fa-inbox"></i><p>Memuat pesan...</p></div>
-            </div>
-        </div>
-        
-        <!-- ===== PAGE: TAS / BAG ===== -->
-        <div class="page-content hidden" id="page-tas">
-            <div id="tasAlert" class="alert"></div>
-            <div class="tas-container" id="tasContainer">
-                <div class="tas-stats" id="tasStats">
-                    <div class="stat-card">
-                        <div class="stat-number" id="tasTotalItems">0</div>
-                        <div class="stat-label">Total Item</div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="scan-area">
+                    <div id="reader"></div>
+                    <div class="mt-4 flex flex-wrap justify-center gap-2">
+                        <button onclick="startScanner()" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition flex items-center space-x-2">
+                            <i class="fas fa-camera"></i>
+                            <span>Buka Kamera</span>
+                        </button>
+                        <button onclick="stopScanner()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition flex items-center space-x-2">
+                            <i class="fas fa-stop"></i>
+                            <span>Stop</span>
+                        </button>
+                        <button onclick="scanFromGallery()" class="btn-scan-gallery flex items-center space-x-2">
+                            <i class="fas fa-images"></i>
+                            <span>Galeri</span>
+                        </button>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="tasSlotsUsed">0</div>
-                        <div class="stat-label">Slot Terpakai / 50</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="tasUniqueItems">0</div>
-                        <div class="stat-label">Jenis Item</div>
+                    <div class="mt-2 text-center text-gray-500 text-sm">
+                        <i class="fas fa-info-circle"></i> Arahkan kamera ke barcode atau upload gambar
                     </div>
                 </div>
-                <div id="tasItemsList">
-                    <div class="tas-empty"><i class="fas fa-shopping-bag"></i><p>Memuat data tas...</p></div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- ===== PAGE: SCAN BARCODE ===== -->
-        <div class="page-content hidden" id="page-scan">
-            <div id="scanAlert" class="alert"></div>
-            <div class="scan-container">
-                <div class="scan-box">
-                    <div class="scan-icon"><i class="fas fa-qrcode"></i></div>
-                    <h3 style="color:var(--primary);margin-bottom:10px;">Scan QR Code Item</h3>
-                    <p style="color:#718096;font-size:13px;margin-bottom:15px;">Masukkan QR Code dari item yang akan di-claim</p>
-                    <input type="text" id="scanInput" placeholder="Tempel QR Code di sini..." onkeydown="if(event.key==='Enter') scanItemQR()">
-                    <button class="btn-scan" onclick="scanItemQR()"><i class="fas fa-search"></i> Scan / Verifikasi</button>
-                    <div class="scan-result" id="scanResult">
-                        <h4 style="color:var(--primary);margin-bottom:10px;">📦 Hasil Scan</h4>
-                        <div id="scanResultContent"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- ===== PAGE: EDITOR PESERTA ===== -->
-        <div class="page-content hidden" id="page-editor">
-            <div id="editorAlert" class="alert"></div>
-            <div class="editor-container">
-                <div class="editor-tabs">
-                    <button class="tab-btn active" onclick="loadEditorPeserta()">
-                        <i class="fas fa-users"></i> Daftar Peserta
-                    </button>
-                </div>
-                <div class="editor-peserta-list" id="editorPesertaList">
-                    <div class="no-data"><i class="fas fa-spinner fa-spin"></i><p>Memuat data peserta...</p></div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- ===== PAGE: SETTINGS ===== -->
-        <div class="page-content hidden" id="page-settings">
-            <div id="settingsAlert" class="alert"></div>
-            <div class="profile-settings">
-                <div class="profile-card">
-                    <div class="profile-header">
-                        <img src="" alt="Profile" class="profile-avatar" id="profileAvatar">
-                        <div class="profile-info">
-                            <h3 id="profileName">-</h3>
-                            <div class="role-badge" id="profileRole">Pemula</div>
-                            <p style="font-size:13px;color:#718096;margin-top:5px;">
-                                <i class="fas fa-star" style="color:var(--accent);"></i> 
-                                Level: <strong id="profileLevel">1</strong>
-                            </p>
-                            <p style="font-size:13px;color:#718096;margin-top:2px;">
-                                <i class="fas fa-coins" style="color:#f59e0b;"></i> 
-                                Poin Sampah: <strong id="profilePoinSampah">0</strong>
-                            </p>
-                            <!-- Tombol Ambil Sampah khusus Admin & Pendiri -->
-                            <div id="btnAmbilSampahContainer"></div>
+                <div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h3 class="font-semibold text-lg mb-2">Atau masukkan ID Peserta</h3>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="text" id="manualId" placeholder="Masukkan ID Peserta" 
+                                   class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                            <button onclick="getUserById()" class="btn-primary flex items-center justify-center space-x-2">
+                                <i class="fas fa-search"></i>
+                                <span>Cari</span>
+                            </button>
                         </div>
                     </div>
-                    <div class="profile-body" id="profileBody">
-                        <!-- Dynamic fields from JS -->
+                    <div id="userInfo" class="mt-4 hidden fade-in">
+                        <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg">
+                            <div class="flex items-start space-x-4">
+                                <img id="userPhoto" src="" alt="Foto" class="w-20 h-20 rounded-full object-cover border-2 border-green-500">
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-lg" id="userNameDisplay"></h4>
+                                    <p class="text-gray-600 text-sm"><i class="fas fa-id-card"></i> <span id="userIdDisplay"></span></p>
+                                    <p class="text-gray-600 text-sm"><i class="fas fa-envelope"></i> <span id="userEmailDisplay"></span></p>
+                                    <p class="text-gray-600 text-sm"><i class="fas fa-id-badge"></i> NIK: <span id="userNikDisplay"></span></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
 
-    <!-- ===== QR CODE POPUP ===== -->
-    <div class="qrcode-popup-overlay" id="qrcodePopup">
-        <div class="qrcode-popup">
-            <h3>📱 QR Code</h3>
-            <p class="qrcode-subtitle" id="qrcodeSubtitle">ID Peserta: <strong id="qrcodeIdDisplay">-</strong></p>
-            <div class="qrcode-container" id="qrcodeContainer">
-                <div id="qrcode"></div>
-                <div class="qrcode-logo">
-                    <img src="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" alt="LPS Logo">
+        <!-- Waste Input Section -->
+        <div id="wasteSection" class="hidden bg-white rounded-xl shadow-lg p-6 mb-8 fade-in">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                <i class="fas fa-trash-alt text-green-600"></i> Input Pemilahan Sampah
+                <span class="text-sm font-normal text-gray-500 ml-2" id="wasteUserLabel"></span>
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <!-- Organik -->
+                <div class="waste-card organik bg-white rounded-lg p-4 shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg text-gray-800">🌿 Organik</h3>
+                        <span class="text-sm bg-green-100 text-green-700 px-2 py-1 rounded">100 Poin/kg</span>
+                    </div>
+                    <input type="number" id="organikWeight" placeholder="Berat (kg)" step="0.01" min="0"
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <div class="mt-2 text-sm text-gray-500">
+                        Poin: <span id="organikPoints" class="font-semibold text-green-600">0</span>
+                    </div>
+                </div>
+
+                <!-- An Organik -->
+                <div class="waste-card an-organik bg-white rounded-lg p-4 shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg text-gray-800">🔧 An Organik</h3>
+                        <span class="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded">500 Poin/kg</span>
+                    </div>
+                    <input type="number" id="anOrganikWeight" placeholder="Berat (kg)" step="0.01" min="0"
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div class="mt-2 text-sm text-gray-500">
+                        Poin: <span id="anOrganikPoints" class="font-semibold text-blue-600">0</span>
+                    </div>
+                </div>
+
+                <!-- Residu -->
+                <div class="waste-card residu bg-white rounded-lg p-4 shadow">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-lg text-gray-800">🗑️ Residu</h3>
+                        <span class="text-sm bg-red-100 text-red-700 px-2 py-1 rounded">10 Poin/kg</span>
+                    </div>
+                    <input type="number" id="residuWeight" placeholder="Berat (kg)" step="0.01" min="0"
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <div class="mt-2 text-sm text-gray-500">
+                        Poin: <span id="residuPoints" class="font-semibold text-red-600">0</span>
+                    </div>
                 </div>
             </div>
-            <div style="margin-top:15px;">
-                <button class="btn-download-qrcode" onclick="downloadQRCode()">
-                    <i class="fas fa-download"></i> Download
+
+            <!-- Catatan & Total -->
+            <div class="grid md:grid-cols-3 gap-4 mb-4">
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Catatan</label>
+                    <textarea id="notes" rows="2" placeholder="Tambahkan catatan jika diperlukan..." 
+                              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 flex flex-col justify-center items-center">
+                    <p class="text-sm text-gray-600">Total Poin</p>
+                    <p class="text-3xl font-bold text-purple-600" id="totalPointsDisplay">0</p>
+                </div>
+            </div>
+
+            <!-- Tombol Simpan -->
+            <div class="flex justify-end">
+                <button onclick="submitWaste()" id="submitBtn" class="btn-primary flex items-center space-x-2 text-lg px-8 py-3">
+                    <i class="fas fa-save"></i>
+                    <span>Simpan Data</span>
                 </button>
-                <button class="btn-close-qrcode" onclick="closeQrCodePopup()">
-                    <i class="fas fa-times"></i> Tutup
-                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboardSection" class="hidden bg-white rounded-xl shadow-lg p-6 fade-in">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">
+                <i class="fas fa-chart-bar text-purple-600"></i> Dashboard Peserta
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-green-50 p-4 rounded-lg text-center">
+                    <p class="text-sm text-gray-600">Total Organik</p>
+                    <p class="text-2xl font-bold text-green-600" id="dashOrganik">0 kg</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg text-center">
+                    <p class="text-sm text-gray-600">Total An Organik</p>
+                    <p class="text-2xl font-bold text-blue-600" id="dashAnOrganik">0 kg</p>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg text-center">
+                    <p class="text-sm text-gray-600">Total Residu</p>
+                    <p class="text-2xl font-bold text-red-600" id="dashResidu">0 kg</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                    <p class="text-sm text-gray-600">Total Poin</p>
+                    <p class="text-2xl font-bold text-yellow-600" id="dashPoints">0</p>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-lg mb-3">
+                    <i class="fas fa-history text-gray-600"></i> Riwayat Pemilahan
+                </h3>
+                <div class="overflow-x-auto max-h-96 overflow-y-auto">
+                    <table class="min-w-full bg-white border rounded-lg">
+                        <thead class="bg-gray-50 sticky top-0">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Tanggal</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Organik</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">An Organik</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Residu</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Poin</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logTableBody">
+                            <tr><td colspan="6" class="text-center py-4 text-gray-500">Belum ada data</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- ===== BONUS POPUP ===== -->
-    <div class="bonus-popup-overlay" id="bonusPopup">
-        <div class="bonus-popup">
-            <div class="icon">🎉</div>
-            <h3 id="bonusTitle">Halo, <span id="bonusName">User</span>!</h3>
-            <p id="bonusDesc">Anda mendapatkan <strong>1000 point</strong> untuk login hari ini.</p>
-            <div class="bonus-amount" id="bonusAmount">+1.000</div>
-            <p style="font-size:12px;color:#a0aec0;">Level Anda sekarang: <strong id="bonusLevel">1</strong></p>
-            <button class="btn-claim" onclick="closeBonusPopup()"><i class="fas fa-check"></i> Saya Mengerti</button>
-        </div>
-    </div>
-
-    <!-- ===== LEVEL UP POPUP ===== -->
-    <div class="levelup-popup-overlay" id="levelupPopup">
-        <div class="levelup-popup">
-            <div class="icon">⬆️</div>
-            <h3>🎊 Level Up! 🎊</h3>
-            <p>Selamat! Anda naik ke level</p>
-            <div class="level-display" id="levelupDisplay">2</div>
-            <p id="levelupDesc">Terus semangat memilah sampah!</p>
-            <button class="btn-celebrate" onclick="closeLevelupPopup()"><i class="fas fa-trophy"></i> Luar Biasa!</button>
-        </div>
-    </div>
-
-    <!-- ===== ROLE UPGRADE POPUP ===== -->
-    <div class="role-popup-overlay" id="rolePopup">
-        <div class="role-popup">
-            <div class="icon">🏆</div>
-            <h3>🎊 Selamat! 🎊</h3>
-            <p>Anda berhasil naik level!</p>
-            <div class="old-role" id="oldRoleDisplay">Pemula</div>
-            <div class="new-role" id="newRoleDisplay">Veteran</div>
-            <p>Terus semangat memilah sampah!</p>
-            <button class="btn-celebrate" onclick="closeRolePopup()"><i class="fas fa-trophy"></i> Luar Biasa!</button>
-        </div>
-    </div>
-
-    <!-- ===== INFO POIN POPUP ===== -->
-    <div class="info-popup-overlay" id="infoPopup">
-        <div class="info-popup">
-            <h3>📊 Cara Mendapatkan Poin Sampah</h3>
-            <table>
-                <thead><tr><th>Jenis Sampah</th><th>Satuan</th><th>Poin</th></tr></thead>
-                <tbody>
-                    <tr><td>Organik</td><td>gram</td><td>0,1</td></tr>
-                    <tr><td>Organik</td><td>kg</td><td>100</td></tr>
-                    <tr><td>Organik</td><td>ton</td><td>100.000</td></tr>
-                    <tr><td>An-Organik</td><td>gram</td><td>0,5</td></tr>
-                    <tr><td>An-Organik</td><td>kg</td><td>500</td></tr>
-                    <tr><td>An-Organik</td><td>ton</td><td>500.000</td></tr>
-                    <tr><td>Residu</td><td>gram</td><td>0,01</td></tr>
-                    <tr><td>Residu</td><td>kg</td><td>10</td></tr>
-                    <tr><td>Residu</td><td>ton</td><td>10.000</td></tr>
-                </tbody>
-            </table>
-            <p style="font-size:12px;color:#718096;margin-top:10px;text-align:center;">Poin didapat dari setoran sampah ke petugas</p>
-            <button class="btn-close-info" onclick="closeInfoPopup()">Tutup</button>
-        </div>
-    </div>
-
-    <!-- ===== HISTORI CLAIM POPUP ===== -->
-    <div class="histori-popup-overlay" id="historiPopup">
-        <div class="histori-popup">
-            <h3>📜 Histori Claim Poin Sampah</h3>
-            <div id="historiContainer">
-                <div class="histori-empty"><i class="fas fa-spinner fa-spin"></i><p>Memuat histori...</p></div>
-            </div>
-            <button class="btn-close-histori" onclick="closeHistoriPopup()">Tutup</button>
-        </div>
-    </div>
-
-    <!-- ===== MODAL REWARD ===== -->
-    <div class="modal-overlay" id="rewardModal">
-        <div class="modal-box">
-            <h3 id="rewardModalTitle">Kirim Reward</h3>
-            <p class="modal-sub" id="rewardModalSub">Kirim reward ke peserta</p>
-            <input type="hidden" id="rewardNik">
-            <div class="form-group">
-                <label>Nama Peserta</label>
-                <input type="text" id="rewardNamaDisplay" disabled style="background:#f7fafc;">
-            </div>
-            <div class="form-group">
-                <label>Tipe Reward</label>
-                <select id="rewardType">
-                    <option value="level">Poin Level (EXP)</option>
-                    <option value="sampah">Poin Sampah</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Jumlah</label>
-                <input type="number" id="rewardAmount" placeholder="Masukkan jumlah" min="1">
-            </div>
-            <div class="form-group">
-                <label>Keterangan (Opsional)</label>
-                <textarea id="rewardKeterangan" placeholder="Contoh: Hadiah untuk pemilah terbaik"></textarea>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-modal cancel" onclick="closeRewardModal()">Batal</button>
-                <button class="btn-modal submit" onclick="submitReward()"><i class="fas fa-paper-plane"></i> Kirim</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== MODAL NOTIFIKASI ===== -->
-    <div class="modal-overlay" id="notifModal">
-        <div class="modal-box">
-            <h3>Kirim Notifikasi</h3>
-            <p class="modal-sub">Kirim pesan ke inbox peserta</p>
-            <input type="hidden" id="notifNik">
-            <div class="form-group">
-                <label>Nama Peserta</label>
-                <input type="text" id="notifNamaDisplay" disabled style="background:#f7fafc;">
-            </div>
-            <div class="form-group">
-                <label>Judul Pesan</label>
-                <input type="text" id="notifSubject" placeholder="Judul pesan">
-            </div>
-            <div class="form-group">
-                <label>Pesan</label>
-                <textarea id="notifPesan" placeholder="Tulis pesan di sini..." rows="4"></textarea>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-modal cancel" onclick="closeNotifModal()">Batal</button>
-                <button class="btn-modal submit" onclick="submitNotif()"><i class="fas fa-paper-plane"></i> Kirim</button>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ============================================================ -->
-    <!-- ==================== JAVASCRIPT ============================= -->
-    <!-- ============================================================ -->
     <script>
         // ==================== KONFIGURASI ====================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbw11kB8htnlOjYASPj9Bx5M6BZP2QIbeaImSn5WFcY3flz59MJNl0i-o5-omCNFjqY/exec';
-        const MENU_CONFIG = {
-            membership: { label: 'Kepesertaan LPS', icon: 'fa-id-card', page: 'membership' },
-            sortir: { label: 'Pemilahan Sampah', icon: 'fa-recycle', page: 'sortir' },
-            exchange: { label: 'Tukar Point', icon: 'fa-coins', page: 'exchange' },
-            inbox: { label: 'Inbox', icon: 'fa-envelope', page: 'inbox' },
-            tas: { label: 'Tas / Bag', icon: 'fa-shopping-bag', page: 'tas' },
-            scan: { label: 'Scan Barcode', icon: 'fa-qrcode', page: 'scan' },
-            settings: { label: 'Pengaturan Akun', icon: 'fa-cog', page: 'settings' },
-            editor: { label: 'Editor Peserta', icon: 'fa-users-cog', page: 'editor' }
-        };
+        // GANTI URL INI DENGAN URL APPSSCRIPT ANDA
+        const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyi2RUeOJ9H3mc84OFwg8BlIQy1PZO11KzUoM96KXTxpnOskTIIVHuYSSuhuu762hg/exec';
         
-        // ==================== STATE ====================
-        let userData = null;
-        let currentPage = 'membership';
-        let isLoadingMembership = false;
-        let qrCodeInstance = null;
-        let hakAkses = {};
-        let lastMenu = '';
-        let levelBefore = 1;
-        let roleBefore = 'Pemula';
-        let isProcessingBonus = false;
-        let inboxCount = 0;
-        let poinSampahTersedia = 0;
-        let poinSampahUser = 0;
-        let isUserDataLoaded = false;
-        let tasItems = [];
-        
-        // ==================== HELPER ====================
-        function sensorId(id) {
-            if (!id || id.length < 16) return id;
-            return id.substring(0, 4) + '********' + id.substring(12);
-        }
-        
-        function showAlert(containerId, message, type) {
-            var alert = document.getElementById(containerId);
-            if (!alert) return;
-            alert.className = 'alert alert-' + type + ' show';
-            alert.textContent = message;
-            setTimeout(function() { hideAlert(containerId); }, 5000);
-        }
-        
-        function hideAlert(containerId) {
-            var alert = document.getElementById(containerId);
-            if (!alert) return;
-            alert.className = 'alert';
-            alert.textContent = '';
-        }
-        
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-        
-        function getRoleClass(role) {
-            if (!role) return 'pemula';
-            const r = role.toLowerCase();
-            if (r === 'pemula') return 'pemula';
-            if (r === 'veteran') return 'veteran';
-            if (r === 'master') return 'master';
-            if (r === 'grand master') return 'grandmaster';
-            if (r === 'admin') return 'admin';
-            if (r === 'pendiri') return 'pendiri';
-            return 'pemula';
-        }
-        
-        function getRoleLabel(role) {
-            if (!role) return 'Pemula';
-            const r = role.toLowerCase();
-            if (r === 'pemula') return 'Pemula';
-            if (r === 'veteran') return 'Veteran';
-            if (r === 'master') return 'Master';
-            if (r === 'grand master') return 'Grand Master';
-            if (r === 'admin') return 'Admin';
-            if (r === 'pendiri') return 'Pendiri';
-            return role;
-        }
-        
-        function getInitials(name) {
-            if (!name) return 'U';
-            return name.charAt(0).toUpperCase();
-        }
-        
-        // ==================== API CALL ====================
-        function callAPI(action, data) {
-            return new Promise(function(resolve, reject) {
-                var callbackName = 'jsonp_callback_' + Date.now();
-                var params = new URLSearchParams({ action: action, callback: callbackName });
-                for (var key in data) {
-                    if (data.hasOwnProperty(key)) params.append(key, data[key]);
-                }
-                var url = API_URL + '?' + params.toString();
-                
-                var script = document.createElement('script');
-                script.src = url;
-                script.async = true;
-                
-                var timeout = setTimeout(function() {
-                    cleanup();
-                    reject(new Error('⏱️ Request timeout (15 detik)'));
-                }, 15000);
-                
-                function cleanup() {
-                    clearTimeout(timeout);
-                    delete window[callbackName];
-                    if (script.parentNode) script.parentNode.removeChild(script);
-                }
-                
-                window[callbackName] = function(response) {
-                    cleanup();
-                    resolve(response);
-                };
-                
-                script.onerror = function() {
-                    cleanup();
-                    reject(new Error('❌ Gagal terhubung ke server.'));
-                };
-                
-                document.head.appendChild(script);
+        let currentUser = null;
+        let html5QrCode = null;
+        let isScannerRunning = false;
+
+        // ==================== INISIALISASI ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('manualId').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') getUserById();
             });
-        }
-        
-        // ==================== SIDEBAR ====================
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-            document.getElementById('sidebarOverlay').classList.toggle('active');
-        }
-        
-        // ==================== NAVIGATION ====================
-        function navigateTo(page) {
-            if (page === 'logout') {
-                handleLogout();
+            
+            ['organik', 'anOrganik', 'residu'].forEach(type => {
+                document.getElementById(type + 'Weight').addEventListener('input', calculatePoints);
+            });
+            
+            initializeScanner();
+            testConnection();
+        });
+
+        // ==================== SCANNER ====================
+        function initializeScanner() {
+            if (typeof Html5Qrcode === 'undefined') {
+                console.error('QR Scanner library not loaded');
                 return;
             }
-            
-            if (!hasAccess(page)) {
-                showAlert('membershipAlert', 'Anda tidak memiliki akses ke menu ini!', 'error');
+            html5QrCode = new Html5Qrcode("reader");
+        }
+
+        function startScanner() {
+            if (isScannerRunning) {
+                stopScanner();
                 return;
             }
-            
-            if (page !== currentPage && page !== lastMenu && page !== 'settings' && page !== 'exchange') {
-                lastMenu = page;
-                addMenuClickBonus(page);
-            }
-            
-            document.querySelectorAll('.sidebar-menu .menu-item').forEach(function(el) {
-                el.classList.remove('active');
-            });
-            var sidebarItem = document.querySelector('.sidebar-menu .menu-item[data-page="' + page + '"]');
-            if (sidebarItem) sidebarItem.classList.add('active');
-            
-            document.querySelectorAll('.bottom-nav .nav-item').forEach(function(el) {
-                el.classList.remove('active');
-            });
-            var navItem = document.querySelector('.bottom-nav .nav-item[data-page="' + page + '"]');
-            if (navItem) navItem.classList.add('active');
-            
-            document.querySelectorAll('.page-content').forEach(function(el) {
-                el.classList.add('hidden');
-            });
-            
-            var targetPage = document.getElementById('page-' + page);
-            if (targetPage) {
-                targetPage.classList.remove('hidden');
-            }
-            
-            var titles = {
-                membership: 'Kepesertaan LPS',
-                sortir: 'Pemilahan Sampah',
-                exchange: 'Tukar Point',
-                inbox: 'Inbox',
-                tas: 'Tas / Bag',
-                scan: 'Scan Barcode',
-                editor: 'Editor Peserta',
-                settings: 'Pengaturan Akun'
+
+            const config = {
+                fps: 10,
+                qrbox: { width: 250, height: 250 },
+                formats: [
+                    Html5QrcodeSupportedFormats.QR_CODE,
+                    Html5QrcodeSupportedFormats.CODE_128,
+                    Html5QrcodeSupportedFormats.CODE_39
+                ]
             };
-            document.getElementById('pageTitleText').textContent = titles[page] || page;
-            
-            currentPage = page;
-            
-            if (page === 'membership' && !isLoadingMembership) loadMemberships();
-            if (page === 'sortir') loadSampahData();
-            if (page === 'inbox') loadInbox();
-            if (page === 'tas') loadTas();
-            if (page === 'editor') loadEditorPeserta();
-            if (page === 'settings') loadSettings();
-            if (page === 'scan') { document.getElementById('scanResult').classList.remove('show'); }
-            if (page === 'exchange') {
-                var iframe = document.getElementById('tukarPointIframe');
-                if (iframe) iframe.src = iframe.src;
-            }
-            
-            if (window.innerWidth <= 768) {
-                var sidebar = document.getElementById('sidebar');
-                if (sidebar.classList.contains('open')) toggleSidebar();
-            }
-        }
-        
-        // ==================== HAK AKSES ====================
-        function hasAccess(menu) {
-            if (!hakAkses || !userData) return true;
-            var role = userData.role || 'Peserta';
-            var roleKey = role.toLowerCase();
-            if (roleKey === 'pendiri' || roleKey === 'admin') return true;
-            if (hakAkses[roleKey] && hakAkses[roleKey][menu] === true) return true;
-            if (hakAkses['peserta'] && hakAkses['peserta'][menu] === true) return true;
-            var defaultAccess = ['membership', 'sortir', 'settings', 'inbox', 'tas'];
-            if (defaultAccess.includes(menu)) return true;
-            // Scan hanya untuk Admin/Pendiri
-            if (menu === 'scan') return false;
-            return false;
-        }
-        
-        function loadHakAkses() {
-            return callAPI('getHakAkses', {})
-                .then(function(result) {
-                    if (result.success) {
-                        hakAkses = result.data || {};
-                        renderMenu();
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Error loading hak akses:', error);
-                });
-        }
-        
-        function renderMenu() {
-            var menuContainer = document.getElementById('sidebarMenu');
-            var bottomNav = document.getElementById('bottomNavItems');
-            var role = userData ? userData.role || 'Peserta' : 'Peserta';
-            var roleKey = role.toLowerCase();
-            
-            var menuHtml = '<div class="menu-label">Menu Utama</div>';
-            var bottomHtml = '';
-            var menuOrder = ['membership', 'sortir', 'exchange', 'inbox', 'tas', 'scan', 'editor', 'settings'];
-            
-            var isPendiri = roleKey === 'pendiri';
-            var isAdmin = roleKey === 'admin';
-            var settingsAdded = false;
-            
-            menuOrder.forEach(function(key) {
-                var config = MENU_CONFIG[key];
-                if (!config) return;
-                
-                // Scan hanya untuk Admin/Pendiri
-                if (key === 'scan' && !isPendiri && !isAdmin) return;
-                // Editor hanya untuk Pendiri
-                if (key === 'editor' && !isPendiri) return;
-                
-                var show = false;
-                if (isPendiri || isAdmin) {
-                    show = true;
-                } else {
-                    var roleAkses = hakAkses[roleKey] || {};
-                    var pesertaAkses = hakAkses['peserta'] || {};
-                    if (roleAkses[key] === true || pesertaAkses[key] === true) show = true;
-                    if (['membership', 'sortir', 'settings', 'inbox', 'tas'].includes(key)) show = true;
-                }
-                
-                if (show) {
-                    var badge = '';
-                    if (key === 'inbox' && inboxCount > 0) {
-                        badge = '<span class="badge-inbox">' + inboxCount + '</span>';
-                    }
-                    menuHtml += '<button class="menu-item' + (currentPage === key ? ' active' : '') + '" onclick="navigateTo(\'' + key + '\')" data-page="' + key + '">';
-                    menuHtml += '<i class="fas ' + config.icon + '"></i> ' + config.label + badge;
-                    menuHtml += '</button>';
-                    
-                    if (key === 'settings') {
-                        settingsAdded = true;
-                        bottomHtml += '<button class="nav-item nav-avatar' + (currentPage === key ? ' active' : '') + '" onclick="navigateTo(\'' + key + '\')" data-page="' + key + '">';
-                        bottomHtml += '<div class="avatar-wrapper" id="bottomAvatarWrapper">';
-                        bottomHtml += '<img src="" alt="Avatar" id="bottomAvatar" style="display:none;">';
-                        bottomHtml += '<i class="fas fa-user" id="bottomAvatarIcon"></i>';
-                        bottomHtml += '</div>';
-                        bottomHtml += '<span>Akun</span>';
-                        bottomHtml += '</button>';
-                    } else {
-                        bottomHtml += '<button class="nav-item' + (currentPage === key ? ' active' : '') + '" onclick="navigateTo(\'' + key + '\')" data-page="' + key + '">';
-                        bottomHtml += '<i class="fas ' + config.icon + '"></i>';
-                        bottomHtml += '<span>' + config.label + '</span>';
-                        if (key === 'inbox' && inboxCount > 0) {
-                            bottomHtml += '<span class="badge-inbox">' + inboxCount + '</span>';
-                        }
-                        bottomHtml += '</button>';
-                    }
-                }
+
+            html5QrCode.start(
+                { facingMode: "environment" },
+                config,
+                onScanSuccess,
+                onScanError
+            ).then(() => {
+                isScannerRunning = true;
+                document.querySelector('#reader').innerHTML = '';
+                document.querySelector('#reader').appendChild(html5QrCode.getScannerContainer());
+            }).catch(err => {
+                console.error('Failed to start scanner:', err);
+                Swal.fire('Error', 'Gagal mengakses kamera. Silakan gunakan scan dari galeri atau input manual.', 'error');
             });
-            
-            if (!settingsAdded) {
-                bottomHtml += '<button class="nav-item nav-avatar' + (currentPage === 'settings' ? ' active' : '') + '" onclick="navigateTo(\'settings\')" data-page="settings">';
-                bottomHtml += '<div class="avatar-wrapper" id="bottomAvatarWrapper">';
-                bottomHtml += '<img src="" alt="Avatar" id="bottomAvatar" style="display:none;">';
-                bottomHtml += '<i class="fas fa-user" id="bottomAvatarIcon"></i>';
-                bottomHtml += '</div>';
-                bottomHtml += '<span>Akun</span>';
-                bottomHtml += '</button>';
-            }
-            
-            bottomHtml += '<button class="nav-item" onclick="handleLogout()" data-page="logout">';
-            bottomHtml += '<i class="fas fa-sign-out-alt"></i>';
-            bottomHtml += '<span>Keluar</span>';
-            bottomHtml += '</button>';
-            
-            menuContainer.innerHTML = menuHtml;
-            bottomNav.innerHTML = bottomHtml;
-            
-            if (userData) updateBottomAvatar();
         }
-        
-        function updateBottomAvatar() {
-            var bottomAvatar = document.getElementById('bottomAvatar');
-            var bottomAvatarIcon = document.getElementById('bottomAvatarIcon');
-            if (!bottomAvatar || !bottomAvatarIcon) return;
-            
-            if (userData && userData.url_foto && userData.url_foto.trim() !== '') {
-                bottomAvatar.style.display = 'block';
-                bottomAvatar.src = userData.url_foto;
-                bottomAvatarIcon.style.display = 'none';
-            } else if (userData && userData.nama_peserta) {
-                bottomAvatar.style.display = 'none';
-                bottomAvatarIcon.style.display = 'flex';
-                bottomAvatarIcon.textContent = getInitials(userData.nama_peserta);
-                bottomAvatarIcon.style.fontSize = '20px';
-                bottomAvatarIcon.style.fontWeight = '600';
-                bottomAvatarIcon.style.color = 'white';
-            } else {
-                bottomAvatar.style.display = 'none';
-                bottomAvatarIcon.style.display = 'flex';
-                bottomAvatarIcon.textContent = '👤';
-                bottomAvatarIcon.style.fontSize = '20px';
+
+        function stopScanner() {
+            if (html5QrCode && isScannerRunning) {
+                html5QrCode.stop().then(() => {
+                    isScannerRunning = false;
+                    document.getElementById('reader').innerHTML = '<div id="reader"></div>';
+                    initializeScanner();
+                });
             }
         }
-        
-        // ==================== LOAD USER DATA ====================
-        function loadUserData() {
-            var session = sessionStorage.getItem('lps_session');
-            if (!session) {
-                window.location.href = 'login.html';
-                return;
-            }
+
+        function scanFromGallery() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
             
-            try {
-                var sessionData = JSON.parse(session);
-                userData = sessionData;
-                
-                document.getElementById('sidebarName').textContent = userData.nama_peserta || userData.username;
-                document.getElementById('headerName').textContent = userData.nama_peserta || userData.username;
-                
-                loadHakAkses().then(function() {
-                    callAPI('getUserDataWithRole', { nik: userData.nik })
-                        .then(function(result) {
-                            if (result.success && result.found) {
-                                userData.detail = result.data;
-                                userData.role = result.data.role || 'Pemula';
-                                userData.point_role = Number(result.data.point_role) || 0;
-                                userData.point_hadiah = Number(result.data.point_hadiah) || 0;
-                                userData.level = result.level || 1;
-                                userData.url_foto = result.data.url_foto || '';
-                                
-                                levelBefore = userData.level;
-                                roleBefore = userData.role;
-                                poinSampahUser = userData.point_hadiah;
-                                
-                                isUserDataLoaded = true;
-                                updateUserUI(result.data);
-                                renderMenu();
-                                updatePoinUI();
-                                updateLevelProgress();
-                                
-                                if (result.level > levelBefore) showLevelupPopup(result.level);
-                                if (result.roleChanged) showRolePopup(result.oldRole, result.newRole);
-                                
-                                checkDailyLoginBonus();
-                                loadMemberships();
-                                loadInboxCount();
-                            }
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                Swal.fire({
+                    title: 'Memproses gambar...',
+                    text: 'Mohon tunggu',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading()
+                });
+
+                if (html5QrCode) {
+                    html5QrCode.scanFile(file, true)
+                        .then(decodedText => {
+                            Swal.close();
+                            onScanSuccess(decodedText);
                         })
-                        .catch(function(error) {
-                            console.error('Error loading user data:', error);
+                        .catch(err => {
+                            Swal.close();
+                            console.error('Failed to scan image:', err);
+                            Swal.fire('Error', 'Gagal membaca barcode dari gambar. Pastikan gambar jelas.', 'error');
                         });
-                });
-                    
-            } catch (e) {
-                window.location.href = 'login.html';
-            }
-        }
-        
-        // ==================== UPDATE USER UI ====================
-        function updateUserUI(data) {
-            var avatarEl = document.getElementById('sidebarAvatar');
-            if (data.url_foto && data.url_foto.trim() !== '') {
-                avatarEl.innerHTML = '<img src="' + data.url_foto + '">';
-            } else {
-                avatarEl.innerHTML = '<i class="fas fa-user"></i>';
-            }
-            
-            var role = data.role || 'Pemula';
-            var roleClass = getRoleClass(role);
-            var roleLabel = getRoleLabel(role);
-            
-            var sidebarRole = document.getElementById('sidebarRole');
-            sidebarRole.textContent = roleLabel;
-            sidebarRole.className = 'role-badge ' + roleClass;
-            
-            var level = Math.min(Math.floor((Number(data.point_role) || 0) / 1000) + 1, 100);
-            document.getElementById('sidebarLevel').textContent = 'Level ' + level;
-            
-            var headerAvatar = document.getElementById('headerAvatar');
-            if (data.url_foto && data.url_foto.trim() !== '') {
-                headerAvatar.style.display = 'block';
-                headerAvatar.src = data.url_foto;
-            } else {
-                headerAvatar.style.display = 'none';
-            }
-            
-            document.getElementById('headerLevel').textContent = 'Lv.' + level;
-            
-            poinSampahUser = Number(data.point_hadiah) || 0;
-            updatePoinUI();
-            updateBottomAvatar();
-            updateLevelProgress();
-            
-            // Tombol Ambil Sampah
-            var container = document.getElementById('btnAmbilSampahContainer');
-            var roleKey = (data.role || 'Peserta').toLowerCase();
-            if (roleKey === 'admin' || roleKey === 'pendiri') {
-                container.innerHTML = '<a href="https://lpspadangterubukasri.github.io/Home/potensi/programpemilahsampah/petugas.html" target="_blank" class="btn-ambil-sampah"><i class="fas fa-trash-alt"></i> Ambil Sampah</a>';
-            } else {
-                container.innerHTML = '';
-            }
-        }
-        
-        function updatePoinUI() {
-            document.getElementById('sidebarPoinSampah').textContent = '🪙 Poin Sampah: ' + formatNumber(poinSampahUser);
-            var profilePoin = document.getElementById('profilePoinSampah');
-            if (profilePoin) profilePoin.textContent = formatNumber(poinSampahUser);
-        }
-        
-        // ==================== LEVEL PROGRESS ====================
-        function updateLevelProgress() {
-            if (!userData || !userData.nik) return;
-            
-            callAPI('getLevelProgress', { nik: userData.nik })
-                .then(function(result) {
-                    if (result.success) {
-                        document.getElementById('progressCurrentLevel').textContent = result.currentLevel;
-                        document.getElementById('progressNextLevel').textContent = result.nextLevel;
-                        document.getElementById('progressFill').style.width = result.progress + '%';
-                        document.getElementById('progressExpText').textContent = 
-                            formatNumber(result.currentExp) + ' / ' + formatNumber(result.maxExp) + ' EXP';
-                    }
-                })
-                .catch(function(error) {
-                    console.error('Error loading level progress:', error);
-                });
-        }
-        
-        // ==================== LOAD TAS ====================
-        function loadTas() {
-            if (!userData || !userData.nik) {
-                setTimeout(loadTas, 500);
-                return;
-            }
-            
-            var container = document.getElementById('tasItemsList');
-            container.innerHTML = '<div class="tas-empty"><i class="fas fa-spinner fa-spin"></i><p>Memuat data tas...</p></div>';
-            hideAlert('tasAlert');
-            
-            callAPI('getTas', { nik: userData.nik })
-                .then(function(result) {
-                    if (result.success) {
-                        tasItems = result.data || [];
-                        renderTas(tasItems);
-                    } else {
-                        showAlert('tasAlert', result.message || 'Gagal memuat tas', 'error');
-                        container.innerHTML = '<div class="tas-empty"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
-                    }
-                })
-                .catch(function(error) {
-                    showAlert('tasAlert', '❌ ' + error.message, 'error');
-                    container.innerHTML = '<div class="tas-empty"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
-                });
-        }
-        
-        function renderTas(items) {
-            var container = document.getElementById('tasItemsList');
-            var statsContainer = document.getElementById('tasStats');
-            
-            var totalItems = 0;
-            var uniqueItems = items.length;
-            var slotsUsed = 0;
-            
-            items.forEach(function(item) {
-                totalItems += item.quantity || 1;
-                slotsUsed += 1;
-            });
-            
-            document.getElementById('tasTotalItems').textContent = totalItems;
-            document.getElementById('tasSlotsUsed').textContent = slotsUsed + ' / 50';
-            document.getElementById('tasUniqueItems').textContent = uniqueItems;
-            
-            if (!items || items.length === 0) {
-                container.innerHTML = '<div class="tas-empty"><i class="fas fa-shopping-bag"></i><p>Tas kosong. Beli item di Tukar Point!</p></div>';
-                return;
-            }
-            
-            var html = '';
-            items.forEach(function(item, index) {
-                var qty = item.quantity || 1;
-                html += '<div class="tas-item" style="animation-delay:' + (index * 0.05) + 's;">';
-                html += '  <div class="item-info">';
-                html += '    <div class="item-name">' + item.item_name + '</div>';
-                html += '    <div class="item-detail">Harga: ' + formatNumber(item.item_price) + ' poin</div>';
-                html += '    <div class="item-detail">QR: ' + (item.qr_code ? item.qr_code.substring(0, 20) + '...' : 'Belum digenerate') + '</div>';
-                html += '  </div>';
-                html += '  <div class="item-qty">x' + qty + '</div>';
-                html += '  <div class="item-actions">';
-                html += '    <button class="btn-tas qr" onclick="generateItemQR(\'' + item.item_id + '\', \'' + item.item_name + '\')"><i class="fas fa-qrcode"></i> QR</button>';
-                html += '  </div>';
-                html += '</div>';
-            });
-            
-            container.innerHTML = html;
-        }
-        
-        // ==================== GENERATE ITEM QR ====================
-        function generateItemQR(itemId, itemName) {
-            if (!userData || !userData.nik) return;
-            
-            // Dapatkan userId
-            var userId = userData.detail ? userData.detail.id : '';
-            if (!userId) {
-                showAlert('tasAlert', 'User ID tidak ditemukan!', 'error');
-                return;
-            }
-            
-            callAPI('generateItemQR', {
-                user_id: userId,
-                item_id: itemId,
-                item_name: itemName
-            })
-            .then(function(result) {
-                if (result.success) {
-                    showAlert('tasAlert', '✅ QR Code berhasil digenerate: ' + result.qr_code, 'success');
-                    loadTas();
-                } else {
-                    showAlert('tasAlert', '❌ ' + result.message, 'error');
                 }
-            })
-            .catch(function(error) {
-                showAlert('tasAlert', '❌ ' + error.message, 'error');
-            });
-        }
-        
-        // ==================== SCAN ITEM QR ====================
-        function scanItemQR() {
-            var input = document.getElementById('scanInput');
-            var qrCode = input.value.trim();
-            
-            if (!qrCode) {
-                showAlert('scanAlert', 'Masukkan QR Code!', 'error');
-                return;
-            }
-            
-            var btn = document.querySelector('.btn-scan');
-            var originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-            btn.disabled = true;
-            
-            callAPI('scanItemQR', {
-                qr_code: qrCode,
-                scanned_by: userData.nama_peserta || userData.username
-            })
-            .then(function(result) {
-                if (result.success) {
-                    var resultDiv = document.getElementById('scanResult');
-                    resultDiv.classList.add('show');
-                    document.getElementById('scanResultContent').innerHTML = 
-                        '<div class="result-item"><span class="label">Status</span><span class="value" style="color:#22c55e;">✅ Berhasil</span></div>' +
-                        '<div class="result-item"><span class="label">Item</span><span class="value">' + result.item_name + '</span></div>' +
-                        '<div class="result-item"><span class="label">Sisa</span><span class="value">' + result.remaining + ' item</span></div>' +
-                        '<div class="result-item"><span class="label">Pesan</span><span class="value">' + result.message + '</span></div>';
-                    
-                    showAlert('scanAlert', '✅ ' + result.message, 'success');
-                    input.value = '';
-                    loadTas();
-                } else {
-                    var resultDiv = document.getElementById('scanResult');
-                    resultDiv.classList.add('show');
-                    document.getElementById('scanResultContent').innerHTML = 
-                        '<div class="result-item"><span class="label">Status</span><span class="value" style="color:#ef4444;">❌ Gagal</span></div>' +
-                        '<div class="result-item"><span class="label">Pesan</span><span class="value">' + result.message + '</span></div>';
-                    
-                    showAlert('scanAlert', '❌ ' + result.message, 'error');
-                }
-            })
-            .catch(function(error) {
-                showAlert('scanAlert', '❌ ' + error.message, 'error');
-            })
-            .finally(function() {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            });
-        }
-        
-        // ==================== FUNGSI LAINNYA (MEMBERSHIP, SORTIR, INBOX, EDITOR, SETTINGS) ====================
-        // Karena keterbatasan karakter, fungsi-fungsi ini tetap sama seperti sebelumnya
-        // Saya akan sertakan fungsi inti, untuk fungsi lainnya tetap dipertahankan
-        
-        function loadMemberships() {
-            // Fungsi ini tetap sama
-            if (isLoadingMembership) return;
-            if (!userData || !userData.nik) { setTimeout(loadMemberships, 500); return; }
-            
-            isLoadingMembership = true;
-            var grid = document.getElementById('membershipGrid');
-            grid.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i><p>Memuat data kepesertaan...</p></div>';
-            hideAlert('membershipAlert');
-            
-            var cacheKey = 'membership_' + userData.nik;
-            var cachedData = sessionStorage.getItem(cacheKey);
-            var cacheTime = sessionStorage.getItem(cacheKey + '_time');
-            
-            if (cachedData && cacheTime && (Date.now() - parseInt(cacheTime) < 300000)) {
-                try {
-                    renderMemberships(JSON.parse(cachedData));
-                    isLoadingMembership = false;
-                    return;
-                } catch(e) {}
-            }
-            
-            callAPI('getUserMemberships', { nik: userData.nik })
-                .then(function(result) {
-                    if (result.success) {
-                        if (result.count > 0) {
-                            sessionStorage.setItem(cacheKey, JSON.stringify(result.data));
-                            sessionStorage.setItem(cacheKey + '_time', String(Date.now()));
-                            renderMemberships(result.data);
-                        } else {
-                            grid.innerHTML = '<div class="no-data"><i class="fas fa-id-card"></i><p>Belum ada data kepesertaan</p></div>';
-                        }
-                    } else {
-                        showAlert('membershipAlert', result.message || 'Gagal memuat data', 'error');
-                        grid.innerHTML = '<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
-                    }
-                })
-                .catch(function(error) {
-                    showAlert('membershipAlert', '❌ ' + error.message, 'error');
-                    grid.innerHTML = '<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
-                })
-                .finally(function() { isLoadingMembership = false; });
-        }
-        
-        function renderMemberships(data) {
-            var grid = document.getElementById('membershipGrid');
-            var html = '';
-            data.forEach(function(item, index) {
-                html += '<div class="membership-card" style="animation-delay:' + (index * 0.05) + 's;">';
-                html += '  <div class="card-header"><strong>' + (item.nama_peserta || 'Peserta') + '</strong><span class="status-badge active">' + (item.status || 'Aktif') + '</span></div>';
-                html += '  <div class="card-body">';
-                var fields = ['no_nik','no_kk','alamat','rt','rw','kelurahan','kecamatan','kota','provinsi','no_telp','tarif_iuran','nama_umkm','no_surat_umkm','nama_badan_usaha','bo_surat_izin_usaha','nama_petugas'];
-                fields.forEach(function(field) {
-                    var value = item[field] || '-';
-                    if (field === 'no_nik' || field === 'no_kk') value = sensorId(value);
-                    html += '  <div class="field"><span class="label">' + field.replace(/_/g,' ').toUpperCase() + '</span><span class="value' + ((field === 'no_nik' || field === 'no_kk') ? ' nik-sensor' : '') + '">' + value + '</span></div>';
-                });
-                html += '  </div></div>';
-            });
-            grid.innerHTML = html;
-        }
-        
-        function loadSampahData() {
-            if (!userData || !userData.nik) { setTimeout(loadSampahData, 500); return; }
-            var grid = document.getElementById('sampahGrid');
-            grid.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i><p>Memuat data sampah...</p></div>';
-            hideAlert('sortirAlert');
-            
-            callAPI('getUserSampahData', { nik: userData.nik })
-                .then(function(result) {
-                    if (result.success) {
-                        poinSampahTersedia = result.data.total_poin_sampah || 0;
-                        renderSampahData(result.data);
-                    } else {
-                        showAlert('sortirAlert', result.message || 'Gagal memuat data sampah', 'error');
-                        grid.innerHTML = '<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
-                    }
-                })
-                .catch(function(error) {
-                    showAlert('sortirAlert', '❌ ' + error.message, 'error');
-                    grid.innerHTML = '<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
-                });
-        }
-        
-        function renderSampahData(data) {
-            var grid = document.getElementById('sampahGrid');
-            var user = data.user || {};
-            var totalOrganik = data.total_organik || 0;
-            var totalAnOrganik = data.total_an_organik || 0;
-            var totalResidu = data.total_residu || 0;
-            var totalPoin = data.total_poin_sampah || 0;
-            var found = data.found || false;
-            
-            var formatSampah = function(val) {
-                if (val >= 1000000) return (val / 1000000).toFixed(2) + ' ton';
-                if (val >= 1000) return (val / 1000).toFixed(2) + ' kg';
-                return val.toFixed(0) + ' gram';
             };
-            
-            var html = '';
-            html += '<div class="sampah-card profile-card">';
-            html += '  <img src="' + (user.url_foto || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.nama_peserta || 'Peserta') + '&background=159895&color=fff&size=56') + '" alt="Profile" class="profile-avatar">';
-            html += '  <div class="profile-info"><div class="name">' + (user.nama_peserta || 'Peserta') + '</div><div class="id">ID: ' + (user.id || '-') + '</div></div>';
-            html += '</div>';
-            
-            html += '<div class="sampah-card organik"><div class="card-icon">🌿</div><div class="card-title">Sampah Organik</div><div class="card-value">' + formatSampah(totalOrganik) + '</div><div class="card-sub">Total setoran sampah organik</div></div>';
-            html += '<div class="sampah-card anorganik"><div class="card-icon">♻️</div><div class="card-title">Sampah An-Organik</div><div class="card-value">' + formatSampah(totalAnOrganik) + '</div><div class="card-sub">Total setoran sampah an-organik</div></div>';
-            html += '<div class="sampah-card residu"><div class="card-icon">🗑️</div><div class="card-title">Sampah Residu</div><div class="card-value">' + formatSampah(totalResidu) + '</div><div class="card-sub">Total setoran sampah residu</div></div>';
-            
-            var canClaim = totalPoin > 0;
-            var poinDisplay = totalPoin > 0 ? formatNumber(Math.round(totalPoin * 100) / 100) : '0';
-            html += '<div class="sampah-card poin">';
-            html += '  <div class="card-icon">🪙</div><div class="card-title">Poin Sampah Tersedia</div>';
-            html += '  <div class="card-value">' + poinDisplay + '</div>';
-            html += '  <div class="card-sub">' + (found ? 'Total poin yang bisa di-claim' : 'Belum ada data sampah') + '</div>';
-            html += '  <button class="card-info-btn" onclick="showInfoPopup()" title="Cara mendapatkan poin"><i class="fas fa-info-circle"></i></button>';
-            html += '  <button class="card-action-btn" id="claimBtn" onclick="claimPoinSampah()" ' + (!canClaim ? 'disabled' : '') + '>';
-            html += '    <i class="fas ' + (canClaim ? 'fa-hand-holding-heart' : 'fa-lock') + ' btn-icon"></i>';
-            html += '    ' + (canClaim ? 'Claim Point Sampah' : 'Tidak Ada Poin');
-            html += '  </button>';
-            html += '  <button class="btn-historis" onclick="showHistoriPopup()"><i class="fas fa-history"></i> Lihat Histori Claim</button>';
-            html += '</div>';
-            
-            grid.innerHTML = html;
+            input.click();
         }
-        
-        function claimPoinSampah() {
-            if (!userData || !userData.nik) return;
-            if (poinSampahTersedia <= 0) {
-                showAlert('sortirAlert', 'Tidak ada poin yang bisa di-claim!', 'error');
+
+        function onScanSuccess(decodedText) {
+            if (isScannerRunning) stopScanner();
+            Swal.fire({
+                title: 'Barcode Terdeteksi!',
+                text: `ID: ${decodedText}`,
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
+            getUserByBarcode(decodedText);
+        }
+
+        function onScanError(err) {}
+
+        // ==================== KONEKSI ====================
+        function testConnection() {
+            const statusEl = document.getElementById('connectionStatus');
+            statusEl.className = 'status-badge status-disconnected';
+            statusEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengecek...';
+            
+            fetch(`${APPSCRIPT_URL}?action=testConnection&t=${Date.now()}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        statusEl.className = 'status-badge status-connected';
+                        statusEl.innerHTML = '<i class="fas fa-circle"></i> Online';
+                        Swal.fire('Berhasil!', 'Koneksi ke server berhasil', 'success');
+                    } else {
+                        statusEl.className = 'status-badge status-disconnected';
+                        statusEl.innerHTML = '<i class="fas fa-circle"></i> Offline';
+                        Swal.fire('Gagal', 'Koneksi ke server gagal. Periksa URL AppScript.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Connection error:', error);
+                    statusEl.className = 'status-badge status-disconnected';
+                    statusEl.innerHTML = '<i class="fas fa-circle"></i> Offline';
+                    Swal.fire('Error', 'Tidak dapat terhubung ke server. Periksa koneksi internet dan URL AppScript.', 'error');
+                });
+        }
+
+        // ==================== USER FUNCTIONS ====================
+        function getUserByBarcode(barcode) {
+            Swal.fire({
+                title: 'Mencari data...',
+                text: 'Mohon tunggu',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            fetch(`${APPSCRIPT_URL}?action=getUserByBarcode&barcode=${barcode}`)
+                .then(response => response.json())
+                .then(data => {
+                    Swal.close();
+                    if (data.status === 'success') {
+                        displayUser(data.data);
+                    } else {
+                        Swal.fire('Error', 'User tidak ditemukan', 'error');
+                    }
+                })
+                .catch(error => {
+                    Swal.close();
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Gagal mengambil data user', 'error');
+                });
+        }
+
+        function getUserById() {
+            const id = document.getElementById('manualId').value.trim();
+            if (!id) {
+                Swal.fire('Peringatan', 'Masukkan ID peserta terlebih dahulu', 'warning');
                 return;
             }
             
-            var btn = document.getElementById('claimBtn');
-            if (!btn) return;
-            var originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin btn-icon"></i> Memproses...';
-            btn.disabled = true;
+            Swal.fire({
+                title: 'Mencari data...',
+                text: 'Mohon tunggu',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
             
-            callAPI('claimPoinSampah', { nik: userData.nik, username: userData.username })
-                .then(function(result) {
-                    if (result.success) {
-                        showAlert('sortirAlert', '✅ ' + result.message, 'success');
-                        poinSampahUser = result.total_hadiah || 0;
-                        poinSampahTersedia = 0;
-                        updatePoinUI();
-                        setTimeout(function() { loadSampahData(); }, 500);
-                        var iframe = document.getElementById('tukarPointIframe');
-                        if (iframe && document.getElementById('page-exchange').classList.contains('hidden') === false) iframe.src = iframe.src;
+            fetch(`${APPSCRIPT_URL}?action=getUser&id=${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    Swal.close();
+                    if (data.status === 'success') {
+                        displayUser(data.data);
                     } else {
-                        showAlert('sortirAlert', '❌ ' + result.message, 'error');
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
+                        Swal.fire('Error', 'User tidak ditemukan', 'error');
                     }
                 })
-                .catch(function(error) {
-                    showAlert('sortirAlert', '❌ ' + error.message, 'error');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
+                .catch(error => {
+                    Swal.close();
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'Gagal mengambil data user', 'error');
                 });
         }
-        
-        function showHistoriPopup() {
-            var container = document.getElementById('historiContainer');
-            container.innerHTML = '<div class="histori-empty"><i class="fas fa-spinner fa-spin"></i><p>Memuat histori...</p></div>';
-            document.getElementById('historiPopup').classList.add('active');
+
+        function displayUser(user) {
+            currentUser = user;
             
-            callAPI('getHistoriClaim', { nik: userData.nik })
-                .then(function(result) {
-                    if (result.success && result.data && result.data.length > 0) {
-                        var html = '';
-                        result.data.forEach(function(item) {
-                            var date = new Date(item.timestamp);
-                            html += '<div class="histori-item"><div class="date">' + date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}) + '</div><div class="point positive">+' + formatNumber(Number(item.point)) + ' poin</div></div>';
-                        });
-                        container.innerHTML = html;
-                    } else {
-                        container.innerHTML = '<div class="histori-empty"><i class="fas fa-inbox"></i><p>Belum ada histori claim</p></div>';
+            document.getElementById('userInfo').classList.remove('hidden');
+            document.getElementById('userNameDisplay').textContent = user.nama_peserta || 'Nama tidak tersedia';
+            document.getElementById('userIdDisplay').textContent = user.id || '-';
+            document.getElementById('userEmailDisplay').textContent = user.email || '-';
+            document.getElementById('userNikDisplay').textContent = user.nik || '-';
+            
+            if (user.url_foto) {
+                document.getElementById('userPhoto').src = user.url_foto;
+            }
+            
+            document.getElementById('wasteSection').classList.remove('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+            document.getElementById('userDisplay').classList.remove('hidden');
+            document.getElementById('userName').textContent = user.nama_peserta;
+            document.getElementById('wasteUserLabel').textContent = `- ${user.nama_peserta}`;
+            
+            loadDashboard(user.id);
+            document.getElementById('manualId').value = '';
+            
+            Swal.fire({
+                title: 'Berhasil!',
+                text: `Data peserta ${user.nama_peserta} ditemukan`,
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+
+        // ==================== WASTE SUBMISSION ====================
+        function calculatePoints() {
+            const organik = parseFloat(document.getElementById('organikWeight').value) || 0;
+            const anOrganik = parseFloat(document.getElementById('anOrganikWeight').value) || 0;
+            const residu = parseFloat(document.getElementById('residuWeight').value) || 0;
+            
+            const organikPoints = organik * 100;
+            const anOrganikPoints = anOrganik * 500;
+            const residuPoints = residu * 10;
+            const total = organikPoints + anOrganikPoints + residuPoints;
+            
+            document.getElementById('organikPoints').textContent = organikPoints.toFixed(0);
+            document.getElementById('anOrganikPoints').textContent = anOrganikPoints.toFixed(0);
+            document.getElementById('residuPoints').textContent = residuPoints.toFixed(0);
+            document.getElementById('totalPointsDisplay').textContent = total.toFixed(0);
+        }
+
+        function submitWaste() {
+    if (!currentUser) {
+        Swal.fire('Error', 'Silakan scan barcode peserta terlebih dahulu', 'warning');
+        return;
+    }
+
+    const organik_kg = parseFloat(document.getElementById('organikWeight').value) || 0;
+    const an_organik_kg = parseFloat(document.getElementById('anOrganikWeight').value) || 0;
+    const residu_kg = parseFloat(document.getElementById('residuWeight').value) || 0;
+    
+    if (organik_kg === 0 && an_organik_kg === 0 && residu_kg === 0) {
+        Swal.fire('Peringatan', 'Minimal satu jenis sampah harus diisi', 'warning');
+        return;
+    }
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+    // BUAT FORM DATA (bukan JSON)
+    const formData = new FormData();
+    formData.append('action', 'submitWaste');
+    formData.append('id_peserta', currentUser.id);
+    formData.append('organik_kg', organik_kg);
+    formData.append('an_organik_kg', an_organik_kg);
+    formData.append('residu_kg', residu_kg);
+    formData.append('catatan', document.getElementById('notes').value || '');
+
+    // KIRIM PAKAI FORM DATA, TANPA PARAMETER DI URL
+    fetch(APPSCRIPT_URL, {
+        method: 'POST',
+        body: formData  // <-- PAKAI FORM DATA, BUKAN JSON
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.text(); // Ambil sebagai text dulu untuk debug
+    })
+    .then(text => {
+        console.log('Raw response:', text);
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error('Failed to parse JSON:', e);
+            throw new Error('Respons dari server tidak valid: ' + text.substring(0, 100));
+        }
+    })
+    .then(data => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Data';
+        
+        if (data.status === 'success') {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: `Data berhasil disimpan. Total Poin: ${data.data.total_point}`,
+                icon: 'success',
+                timer: 3000,
+                showConfirmButton: false
+            });
+            
+            document.getElementById('organikWeight').value = '';
+            document.getElementById('anOrganikWeight').value = '';
+            document.getElementById('residuWeight').value = '';
+            document.getElementById('notes').value = '';
+            calculatePoints();
+            loadDashboard(currentUser.id);
+        } else {
+            Swal.fire('Error', data.message || 'Gagal menyimpan data', 'error');
+        }
+    })
+    .catch(error => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Data';
+        console.error('Error detail:', error);
+        Swal.fire('Error', `Gagal mengirim data: ${error.message}`, 'error');
+    });
+}
+
+        // ==================== DASHBOARD ====================
+        function loadDashboard(id_peserta) {
+            fetch(`${APPSCRIPT_URL}?action=getDashboard&id=${id_peserta}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        updateDashboard(data.data);
                     }
                 })
-                .catch(function(error) {
-                    container.innerHTML = '<div class="histori-empty"><i class="fas fa-exclamation-triangle"></i><p>Error: ' + error.message + '</p></div>';
-                });
+                .catch(error => console.error('Error loading dashboard:', error));
         }
-        
-        function closeHistoriPopup() { document.getElementById('historiPopup').classList.remove('active'); }
-        function showInfoPopup() { document.getElementById('infoPopup').classList.add('active'); }
-        function closeInfoPopup() { document.getElementById('infoPopup').classList.remove('active'); }
-        
-        function loadInbox() {
-            if (!userData || !userData.nik) { setTimeout(loadInbox, 500); return; }
-            var container = document.getElementById('inboxContainer');
-            container.innerHTML = '<div class="inbox-empty"><i class="fas fa-spinner fa-spin"></i><p>Memuat pesan...</p></div>';
-            hideAlert('inboxAlert');
+
+        function updateDashboard(data) {
+            const summary = data.summary;
+            if (summary) {
+                document.getElementById('dashOrganik').textContent = (summary.total_organik_kg || 0).toFixed(2) + ' kg';
+                document.getElementById('dashAnOrganik').textContent = (summary.total_an_organik_kg || 0).toFixed(2) + ' kg';
+                document.getElementById('dashResidu').textContent = (summary.total_residu_kg || 0).toFixed(2) + ' kg';
+                document.getElementById('dashPoints').textContent = summary.total_point || 0;
+            }
+
+            const logs = data.logs || [];
+            const tableBody = document.getElementById('logTableBody');
             
-            callAPI('getInbox', { nik: userData.nik })
-                .then(function(result) {
-                    if (result.success && result.data && result.data.length > 0) {
-                        var html = '';
-                        result.data.forEach(function(item) {
-                            var date = new Date(item.timestamp);
-                            html += '<div class="inbox-item">';
-                            html += '  <div class="inbox-header"><span class="from"><i class="fas fa-user"></i> ' + (item.dari || 'Sistem') + '</span><span class="date">' + date.toLocaleDateString('id-ID') + ' ' + date.toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}) + '</span></div>';
-                            if (item.subject) html += '  <div class="inbox-subject">' + item.subject + '</div>';
-                            html += '  <div class="inbox-pesan">' + (item.pesan || '') + '</div>';
-                            html += '</div>';
-                        });
-                        container.innerHTML = html;
-                    } else {
-                        container.innerHTML = '<div class="inbox-empty"><i class="fas fa-inbox"></i><p>Tidak ada pesan</p></div>';
-                    }
-                })
-                .catch(function(error) {
-                    showAlert('inboxAlert', '❌ ' + error.message, 'error');
-                    container.innerHTML = '<div class="inbox-empty"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat pesan</p></div>';
-                });
-        }
-        
-        function loadInboxCount() {
-            if (!userData || !userData.nik) return;
-            callAPI('getInbox', { nik: userData.nik })
-                .then(function(result) {
-                    if (result.success) {
-                        inboxCount = result.count || 0;
-                        var inboxBadge = document.querySelector('.sidebar-menu .menu-item[data-page="inbox"] .badge-inbox');
-                        if (inboxBadge) {
-                            inboxBadge.style.display = inboxCount > 0 ? 'inline' : 'none';
-                            inboxBadge.textContent = inboxCount;
-                        }
-                    }
-                })
-                .catch(function(error) { console.error('Error loading inbox count:', error); });
-        }
-        
-        function loadEditorPeserta() {
-            var container = document.getElementById('editorPesertaList');
-            container.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i><p>Memuat data peserta...</p></div>';
-            hideAlert('editorAlert');
-            
-            callAPI('getAllPeserta', {})
-                .then(function(result) {
-                    if (result.success && result.data && result.data.length > 0) {
-                        var html = '<table><thead><tr><th>No</th><th>Nama</th><th>Username</th><th>Role</th><th>Level</th><th>Poin Level</th><th>Poin Sampah</th><th>Aksi</th></tr></thead><tbody>';
-                        result.data.forEach(function(item, index) {
-                            var roleClass = getRoleClass(item.role);
-                            var roleLabel = getRoleLabel(item.role);
-                            html += '<tr>';
-                            html += '<td>' + (index + 1) + '</td>';
-                            html += '<td>' + (item.nama_peserta || '-') + '</td>';
-                            html += '<td>' + (item.username || '-') + '</td>';
-                            html += '<td class="role-' + roleClass + '">' + roleLabel + '</td>';
-                            html += '<td>' + (item.level || 1) + '</td>';
-                            html += '<td>' + formatNumber(Number(item.point_role) || 0) + '</td>';
-                            html += '<td>' + formatNumber(Number(item.point_hadiah) || 0) + '</td>';
-                            html += '<td>';
-                            html += '<button class="btn-action reward" onclick="openRewardModal(\'' + item.nik + '\', \'' + (item.nama_peserta || item.username) + '\')"><i class="fas fa-gift"></i> Reward</button>';
-                            html += '<button class="btn-action notif" onclick="openNotifModal(\'' + item.nik + '\', \'' + (item.nama_peserta || item.username) + '\')"><i class="fas fa-bell"></i> Notif</button>';
-                            html += '</td></tr>';
-                        });
-                        html += '</tbody></table>';
-                        container.innerHTML = html;
-                    } else {
-                        container.innerHTML = '<div class="no-data"><i class="fas fa-users"></i><p>Belum ada peserta terdaftar</p></div>';
-                    }
-                })
-                .catch(function(error) {
-                    showAlert('editorAlert', '❌ ' + error.message, 'error');
-                    container.innerHTML = '<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
-                });
-        }
-        
-        function openRewardModal(nik, nama) {
-            document.getElementById('rewardNik').value = nik;
-            document.getElementById('rewardNamaDisplay').value = nama;
-            document.getElementById('rewardAmount').value = '';
-            document.getElementById('rewardKeterangan').value = '';
-            document.getElementById('rewardModal').classList.add('active');
-        }
-        
-        function closeRewardModal() { document.getElementById('rewardModal').classList.remove('active'); }
-        
-        function submitReward() {
-            var nik = document.getElementById('rewardNik').value;
-            var type = document.getElementById('rewardType').value;
-            var amount = document.getElementById('rewardAmount').value;
-            var keterangan = document.getElementById('rewardKeterangan').value;
-            
-            if (!amount || amount <= 0) {
-                showAlert('editorAlert', 'Masukkan jumlah reward yang valid!', 'error');
+            if (logs.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-gray-500">Belum ada riwayat pemilahan</td></tr>';
                 return;
             }
-            
-            var btn = document.querySelector('#rewardModal .submit');
-            var originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-            btn.disabled = true;
-            
-            callAPI('giveReward', {
-                nik: nik,
-                type: type,
-                amount: amount,
-                keterangan: keterangan || '',
-                dari: userData.nama_peserta || userData.username
-            })
-            .then(function(result) {
-                if (result.success) {
-                    showAlert('editorAlert', '✅ ' + result.message, 'success');
-                    closeRewardModal();
-                    loadEditorPeserta();
-                } else {
-                    showAlert('editorAlert', '❌ ' + result.message, 'error');
-                }
-            })
-            .catch(function(error) {
-                showAlert('editorAlert', '❌ ' + error.message, 'error');
-            })
-            .finally(function() {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            });
+
+            tableBody.innerHTML = logs.slice().reverse().map(log => `
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-2 text-sm">${new Date(log.timestamp).toLocaleDateString('id-ID')} ${new Date(log.timestamp).toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'})}</td>
+                    <td class="px-4 py-2 text-sm">${(log.organik_kg || 0).toFixed(2)}</td>
+                    <td class="px-4 py-2 text-sm">${(log.an_organik_kg || 0).toFixed(2)}</td>
+                    <td class="px-4 py-2 text-sm">${(log.residu_kg || 0).toFixed(2)}</td>
+                    <td class="px-4 py-2 text-sm">${(log.total_kg || 0).toFixed(2)}</td>
+                    <td class="px-4 py-2 text-sm font-semibold">${log.total_point || 0}</td>
+                </tr>
+            `).join('');
         }
-        
-        function openNotifModal(nik, nama) {
-            document.getElementById('notifNik').value = nik;
-            document.getElementById('notifNamaDisplay').value = nama;
-            document.getElementById('notifSubject').value = '';
-            document.getElementById('notifPesan').value = '';
-            document.getElementById('notifModal').classList.add('active');
-        }
-        
-        function closeNotifModal() { document.getElementById('notifModal').classList.remove('active'); }
-        
-        function submitNotif() {
-            var nik = document.getElementById('notifNik').value;
-            var subject = document.getElementById('notifSubject').value || 'Pesan dari Admin';
-            var pesan = document.getElementById('notifPesan').value;
-            
-            if (!pesan) {
-                showAlert('editorAlert', 'Masukkan pesan yang ingin dikirim!', 'error');
-                return;
-            }
-            
-            var btn = document.querySelector('#notifModal .submit');
-            var originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-            btn.disabled = true;
-            
-            callAPI('sendInbox', {
-                dari: userData.nama_peserta || userData.username,
-                nik_tujuan: nik,
-                subject: subject,
-                pesan: pesan
-            })
-            .then(function(result) {
-                if (result.success) {
-                    showAlert('editorAlert', '✅ Notifikasi berhasil dikirim!', 'success');
-                    closeNotifModal();
-                } else {
-                    showAlert('editorAlert', '❌ ' + result.message, 'error');
-                }
-            })
-            .catch(function(error) {
-                showAlert('editorAlert', '❌ ' + error.message, 'error');
-            })
-            .finally(function() {
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            });
-        }
-        
-        function loadSettings() {
-            hideAlert('settingsAlert');
-            if (!userData.detail) {
-                callAPI('getUserDataWithRole', { nik: userData.nik })
-                    .then(function(result) {
-                        if (result.success && result.found) {
-                            userData.detail = result.data;
-                            userData.role = result.data.role || 'Pemula';
-                            userData.point_role = Number(result.data.point_role) || 0;
-                            userData.point_hadiah = Number(result.data.point_hadiah) || 0;
-                            userData.level = result.level || 1;
-                            userData.url_foto = result.data.url_foto || '';
-                            poinSampahUser = userData.point_hadiah;
-                            renderSettings(result.data);
-                            updatePoinUI();
-                            updateBottomAvatar();
-                            updateUserUI(result.data);
-                            if (result.roleChanged) showRolePopup(result.oldRole, result.newRole);
-                        }
-                    })
-                    .catch(function(error) { showAlert('settingsAlert', '❌ ' + error.message, 'error'); });
-            } else {
-                renderSettings(userData.detail);
-                updatePoinUI();
-                updateUserUI(userData.detail);
-            }
-        }
-        
-        function renderSettings(data) {
-            var body = document.getElementById('profileBody');
-            var avatar = document.getElementById('profileAvatar');
-            avatar.src = (data.url_foto && data.url_foto.trim() !== '') ? data.url_foto : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(data.nama_peserta || data.username) + '&background=159895&color=fff&size=80';
-            
-            document.getElementById('profileName').textContent = data.nama_peserta || data.username;
-            var roleClass = getRoleClass(data.role);
-            var roleLabel = getRoleLabel(data.role);
-            var profileRole = document.getElementById('profileRole');
-            profileRole.textContent = roleLabel;
-            profileRole.className = 'role-badge ' + roleClass;
-            
-            var level = Math.min(Math.floor((Number(data.point_role) || 0) / 1000) + 1, 100);
-            document.getElementById('profileLevel').textContent = level;
-            document.getElementById('profilePoinSampah').textContent = formatNumber(poinSampahUser);
-            
-            var fields = [
-                { key: 'id', label: 'ID Peserta' },
-                { key: 'username', label: 'Username' },
-                { key: 'nama_peserta', label: 'Nama Peserta' },
-                { key: 'nik', label: 'NIK', sensor: true },
-                { key: 'email', label: 'Email' },
-                { key: 'point_hadiah', label: 'Point Hadiah (Sampah)', format: true },
-                { key: 'point_role', label: 'Point Role (Level)', format: true },
-                { key: 'role', label: 'Role' }
-            ];
-            
-            var html = '';
-            fields.forEach(function(field) {
-                var value = data[field.key] || '-';
-                if (field.sensor) value = sensorId(value);
-                if (field.format && !isNaN(value)) value = formatNumber(Number(value));
-                html += '  <div class="field"><span class="label">' + field.label + '</span><span class="value">' + value + '</span></div>';
-            });
-            
-            html += '  <div class="field full-width">';
-            html += '    <span class="label">URL Foto Profil</span>';
-            html += '    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">';
-            html += '      <input type="url" class="form-control" id="fotoUrl" value="' + (data.url_foto || '') + '" placeholder="https://example.com/foto.jpg" style="flex:1;min-width:200px;">';
-            html += '      <button class="btn-save" onclick="updatePhoto()"><i class="fas fa-save"></i> Simpan</button>';
-            html += '    </div>';
-            html += '  </div>';
-            
-            html += '  <div class="field full-width" style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:16px;">';
-            html += '    <span class="label">QR Code Peserta</span>';
-            html += '    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">';
-            html += '      <span style="font-size:13px;color:#718096;flex:1;">QR Code berisi ID Peserta untuk scan petugas</span>';
-            html += '      <button class="btn-save" onclick="showQrCode()" style="background:linear-gradient(135deg, #159895, #1a5f7a);">';
-            html += '        <i class="fas fa-qrcode"></i> Generate QR Code';
-            html += '      </button>';
-            html += '    </div>';
-            html += '  </div>';
-            
-            var roleKey = (data.role || 'Peserta').toLowerCase();
-            if (roleKey === 'pendiri' || roleKey === 'admin') {
-                html += '  <div class="field full-width" style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:16px;">';
-                html += '    <span class="label">Pengaturan Hak Akses Menu</span>';
-                html += '    <div id="hakAksesContainer" style="margin-top:10px;"><p style="color:#718096;font-size:13px;">Memuat hak akses...</p></div>';
-                html += '  </div>';
-            }
-            
-            body.innerHTML = html;
-            
-            if (roleKey === 'pendiri' || roleKey === 'admin') loadHakAksesSettings(roleKey);
-        }
-        
-        function loadHakAksesSettings(roleKey) {
-            var container = document.getElementById('hakAksesContainer');
-            if (!container) return;
-            
-            callAPI('getHakAkses', {})
-                .then(function(result) {
-                    if (result.success) {
-                        var data = result.data || {};
-                        var roles = ['Peserta'];
-                        if (roleKey === 'pendiri') roles.push('Admin');
-                        var menus = ['membership','sortir','exchange','inbox','settings'];
-                        var html = '';
-                        roles.forEach(function(role) {
-                            var rKey = role.toLowerCase();
-                            var akses = data[rKey] || {};
-                            html += '<div style="margin-bottom:15px;padding:12px;background:#f7fafc;border-radius:10px;">';
-                            html += '  <strong style="color:var(--primary);">' + role + '</strong>';
-                            html += '  <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;">';
-                            menus.forEach(function(menu) {
-                                var checked = akses[menu] === true;
-                                if (rKey === 'peserta' && ['membership','sortir','settings','inbox'].includes(menu)) checked = true;
-                                if (rKey === 'admin') checked = true;
-                                html += '    <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">';
-                                html += '      <input type="checkbox" ' + (checked ? 'checked' : '') + ' onchange="updateHakAkses(\'' + rKey + '\', \'' + menu + '\', this.checked)" ' + (rKey === 'admin' ? 'disabled' : '') + '>';
-                                html += '      ' + menu.charAt(0).toUpperCase() + menu.slice(1);
-                                html += '    </label>';
-                            });
-                            html += '  </div></div>';
-                        });
-                        container.innerHTML = html;
-                    }
-                })
-                .catch(function(error) { container.innerHTML = '<p style="color:red;font-size:13px;">Error: ' + error.message + '</p>'; });
-        }
-        
-        function updateHakAkses(role, menu, value) {
-            callAPI('updateHakAkses', { role: role, menu: menu, value: value, updatedBy: userData.nik })
-                .then(function(result) {
-                    if (result.success) {
-                        showAlert('settingsAlert', '✅ Hak akses berhasil diupdate!', 'success');
-                        loadHakAksesSettings(userData.role.toLowerCase());
-                    } else {
-                        showAlert('settingsAlert', '❌ ' + result.message, 'error');
-                    }
-                })
-                .catch(function(error) { showAlert('settingsAlert', '❌ ' + error.message, 'error'); });
-        }
-        
-        function updatePhoto() {
-            var url = document.getElementById('fotoUrl').value.trim();
-            hideAlert('settingsAlert');
-            if (!url) { showAlert('settingsAlert', 'Masukkan URL foto yang valid!', 'error'); return; }
-            
-            var btn = document.querySelector('.btn-save');
-            var originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-            btn.disabled = true;
-            
-            callAPI('updateUserPhoto', { nik: userData.nik, url_foto: url })
-                .then(function(result) {
-                    if (result.success) {
-                        showAlert('settingsAlert', '✅ Foto berhasil diupdate!', 'success');
-                        if (userData.detail) {
-                            userData.detail.url_foto = url;
-                            userData.url_foto = url;
-                            updateUserUI(userData.detail);
-                        }
-                        document.getElementById('profileAvatar').src = url;
-                        addMenuClickBonus('update_photo');
-                    } else {
-                        showAlert('settingsAlert', result.message || 'Gagal update foto!', 'error');
-                    }
-                })
-                .catch(function(error) { showAlert('settingsAlert', '❌ ' + error.message, 'error'); })
-                .finally(function() { btn.innerHTML = originalText; btn.disabled = false; });
-        }
-        
-        function showQrCode() {
-            var data = userData.detail;
-            if (!data) { showAlert('settingsAlert', 'Data profil tidak ditemukan!', 'error'); return; }
-            
-            var participantId = data.id || data.username || '-';
-            document.getElementById('qrcodeIdDisplay').textContent = participantId;
-            document.getElementById('qrcodeSubtitle').textContent = 'ID Peserta: ' + participantId;
-            document.getElementById('qrcodePopup').classList.add('active');
-            
-            setTimeout(function() {
-                try {
-                    var qrContainer = document.getElementById('qrcode');
-                    qrContainer.innerHTML = '';
-                    new QRCode(qrContainer, {
-                        text: participantId,
-                        width: 280,
-                        height: 280,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
-                    });
-                } catch(error) {
-                    document.getElementById('qrcode').innerHTML = '<p style="color:red;padding:20px;">Gagal generate QR Code</p>';
-                }
-            }, 300);
-        }
-        
-        function downloadQRCode() {
-            var qrContainer = document.getElementById('qrcode');
-            var canvas = qrContainer.querySelector('canvas');
-            var img = qrContainer.querySelector('img');
-            if (canvas) {
-                var link = document.createElement('a');
-                link.download = 'qrcode_' + (userData.detail?.id || 'peserta') + '.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            } else if (img) {
-                var link = document.createElement('a');
-                link.download = 'qrcode_' + (userData.detail?.id || 'peserta') + '.png';
-                link.href = img.src;
-                link.click();
-            } else {
-                showAlert('settingsAlert', 'Gagal download QR Code!', 'error');
-            }
-        }
-        
-        function closeQrCodePopup() { document.getElementById('qrcodePopup').classList.remove('active'); }
-        
-        // ==================== BONUS FUNCTIONS ====================
-        function checkDailyLoginBonus() {
-            if (isProcessingBonus) return;
-            isProcessingBonus = true;
-            callAPI('checkDailyLogin', { nik: userData.nik })
-                .then(function(result) {
-                    if (result.success && !result.claimed) claimDailyLoginBonus();
-                    else isProcessingBonus = false;
-                })
-                .catch(function(error) { console.error('Error checking daily login:', error); isProcessingBonus = false; });
-        }
-        
-        function claimDailyLoginBonus() {
-            callAPI('addDailyLoginBonus', { nik: userData.nik, username: userData.username, nama_peserta: userData.nama_peserta || userData.username })
-                .then(function(result) {
-                    isProcessingBonus = false;
-                    if (result.success) {
-                        var oldLevel = userData.level || 1;
-                        var newLevel = result.level || 1;
-                        if (userData.detail) {
-                            userData.detail.point_role = result.point;
-                            userData.detail.role = result.role;
-                            userData.point_role = result.point;
-                            userData.role = result.role;
-                            userData.level = newLevel;
-                            updateUserUI(userData.detail);
-                        }
-                        showBonusPopup(userData.nama_peserta || userData.username, result.bonus, newLevel);
-                        if (newLevel > oldLevel) {
-                            setTimeout(function() { closeBonusPopup(); showLevelupPopup(newLevel); }, 2000);
-                        }
-                        if (result.roleChanged) {
-                            setTimeout(function() { closeBonusPopup(); showRolePopup(result.oldRole, result.role); }, 2500);
-                        }
-                    }
-                })
-                .catch(function(error) { console.error('Error claiming bonus:', error); isProcessingBonus = false; });
-        }
-        
-        function addMenuClickBonus(menu) {
-            if (isProcessingBonus) return;
-            isProcessingBonus = true;
-            callAPI('addMenuClickBonus', { nik: userData.nik, username: userData.username, menu: menu })
-                .then(function(result) {
-                    isProcessingBonus = false;
-                    if (result.success) {
-                        var oldLevel = userData.level || 1;
-                        var newLevel = result.level || 1;
-                        if (userData.detail) {
-                            userData.detail.point_role = result.point;
-                            userData.detail.role = result.role;
-                            userData.point_role = result.point;
-                            userData.role = result.role;
-                            userData.level = newLevel;
-                            updateUserUI(userData.detail);
-                        }
-                        if (newLevel > oldLevel) showLevelupPopup(newLevel);
-                        if (result.roleChanged) setTimeout(function() { showRolePopup(result.oldRole, result.role); }, 1000);
-                    }
-                })
-                .catch(function(error) { console.error('Error adding menu click bonus:', error); isProcessingBonus = false; });
-        }
-        
-        function showBonusPopup(name, amount, level) {
-            document.getElementById('bonusName').textContent = name;
-            document.getElementById('bonusAmount').textContent = '+' + formatNumber(amount);
-            document.getElementById('bonusLevel').textContent = level;
-            document.getElementById('bonusPopup').classList.add('active');
-        }
-        function closeBonusPopup() { document.getElementById('bonusPopup').classList.remove('active'); }
-        
-        function showLevelupPopup(level) {
-            document.getElementById('levelupDisplay').textContent = level;
-            document.getElementById('levelupPopup').classList.add('active');
-            setTimeout(function() {
-                var icon = document.querySelector('.levelup-popup .icon');
-                icon.style.transform = 'scale(1.2)';
-                setTimeout(function() { icon.style.transform = 'scale(1)'; }, 300);
-            }, 200);
-        }
-        function closeLevelupPopup() { document.getElementById('levelupPopup').classList.remove('active'); }
-        
-        function showRolePopup(oldRole, newRole) {
-            document.getElementById('oldRoleDisplay').textContent = getRoleLabel(oldRole);
-            var newRoleEl = document.getElementById('newRoleDisplay');
-            newRoleEl.textContent = getRoleLabel(newRole);
-            newRoleEl.className = 'new-role ' + getRoleClass(newRole);
-            document.getElementById('rolePopup').classList.add('active');
-            setTimeout(function() {
-                var icon = document.querySelector('.role-popup .icon');
-                icon.style.transform = 'scale(1.2)';
-                setTimeout(function() { icon.style.transform = 'scale(1)'; }, 300);
-            }, 200);
-        }
-        function closeRolePopup() { document.getElementById('rolePopup').classList.remove('active'); }
-        
+
         // ==================== LOGOUT ====================
-        function handleLogout() {
-            if (confirm('Apakah Anda yakin ingin keluar?')) {
-                sessionStorage.removeItem('lps_session');
-                localStorage.removeItem('lps_user');
-                window.location.href = 'login.html';
-            }
-        }
-        
-        // ==================== INIT ====================
-        (function() {
-            var session = sessionStorage.getItem('lps_session');
-            if (!session) { window.location.href = 'login.html'; return; }
+        function logout() {
+            if (isScannerRunning) stopScanner();
             
-            loadUserData();
+            currentUser = null;
+            document.getElementById('userInfo').classList.add('hidden');
+            document.getElementById('wasteSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.add('hidden');
+            document.getElementById('userDisplay').classList.add('hidden');
+            document.getElementById('manualId').value = '';
             
-            setInterval(function() { loadInboxCount(); }, 30000);
-            setInterval(function() { updateLevelProgress(); }, 60000);
-            
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeQrCodePopup();
-                    closeInfoPopup();
-                    closeHistoriPopup();
-                    closeRewardModal();
-                    closeNotifModal();
-                }
+            ['organik', 'anOrganik', 'residu'].forEach(type => {
+                document.getElementById(type + 'Weight').value = '';
             });
-        })();
+            document.getElementById('notes').value = '';
+            calculatePoints();
+            
+            Swal.fire('Logout', 'Anda telah logout', 'success');
+        }
+
+        // ==================== CLEANUP ====================
+        window.addEventListener('beforeunload', function() {
+            if (isScannerRunning) stopScanner();
+        });
     </script>
 </body>
 </html>

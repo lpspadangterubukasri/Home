@@ -4,20 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Dashboard - LPS Padang Terubuk Asri">
-    <title>Dashboard - LPS Padang Terubuk Asri</title>    
+    <title>Dashboard - LPS Padang Terubuk Asri</title>
     
     <!-- Open Graph -->
-    <meta property="og:type" content="website">  
+    <meta property="og:type" content="website">
     <meta property="og:url" content="https://lpspadangterubukasri.github.io/Home/">
     <meta property="og:title" content="Dashboard - Lembaga Pengelola Sampah (LPS) Kelurahan Padang Terubuk Asri">
     <meta property="og:description" content="Dashboard peserta LPS Padang Terubuk Asri">
     <meta property="og:site_name" content="LPS PADANG TERUBUK ASRI">
     <meta property="og:image" content="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
-    <meta property="og:image:secure_url" content="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png">
-    <meta property="og:image:width" content="512">
-    <meta property="og:image:height" content="512">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:alt" content="Logo LPS Padang Terubuk Asri"> 
     
     <!-- Favicon -->
     <link rel="icon" href="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" type="image/png">
@@ -34,11 +29,7 @@
     
     <style>
         /* ===== RESET ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
             --primary: #1a5f7a;
@@ -47,13 +38,11 @@
             --light: #f5f9fa;
             --white: #ffffff;
             --dark: #0a2d3e;
-            --green-dark: #388e3c;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s ease;
             --sidebar-width: 260px;
             --bottom-nav-height: 72px;
             
-            /* Role Colors */
             --role-pemula: #22c55e;
             --role-veteran: #f97316;
             --role-master: #3b82f6;
@@ -88,21 +77,14 @@
             border-right: 2px solid rgba(87, 197, 182, 0.3);
         }
         
-        .sidebar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .sidebar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
-        }
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
         
         .sidebar-brand {
             text-align: center;
             padding: 10px 15px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             margin-bottom: 20px;
         }
         
@@ -123,7 +105,6 @@
             color: white;
             line-height: 1.2;
         }
-        
         .sidebar-brand small {
             font-size: 10px;
             opacity: 0.7;
@@ -135,10 +116,10 @@
             align-items: center;
             gap: 12px;
             padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             border-radius: 12px;
             margin: 0 15px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255,255,255,0.08);
         }
         
         .sidebar-user .user-avatar {
@@ -156,7 +137,6 @@
             flex-shrink: 0;
             overflow: hidden;
         }
-        
         .sidebar-user .user-avatar img {
             width: 100%;
             height: 100%;
@@ -167,7 +147,6 @@
             flex: 1;
             min-width: 0;
         }
-        
         .sidebar-user .user-info .name {
             font-size: 13px;
             font-weight: 600;
@@ -175,7 +154,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        
         .sidebar-user .user-info .role-badge {
             font-size: 10px;
             display: inline-block;
@@ -184,53 +162,12 @@
             margin-top: 2px;
             font-weight: 600;
         }
-        
-        .sidebar-user .user-info .role-badge.pemula {
-            background: rgba(34, 197, 94, 0.3);
-            color: var(--role-pemula);
-        }
-        .sidebar-user .user-info .role-badge.veteran {
-            background: rgba(249, 115, 22, 0.3);
-            color: var(--role-veteran);
-            animation: glowOrange 2s ease-in-out infinite;
-        }
-        .sidebar-user .user-info .role-badge.master {
-            background: rgba(59, 130, 246, 0.3);
-            color: var(--role-master);
-            animation: glowBlue 2s ease-in-out infinite;
-        }
-        .sidebar-user .user-info .role-badge.grandmaster {
-            background: rgba(245, 158, 11, 0.3);
-            color: var(--role-grandmaster);
-            animation: glowGold 1.5s ease-in-out infinite;
-        }
-        .sidebar-user .user-info .role-badge.admin {
-            background: rgba(30, 64, 175, 0.3);
-            color: var(--role-admin);
-            animation: glowDarkBlue 2s ease-in-out infinite;
-        }
-        .sidebar-user .user-info .role-badge.pendiri {
-            background: rgba(212, 175, 55, 0.3);
-            color: var(--role-pendiri);
-            animation: glowGold 1.5s ease-in-out infinite;
-        }
-        
-        @keyframes glowOrange {
-            0%, 100% { box-shadow: 0 0 5px rgba(249, 115, 22, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6); }
-        }
-        @keyframes glowBlue {
-            0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
-        }
-        @keyframes glowGold {
-            0%, 100% { box-shadow: 0 0 5px rgba(245, 158, 11, 0.3); }
-            50% { box-shadow: 0 0 25px rgba(245, 158, 11, 0.8); }
-        }
-        @keyframes glowDarkBlue {
-            0%, 100% { box-shadow: 0 0 5px rgba(30, 64, 175, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(30, 64, 175, 0.6); }
-        }
+        .sidebar-user .user-info .role-badge.pemula { background: rgba(34,197,94,0.3); color: var(--role-pemula); }
+        .sidebar-user .user-info .role-badge.veteran { background: rgba(249,115,22,0.3); color: var(--role-veteran); }
+        .sidebar-user .user-info .role-badge.master { background: rgba(59,130,246,0.3); color: var(--role-master); }
+        .sidebar-user .user-info .role-badge.grandmaster { background: rgba(245,158,11,0.3); color: var(--role-grandmaster); }
+        .sidebar-user .user-info .role-badge.admin { background: rgba(30,64,175,0.3); color: var(--role-admin); }
+        .sidebar-user .user-info .role-badge.pendiri { background: rgba(212,175,55,0.3); color: var(--role-pendiri); }
         
         .sidebar-user .user-info .level-badge {
             font-size: 9px;
@@ -239,7 +176,6 @@
             margin-top: 1px;
         }
         
-        /* Poin Sampah di Sidebar */
         .sidebar-user .user-info .poin-sampah-badge {
             font-size: 10px;
             display: inline-block;
@@ -247,7 +183,7 @@
             border-radius: 20px;
             margin-top: 2px;
             font-weight: 600;
-            background: rgba(245, 158, 11, 0.2);
+            background: rgba(245,158,11,0.2);
             color: #f59e0b;
         }
         
@@ -256,7 +192,6 @@
             flex: 1;
             padding: 0 10px;
         }
-        
         .sidebar-menu .menu-label {
             font-size: 10px;
             text-transform: uppercase;
@@ -265,7 +200,6 @@
             letter-spacing: 1px;
             font-weight: 600;
         }
-        
         .sidebar-menu .menu-item {
             display: flex;
             align-items: center;
@@ -274,7 +208,7 @@
             border-radius: 12px;
             cursor: pointer;
             transition: var(--transition);
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
             margin-bottom: 2px;
             font-size: 14px;
@@ -285,29 +219,21 @@
             text-align: left;
             font-family: 'Poppins', sans-serif;
         }
-        
         .sidebar-menu .menu-item:hover {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255,255,255,0.08);
             color: white;
         }
-        
         .sidebar-menu .menu-item.active {
-            background: rgba(87, 197, 182, 0.2);
+            background: rgba(87,197,182,0.2);
             color: white;
             border-left: 3px solid var(--accent);
         }
-        
         .sidebar-menu .menu-item i {
             width: 22px;
             font-size: 16px;
             text-align: center;
             flex-shrink: 0;
         }
-        
-        .sidebar-menu .menu-item.hidden {
-            display: none !important;
-        }
-        
         .sidebar-menu .menu-item .badge-inbox {
             background: #ef4444;
             color: white;
@@ -320,10 +246,9 @@
         
         .sidebar-footer {
             padding: 15px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255,255,255,0.08);
             margin-top: auto;
         }
-        
         .sidebar-footer .logout-btn {
             display: flex;
             align-items: center;
@@ -332,7 +257,7 @@
             border-radius: 12px;
             cursor: pointer;
             transition: var(--transition);
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255,255,255,0.7);
             border: none;
             background: none;
             width: 100%;
@@ -341,12 +266,10 @@
             font-size: 14px;
             font-weight: 500;
         }
-        
         .sidebar-footer .logout-btn:hover {
-            background: rgba(255, 0, 0, 0.15);
+            background: rgba(255,0,0,0.15);
             color: #ff6b6b;
         }
-        
         .sidebar-footer .logout-btn i {
             width: 22px;
             font-size: 16px;
@@ -367,9 +290,8 @@
             align-items: center;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 2px solid rgba(26, 95, 122, 0.1);
+            border-bottom: 2px solid rgba(26,95,122,0.1);
         }
-        
         .main-content .page-header h1 {
             font-size: 22px;
             color: var(--primary);
@@ -378,7 +300,6 @@
             align-items: center;
             gap: 12px;
         }
-        
         .main-content .page-header h1 .header-logo {
             display: none;
             width: 36px;
@@ -389,13 +310,11 @@
             padding: 4px;
             border: 2px solid var(--accent);
         }
-        
         .main-content .page-header .header-right {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
         .main-content .page-header .header-right .user-badge {
             display: flex;
             align-items: center;
@@ -405,7 +324,6 @@
             border-radius: 30px;
             box-shadow: var(--shadow);
         }
-        
         .main-content .page-header .header-right .user-badge .avatar-sm {
             width: 32px;
             height: 32px;
@@ -413,7 +331,6 @@
             object-fit: cover;
             border: 2px solid var(--accent);
         }
-        
         .main-content .page-header .header-right .user-badge .level-badge-sm {
             background: linear-gradient(135deg, var(--secondary), var(--primary));
             color: white;
@@ -428,17 +345,13 @@
             display: block;
             animation: fadeIn 0.3s ease;
         }
-        
-        .page-content.hidden {
-            display: none;
-        }
-        
+        .page-content.hidden { display: none; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* ===== CARDS KEPESERTAAN ===== */
+        /* ===== CARDS ===== */
         .membership-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -454,12 +367,10 @@
             transition: var(--transition);
             animation: fadeIn 0.3s ease;
         }
-        
         .membership-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
         }
-        
         .membership-card .card-header {
             display: flex;
             justify-content: space-between;
@@ -468,31 +379,24 @@
             padding-bottom: 10px;
             border-bottom: 1px solid #f0f0f0;
         }
-        
         .membership-card .card-header .status-badge {
             font-size: 11px;
             padding: 3px 14px;
             border-radius: 20px;
             font-weight: 600;
-        }
-        
-        .membership-card .card-header .status-badge.active {
             background: #c6f6d5;
             color: #22543d;
         }
-        
         .membership-card .card-body {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 6px 16px;
         }
-        
         .membership-card .card-body .field {
             display: flex;
             flex-direction: column;
             padding: 4px 0;
         }
-        
         .membership-card .card-body .field .label {
             font-size: 10px;
             text-transform: uppercase;
@@ -500,20 +404,31 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-        
         .membership-card .card-body .field .value {
             font-size: 13px;
             font-weight: 500;
             color: #2d3748;
             word-break: break-word;
         }
-        
         .membership-card .card-body .field .value.nik-sensor {
             font-family: 'Courier New', monospace;
             letter-spacing: 1px;
         }
         
-        /* ===== SAMPAH DASHBOARD ===== */
+        .no-data {
+            text-align: center;
+            padding: 40px 20px;
+            color: #718096;
+            grid-column: 1 / -1;
+        }
+        .no-data i {
+            font-size: 48px;
+            opacity: 0.3;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        /* ===== SAMPAH GRID ===== */
         .sampah-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -530,33 +445,14 @@
             position: relative;
             overflow: hidden;
         }
-        
         .sampah-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
         }
-        
-        .sampah-card .card-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        
-        .sampah-card .card-title {
-            font-size: 13px;
-            color: #718096;
-            font-weight: 500;
-        }
-        
-        .sampah-card .card-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .sampah-card .card-sub {
-            font-size: 11px;
-            color: #a0aec0;
-        }
+        .sampah-card .card-icon { font-size: 28px; margin-bottom: 8px; }
+        .sampah-card .card-title { font-size: 13px; color: #718096; font-weight: 500; }
+        .sampah-card .card-value { font-size: 24px; font-weight: 700; color: var(--primary); }
+        .sampah-card .card-sub { font-size: 11px; color: #a0aec0; }
         
         .sampah-card .card-info-btn {
             position: absolute;
@@ -571,7 +467,6 @@
             padding: 4px 8px;
             border-radius: 8px;
         }
-        
         .sampah-card .card-info-btn:hover {
             background: #f0f0f0;
             color: var(--primary);
@@ -592,22 +487,17 @@
             color: white;
             font-size: 14px;
         }
-        
         .sampah-card .card-action-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 8px 20px rgba(245,158,11,0.3);
         }
-        
         .sampah-card .card-action-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
-        
-        .sampah-card .card-action-btn .btn-icon {
-            margin-right: 8px;
-        }
+        .sampah-card .card-action-btn .btn-icon { margin-right: 8px; }
         
         .sampah-card .btn-historis {
             display: inline-block;
@@ -621,7 +511,6 @@
             font-weight: 500;
             transition: var(--transition);
         }
-        
         .sampah-card .btn-historis:hover {
             color: var(--primary);
             text-decoration: underline;
@@ -633,7 +522,6 @@
             gap: 16px;
             padding: 16px 20px;
         }
-        
         .sampah-card.profile-card .profile-avatar {
             width: 56px;
             height: 56px;
@@ -642,18 +530,15 @@
             border: 3px solid var(--accent);
             flex-shrink: 0;
         }
-        
         .sampah-card.profile-card .profile-info .name {
             font-size: 16px;
             font-weight: 600;
             color: var(--primary);
         }
-        
         .sampah-card.profile-card .profile-info .id {
             font-size: 12px;
             color: #a0aec0;
         }
-        
         .sampah-card.organik { border-left: 4px solid #22c55e; }
         .sampah-card.anorganik { border-left: 4px solid #3b82f6; }
         .sampah-card.residu { border-left: 4px solid #8b5cf6; }
@@ -669,7 +554,6 @@
             box-shadow: var(--shadow);
             background: white;
         }
-        
         .iframe-container iframe {
             width: 100%;
             height: 100%;
@@ -681,14 +565,12 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        
         .profile-settings .profile-card {
             background: white;
             border-radius: 16px;
             padding: 30px;
             box-shadow: var(--shadow);
         }
-        
         .profile-settings .profile-card .profile-header {
             display: flex;
             align-items: center;
@@ -697,7 +579,6 @@
             padding-bottom: 20px;
             border-bottom: 1px solid #f0f0f0;
         }
-        
         .profile-settings .profile-card .profile-header .profile-avatar {
             width: 80px;
             height: 80px;
@@ -706,12 +587,10 @@
             border: 3px solid var(--accent);
             background: #e2e8f0;
         }
-        
         .profile-settings .profile-card .profile-header .profile-info h3 {
             font-size: 20px;
             color: var(--primary);
         }
-        
         .profile-settings .profile-card .profile-header .profile-info .role-badge {
             display: inline-block;
             padding: 4px 16px;
@@ -720,48 +599,22 @@
             font-weight: 600;
             margin-top: 4px;
         }
-        
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.pemula {
-            background: rgba(34, 197, 94, 0.2);
-            color: var(--role-pemula);
-        }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.veteran {
-            background: rgba(249, 115, 22, 0.2);
-            color: var(--role-veteran);
-            animation: glowOrange 2s ease-in-out infinite;
-        }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.master {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--role-master);
-            animation: glowBlue 2s ease-in-out infinite;
-        }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.grandmaster {
-            background: rgba(245, 158, 11, 0.2);
-            color: var(--role-grandmaster);
-            animation: glowGold 1.5s ease-in-out infinite;
-        }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.admin {
-            background: rgba(30, 64, 175, 0.2);
-            color: var(--role-admin);
-            animation: glowDarkBlue 2s ease-in-out infinite;
-        }
-        .profile-settings .profile-card .profile-header .profile-info .role-badge.pendiri {
-            background: rgba(212, 175, 55, 0.2);
-            color: var(--role-pendiri);
-            animation: glowGold 1.5s ease-in-out infinite;
-        }
+        .profile-settings .profile-card .profile-header .profile-info .role-badge.pemula { background: rgba(34,197,94,0.2); color: var(--role-pemula); }
+        .profile-settings .profile-card .profile-header .profile-info .role-badge.veteran { background: rgba(249,115,22,0.2); color: var(--role-veteran); }
+        .profile-settings .profile-card .profile-header .profile-info .role-badge.master { background: rgba(59,130,246,0.2); color: var(--role-master); }
+        .profile-settings .profile-card .profile-header .profile-info .role-badge.grandmaster { background: rgba(245,158,11,0.2); color: var(--role-grandmaster); }
+        .profile-settings .profile-card .profile-header .profile-info .role-badge.admin { background: rgba(30,64,175,0.2); color: var(--role-admin); }
+        .profile-settings .profile-card .profile-header .profile-info .role-badge.pendiri { background: rgba(212,175,55,0.2); color: var(--role-pendiri); }
         
         .profile-settings .profile-card .profile-body {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px 30px;
         }
-        
         .profile-settings .profile-card .profile-body .field {
             display: flex;
             flex-direction: column;
         }
-        
         .profile-settings .profile-card .profile-body .field .label {
             font-size: 11px;
             text-transform: uppercase;
@@ -769,18 +622,15 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-        
         .profile-settings .profile-card .profile-body .field .value {
             font-size: 14px;
             font-weight: 500;
             color: #2d3748;
             padding: 6px 0;
         }
-        
         .profile-settings .profile-card .profile-body .field.full-width {
             grid-column: 1 / -1;
         }
-        
         .profile-settings .profile-card .profile-body .field .form-control {
             padding: 10px 14px;
             border: 2px solid #e2e8f0;
@@ -790,13 +640,11 @@
             font-family: 'Poppins', sans-serif;
             width: 100%;
         }
-        
         .profile-settings .profile-card .profile-body .field .form-control:focus {
             outline: none;
             border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(21, 152, 149, 0.1);
+            box-shadow: 0 0 0 3px rgba(21,152,149,0.1);
         }
-        
         .profile-settings .profile-card .profile-body .field .btn-save {
             padding: 10px 30px;
             background: linear-gradient(135deg, var(--secondary), var(--primary));
@@ -810,24 +658,13 @@
             font-size: 14px;
             align-self: flex-start;
         }
-        
         .profile-settings .profile-card .profile-body .field .btn-save:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(21, 152, 149, 0.3);
-        }
-        
-        .profile-settings .profile-card .profile-body .field .btn-save:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+            box-shadow: 0 8px 20px rgba(21,152,149,0.3);
         }
         
         /* ===== INBOX ===== */
-        .inbox-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
+        .inbox-container { max-width: 800px; margin: 0 auto; }
         .inbox-item {
             background: white;
             border-radius: 12px;
@@ -837,89 +674,47 @@
             border-left: 4px solid var(--accent);
             transition: var(--transition);
         }
-        
-        .inbox-item:hover {
-            transform: translateX(4px);
-        }
-        
+        .inbox-item:hover { transform: translateX(4px); }
         .inbox-item .inbox-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 6px;
         }
-        
         .inbox-item .inbox-header .from {
             font-weight: 600;
             color: var(--primary);
             font-size: 14px;
         }
-        
         .inbox-item .inbox-header .date {
             font-size: 11px;
             color: #a0aec0;
         }
-        
         .inbox-item .inbox-subject {
             font-weight: 600;
             color: #2d3748;
             font-size: 15px;
             margin-bottom: 4px;
         }
-        
         .inbox-item .inbox-pesan {
             color: #718096;
             font-size: 14px;
             line-height: 1.5;
         }
-        
         .inbox-empty {
             text-align: center;
             padding: 40px 20px;
             color: #718096;
         }
-        
         .inbox-empty i {
             font-size: 48px;
             opacity: 0.3;
             margin-bottom: 15px;
+            display: block;
         }
         
-        /* ===== EDITOR PESERTA ===== */
-        .editor-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .editor-container .editor-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .editor-container .editor-tabs .tab-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            background: white;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            transition: var(--transition);
-            color: #718096;
-        }
-        
-        .editor-container .editor-tabs .tab-btn.active {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .editor-container .editor-tabs .tab-btn:hover {
-            transform: translateY(-2px);
-        }
-        
+        /* ===== EDITOR ===== */
+        .editor-container { max-width: 1200px; margin: 0 auto; }
         .editor-peserta-list {
             background: white;
             border-radius: 16px;
@@ -927,13 +722,11 @@
             box-shadow: var(--shadow);
             overflow-x: auto;
         }
-        
         .editor-peserta-list table {
             width: 100%;
             border-collapse: collapse;
             font-size: 13px;
         }
-        
         .editor-peserta-list table th {
             text-align: left;
             padding: 10px 12px;
@@ -942,17 +735,12 @@
             color: #2d3748;
             border-bottom: 2px solid #e2e8f0;
         }
-        
         .editor-peserta-list table td {
             padding: 10px 12px;
             border-bottom: 1px solid #f0f0f0;
             vertical-align: middle;
         }
-        
-        .editor-peserta-list table tr:hover {
-            background: #f7fafc;
-        }
-        
+        .editor-peserta-list table tr:hover { background: #f7fafc; }
         .editor-peserta-list .btn-action {
             padding: 4px 12px;
             border: none;
@@ -964,33 +752,18 @@
             transition: var(--transition);
             margin: 2px;
         }
-        
         .editor-peserta-list .btn-action.reward {
             background: #f59e0b;
             color: white;
         }
-        
-        .editor-peserta-list .btn-action.reward:hover {
-            background: #d97706;
-        }
-        
+        .editor-peserta-list .btn-action.reward:hover { background: #d97706; }
         .editor-peserta-list .btn-action.notif {
             background: #3b82f6;
             color: white;
         }
+        .editor-peserta-list .btn-action.notif:hover { background: #2563eb; }
         
-        .editor-peserta-list .btn-action.notif:hover {
-            background: #2563eb;
-        }
-        
-        .editor-peserta-list .role-pemula { color: var(--role-pemula); font-weight: 600; }
-        .editor-peserta-list .role-veteran { color: var(--role-veteran); font-weight: 600; }
-        .editor-peserta-list .role-master { color: var(--role-master); font-weight: 600; }
-        .editor-peserta-list .role-grandmaster { color: var(--role-grandmaster); font-weight: 600; }
-        .editor-peserta-list .role-admin { color: var(--role-admin); font-weight: 600; }
-        .editor-peserta-list .role-pendiri { color: var(--role-pendiri); font-weight: 600; }
-        
-        /* ===== MODAL REWARD ===== */
+        /* ===== MODALS ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -998,17 +771,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(8px);
             z-index: 9999;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
-        
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
         
         .modal-box {
             background: white;
@@ -1016,32 +786,29 @@
             max-width: 480px;
             width: 100%;
             padding: 30px 35px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
             animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             margin: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
-        
         @keyframes popIn {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
         }
-        
         .modal-box h3 {
             font-size: 20px;
             color: var(--primary);
             margin-bottom: 5px;
         }
-        
         .modal-box .modal-sub {
             font-size: 13px;
             color: #718096;
             margin-bottom: 20px;
         }
-        
         .modal-box .form-group {
             margin-bottom: 15px;
         }
-        
         .modal-box .form-group label {
             display: block;
             font-size: 13px;
@@ -1049,7 +816,6 @@
             color: #2d3748;
             margin-bottom: 4px;
         }
-        
         .modal-box .form-group input,
         .modal-box .form-group select,
         .modal-box .form-group textarea {
@@ -1061,27 +827,23 @@
             font-family: 'Poppins', sans-serif;
             transition: var(--transition);
         }
-        
         .modal-box .form-group input:focus,
         .modal-box .form-group select:focus,
         .modal-box .form-group textarea:focus {
             outline: none;
             border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(21, 152, 149, 0.1);
+            box-shadow: 0 0 0 3px rgba(21,152,149,0.1);
         }
-        
         .modal-box .form-group textarea {
             resize: vertical;
             min-height: 80px;
         }
-        
         .modal-box .modal-actions {
             display: flex;
             gap: 10px;
             margin-top: 15px;
             justify-content: flex-end;
         }
-        
         .modal-box .modal-actions .btn-modal {
             padding: 10px 24px;
             border: none;
@@ -1091,27 +853,21 @@
             font-family: 'Poppins', sans-serif;
             transition: var(--transition);
         }
-        
         .modal-box .modal-actions .btn-modal.cancel {
             background: #e2e8f0;
             color: #2d3748;
         }
-        
-        .modal-box .modal-actions .btn-modal.cancel:hover {
-            background: #cbd5e0;
-        }
-        
+        .modal-box .modal-actions .btn-modal.cancel:hover { background: #cbd5e0; }
         .modal-box .modal-actions .btn-modal.submit {
             background: linear-gradient(135deg, var(--secondary), var(--primary));
             color: white;
         }
-        
         .modal-box .modal-actions .btn-modal.submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(21, 152, 149, 0.3);
+            box-shadow: 0 8px 20px rgba(21,152,149,0.3);
         }
         
-        /* ===== QR CODE MODAL ===== */
+        /* ===== QR CODE ===== */
         .qrcode-popup-overlay {
             display: none;
             position: fixed;
@@ -1119,18 +875,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0,0,0,0.7);
             backdrop-filter: blur(8px);
-            z-index: 9997;
+            z-index: 9998;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
-        
-        .qrcode-popup-overlay.active {
-            display: flex;
-        }
-        
+        .qrcode-popup-overlay.active { display: flex; }
         .qrcode-popup {
             background: white;
             border-radius: 24px;
@@ -1138,28 +890,25 @@
             width: 100%;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
             animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             margin: 20px;
         }
-        
         .qrcode-popup h3 {
             font-size: 20px;
             color: var(--primary);
             margin-bottom: 5px;
         }
-        
         .qrcode-popup .qrcode-subtitle {
             font-size: 13px;
             color: #718096;
             margin-bottom: 20px;
         }
-        
         .qrcode-popup .qrcode-container {
             background: white;
             padding: 20px;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -1167,24 +916,6 @@
             align-items: center;
             min-height: 280px;
         }
-        
-        .qrcode-container::before {
-            content: 'LPS PADANG TERUBUK ASRI';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            font-size: 28px;
-            font-weight: 800;
-            color: rgba(26, 95, 122, 0.08);
-            white-space: nowrap;
-            pointer-events: none;
-            letter-spacing: 4px;
-            width: 200%;
-            text-align: center;
-            z-index: 0;
-        }
-        
         .qrcode-container #qrcode {
             position: relative;
             z-index: 1;
@@ -1192,7 +923,6 @@
             justify-content: center;
             align-items: center;
         }
-        
         .qrcode-container .qrcode-logo {
             position: absolute;
             top: 50%;
@@ -1204,20 +934,18 @@
             background: white;
             padding: 6px;
             z-index: 2;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
             border: 2px solid var(--accent);
             pointer-events: none;
         }
-        
         .qrcode-container .qrcode-logo img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             border-radius: 50%;
         }
-        
         .qrcode-popup .btn-close-qrcode {
-            margin-top: 20px;
+            margin-top: 10px;
             padding: 10px 30px;
             background: var(--primary);
             color: white;
@@ -1228,12 +956,10 @@
             transition: var(--transition);
             font-family: 'Poppins', sans-serif;
         }
-        
         .qrcode-popup .btn-close-qrcode:hover {
             background: var(--secondary);
             transform: translateY(-2px);
         }
-        
         .qrcode-popup .btn-download-qrcode {
             margin-top: 10px;
             padding: 10px 30px;
@@ -1247,13 +973,12 @@
             font-family: 'Poppins', sans-serif;
             margin-right: 10px;
         }
-        
         .qrcode-popup .btn-download-qrcode:hover {
             background: var(--secondary);
             transform: translateY(-2px);
         }
         
-        /* ===== POPUP BONUS ===== */
+        /* ===== POPUPS ===== */
         .bonus-popup-overlay {
             display: none;
             position: fixed;
@@ -1261,18 +986,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(8px);
             z-index: 9999;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
-        
-        .bonus-popup-overlay.active {
-            display: flex;
-        }
-        
+        .bonus-popup-overlay.active { display: flex; }
         .bonus-popup {
             background: white;
             border-radius: 24px;
@@ -1280,35 +1001,19 @@
             width: 100%;
             padding: 40px 35px;
             text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
             animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             margin: 20px;
         }
-        
-        .bonus-popup .icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-        
-        .bonus-popup h3 {
-            font-size: 22px;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        
-        .bonus-popup p {
-            color: #718096;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
+        .bonus-popup .icon { font-size: 60px; margin-bottom: 15px; }
+        .bonus-popup h3 { font-size: 22px; color: var(--primary); margin-bottom: 8px; }
+        .bonus-popup p { color: #718096; font-size: 14px; line-height: 1.6; }
         .bonus-popup .bonus-amount {
             font-size: 36px;
             font-weight: 800;
             color: var(--accent);
             margin: 15px 0;
         }
-        
         .bonus-popup .btn-claim {
             padding: 12px 40px;
             background: linear-gradient(135deg, var(--accent), var(--secondary));
@@ -1322,13 +1027,11 @@
             font-family: 'Poppins', sans-serif;
             margin-top: 10px;
         }
-        
         .bonus-popup .btn-claim:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(87, 197, 182, 0.3);
+            box-shadow: 0 10px 30px rgba(87,197,182,0.3);
         }
         
-        /* ===== LEVEL UP POPUP ===== */
         .levelup-popup-overlay {
             display: none;
             position: fixed;
@@ -1336,18 +1039,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(8px);
             z-index: 9998;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
-        
-        .levelup-popup-overlay.active {
-            display: flex;
-        }
-        
+        .levelup-popup-overlay.active { display: flex; }
         .levelup-popup {
             background: white;
             border-radius: 24px;
@@ -1355,36 +1054,19 @@
             width: 100%;
             padding: 40px 35px;
             text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
             animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             margin: 20px;
             border-top: 6px solid var(--accent);
         }
-        
-        .levelup-popup .icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-        
-        .levelup-popup h3 {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        
+        .levelup-popup .icon { font-size: 60px; margin-bottom: 15px; }
+        .levelup-popup h3 { font-size: 24px; color: var(--primary); margin-bottom: 8px; }
         .levelup-popup .level-display {
             font-size: 48px;
             font-weight: 800;
             color: var(--accent);
             margin: 10px 0;
         }
-        
-        .levelup-popup p {
-            color: #718096;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        
         .levelup-popup .btn-celebrate {
             padding: 12px 40px;
             background: linear-gradient(135deg, var(--accent), var(--secondary));
@@ -1398,13 +1080,11 @@
             font-family: 'Poppins', sans-serif;
             margin-top: 15px;
         }
-        
         .levelup-popup .btn-celebrate:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(87, 197, 182, 0.3);
+            box-shadow: 0 10px 30px rgba(87,197,182,0.3);
         }
         
-        /* ===== ROLE UPGRADE POPUP ===== */
         .role-popup-overlay {
             display: none;
             position: fixed;
@@ -1412,18 +1092,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(8px);
             z-index: 9998;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
-        
-        .role-popup-overlay.active {
-            display: flex;
-        }
-        
+        .role-popup-overlay.active { display: flex; }
         .role-popup {
             background: white;
             border-radius: 24px;
@@ -1431,29 +1107,18 @@
             width: 100%;
             padding: 40px 35px;
             text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
             animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             margin: 20px;
             border-top: 6px solid var(--accent);
         }
-        
-        .role-popup .icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-        
-        .role-popup h3 {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        
+        .role-popup .icon { font-size: 60px; margin-bottom: 15px; }
+        .role-popup h3 { font-size: 24px; color: var(--primary); margin-bottom: 8px; }
         .role-popup .old-role {
             font-size: 14px;
             color: #a0aec0;
             text-decoration: line-through;
         }
-        
         .role-popup .new-role {
             font-size: 32px;
             font-weight: 800;
@@ -1462,21 +1127,12 @@
             border-radius: 12px;
             display: inline-block;
         }
-        
-        .role-popup .new-role.pemula { color: var(--role-pemula); background: rgba(34, 197, 94, 0.1); }
-        .role-popup .new-role.veteran { color: var(--role-veteran); background: rgba(249, 115, 22, 0.1); animation: glowOrange 2s ease-in-out infinite; }
-        .role-popup .new-role.master { color: var(--role-master); background: rgba(59, 130, 246, 0.1); animation: glowBlue 2s ease-in-out infinite; }
-        .role-popup .new-role.grandmaster { color: var(--role-grandmaster); background: rgba(245, 158, 11, 0.1); animation: glowGold 1.5s ease-in-out infinite; }
-        .role-popup .new-role.admin { color: var(--role-admin); background: rgba(30, 64, 175, 0.1); animation: glowDarkBlue 2s ease-in-out infinite; }
-        .role-popup .new-role.pendiri { color: var(--role-pendiri); background: rgba(212, 175, 55, 0.1); animation: glowGold 1.5s ease-in-out infinite; }
-        
-        .role-popup p {
-            color: #718096;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-top: 10px;
-        }
-        
+        .role-popup .new-role.pemula { color: var(--role-pemula); background: rgba(34,197,94,0.1); }
+        .role-popup .new-role.veteran { color: var(--role-veteran); background: rgba(249,115,22,0.1); }
+        .role-popup .new-role.master { color: var(--role-master); background: rgba(59,130,246,0.1); }
+        .role-popup .new-role.grandmaster { color: var(--role-grandmaster); background: rgba(245,158,11,0.1); }
+        .role-popup .new-role.admin { color: var(--role-admin); background: rgba(30,64,175,0.1); }
+        .role-popup .new-role.pendiri { color: var(--role-pendiri); background: rgba(212,175,55,0.1); }
         .role-popup .btn-celebrate {
             padding: 12px 40px;
             background: linear-gradient(135deg, var(--accent), var(--secondary));
@@ -1490,13 +1146,12 @@
             font-family: 'Poppins', sans-serif;
             margin-top: 15px;
         }
-        
         .role-popup .btn-celebrate:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(87, 197, 182, 0.3);
+            box-shadow: 0 10px 30px rgba(87,197,182,0.3);
         }
         
-        /* ===== POPUP INFO POIN SAMPAH ===== */
+        /* ===== INFO & HISTORI POPUPS ===== */
         .info-popup-overlay {
             display: none;
             position: fixed;
@@ -1504,42 +1159,37 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(8px);
             z-index: 9997;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
-        
-        .info-popup-overlay.active {
-            display: flex;
-        }
-        
+        .info-popup-overlay.active { display: flex; }
         .info-popup {
             background: white;
             border-radius: 24px;
             max-width: 480px;
             width: 100%;
             padding: 30px 35px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
             animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             margin: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
         }
-        
         .info-popup h3 {
             font-size: 20px;
             color: var(--primary);
             margin-bottom: 15px;
             text-align: center;
         }
-        
         .info-popup table {
             width: 100%;
             border-collapse: collapse;
             font-size: 13px;
         }
-        
         .info-popup table th {
             text-align: left;
             padding: 8px 10px;
@@ -1548,16 +1198,10 @@
             color: #2d3748;
             border-bottom: 2px solid #e2e8f0;
         }
-        
         .info-popup table td {
             padding: 8px 10px;
             border-bottom: 1px solid #f0f0f0;
         }
-        
-        .info-popup table tr:hover {
-            background: #f7fafc;
-        }
-        
         .info-popup .btn-close-info {
             margin-top: 15px;
             padding: 10px 30px;
@@ -1571,12 +1215,8 @@
             width: 100%;
             transition: var(--transition);
         }
+        .info-popup .btn-close-info:hover { background: var(--secondary); }
         
-        .info-popup .btn-close-info:hover {
-            background: var(--secondary);
-        }
-        
-        /* ===== POPUP HISTORI CLAIM ===== */
         .histori-popup-overlay {
             display: none;
             position: fixed;
@@ -1584,38 +1224,32 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(8px);
             z-index: 9997;
             align-items: center;
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
-        
-        .histori-popup-overlay.active {
-            display: flex;
-        }
-        
+        .histori-popup-overlay.active { display: flex; }
         .histori-popup {
             background: white;
             border-radius: 24px;
             max-width: 550px;
             width: 100%;
             padding: 30px 35px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
             animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             margin: 20px;
             max-height: 80vh;
             overflow-y: auto;
         }
-        
         .histori-popup h3 {
             font-size: 20px;
             color: var(--primary);
             margin-bottom: 15px;
             text-align: center;
         }
-        
         .histori-popup .histori-item {
             display: flex;
             justify-content: space-between;
@@ -1623,37 +1257,24 @@
             padding: 10px 12px;
             border-bottom: 1px solid #f0f0f0;
         }
-        
-        .histori-popup .histori-item:last-child {
-            border-bottom: none;
-        }
-        
-        .histori-popup .histori-item .date {
-            font-size: 12px;
-            color: #a0aec0;
-        }
-        
+        .histori-popup .histori-item:last-child { border-bottom: none; }
+        .histori-popup .histori-item .date { font-size: 12px; color: #a0aec0; }
         .histori-popup .histori-item .point {
             font-weight: 700;
             color: var(--secondary);
         }
-        
-        .histori-popup .histori-item .point.positive {
-            color: var(--role-pemula);
-        }
-        
+        .histori-popup .histori-item .point.positive { color: var(--role-pemula); }
         .histori-popup .histori-empty {
             text-align: center;
             padding: 30px 20px;
             color: #718096;
         }
-        
         .histori-popup .histori-empty i {
             font-size: 40px;
             opacity: 0.3;
             margin-bottom: 10px;
+            display: block;
         }
-        
         .histori-popup .btn-close-histori {
             margin-top: 15px;
             padding: 10px 30px;
@@ -1667,10 +1288,7 @@
             width: 100%;
             transition: var(--transition);
         }
-        
-        .histori-popup .btn-close-histori:hover {
-            background: var(--secondary);
-        }
+        .histori-popup .btn-close-histori:hover { background: var(--secondary); }
         
         /* ===== ALERT ===== */
         .alert {
@@ -1682,25 +1300,122 @@
             font-weight: 500;
             animation: slideDown 0.3s ease;
         }
+        .alert.show { display: block; }
+        .alert-success { background: #e6f7e6; color: #1a7a3a; border: 1px solid #b8e6b8; }
+        .alert-error { background: #fde8e8; color: #b33c3c; border: 1px solid #f5c6c6; }
+        .alert-info { background: #e3f2fd; color: #1a5f7a; border: 1px solid #b8d4e6; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         
-        .alert.show {
-            display: block;
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            z-index: 50;
+            height: var(--bottom-nav-height);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-bottom: env(safe-area-inset-bottom);
         }
-        .alert-success {
-            background: #e6f7e6;
-            color: #1a7a3a;
-            border: 1px solid #b8e6b8;
+        .bottom-nav .nav-items {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
         }
-        .alert-error {
-            background: #fde8e8;
-            color: #b33c3c;
-            border: 1px solid #f5c6c6;
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 12px;
+            font-family: 'Poppins', sans-serif;
+            color: #a0aec0;
+            transition: var(--transition);
+            position: relative;
+            flex: 1;
+            height: 100%;
+            font-size: 10px;
+            font-weight: 500;
+            text-decoration: none;
         }
-        .alert-info {
-            background: #e3f2fd;
-            color: #1a5f7a;
-            border: 1px solid #b8d4e6;
+        .bottom-nav .nav-item i { font-size: 22px; transition: var(--transition); }
+        .bottom-nav .nav-item span { font-size: 9px; font-weight: 500; letter-spacing: 0.3px; }
+        .bottom-nav .nav-item.active { color: var(--secondary); }
+        .bottom-nav .nav-item.active i { transform: translateY(-2px); }
+        .bottom-nav .nav-item.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 0 0 3px 3px;
         }
+        .bottom-nav .nav-item .badge-inbox {
+            background: #ef4444;
+            color: white;
+            font-size: 9px;
+            padding: 0 6px;
+            border-radius: 20px;
+            font-weight: 600;
+            position: absolute;
+            top: 2px;
+            right: 4px;
+        }
+        .bottom-nav .nav-item.nav-avatar { position: relative; margin-top: -18px; }
+        .bottom-nav .nav-item.nav-avatar .avatar-wrapper {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            overflow: hidden;
+            background: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: var(--transition);
+        }
+        .bottom-nav .nav-item.nav-avatar .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .bottom-nav .nav-item.nav-avatar .avatar-wrapper i {
+            font-size: 24px;
+            color: white;
+        }
+        .bottom-nav .nav-item.nav-avatar .avatar-wrapper:hover {
+            transform: scale(1.05);
+            border-color: var(--secondary);
+        }
+        .bottom-nav .nav-item.nav-avatar span {
+            margin-top: 4px;
+            font-size: 9px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        .bottom-nav .nav-item.nav-avatar.active .avatar-wrapper {
+            border-color: var(--secondary);
+            box-shadow: 0 4px 20px rgba(21,152,149,0.3);
+        }
+        .bottom-nav .nav-item.nav-avatar.active::after { display: none; }
         
         /* ===== SIDEBAR TOGGLE ===== */
         .sidebar-toggle {
@@ -1722,11 +1437,7 @@
             align-items: center;
             justify-content: center;
         }
-        
-        .sidebar-toggle:hover {
-            background: var(--secondary);
-        }
-        
+        .sidebar-toggle:hover { background: var(--secondary); }
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -1734,278 +1445,85 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0,0,0,0.5);
             z-index: 99;
         }
+        .sidebar-overlay.active { display: block; }
         
-        .sidebar-overlay.active {
-            display: block;
-        }
-        
-        /* ============================================================ */
-        /* ===== BOTTOM NAVIGATION (MOBILE) ===== */
-        /* ============================================================ */
-        .bottom-nav {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-            z-index: 50;
-            height: var(--bottom-nav-height);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        
-        .bottom-nav .nav-items {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .bottom-nav .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 6px 12px;
-            font-family: 'Poppins', sans-serif;
-            color: #a0aec0;
-            transition: var(--transition);
-            position: relative;
-            flex: 1;
-            height: 100%;
-            font-size: 10px;
-            font-weight: 500;
-            text-decoration: none;
-        }
-        
-        .bottom-nav .nav-item.hidden {
-            display: none !important;
-        }
-        
-        .bottom-nav .nav-item i {
-            font-size: 22px;
-            transition: var(--transition);
-        }
-        
-        .bottom-nav .nav-item span {
-            font-size: 9px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
-        
-        .bottom-nav .nav-item.active {
-            color: var(--secondary);
-        }
-        
-        .bottom-nav .nav-item.active i {
-            transform: translateY(-2px);
-        }
-        
-        .bottom-nav .nav-item.active::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 3px;
-            background: var(--secondary);
-            border-radius: 0 0 3px 3px;
-        }
-        
-        .bottom-nav .nav-item .badge-inbox {
-            background: #ef4444;
-            color: white;
-            font-size: 9px;
-            padding: 0 6px;
-            border-radius: 20px;
-            font-weight: 600;
-            position: absolute;
-            top: 2px;
-            right: 4px;
-        }
-        
-        /* ===== BOTTOM NAV - CENTER AVATAR ===== */
-        .bottom-nav .nav-item.nav-avatar {
-            position: relative;
-            margin-top: -18px;
-        }
-        
-        .bottom-nav .nav-item.nav-avatar .avatar-wrapper {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            border: 3px solid var(--accent);
-            overflow: hidden;
-            background: #2d3748;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            transition: var(--transition);
-        }
-        
-        .bottom-nav .nav-item.nav-avatar .avatar-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .bottom-nav .nav-item.nav-avatar .avatar-wrapper i {
-            font-size: 24px;
-            color: white;
-        }
-        
-        .bottom-nav .nav-item.nav-avatar .avatar-wrapper:hover {
-            transform: scale(1.05);
-            border-color: var(--secondary);
-        }
-        
-        .bottom-nav .nav-item.nav-avatar span {
-            margin-top: 4px;
-            font-size: 9px;
-            font-weight: 500;
-            color: var(--secondary);
-        }
-        
-        .bottom-nav .nav-item.nav-avatar.active .avatar-wrapper {
-            border-color: var(--secondary);
-            box-shadow: 0 4px 20px rgba(21, 152, 149, 0.3);
-        }
-        
-        .bottom-nav .nav-item.nav-avatar.active::after {
-            display: none;
-        }
-        
-        /* ============================================================ */
         /* ===== RESPONSIVE ===== */
-        /* ============================================================ */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
                 width: 280px;
             }
-            
-            .sidebar.open {
-                transform: translateX(0);
-            }
-            
-            .sidebar-toggle {
-                display: none !important;
-            }
-            
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-toggle { display: flex; }
             .main-content {
                 margin-left: 0;
                 padding: 15px 15px 90px;
             }
-            
             .membership-grid,
             .sampah-grid {
                 grid-template-columns: 1fr;
             }
-            
             .profile-settings .profile-card .profile-body {
                 grid-template-columns: 1fr;
             }
-            
             .profile-settings .profile-card .profile-header {
                 flex-direction: column;
                 text-align: center;
             }
-            
             .main-content .page-header {
                 flex-direction: column;
                 gap: 10px;
                 align-items: stretch;
             }
-            
             .main-content .page-header .header-right {
                 justify-content: space-between;
             }
-            
             .main-content .page-header h1 {
                 font-size: 18px;
                 gap: 10px;
             }
-            
             .main-content .page-header h1 .header-logo {
                 display: block;
-                width: 60px;
-                height: 60px;
+                width: 40px;
+                height: 40px;
             }
-            
             .iframe-container {
                 height: calc(100vh - 200px);
                 min-height: 350px;
             }
-            
-            .bottom-nav {
-                display: block !important;
-            }
-            
-            .main-content .page-header .header-right .user-badge {
-                display: none;
-            }
-            
-            .editor-peserta-list table {
-                font-size: 11px;
-            }
+            .bottom-nav { display: block; }
+            .main-content .page-header .header-right .user-badge { display: none; }
+            .editor-peserta-list table { font-size: 11px; }
             .editor-peserta-list table th,
             .editor-peserta-list table td {
                 padding: 6px 8px;
             }
         }
-        
         @media (max-width: 400px) {
-            .bottom-nav .nav-item i {
-                font-size: 18px;
-            }
-            .bottom-nav .nav-item span {
-                font-size: 8px;
-            }
+            .bottom-nav .nav-item i { font-size: 18px; }
+            .bottom-nav .nav-item span { font-size: 8px; }
             .bottom-nav .nav-item.nav-avatar .avatar-wrapper {
                 width: 44px;
                 height: 44px;
             }
-            .bottom-nav .nav-item.nav-avatar {
-                margin-top: -14px;
-            }
-            .main-content .page-header h1 {
-                font-size: 16px;
-            }
+            .bottom-nav .nav-item.nav-avatar { margin-top: -14px; }
+            .main-content .page-header h1 { font-size: 16px; }
             .main-content .page-header h1 .header-logo {
                 width: 32px;
                 height: 32px;
             }
         }
-        
         @media (min-width: 769px) {
-            .sidebar-toggle {
-                display: none !important;
-            }
-            .bottom-nav {
-                display: none !important;
-            }
-            .main-content .page-header h1 .header-logo {
-                display: none !important;
-            }
+            .sidebar-toggle { display: none !important; }
+            .bottom-nav { display: none !important; }
+            .main-content .page-header h1 .header-logo { display: none !important; }
         }
     </style>
 </head>
 <body>
-
     <!-- ===== SIDEBAR TOGGLE ===== -->
     <button class="sidebar-toggle" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
@@ -2034,7 +1552,6 @@
         
         <nav class="sidebar-menu" id="sidebarMenu">
             <div class="menu-label">Menu Utama</div>
-            <!-- Menu items akan di-generate oleh JS berdasarkan hak akses -->
         </nav>
         
         <div class="sidebar-footer">
@@ -2044,16 +1561,13 @@
         </div>
     </aside>
 
-    <!-- ===== BOTTOM NAVIGATION (MOBILE) ===== -->
+    <!-- ===== BOTTOM NAVIGATION ===== -->
     <nav class="bottom-nav" id="bottomNav">
-        <div class="nav-items" id="bottomNavItems">
-            <!-- Nav items akan di-generate oleh JS berdasarkan hak akses -->
-        </div>
+        <div class="nav-items" id="bottomNavItems"></div>
     </nav>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main-content">
-        <!-- Page Header -->
         <div class="page-header">
             <h1 id="pageTitle">
                 <img src="https://lpspadangterubukasri.github.io/Home/assets/metatag/badgelpspemilahsampah512px.png" alt="LPS Logo" class="header-logo" id="headerLogo">
@@ -2079,7 +1593,7 @@
             </div>
         </div>
         
-        <!-- ===== PAGE: SORTIR (PEMILAHAN SAMPAH) ===== -->
+        <!-- ===== PAGE: SORTIR ===== -->
         <div class="page-content hidden" id="page-sortir">
             <div id="sortirAlert" class="alert"></div>
             <div class="sampah-grid" id="sampahGrid">
@@ -2102,21 +1616,16 @@
             <div id="inboxAlert" class="alert"></div>
             <div class="inbox-container" id="inboxContainer">
                 <div class="inbox-empty">
-                    <i class="fas fa-inbox"></i>
+                    <i class="fas fa-spinner fa-spin"></i>
                     <p>Memuat pesan...</p>
                 </div>
             </div>
         </div>
         
-        <!-- ===== PAGE: EDITOR PESERTA (KHUSUS PENDIRI) ===== -->
+        <!-- ===== PAGE: EDITOR ===== -->
         <div class="page-content hidden" id="page-editor">
             <div id="editorAlert" class="alert"></div>
             <div class="editor-container">
-                <div class="editor-tabs">
-                    <button class="tab-btn active" onclick="loadEditorPeserta()">
-                        <i class="fas fa-users"></i> Daftar Peserta
-                    </button>
-                </div>
                 <div class="editor-peserta-list" id="editorPesertaList">
                     <div class="no-data">
                         <i class="fas fa-spinner fa-spin"></i>
@@ -2146,9 +1655,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="profile-body" id="profileBody">
-                        <!-- Dynamic fields from JS -->
-                    </div>
+                    <div class="profile-body" id="profileBody"></div>
                 </div>
             </div>
         </div>
@@ -2213,18 +1720,12 @@
         </div>
     </div>
 
-    <!-- ===== INFO POIN SAMPAH POPUP ===== -->
+    <!-- ===== INFO POPUP ===== -->
     <div class="info-popup-overlay" id="infoPopup">
         <div class="info-popup">
             <h3>📊 Cara Mendapatkan Poin Sampah</h3>
             <table>
-                <thead>
-                    <tr>
-                        <th>Jenis Sampah</th>
-                        <th>Satuan</th>
-                        <th>Poin</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Jenis Sampah</th><th>Satuan</th><th>Poin</th></tr></thead>
                 <tbody>
                     <tr><td>Organik</td><td>gram</td><td>0,1</td></tr>
                     <tr><td>Organik</td><td>kg</td><td>100</td></tr>
@@ -2244,7 +1745,7 @@
         </div>
     </div>
 
-    <!-- ===== HISTORI CLAIM POPUP ===== -->
+    <!-- ===== HISTORI POPUP ===== -->
     <div class="histori-popup-overlay" id="historiPopup">
         <div class="histori-popup">
             <h3>📜 Histori Claim Poin Sampah</h3>
@@ -2264,7 +1765,6 @@
             <h3 id="rewardModalTitle">Kirim Reward</h3>
             <p class="modal-sub" id="rewardModalSub">Kirim reward ke peserta</p>
             <input type="hidden" id="rewardNik">
-            <input type="hidden" id="rewardNama">
             <div class="form-group">
                 <label>Nama Peserta</label>
                 <input type="text" id="rewardNamaDisplay" disabled style="background:#f7fafc;">
@@ -2297,7 +1797,6 @@
             <h3>Kirim Notifikasi</h3>
             <p class="modal-sub">Kirim pesan ke inbox peserta</p>
             <input type="hidden" id="notifNik">
-            <input type="hidden" id="notifNama">
             <div class="form-group">
                 <label>Nama Peserta</label>
                 <input type="text" id="notifNamaDisplay" disabled style="background:#f7fafc;">
@@ -2317,13 +1816,13 @@
         </div>
     </div>
 
-
     <!-- ============================================================ -->
     <!-- ==================== JAVASCRIPT ============================= -->
     <!-- ============================================================ -->
     <script>
         // ==================== KONFIGURASI ====================
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwCqgRQI2tX33HzQrnGnmieXe0bIl_t8-SCzgrC0HGtLu7Qu8bS6fFGc2_GZNrEBB0/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxCa4QUidPLUNiBhJPjMSCaYI9XgHHNT_JaiR5wPZ1fQfeZ5cUfcyxWkhB8QXK3KKo/exec'; // Ganti dengan URL Web App Anda
+        
         const MENU_CONFIG = {
             membership: { label: 'Kepesertaan LPS', icon: 'fa-id-card', page: 'membership' },
             sortir: { label: 'Pemilahan Sampah', icon: 'fa-recycle', page: 'sortir' },
@@ -2332,7 +1831,7 @@
             settings: { label: 'Pengaturan Akun', icon: 'fa-cog', page: 'settings' },
             editor: { label: 'Editor Peserta', icon: 'fa-users-cog', page: 'editor' }
         };
-        
+
         // ==================== STATE ====================
         let userData = null;
         let currentPage = 'membership';
@@ -2344,34 +1843,19 @@
         let roleBefore = 'Pemula';
         let isProcessingBonus = false;
         let inboxCount = 0;
-        let poinSampahTersedia = 0;
         let poinSampahUser = 0;
-        let isUserDataLoaded = false;
-        
+        let poinSampahTersedia = 0;
+
         // ==================== HELPER ====================
         function sensorId(id) {
             if (!id || id.length < 16) return id;
             return id.substring(0, 4) + '********' + id.substring(12);
         }
-        
-        function showAlert(containerId, message, type) {
-            var alert = document.getElementById(containerId);
-            if (!alert) return;
-            alert.className = 'alert alert-' + type + ' show';
-            alert.textContent = message;
-        }
-        
-        function hideAlert(containerId) {
-            var alert = document.getElementById(containerId);
-            if (!alert) return;
-            alert.className = 'alert';
-            alert.textContent = '';
-        }
-        
+
         function formatNumber(num) {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
-        
+
         function getRoleClass(role) {
             if (!role) return 'pemula';
             const r = role.toLowerCase();
@@ -2383,7 +1867,7 @@
             if (r === 'pendiri') return 'pendiri';
             return 'pemula';
         }
-        
+
         function getRoleLabel(role) {
             if (!role) return 'Pemula';
             const r = role.toLowerCase();
@@ -2395,7 +1879,21 @@
             if (r === 'pendiri') return 'Pendiri';
             return role;
         }
-        
+
+        function showAlert(containerId, message, type) {
+            var alert = document.getElementById(containerId);
+            if (!alert) return;
+            alert.className = 'alert alert-' + type + ' show';
+            alert.textContent = message;
+        }
+
+        function hideAlert(containerId) {
+            var alert = document.getElementById(containerId);
+            if (!alert) return;
+            alert.className = 'alert';
+            alert.textContent = '';
+        }
+
         // ==================== API CALL ====================
         function callAPI(action, data) {
             return new Promise(function(resolve, reject) {
@@ -2434,13 +1932,13 @@
                 document.head.appendChild(script);
             });
         }
-        
+
         // ==================== SIDEBAR ====================
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');
             document.getElementById('sidebarOverlay').classList.toggle('active');
         }
-        
+
         // ==================== NAVIGATION ====================
         function navigateTo(page) {
             if (page === 'logout') {
@@ -2448,13 +1946,11 @@
                 return;
             }
             
-            // Cek hak akses
             if (!hasAccess(page)) {
                 showAlert('membershipAlert', 'Anda tidak memiliki akses ke menu ini!', 'error');
                 return;
             }
             
-            // Bonus klik menu (jika berbeda) - kecuali settings
             if (page !== currentPage && page !== lastMenu && page !== 'settings' && page !== 'exchange') {
                 lastMenu = page;
                 addMenuClickBonus(page);
@@ -2493,7 +1989,6 @@
             
             currentPage = page;
             
-            // Load data sesuai page
             if (page === 'membership' && !isLoadingMembership) {
                 loadMemberships();
             }
@@ -2510,7 +2005,6 @@
                 loadSettings();
             }
             if (page === 'exchange') {
-                // Refresh iframe dengan poin terbaru
                 var iframe = document.getElementById('tukarPointIframe');
                 if (iframe) {
                     iframe.src = iframe.src;
@@ -2524,7 +2018,7 @@
                 }
             }
         }
-        
+
         // ==================== HAK AKSES ====================
         function hasAccess(menu) {
             if (!hakAkses || !userData) return true;
@@ -2537,7 +2031,7 @@
             if (defaultAccess.includes(menu)) return true;
             return false;
         }
-        
+
         function loadHakAkses() {
             return callAPI('getHakAkses', {})
                 .then(function(result) {
@@ -2550,7 +2044,7 @@
                     console.error('Error loading hak akses:', error);
                 });
         }
-        
+
         function renderMenu() {
             var menuContainer = document.getElementById('sidebarMenu');
             var bottomNav = document.getElementById('bottomNavItems');
@@ -2563,8 +2057,6 @@
             
             var isPendiri = roleKey === 'pendiri';
             var isAdmin = roleKey === 'admin';
-            
-            // Track settings untuk avatar
             var settingsAdded = false;
             
             menuOrder.forEach(function(key) {
@@ -2595,7 +2087,6 @@
                     menuHtml += '<i class="fas ' + config.icon + '"></i> ' + config.label + badge;
                     menuHtml += '</button>';
                     
-                    // Bottom nav - Settings menggunakan avatar
                     if (key === 'settings') {
                         settingsAdded = true;
                         bottomHtml += '<button class="nav-item nav-avatar' + (currentPage === key ? ' active' : '') + '" onclick="navigateTo(\'' + key + '\')" data-page="' + key + '">';
@@ -2617,7 +2108,6 @@
                 }
             });
             
-            // Jika settings tidak ditambahkan (misal tidak punya akses), tetap tambahkan avatar
             if (!settingsAdded) {
                 bottomHtml += '<button class="nav-item nav-avatar' + (currentPage === 'settings' ? ' active' : '') + '" onclick="navigateTo(\'settings\')" data-page="settings">';
                 bottomHtml += '<div class="avatar-wrapper" id="bottomAvatarWrapper">';
@@ -2640,11 +2130,10 @@
                 updateBottomAvatar();
             }
         }
-        
+
         function updateBottomAvatar() {
             var bottomAvatar = document.getElementById('bottomAvatar');
             var bottomAvatarIcon = document.getElementById('bottomAvatarIcon');
-            var avatarWrapper = document.getElementById('bottomAvatarWrapper');
             
             if (!bottomAvatar || !bottomAvatarIcon) return;
             
@@ -2655,7 +2144,6 @@
             } else if (userData && userData.nama_peserta) {
                 bottomAvatar.style.display = 'none';
                 bottomAvatarIcon.style.display = 'flex';
-                // Gunakan avatar default dengan inisial
                 var initial = userData.nama_peserta.charAt(0).toUpperCase();
                 bottomAvatarIcon.textContent = initial;
                 bottomAvatarIcon.style.fontSize = '20px';
@@ -2668,7 +2156,7 @@
                 bottomAvatarIcon.className = 'fas fa-user';
             }
         }
-        
+
         // ==================== LOAD USER DATA ====================
         function loadUserData() {
             var session = sessionStorage.getItem('lps_session');
@@ -2699,7 +2187,6 @@
                                 roleBefore = userData.role;
                                 poinSampahUser = userData.point_hadiah;
                                 
-                                isUserDataLoaded = true;
                                 updateUserUI(result.data);
                                 renderMenu();
                                 updatePoinUI();
@@ -2726,8 +2213,7 @@
                 window.location.href = 'login.html';
             }
         }
-        
-        // ==================== UPDATE USER UI ====================
+
         function updateUserUI(data) {
             var avatarEl = document.getElementById('sidebarAvatar');
             if (data.url_foto && data.url_foto.trim() !== '') {
@@ -2757,13 +2243,11 @@
             
             document.getElementById('headerLevel').textContent = 'Lv.' + level;
             
-            // Poin sampah
             poinSampahUser = Number(data.point_hadiah) || 0;
             updatePoinUI();
-            
             updateBottomAvatar();
         }
-        
+
         function updatePoinUI() {
             document.getElementById('sidebarPoinSampah').textContent = '🪙 Poin Sampah: ' + formatNumber(poinSampahUser);
             var profilePoin = document.getElementById('profilePoinSampah');
@@ -2771,58 +2255,41 @@
                 profilePoin.textContent = formatNumber(poinSampahUser);
             }
         }
-        
-        // ==================== LEVEL UP POPUP ====================
+
+        // ==================== POPUPS ====================
         function showLevelupPopup(level) {
             document.getElementById('levelupDisplay').textContent = level;
             document.getElementById('levelupPopup').classList.add('active');
-            setTimeout(function() {
-                var icon = document.querySelector('.levelup-popup .icon');
-                icon.style.transform = 'scale(1.2)';
-                setTimeout(function() {
-                    icon.style.transform = 'scale(1)';
-                }, 300);
-            }, 200);
         }
-        
+
         function closeLevelupPopup() {
             document.getElementById('levelupPopup').classList.remove('active');
         }
-        
-        // ==================== ROLE POPUP ====================
+
         function showRolePopup(oldRole, newRole) {
             document.getElementById('oldRoleDisplay').textContent = getRoleLabel(oldRole);
             var newRoleEl = document.getElementById('newRoleDisplay');
             newRoleEl.textContent = getRoleLabel(newRole);
             newRoleEl.className = 'new-role ' + getRoleClass(newRole);
             document.getElementById('rolePopup').classList.add('active');
-            
-            setTimeout(function() {
-                var icon = document.querySelector('.role-popup .icon');
-                icon.style.transform = 'scale(1.2)';
-                setTimeout(function() {
-                    icon.style.transform = 'scale(1)';
-                }, 300);
-            }, 200);
         }
-        
+
         function closeRolePopup() {
             document.getElementById('rolePopup').classList.remove('active');
         }
-        
-        // ==================== BONUS POPUP ====================
+
         function showBonusPopup(name, amount, level) {
             document.getElementById('bonusName').textContent = name;
             document.getElementById('bonusAmount').textContent = '+' + formatNumber(amount);
             document.getElementById('bonusLevel').textContent = level;
             document.getElementById('bonusPopup').classList.add('active');
         }
-        
+
         function closeBonusPopup() {
             document.getElementById('bonusPopup').classList.remove('active');
         }
-        
-        // ==================== CHECK DAILY LOGIN BONUS ====================
+
+        // ==================== DAILY LOGIN BONUS ====================
         function checkDailyLoginBonus() {
             if (isProcessingBonus) return;
             isProcessingBonus = true;
@@ -2840,7 +2307,7 @@
                     isProcessingBonus = false;
                 });
         }
-        
+
         function claimDailyLoginBonus() {
             callAPI('addDailyLoginBonus', {
                 nik: userData.nik,
@@ -2884,7 +2351,7 @@
                 isProcessingBonus = false;
             });
         }
-        
+
         // ==================== MENU CLICK BONUS ====================
         function addMenuClickBonus(menu) {
             if (isProcessingBonus) return;
@@ -2926,7 +2393,7 @@
                 isProcessingBonus = false;
             });
         }
-        
+
         // ==================== LOAD MEMBERSHIPS ====================
         function loadMemberships() {
             if (isLoadingMembership) return;
@@ -2976,7 +2443,7 @@
                     isLoadingMembership = false;
                 });
         }
-        
+
         function renderMemberships(data) {
             var grid = document.getElementById('membershipGrid');
             var html = '';
@@ -2985,7 +2452,7 @@
                 html += '<div class="membership-card" style="animation-delay:' + (index * 0.05) + 's;">';
                 html += '  <div class="card-header">';
                 html += '    <strong>' + (item.nama_peserta || 'Peserta') + '</strong>';
-                html += '    <span class="status-badge active">' + (item.status || 'Aktif') + '</span>';
+                html += '    <span class="status-badge">' + (item.status || 'Aktif') + '</span>';
                 html += '  </div>';
                 html += '  <div class="card-body">';
                 
@@ -2998,14 +2465,7 @@
                     { key: 'kelurahan', label: 'Kelurahan' },
                     { key: 'kecamatan', label: 'Kecamatan' },
                     { key: 'kota', label: 'Kota' },
-                    { key: 'provinsi', label: 'Provinsi' },
-                    { key: 'no_telp', label: 'No. Telepon' },
-                    { key: 'tarif_iuran', label: 'Tarif Iuran' },
-                    { key: 'nama_umkm', label: 'Nama UMKM' },
-                    { key: 'no_surat_umkm', label: 'No. Surat UMKM' },
-                    { key: 'nama_badan_usaha', label: 'Nama Badan Usaha' },
-                    { key: 'bo_surat_izin_usaha', label: 'No. Surat Izin Usaha' },
-                    { key: 'nama_petugas', label: 'Nama Petugas' }
+                    { key: 'no_telp', label: 'No. Telepon' }
                 ];
                 
                 fields.forEach(function(field) {
@@ -3025,7 +2485,7 @@
             
             grid.innerHTML = html;
         }
-        
+
         // ==================== LOAD SAMPAH DATA ====================
         function loadSampahData() {
             if (!userData || !userData.nik) {
@@ -3040,7 +2500,6 @@
             callAPI('getUserSampahData', { nik: userData.nik })
                 .then(function(result) {
                     if (result.success) {
-                        // Simpan poin tersedia untuk claim
                         poinSampahTersedia = result.data.total_poin_sampah || 0;
                         renderSampahData(result.data);
                     } else {
@@ -3053,7 +2512,7 @@
                     grid.innerHTML = '<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
                 });
         }
-        
+
         function renderSampahData(data) {
             var grid = document.getElementById('sampahGrid');
             var user = data.user || {};
@@ -3071,7 +2530,6 @@
             
             var html = '';
             
-            // Card 1: Profil Peserta
             html += '<div class="sampah-card profile-card">';
             html += '  <img src="' + (user.url_foto || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(user.nama_peserta || 'Peserta') + '&background=159895&color=fff&size=56') + '" alt="Profile" class="profile-avatar">';
             html += '  <div class="profile-info">';
@@ -3080,7 +2538,6 @@
             html += '  </div>';
             html += '</div>';
             
-            // Card 2: Organik
             html += '<div class="sampah-card organik">';
             html += '  <div class="card-icon">🌿</div>';
             html += '  <div class="card-title">Sampah Organik</div>';
@@ -3088,7 +2545,6 @@
             html += '  <div class="card-sub">Total setoran sampah organik</div>';
             html += '</div>';
             
-            // Card 3: An-Organik
             html += '<div class="sampah-card anorganik">';
             html += '  <div class="card-icon">♻️</div>';
             html += '  <div class="card-title">Sampah An-Organik</div>';
@@ -3096,7 +2552,6 @@
             html += '  <div class="card-sub">Total setoran sampah an-organik</div>';
             html += '</div>';
             
-            // Card 4: Residu
             html += '<div class="sampah-card residu">';
             html += '  <div class="card-icon">🗑️</div>';
             html += '  <div class="card-title">Sampah Residu</div>';
@@ -3104,7 +2559,6 @@
             html += '  <div class="card-sub">Total setoran sampah residu</div>';
             html += '</div>';
             
-            // Card 5: Poin Sampah + Claim Button + Histori
             var canClaim = totalPoin > 0;
             var poinDisplay = totalPoin > 0 ? formatNumber(Math.round(totalPoin * 100) / 100) : '0';
             
@@ -3127,7 +2581,7 @@
             
             grid.innerHTML = html;
         }
-        
+
         // ==================== CLAIM POIN SAMPAH ====================
         function claimPoinSampah() {
             if (!userData || !userData.nik) return;
@@ -3149,20 +2603,12 @@
             .then(function(result) {
                 if (result.success) {
                     showAlert('sortirAlert', '✅ ' + result.message, 'success');
-                    
-                    // Update poin user
                     poinSampahUser = result.total_hadiah || 0;
                     poinSampahTersedia = 0;
-                    
-                    // Update UI
                     updatePoinUI();
-                    
-                    // Reload data sampah untuk reset tampilan
                     setTimeout(function() {
                         loadSampahData();
                     }, 500);
-                    
-                    // Reload iframe tukar point jika terbuka
                     var iframe = document.getElementById('tukarPointIframe');
                     if (iframe && document.getElementById('page-exchange').classList.contains('hidden') === false) {
                         iframe.src = iframe.src;
@@ -3179,8 +2625,8 @@
                 btn.disabled = false;
             });
         }
-        
-        // ==================== HISTORI CLAIM ====================
+
+        // ==================== HISTORI ====================
         function showHistoriPopup() {
             var container = document.getElementById('historiContainer');
             container.innerHTML = '<div class="histori-empty"><i class="fas fa-spinner fa-spin"></i><p>Memuat histori...</p></div>';
@@ -3198,10 +2644,9 @@
                     container.innerHTML = '<div class="histori-empty"><i class="fas fa-exclamation-triangle"></i><p>Error: ' + error.message + '</p></div>';
                 });
         }
-        
+
         function renderHistori(data) {
             var container = document.getElementById('historiContainer');
-            
             if (!data || data.length === 0) {
                 container.innerHTML = '<div class="histori-empty"><i class="fas fa-inbox"></i><p>Belum ada histori claim</p></div>';
                 return;
@@ -3222,21 +2667,21 @@
             
             container.innerHTML = html;
         }
-        
+
         function closeHistoriPopup() {
             document.getElementById('historiPopup').classList.remove('active');
         }
-        
+
         // ==================== INFO POPUP ====================
         function showInfoPopup() {
             document.getElementById('infoPopup').classList.add('active');
         }
-        
+
         function closeInfoPopup() {
             document.getElementById('infoPopup').classList.remove('active');
         }
-        
-        // ==================== LOAD INBOX ====================
+
+        // ==================== INBOX ====================
         function loadInbox() {
             if (!userData || !userData.nik) {
                 setTimeout(loadInbox, 500);
@@ -3261,7 +2706,7 @@
                     container.innerHTML = '<div class="inbox-empty"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat pesan</p></div>';
                 });
         }
-        
+
         function renderInbox(data) {
             var container = document.getElementById('inboxContainer');
             
@@ -3290,7 +2735,7 @@
             
             container.innerHTML = html;
         }
-        
+
         function loadInboxCount() {
             if (!userData || !userData.nik) return;
             
@@ -3313,8 +2758,8 @@
                     console.error('Error loading inbox count:', error);
                 });
         }
-        
-        // ==================== EDITOR PESERTA ====================
+
+        // ==================== EDITOR ====================
         function loadEditorPeserta() {
             var container = document.getElementById('editorPesertaList');
             container.innerHTML = '<div class="no-data"><i class="fas fa-spinner fa-spin"></i><p>Memuat data peserta...</p></div>';
@@ -3334,7 +2779,7 @@
                     container.innerHTML = '<div class="no-data"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data</p></div>';
                 });
         }
-        
+
         function renderEditorPeserta(data) {
             var container = document.getElementById('editorPesertaList');
             
@@ -3345,14 +2790,8 @@
             
             var html = '<table>';
             html += '<thead><tr>';
-            html += '<th>No</th>';
-            html += '<th>Nama</th>';
-            html += '<th>Username</th>';
-            html += '<th>Role</th>';
-            html += '<th>Level</th>';
-            html += '<th>Poin Level</th>';
-            html += '<th>Poin Sampah</th>';
-            html += '<th>Aksi</th>';
+            html += '<th>No</th><th>Nama</th><th>Username</th><th>Role</th><th>Level</th>';
+            html += '<th>Poin Level</th><th>Poin Sampah</th><th>Aksi</th>';
             html += '</tr></thead><tbody>';
             
             data.forEach(function(item, index) {
@@ -3380,24 +2819,22 @@
             html += '</tbody></table>';
             container.innerHTML = html;
         }
-        
-        // ==================== MODAL REWARD ====================
+
+        // ==================== MODALS ====================
         function openRewardModal(nik, nama) {
             document.getElementById('rewardNik').value = nik;
-            document.getElementById('rewardNama').value = nama;
             document.getElementById('rewardNamaDisplay').value = nama;
             document.getElementById('rewardAmount').value = '';
             document.getElementById('rewardKeterangan').value = '';
             document.getElementById('rewardModal').classList.add('active');
         }
-        
+
         function closeRewardModal() {
             document.getElementById('rewardModal').classList.remove('active');
         }
-        
+
         function submitReward() {
             var nik = document.getElementById('rewardNik').value;
-            var nama = document.getElementById('rewardNama').value;
             var type = document.getElementById('rewardType').value;
             var amount = document.getElementById('rewardAmount').value;
             var keterangan = document.getElementById('rewardKeterangan').value;
@@ -3436,24 +2873,21 @@
                 btn.disabled = false;
             });
         }
-        
-        // ==================== MODAL NOTIFIKASI ====================
+
         function openNotifModal(nik, nama) {
             document.getElementById('notifNik').value = nik;
-            document.getElementById('notifNama').value = nama;
             document.getElementById('notifNamaDisplay').value = nama;
             document.getElementById('notifSubject').value = '';
             document.getElementById('notifPesan').value = '';
             document.getElementById('notifModal').classList.add('active');
         }
-        
+
         function closeNotifModal() {
             document.getElementById('notifModal').classList.remove('active');
         }
-        
+
         function submitNotif() {
             var nik = document.getElementById('notifNik').value;
-            var nama = document.getElementById('notifNama').value;
             var subject = document.getElementById('notifSubject').value || 'Pesan dari Admin';
             var pesan = document.getElementById('notifPesan').value;
             
@@ -3489,8 +2923,8 @@
                 btn.disabled = false;
             });
         }
-        
-        // ==================== LOAD SETTINGS ====================
+
+        // ==================== SETTINGS ====================
         function loadSettings() {
             hideAlert('settingsAlert');
             
@@ -3521,7 +2955,7 @@
                 updatePoinUI();
             }
         }
-        
+
         function renderSettings(data) {
             var body = document.getElementById('profileBody');
             
@@ -3569,7 +3003,6 @@
                 html += '  </div>';
             });
             
-            // URL Foto Profil
             html += '  <div class="field full-width">';
             html += '    <span class="label">URL Foto Profil</span>';
             html += '    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">';
@@ -3578,7 +3011,6 @@
             html += '    </div>';
             html += '  </div>';
             
-            // QR Code
             html += '  <div class="field full-width" style="margin-top:10px;border-top:1px solid #f0f0f0;padding-top:16px;">';
             html += '    <span class="label">QR Code Peserta</span>';
             html += '    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">';
@@ -3589,7 +3021,6 @@
             html += '    </div>';
             html += '  </div>';
             
-            // Hak Akses (hanya untuk Pendiri dan Admin)
             var role = userData.role || 'Peserta';
             var roleKey = role.toLowerCase();
             if (roleKey === 'pendiri' || roleKey === 'admin') {
@@ -3607,7 +3038,7 @@
                 loadHakAksesSettings(roleKey);
             }
         }
-        
+
         function loadHakAksesSettings(roleKey) {
             var container = document.getElementById('hakAksesContainer');
             if (!container) return;
@@ -3625,7 +3056,7 @@
                     container.innerHTML = '<p style="color:red;font-size:13px;">Error: ' + error.message + '</p>';
                 });
         }
-        
+
         function renderHakAksesSettings(data, currentRole) {
             var container = document.getElementById('hakAksesContainer');
             if (!container) return;
@@ -3675,7 +3106,7 @@
             
             container.innerHTML = html;
         }
-        
+
         function updateHakAkses(role, menu, value) {
             callAPI('updateHakAkses', {
                 role: role,
@@ -3695,7 +3126,7 @@
                 showAlert('settingsAlert', '❌ ' + error.message, 'error');
             });
         }
-        
+
         // ==================== UPDATE PHOTO ====================
         function updatePhoto() {
             var url = document.getElementById('fotoUrl').value.trim();
@@ -3725,8 +3156,6 @@
                     }
                     var avatar = document.getElementById('profileAvatar');
                     avatar.src = url;
-                    
-                    // Bonus update foto
                     addMenuClickBonus('update_photo');
                 } else {
                     showAlert('settingsAlert', result.message || 'Gagal update foto!', 'error');
@@ -3740,7 +3169,7 @@
                 btn.disabled = false;
             });
         }
-        
+
         // ==================== QR CODE ====================
         function showQrCode() {
             var data = userData.detail;
@@ -3757,7 +3186,7 @@
                 generateQRCode(participantId);
             }, 300);
         }
-        
+
         function generateQRCode(data) {
             try {
                 var qrContainer = document.getElementById('qrcode');
@@ -3780,7 +3209,7 @@
                 container.innerHTML = '<p style="color:red;padding:20px;">Gagal generate QR Code: ' + error.message + '</p>';
             }
         }
-        
+
         function downloadQRCode() {
             var qrContainer = document.getElementById('qrcode');
             var canvas = qrContainer.querySelector('canvas');
@@ -3800,11 +3229,11 @@
                 showAlert('settingsAlert', 'Gagal download QR Code!', 'error');
             }
         }
-        
+
         function closeQrCodePopup() {
             document.getElementById('qrcodePopup').classList.remove('active');
         }
-        
+
         // ==================== LOGOUT ====================
         function handleLogout() {
             if (confirm('Apakah Anda yakin ingin keluar?')) {
@@ -3813,7 +3242,7 @@
                 window.location.href = 'login.html';
             }
         }
-        
+
         // ==================== INIT ====================
         (function() {
             var session = sessionStorage.getItem('lps_session');

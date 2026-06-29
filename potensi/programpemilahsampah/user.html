@@ -1787,6 +1787,7 @@
             height: 100%;
             font-size: 10px;
             font-weight: 500;
+            text-decoration: none;
         }
         
         .bottom-nav .nav-item.hidden {
@@ -2345,6 +2346,7 @@
         let inboxCount = 0;
         let poinSampahTersedia = 0;
         let poinSampahUser = 0;
+        let isUserDataLoaded = false;
         
         // ==================== HELPER ====================
         function sensorId(id) {
@@ -2562,6 +2564,9 @@
             var isPendiri = roleKey === 'pendiri';
             var isAdmin = roleKey === 'admin';
             
+            // Track settings untuk avatar
+            var settingsAdded = false;
+            
             menuOrder.forEach(function(key) {
                 var config = MENU_CONFIG[key];
                 if (!config) return;
@@ -2590,9 +2595,9 @@
                     menuHtml += '<i class="fas ' + config.icon + '"></i> ' + config.label + badge;
                     menuHtml += '</button>';
                     
-                    var isAvatar = false;
+                    // Bottom nav - Settings menggunakan avatar
                     if (key === 'settings') {
-                        isAvatar = true;
+                        settingsAdded = true;
                         bottomHtml += '<button class="nav-item nav-avatar' + (currentPage === key ? ' active' : '') + '" onclick="navigateTo(\'' + key + '\')" data-page="' + key + '">';
                         bottomHtml += '<div class="avatar-wrapper" id="bottomAvatarWrapper">';
                         bottomHtml += '<img src="" alt="Avatar" id="bottomAvatar" style="display:none;">';
@@ -2612,6 +2617,17 @@
                 }
             });
             
+            // Jika settings tidak ditambahkan (misal tidak punya akses), tetap tambahkan avatar
+            if (!settingsAdded) {
+                bottomHtml += '<button class="nav-item nav-avatar' + (currentPage === 'settings' ? ' active' : '') + '" onclick="navigateTo(\'settings\')" data-page="settings">';
+                bottomHtml += '<div class="avatar-wrapper" id="bottomAvatarWrapper">';
+                bottomHtml += '<img src="" alt="Avatar" id="bottomAvatar" style="display:none;">';
+                bottomHtml += '<i class="fas fa-user" id="bottomAvatarIcon"></i>';
+                bottomHtml += '</div>';
+                bottomHtml += '<span>Akun</span>';
+                bottomHtml += '</button>';
+            }
+            
             bottomHtml += '<button class="nav-item" onclick="handleLogout()" data-page="logout">';
             bottomHtml += '<i class="fas fa-sign-out-alt"></i>';
             bottomHtml += '<span>Keluar</span>';
@@ -2628,15 +2644,28 @@
         function updateBottomAvatar() {
             var bottomAvatar = document.getElementById('bottomAvatar');
             var bottomAvatarIcon = document.getElementById('bottomAvatarIcon');
+            var avatarWrapper = document.getElementById('bottomAvatarWrapper');
+            
             if (!bottomAvatar || !bottomAvatarIcon) return;
             
             if (userData && userData.url_foto && userData.url_foto.trim() !== '') {
                 bottomAvatar.style.display = 'block';
                 bottomAvatar.src = userData.url_foto;
                 bottomAvatarIcon.style.display = 'none';
+            } else if (userData && userData.nama_peserta) {
+                bottomAvatar.style.display = 'none';
+                bottomAvatarIcon.style.display = 'flex';
+                // Gunakan avatar default dengan inisial
+                var initial = userData.nama_peserta.charAt(0).toUpperCase();
+                bottomAvatarIcon.textContent = initial;
+                bottomAvatarIcon.style.fontSize = '20px';
+                bottomAvatarIcon.style.fontWeight = '600';
+                bottomAvatarIcon.style.color = 'white';
             } else {
                 bottomAvatar.style.display = 'none';
                 bottomAvatarIcon.style.display = 'flex';
+                bottomAvatarIcon.textContent = '';
+                bottomAvatarIcon.className = 'fas fa-user';
             }
         }
         
@@ -2664,11 +2693,13 @@
                                 userData.point_role = Number(result.data.point_role) || 0;
                                 userData.point_hadiah = Number(result.data.point_hadiah) || 0;
                                 userData.level = result.level || 1;
+                                userData.url_foto = result.data.url_foto || '';
                                 
                                 levelBefore = userData.level;
                                 roleBefore = userData.role;
                                 poinSampahUser = userData.point_hadiah;
                                 
+                                isUserDataLoaded = true;
                                 updateUserUI(result.data);
                                 renderMenu();
                                 updatePoinUI();
@@ -3472,9 +3503,11 @@
                             userData.point_role = Number(result.data.point_role) || 0;
                             userData.point_hadiah = Number(result.data.point_hadiah) || 0;
                             userData.level = result.level || 1;
+                            userData.url_foto = result.data.url_foto || '';
                             poinSampahUser = userData.point_hadiah;
                             renderSettings(result.data);
                             updatePoinUI();
+                            updateBottomAvatar();
                             if (result.roleChanged) {
                                 showRolePopup(result.oldRole, result.newRole);
                             }
